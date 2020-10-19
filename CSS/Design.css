@@ -1,0 +1,30 @@
+html, body {
+    height: 100%;
+    margin: 0;
+
+    background-image: url("https://www.uniza.sk/images/pozadia/album/dji_0046-uniza-2019.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
+    width: auto;
+    height: 100%;
+}
+
+.navbar-inverse .navbar-nav>li>a {
+    color: white !important;
+}
+
+.navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
+    background-color: cornflowerblue;
+}
+
+.panel{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+}
