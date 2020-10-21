@@ -1,6 +1,6 @@
 # Zamestnanecky Portal
 
-######TODO List:
+###TODO List:
 * dopln text na ```Hlavnu stranku```  
 * dopln text do stranky ```O nas```
 * vytvor pripravu pre ```Kurzy``` a ```Karieru```
