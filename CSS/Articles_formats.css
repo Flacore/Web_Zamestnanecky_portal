@@ -1,12 +1,12 @@
 
-.Headline b{
+.Headline>b{
     color: black;
     font-family: "Arial";
     margin-left: 2%;
     margin-right: 2%;
 }
 
-.Main_Text p{
+.Main_Text>p{
     color: dimgrey;
     font-family: "Times New Roman";
     text-align: justify;
