@@ -2,7 +2,10 @@ html, body {
     height: 100%;
     margin: 0;
 
-    background-color: gray;
+    background-image: url("https://images.wallpapersden.com/image/download/neon-gradient-minimalist_70011_3840x2160.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
     width: auto;
 }
 
@@ -14,10 +17,6 @@ html, body {
     color: white !important;
 }
 
-.navbar-brand img{
-    max-height: 150%
-}
-
 .navbar-inverse .navbar-nav > li > a:hover, .navbar-inverse .navbar-nav > li > a:focus {
     background-color: cornflowerblue;
 }
@@ -27,16 +26,29 @@ html, body {
     margin-right: 2%;
 }
 
-.MaxContent{
+.sideBorders{
+    border-left-style: solid;
+    border-right-style: solid;
+    border-color: black;
+    border-width: 2px;
+}
+
+.active>a{
+    background-color: deepskyblue !important;
+}
+
+.resolution{
     position:relative;
     display: block;
     margin-left: auto;
     margin-right: auto;
     width: auto;
-    max-width: 1920px;
+    max-width: 2560px;
     min-width: 800px;
     min-height: 100%;
-    overflow: hidden;
+}
+
+.MaxContent{
     background-image: url("https://www.uniza.sk/images/pozadia/album/dji_0046-uniza-2019.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
