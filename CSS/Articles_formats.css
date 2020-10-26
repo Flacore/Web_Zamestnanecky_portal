@@ -1,4 +1,9 @@
 
+.Note{
+    margin-left: 2%;
+    margin-right: 2%;
+}
+
 .Headline>b{
     color: black;
     font-family: "Arial";
