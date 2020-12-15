@@ -44,9 +44,14 @@ function smoothScroll() {
 }
 
 function scrollFunction() {
+    var heightPrihlasovanie = document.getElementById("prihlasovanie").offsetHeight;
+    var heightAboutUs = document.getElementById("o_nas").offsetHeight + heightPrihlasovanie;
+    var heightOznamy = document.getElementById("oznamy").offsetHeight + heightAboutUs;
+    var heightPozicie = document.getElementById("prac_pozicie").offsetHeight + heightOznamy;
+    var heightKurzy = document.getElementById("kurzy").offsetHeight + heightPozicie;
 
     /*Menu a skrolovacia ikonka*/
-    if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+    if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
         document.getElementById("img_scroll").style.opacity="0%";
         document.getElementById("scroll_down").style.borderBottomWidth="0px";
         document.getElementById("navbar").style.top = "0";
@@ -58,12 +63,6 @@ function scrollFunction() {
 
     /*Activna cast menu*/
     //Prihlasovanie
-    var heightPrihlasovanie = document.getElementById("prihlasovanie").offsetHeight;
-    var heightAboutUs = document.getElementById("o_nas").offsetHeight + heightPrihlasovanie;
-    var heightOznamy = document.getElementById("oznamy").offsetHeight + heightAboutUs;
-    var heightPozicie = document.getElementById("prac_pozicie").offsetHeight + heightOznamy;
-    var heightKurzy = document.getElementById("kurzy").offsetHeight + heightPozicie;
-
     if ((document.body.scrollTop < heightPrihlasovanie || document.documentElement.scrollTop < heightPrihlasovanie) && !showPrihlasovanie
     && !(document.body.scrollTop >= heightPrihlasovanie || document.documentElement.scrollTop >= heightPrihlasovanie)) {
         document.getElementById("prihlasovanieButton").classList.add("navbarButtonActive");
