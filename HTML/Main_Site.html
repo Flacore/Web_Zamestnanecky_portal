@@ -1,7 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="sk">
 <head>
-
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
@@ -9,23 +8,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Zamestnanecký portál</title>
     <link rel="stylesheet" href="../CSS/homescreen.css">
+    <script src="../JS/homeSite_functionality.js"></script>
 </head>
 <body>
-    <div id="prihlasovanie">
+    <div id="navbar">
+        <a id="prihlasovanieButton" href="#prihlasovanie">Prihlasovanie</a>
+        <a id="o_nasButton" href="#o_nas">O nás</a>
+        <a id="oznamyButton" href="#oznamy">Oznamy</a>
+        <a id="prac_pozicieButton" href="#prac_pozicie">Volné pracovné pozície</a>
+        <a id="kurzyButton" href="#kurzy">Kurzy</a>
+    </div>
+
+    <div class="container" id="prihlasovanie">
 
         <div id="scroll_down"></div>
-        <div id="scroll_icon"><img src="../PNG/Scroll_Icon.png"></div>
+        <div id="scroll_icon"><img id="img_scroll" alt="" src="../PNG/Scroll_Icon1.png"></div>
     </div>
 
-    <div class="o_nas" id="o_nas">
-
-    </div>
-
-    <div id="oznamy">
+    <div class="container" id="o_nas">
 
     </div>
 
-    <div id="prac_pozicie">
+    <div class="container" id="oznamy">
+
+    </div>
+
+    <div class="container" id="prac_pozicie">
+
+    </div>
+
+    <div class="container" id="kurzy">
 
     </div>
 </body>
