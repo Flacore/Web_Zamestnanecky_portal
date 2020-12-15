@@ -10,9 +10,9 @@ html, body {
     z-index:100;
     position: fixed;
     background-color: cornflowerblue;
-    border-bottom: black solid 2px;
+    border-bottom: royalblue solid 3px;
     position: fixed;
-    top: -60px;
+    top: -1000px;
     width: 100%;
     display: block;
     transition: top 0.3s;
@@ -31,6 +31,7 @@ html, body {
 #navbar a:hover {
     background-color: grey;
     color: black;
+    transition: background-color 0.5s;
 }
 
 .navbarButtonActive{
@@ -40,7 +41,7 @@ html, body {
 }
 
 #prihlasovanie{
-    z-index: -1;
+    z-index: 1;
     background-image: url("https://www.uniza.sk/images/pozadia/album/dji_0046-uniza-2019.jpg");
     position: relative;
     background-attachment: fixed;
@@ -57,7 +58,7 @@ html, body {
     border-left: 50vw solid transparent;
     border-right: 49vw solid transparent;
     border-bottom: 60px solid white;
-    transition: bottom 1s;
+    transition: border-bottom-width 1s;
 }
 
 #scroll_icon{

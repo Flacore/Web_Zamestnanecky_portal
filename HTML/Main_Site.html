@@ -7,8 +7,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Zamestnanecký portál</title>
-    <link rel="stylesheet" href="../CSS/homescreen.css">
     <script src="../JS/homeSite_functionality.js"></script>
+    <link rel="stylesheet" href="../CSS/HomeSite/homeSite.css">
+    <link rel="stylesheet" href="../CSS/HomeSite/loginForm.css">
 </head>
 <body>
     <div id="navbar">
@@ -20,9 +21,21 @@
     </div>
 
     <div class="container" id="prihlasovanie">
+        <div class="logo">
+            <img alt="" src="../PNG/logo_uniza.png">
+        </div>
+        <div class="login_Form border cutOff">
+            <div class="form">
+                <form>
+                    <input type="text" id="user" placeholder="Prihlasovacie meno">
+                    <input type="password" id="password" placeholder="Heslo">
+                    <button type="submit">Prihlásiť</button>
+                </form>
+            </div>
+        </div>
 
         <div id="scroll_down"></div>
-        <div id="scroll_icon"><img id="img_scroll" alt="" src="../PNG/Scroll_Icon1.png"></div>
+        <div id="scroll_icon"><img id="img_scroll" alt="" src="../PNG/Scroll_Icon.png"></div>
     </div>
 
     <div class="container" id="o_nas">
