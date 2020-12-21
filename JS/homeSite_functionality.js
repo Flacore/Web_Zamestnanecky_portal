@@ -1,5 +1,4 @@
 window.onscroll = function() {scrollFunction()};
-smoothScroll()
 
 var showPrihlasovanie = false;
 var showAboutUs = false;
@@ -14,14 +13,6 @@ function wheel($div, deltaY) {
     console.log("DelatY: " + deltaY + ", Step: " + step + ", nextPos: " + nextPos);
     $div.scrollTop(nextPos);
 }
-
-$('#test').bind('mousewheel', function (event, delta, deltaX, deltaY) {
-    if (delta > -2 && delta < 2) {
-        wheel($(this), deltaY);
-        event.preventDefault();
-    }
-    console.log(delta);
-});
 
 function smoothScroll() {
     $(document).ready(function(){
@@ -54,11 +45,11 @@ function scrollFunction() {
     if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
         document.getElementById("img_scroll").style.opacity="0%";
         document.getElementById("scroll_down").style.borderBottomWidth="0px";
-        document.getElementById("navbar").style.top = "0";
+        document.getElementById("myNavbar").style.top = "0";
     } else {
         document.getElementById("img_scroll").style.opacity="50%";
         document.getElementById("scroll_down").style.borderBottomWidth="60px";
-        document.getElementById("navbar").style.top = "-1000px";
+        document.getElementById("myNavbar").style.top = "-1000px";
     }
 
     /*Activna cast menu*/

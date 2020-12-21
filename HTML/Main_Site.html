@@ -10,9 +10,10 @@
     <script src="../JS/homeSite_functionality.js"></script>
     <link rel="stylesheet" href="../CSS/HomeSite/homeSite.css">
     <link rel="stylesheet" href="../CSS/HomeSite/loginForm.css">
+    <link rel="stylesheet" href="../CSS/HomeSite/tables.css">
 </head>
 <body>
-    <div id="navbar">
+    <div id="myNavbar">
         <a id="prihlasovanieButton" href="#prihlasovanie">Prihlasovanie</a>
         <a id="o_nasButton" href="#o_nas">O nás</a>
         <a id="oznamyButton" href="#oznamy">Oznamy</a>
@@ -36,6 +37,7 @@
                     <span class="spanPass"></span>
 
                     <button type="submit">Prihlásiť</button>
+                    <a href="#">Zabudnute heslo</a>
                 </form>
             </div>
         </div>
@@ -44,20 +46,50 @@
         <div id="scroll_icon"><img id="img_scroll" alt="" src="../PNG/Scroll_Icon.png"></div>
     </div>
 
+    <!--    TODO: Urob-->
     <div class="container" id="o_nas">
 
     </div>
 
+    <!--    TODO: Urob-->
     <div class="container" id="oznamy">
 
     </div>
 
+    <!--    TODO: Urob-->
     <div class="container" id="prac_pozicie">
-
+        <div class="position tableStyle">
+            <br><br><br>
+            <table>
+                <tr>
+                    <th>Test</th>
+                    <th>Test</th>
+                </tr>
+                <tr onclick="tableDetail('pracDetail1')">
+                    <td>Pokus 1</td>
+                    <td>Pokus 1</td>
+                </tr>
+                <tr class="detailHide" id="pracDetail1">
+                    <td colspan="2">
+                        Pokus 1
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 
+    <!--    TODO: Urob-->
     <div class="container" id="kurzy">
 
     </div>
 </body>
 </html>
+<script>
+    function tableDetail($name) {
+        if(document.getElementById($name).classList.contains("detailHide")){
+            document.getElementById($name).classList.remove("detailHide");
+        }else{
+            document.getElementById($name).classList.add("detailHide");
+        }
+    }
+</script>

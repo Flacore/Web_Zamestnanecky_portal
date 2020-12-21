@@ -1,0 +1,42 @@
+.position{
+    width: 100%;
+    height: 100%;
+}
+
+.tableStyle table{
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    border-collapse:separate;
+    border:solid black 1px;
+    border-radius:6px;
+    -moz-border-radius:6px;
+}
+
+.tableStyle th, .tableStyle td{
+    text-align: center;
+}
+
+.tableStyle td, th {
+    border-left:solid black 1px;
+    border-top:solid black 1px;
+}
+
+.tableStyle th {
+    border-top: none;
+    background-color: dodgerblue;
+    color: white;
+}
+
+.tableStyle .detailHide{
+    display: none;
+}
+
+
+.tableStyle td:first-child,.tableStyle th:first-child {
+    border-left: none;
+}
+
+.tableStyle tr:hover:nth-child(n+2){
+    background-color: red;
+}

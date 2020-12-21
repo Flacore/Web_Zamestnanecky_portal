@@ -8,7 +8,7 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    opacity: 100%;
+    opacity: 95%;
 }
 
 .border{
@@ -28,6 +28,7 @@
     left: 50%;
     transform: translate(-50%, -50%);
     background-color: royalblue;
+    opacity: 95%;
 }
 
 .cutOff{
@@ -39,6 +40,7 @@
     margin-left: auto;
     margin-right: auto;
     margin-top: 5%;
+    opacity: 80%;
 }
 
 .form{
@@ -115,6 +117,46 @@
     transform: scaleX(1);
     transform-origin: left;
     transition: transform 0.5s ease-in-out;
+}
+
+.form form a:link{
+    position: absolute;
+    color: white;
+    text-decoration: none;
+    bottom: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.2s;
+}
+
+.form form a:visited{
+    position: absolute;
+    color: white;
+    text-decoration: none;
+    bottom: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.2s;
+}
+
+.form form a:hover{
+    position: absolute;
+    color: royalblue;
+    text-decoration: none;
+    bottom: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.2s;
+}
+
+.form form a:active{
+    position: absolute;
+    color: blue;
+    text-decoration: none;
+    bottom: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transition: 0.2s;
 }
 
 button {
