@@ -71,18 +71,59 @@
                 </tr>
                 <tr class="detailHide" id="pracDetail1">
                     <td colspan="2">
-                        Pokus 1
+
                     </td>
                 </tr>
             </table>
         </div>
     </div>
 
-    <!--    TODO: Urob-->
-    <div class="container" id="kurzy">
 
+    <div class="container" id="kurzy">
+        <div class="position tableStyle">
+            <br><br><br>
+            <table>
+                <tr>
+                    <th>Datum</th>
+                    <th>Nazov</th>
+                    <th>Miesto</th>
+                    <th>Cena</th>
+                </tr>
+                <tr onclick="tableDetail('kurzDetail1')">
+                    <td>xx.xx.xxxx</td>
+                    <td>Something</td>
+                    <td>Somewhere</td>
+                    <td>N/a</td>
+                </tr>
+                <tr class="detailHide" id="kurzDetail1">
+                    <td colspan="4">
+                        <div  style="display: flex">
+                            <img style="border: white solid 10px; max-width: 50%;" src="https://www.logaster.com/blog/wp-content/uploads/2020/04/banner-example-2.jpg">
+                            <div style="border: white solid 10px;max-width:80%">
+                                <br>
+                                <h3>Name</h3>
+                                <p style="">
+                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut vehicula odio,
+                                    at mollis nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
+                                    per inceptos himenaeos. Vivamus id tortor imperdiet, dictum odio vel, molestie nisl.
+                                    Praesent nec eros eu lorem commodo rhoncus. Duis sed justo sit amet erat molestie
+                                    placerat non nec massa. Suspendisse a orci vitae quam dictum dapibus. Quisque placerat
+                                    aliquam lacus, nec gravida justo. Nunc id faucibus ante. Mauris feugiat tellus diam,
+                                    at rutrum velit ullamcorper nec. Praesent molestie nisl eu ligula sollicitudin, sit
+                                    amet tempor eros tincidunt. Mauris varius hendrerit iaculis. Mauris faucibus elit
+                                    ipsum, eget finibus enim porta vel. Aliquam lobortis ligula ac tristique eleifend.
+                                    Fusce ac cursus libero. Etiam vehicula arcu nec nulla ornare finibus.
+                                </p>
+                                <button style="width: 20%" onclick="">Prihlásiť sa</button>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
     </div>
 </body>
+
 </html>
 <script>
     function tableDetail($name) {
