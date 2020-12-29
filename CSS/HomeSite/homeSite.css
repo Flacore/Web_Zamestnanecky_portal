@@ -91,8 +91,8 @@ body{
 
 #oznamy{
     background: #67B26F;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, pink, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, pink, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to bottom, royalblue, cornflowerblue);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, royalblue, cornflowerblue); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 #oznamy .Container:nth-child(1){
@@ -116,22 +116,22 @@ body{
 }
 
 .textCutOff{
-    background: url(http://www.color-hex.com/palettes/26323.png) -20px -20px repeat;
+    background: royalblue;
     -webkit-text-fill-color: transparent;
     -webkit-background-clip: text;
     display:block;
 }
 
 #prac_pozicie{
-    background: #67B26F;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to right, #4ca2cd, #67B26F);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to right, #4ca2cd, #67B26F); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: #2C3E50;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to top, lightgrey, cornflowerblue);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top,lightgrey, cornflowerblue); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 #kurzy{
     background: #2C3E50;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to left, #4ca2cd, #2C3E50);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to left,#4ca2cd, #2C3E50); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to bottom, lightgrey, grey);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom,lightgrey, grey); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .container{
