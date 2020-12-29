@@ -51,14 +51,191 @@
 
     </div>
 
-    <!--    TODO: Urob-->
     <div class="container" id="oznamy">
-        <div class="Container">
-            <h2 style="text-align: center;color: white" >Aktuality</h2>
+        <div class="Container" style=" display: flex;
+          flex-direction: column;
+          justify-content: space-between;">
+            <div>
+                <h2 style="text-align: center;color: transparent;margin-top: 0;
+                background-color: white; height: 80px;padding-top: 20px">
+                    <span class="textCutOff">Aktuality</span>
+                </h2>
+                <div style="width: 20%; height: 50px; margin-left: 40%; margin-top: -2%; background-color: white;
+                border-bottom-left-radius: 50px; border-bottom-right-radius: 50px;text-align: center"
+                id="slideUpAktuality" onclick="aktualityUp()">
+                   <span class="glyphicon glyphicon glyphicon-chevron-up" style="line-height: 25px; font-size: 40px; color: royalblue"></span>
+                </div>
+                <br>
+                <div class="contentWindow" style="width: 100%;max-height: 500px; overflow: scroll" id="aktualityWindow">
+                    <div style=" width: 100%;
+                    height: auto;
+                    border-top: solid black 1px;
+                    border-bottom: solid black 1px">
+                        <h4 style="text-align: center">Test</h4>
+                        <h5 style="color: greenyellow;margin-left: 2%;margin-right: 2%">
+                            In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
+                            non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
+                            ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
+                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                        </h5>
+                        <h6 style="color: black; text-align: right;margin-right: 2%">Datum: xx.xx.xxxx</h6>
+                    </div>
+                    <div style=" width: 100%;
+                    height: auto;
+                    border-top: solid black 1px;
+                    border-bottom: solid black 1px">
+                        <h4 style="text-align: center">Test</h4>
+                        <h5 style="color: greenyellow;margin-left: 2%;margin-right: 2%">
+                            In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
+                            non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
+                            ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
+                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                        </h5>
+                        <h6 style="color: black; text-align: right;margin-right: 2%">Datum: xx.xx.xxxx</h6>
+                    </div>
+                    <div style=" width: 100%;
+                    height: auto;
+                    border-top: solid black 1px;
+                    border-bottom: solid black 1px">
+                        <h4 style="text-align: center">Test</h4>
+                        <h5 style="color: greenyellow;margin-left: 2%;margin-right: 2%">
+                            In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
+                            non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
+                            ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
+                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                        </h5>
+                        <h6 style="color: black; text-align: right;margin-right: 2%">Datum: xx.xx.xxxx</h6>
+                    </div>
+                    <div style=" width: 100%;
+                    height: auto;
+                    border-top: solid black 1px;
+                    border-bottom: solid black 1px">
+                        <h4 style="text-align: center">Test</h4>
+                        <h5 style="color: greenyellow;margin-left: 2%;margin-right: 2%">
+                            In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
+                            non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
+                            ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
+                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                        </h5>
+                        <h6 style="color: black; text-align: right;margin-right: 2%">Datum: xx.xx.xxxx</h6>
+                    </div>
+                    <div style=" width: 100%;
+                    height: auto;
+                    border-top: solid black 1px;
+                    border-bottom: solid black 1px">
+                        <h4 style="text-align: center">Test</h4>
+                        <h5 style="color: greenyellow;margin-left: 2%;margin-right: 2%">
+                            In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
+                            non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
+                            ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
+                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                        </h5>
+                        <h6 style="color: black; text-align: right;margin-right: 2%">Datum: xx.xx.xxxx</h6>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div>
+                <div style="width: 20%; height: 50px; margin-left: 40%; background-color: white;
+                border-top-left-radius: 50px; border-top-right-radius: 50px;text-align: center"
+                id="slideDownAktuality" onclick="aktualityDown()">
+                    <span class="glyphicon glyphicon glyphicon-chevron-down" style="line-height: 60px; font-size: 40px; color: royalblue"></span>
+                </div>
+            </div>
         </div>
 
-        <div class="Container">
-            <h2 style="text-align: center;color: white" >Oznamy</h2>
+
+
+        <div class="Container" style=" display: flex;
+          flex-direction: column;
+          justify-content: space-between;">
+            <div>
+                <h2 style="text-align: center;color: transparent;margin-top: 0;
+                background-color: white; height: 80px;padding-top: 20px">
+                    <span class="textCutOff">Oznamy</span>
+                </h2>
+                <div style="width: 20%; height: 50px; margin-left: 40%; margin-top: -2%; background-color: white;
+                border-bottom-left-radius: 50px; border-bottom-right-radius: 50px;text-align: center"
+                id="slideUpOznamy" onclick="oznamyUp()">
+                    <span class="glyphicon glyphicon glyphicon-chevron-up" style="line-height: 25px; font-size: 40px; color: royalblue"></span>
+                </div>
+                <br>
+                <div class="contentWindow" style="width: 100%;max-height: 500px ;overflow: scroll; " id="oznamyWindow">
+                    <div style=" width: 100%;
+                    height: auto;
+                    border-top: solid black 1px;
+                    border-bottom: solid black 1px">
+                        <h4 style="text-align: center">Test</h4>
+                        <h5 style="color: greenyellow;margin-left: 2%;margin-right: 2%">
+                            In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
+                            non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
+                            ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
+                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                        </h5>
+                        <h6 style="color: black; text-align: right;margin-right: 2%">Datum: xx.xx.xxxx</h6>
+                    </div>
+                    <div style=" width: 100%;
+                    height: auto;
+                    border-top: solid black 1px;
+                    border-bottom: solid black 1px">
+                        <h4 style="text-align: center">Test</h4>
+                        <h5 style="color: greenyellow;margin-left: 2%;margin-right: 2%">
+                            In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
+                            non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
+                            ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
+                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                        </h5>
+                        <h6 style="color: black; text-align: right;margin-right: 2%">Datum: xx.xx.xxxx</h6>
+                    </div>
+                    <div style=" width: 100%;
+                    height: auto;
+                    border-top: solid black 1px;
+                    border-bottom: solid black 1px">
+                        <h4 style="text-align: center">Test</h4>
+                        <h5 style="color: greenyellow;margin-left: 2%;margin-right: 2%">
+                            In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
+                            non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
+                            ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
+                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                        </h5>
+                        <h6 style="color: black; text-align: right;margin-right: 2%">Datum: xx.xx.xxxx</h6>
+                    </div>
+                    <div style=" width: 100%;
+                    height: auto;
+                    border-top: solid black 1px;
+                    border-bottom: solid black 1px">
+                        <h4 style="text-align: center">Test</h4>
+                        <h5 style="color: greenyellow;margin-left: 2%;margin-right: 2%">
+                            In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
+                            non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
+                            ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
+                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                        </h5>
+                        <h6 style="color: black; text-align: right;margin-right: 2%">Datum: xx.xx.xxxx</h6>
+                    </div>
+                    <div style=" width: 100%;
+                    height: auto;
+                    border-top: solid black 1px;
+                    border-bottom: solid black 1px">
+                        <h4 style="text-align: center">Test</h4>
+                        <h5 style="color: greenyellow;margin-left: 2%;margin-right: 2%">
+                            In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
+                            non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
+                            ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
+                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                        </h5>
+                        <h6 style="color: black; text-align: right;margin-right: 2%">Datum: xx.xx.xxxx</h6>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div>
+                <div style="width: 20%; height: 50px; margin-left: 40%; background-color: white;
+                border-top-left-radius: 50px; border-top-right-radius: 50px;text-align: center"
+                id="slideDownOznamy" onclick="oznamyDown()">
+                    <span class="glyphicon glyphicon glyphicon-chevron-down" style="line-height: 60px; font-size: 40px; color: royalblue"></span>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -159,6 +336,20 @@
 
 </html>
 <script>
+    function aktualityUp() {
+            document.getElementById('aktualityWindow').scrollTop-=20;
+    }
+    function aktualityDown() {
+        document.getElementById('aktualityWindow').scrollTop+=20;
+    }
+
+    function oznamyUp() {
+        document.getElementById('oznamyWindow').scrollTop-=20;
+    }
+    function oznamyDown() {
+        document.getElementById('oznamyWindow').scrollTop+=20;
+    }
+
     function tableDetail($name) {
         if(document.getElementById($name).classList.contains("detailHide")){
             document.getElementById($name).classList.remove("detailHide");
