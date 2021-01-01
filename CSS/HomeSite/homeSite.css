@@ -92,41 +92,26 @@ body{
 
 #oznamy{
     background: #67B26F;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to bottom, royalblue, cornflowerblue);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to bottom, royalblue, cornflowerblue); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
-}
-
-#oznamy .Container:nth-child(1){
-    float: left;
-    margin-left: 5%;
-}
-
-#oznamy .Container:nth-child(2){
-    float: right;
-    margin-right: 5%;
+    background: -webkit-linear-gradient(to bottom, white, grey);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to bottom, white, floralwhite); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 #oznamy .Container{
     margin-top: 5%;
     margin-bottom: 5%;
-    border: white 5px solid;
+    border: royalblue 5px solid;
     border-radius: 20px;
-    width: 40%;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    width: 80%;
+    margin-left: 10%;
     height: auto;
     min-height: 500px;
 }
 
-.textCutOff{
-    background: royalblue;
-    -webkit-text-fill-color: transparent;
-    -webkit-background-clip: text;
-    display:block;
-}
-
 #prac_pozicie{
     background: #2C3E50;  /* fallback for old browsers */
-    background: -webkit-linear-gradient(to top, lightgrey, cornflowerblue);  /* Chrome 10-25, Safari 5.1-6 */
-    background: linear-gradient(to top,lightgrey, cornflowerblue); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: -webkit-linear-gradient(to top, lightgrey, whitesmoke);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to top,lightgrey,white); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 #kurzy{
@@ -139,3 +124,4 @@ body{
     width: 100%;
     min-height: 100%;
 }
+

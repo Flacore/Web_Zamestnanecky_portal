@@ -23,7 +23,7 @@
 
     <div class="container" id="prihlasovanie">
         <div class="logo">
-            <img alt="" src="../PNG/logo_uniza.png">
+            <a href="https://uniza.sk/"><img alt="" src="../PNG/logo_uniza.png"></a>
         </div>
         <div class="login_Form border cutOff">
             <div class="form">
@@ -84,18 +84,19 @@
     </div>
 
     <div class="container" id="oznamy">
-        <div class="Container" style=" display: flex;
+        <div class="col-md-6">
+            <div class="Container" style=" display: flex;
           flex-direction: column;
           justify-content: space-between;">
             <div>
-                <h2 style="text-align: center;color: transparent;margin-top: 0;
-                background-color: white; height: 80px;padding-top: 20px">
-                    <span class="textCutOff">Aktuality</span>
+                <h2 style="text-align: center;color: white;margin-top: 0;
+                background-color: royalblue; height: 80px;padding-top: 20px">
+                    <span>Aktuality</span>
                 </h2>
-                <div style="width: 20%; height: 50px; margin-left: 40%; margin-top: -2%; background-color: white;
+                <div style="width: 20%; height: 50px; margin-left: 40%; margin-top: -2%; background-color: royalblue;
                 border-bottom-left-radius: 50px; border-bottom-right-radius: 50px;text-align: center"
                 id="slideUpAktuality" onclick="aktualityUp()">
-                   <span class="glyphicon glyphicon glyphicon-chevron-up" style="line-height: 25px; font-size: 40px; color: royalblue"></span>
+                   <span class="glyphicon glyphicon glyphicon-chevron-up" style="line-height: 25px; font-size: 40px; color: white"></span>
                 </div>
                 <br>
                 <div class="contentWindow" style="width: 100%;max-height: 500px; overflow: scroll" id="aktualityWindow">
@@ -168,28 +169,27 @@
                 <br>
             </div>
             <div>
-                <div style="width: 20%; height: 50px; margin-left: 40%; background-color: white;
+                <div style="width: 20%; height: 50px; margin-left: 40%; background-color: royalblue;
                 border-top-left-radius: 50px; border-top-right-radius: 50px;text-align: center"
                 id="slideDownAktuality" onclick="aktualityDown()">
-                    <span class="glyphicon glyphicon glyphicon-chevron-down" style="line-height: 60px; font-size: 40px; color: royalblue"></span>
+                    <span class="glyphicon glyphicon glyphicon-chevron-down" style="line-height: 60px; font-size: 40px; color: white"></span>
                 </div>
             </div>
         </div>
-
-
-
-        <div class="Container" style=" display: flex;
+        </div>
+        <div class="col-md-6">
+            <div class="Container" style=" display: flex;
           flex-direction: column;
           justify-content: space-between;">
             <div>
-                <h2 style="text-align: center;color: transparent;margin-top: 0;
-                background-color: white; height: 80px;padding-top: 20px">
-                    <span class="textCutOff">Oznamy</span>
+                <h2 style="text-align: center;color: white;margin-top: 0;
+                background-color: royalblue; height: 80px;padding-top: 20px">
+                    <span>Oznamy</span>
                 </h2>
-                <div style="width: 20%; height: 50px; margin-left: 40%; margin-top: -2%; background-color: white;
+                <div style="width: 20%; height: 50px; margin-left: 40%; margin-top: -2%; background-color: royalblue;
                 border-bottom-left-radius: 50px; border-bottom-right-radius: 50px;text-align: center"
                 id="slideUpOznamy" onclick="oznamyUp()">
-                    <span class="glyphicon glyphicon glyphicon-chevron-up" style="line-height: 25px; font-size: 40px; color: royalblue"></span>
+                    <span class="glyphicon glyphicon glyphicon-chevron-up" style="line-height: 25px; font-size: 40px; color: white"></span>
                 </div>
                 <br>
                 <div class="contentWindow" style="width: 100%;max-height: 500px ;overflow: scroll; " id="oznamyWindow">
@@ -262,19 +262,44 @@
                 <br>
             </div>
             <div>
-                <div style="width: 20%; height: 50px; margin-left: 40%; background-color: white;
+                <div style="width: 20%; height: 50px; margin-left: 40%; background-color: royalblue;
                 border-top-left-radius: 50px; border-top-right-radius: 50px;text-align: center"
                 id="slideDownOznamy" onclick="oznamyDown()">
-                    <span class="glyphicon glyphicon glyphicon-chevron-down" style="line-height: 60px; font-size: 40px; color: royalblue"></span>
+                    <span class="glyphicon glyphicon glyphicon-chevron-down" style="line-height: 60px; font-size: 40px; color: white"></span>
                 </div>
+            </div>
+        </div>
+        </div>
+    </div>
+
+    <div class="oddelovac pocty container-fluid" style="width: 100%; height: auto;
+    background-image: url('https://www.pixel4k.com/wp-content/uploads/2018/10/blue-dark-yellow-abstract-artistic-4k_1539371150.jpg');
+    position: relative; background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover">
+        <div class="row">
+            <div class="col-sm-12"><h2 style="text-align: center; color: white">Je nás už viac ako...</h2></div>
+        </div>
+        <div class="row">
+            <div class="col-sm-4">
+                <span class="col-xs-12 glyphicon glyphicon-user text-center" style="font-size: 3em; color: white"></span>
+                <h3 class="col-sm-12 stat-count" style="text-align: center; color: white">1234</h3>
+                <h4 class="col-sm-12" style="text-align: center; color: white">Zamestnancov</h4>
+            </div>
+            <div class="col-sm-4">
+                <span class="col-xs-12 glyphicon glyphicon-education text-center" style="font-size: 3em; color: white"></span>
+                <h3 class="col-sm-12 stat-count" style="text-align: center; color: white">7924</h3>
+                <h4 class="col-sm-12" style="text-align: center; color: white">Študentov</h4>
+            </div>
+            <div class="col-sm-4">
+                <span class="col-xs-12 glyphicon glyphicon-briefcase text-center" style="font-size: 3em; color: white"></span>
+                <h3 class="col-sm-12 stat-count" style="text-align: center; color: white">175</h3>
+                <h4 class="col-sm-12" style="text-align: center; color: white">Pracovísk</h4>
             </div>
         </div>
     </div>
 
-
     <div class="container" id="prac_pozicie">
         <br><br><br>
-        <h2 style="color: white; text-align: center">Hladáme..</h2>
+        <h2 style="color: black; text-align: center">Hladáme..</h2>
         <br>
         <h4 style="width: 100%; text-align: left; color: greenyellow">
             Quisque vulputate bibendum tellus. Suspendisse potenti. Maecenas commodo porta ipsum, a laoreet
@@ -304,6 +329,10 @@
         <br><br><br>
     </div>
 
+    <div class="oddelovac pocty container-fluid" style="width: 100%; height: 50%;
+    background-image: url('https://www.fri.uniza.sk/uploads/images/1543515599-DSC-1462.jpg');
+    position: relative; background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover">
+    </div>
 
     <div class="container" id="kurzy">
         <div class="position tableStyle">

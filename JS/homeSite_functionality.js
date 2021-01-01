@@ -1,38 +1,50 @@
 window.onscroll = function() {scrollFunction()};
+//Smooth scroll
+$(document).ready(function(){
+    $("a").on('click', function(event) {
+
+        if (this.hash !== "") {
+            event.preventDefault();
+
+            var hash = this.hash;
+
+            $('html, body').animate({
+                scrollTop: $(hash).offset().top
+            }, 800, function(){
+
+                window.location.hash = hash;
+            });
+        }
+    });
+});
+
+// Counter
+$(function() {
+    function count($this){
+        var current = parseInt($this.html(), 10);
+        current = current + 50; /* Where 50 is increment */
+
+        $this.html(++current);
+        if(current > $this.data('count')){
+            $this.html($this.data('count'));
+        } else {
+            setTimeout(function(){count($this)}, 5);
+        }
+    }
+
+    $(".stat-count").each(function() {
+        $(this).data('count', parseInt($(this).html(), 10));
+        $(this).html('0');
+        count($(this));
+    });
+
+});
 
 var showPrihlasovanie = false;
 var showAboutUs = false;
 var showOznamy = false;
 var showPozicie = false;
 var showKurzy = false;
-
-function wheel($div, deltaY) {
-    var step = 1;
-    var pos = $div.scrollTop();
-    var nextPos = pos + (step * (-deltaY))
-    console.log("DelatY: " + deltaY + ", Step: " + step + ", nextPos: " + nextPos);
-    $div.scrollTop(nextPos);
-}
-
-function smoothScroll() {
-    $(document).ready(function(){
-        $("a").on('click', function(event) {
-
-            if (this.hash !== "") {
-                event.preventDefault();
-
-                var hash = this.hash;
-
-                $('html, body').animate({
-                    scrollTop: $(hash).offset().top
-                }, 800, function(){
-
-                    window.location.hash = hash;
-                });
-            }
-        });
-    });
-}
 
 function scrollFunction() {
     var heightPrihlasovanie = document.getElementById("prihlasovanie").offsetHeight;
