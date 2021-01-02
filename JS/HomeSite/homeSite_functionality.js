@@ -48,20 +48,23 @@ var showKurzy = false;
 
 function scrollFunction() {
     var heightPrihlasovanie = document.getElementById("prihlasovanie").offsetHeight;
-    var heightAboutUs = document.getElementById("o_nas").offsetHeight + heightPrihlasovanie;
-    var heightOznamy = document.getElementById("oznamy").offsetHeight + heightAboutUs;
-    var heightPozicie = document.getElementById("prac_pozicie").offsetHeight + heightOznamy;
-    var heightKurzy = document.getElementById("kurzy").offsetHeight + heightPozicie;
+    var heightOznamy = document.getElementById("oznamy").offsetHeight + heightPrihlasovanie;
+    var heightAboutUs = document.getElementById("o_nas").offsetHeight + heightOznamy+
+        document.getElementById('oddelovacPozicie').offsetHeight;
+    var heightPozicie = document.getElementById("prac_pozicie").offsetHeight + heightOznamy
+        +document.getElementById('oddelovacKurzy').offsetHeight;
+    var heightKurzy = document.getElementById("kurzy").offsetHeight + heightPozicie
+    + document.getElementById('footer').offsetHeight;
 
     /*Menu a skrolovacia ikonka*/
-    if (document.body.scrollTop > 600 || document.documentElement.scrollTop > 600) {
+    if (document.body.scrollTop >= heightPrihlasovanie - 200 || document.documentElement.scrollTop >= heightPrihlasovanie - 200) {
         document.getElementById("img_scroll").style.opacity="0%";
         document.getElementById("scroll_down").style.borderBottomWidth="0px";
-        document.getElementById("myNavbar").style.top = "0";
+        document.getElementById("myTopnav").style.top = "0";
     } else {
         document.getElementById("img_scroll").style.opacity="50%";
         document.getElementById("scroll_down").style.borderBottomWidth="60px";
-        document.getElementById("myNavbar").style.top = "-1000px";
+        document.getElementById("myTopnav").style.top = "-1000px";
     }
 
     /*Activna cast menu*/
@@ -80,24 +83,9 @@ function scrollFunction() {
         showKurzy = false;
     }
 
-    //O nas
-    if ((document.body.scrollTop >= heightPrihlasovanie || document.documentElement.scrollTop >= heightPrihlasovanie) && !showAboutUs
-        && !(document.body.scrollTop >= heightAboutUs || document.documentElement.scrollTop >= heightAboutUs)) {
-        document.getElementById("prihlasovanieButton").classList.remove("navbarButtonActive");
-        document.getElementById("o_nasButton").classList.add("navbarButtonActive");
-        document.getElementById("oznamyButton").classList.remove("navbarButtonActive");
-        document.getElementById("prac_pozicieButton").classList.remove("navbarButtonActive");
-        document.getElementById("kurzyButton").classList.remove("navbarButtonActive");
-        showPrihlasovanie = false;
-        showAboutUs = true;
-        showOznamy = false;
-        showPozicie = false;
-        showKurzy = false;
-    }
-
     //Oznamy
-    if ((document.body.scrollTop >= heightAboutUs || document.documentElement.scrollTop >= heightAboutUs) && !showOznamy
-    && !(document.body.scrollTop >= heightOznamy || document.documentElement.scrollTop >= heightOznamy)) {
+    if ((document.body.scrollTop >= heightPrihlasovanie || document.documentElement.scrollTop >= heightPrihlasovanie) && !showOznamy
+        && !(document.body.scrollTop >= heightOznamy || document.documentElement.scrollTop >= heightOznamy)) {
         document.getElementById("prihlasovanieButton").classList.remove("navbarButtonActive");
         document.getElementById("o_nasButton").classList.remove("navbarButtonActive");
         document.getElementById("oznamyButton").classList.add("navbarButtonActive");
@@ -110,8 +98,23 @@ function scrollFunction() {
         showKurzy = false;
     }
 
+    //Onas
+    if ((document.body.scrollTop >= heightOznamy || document.documentElement.scrollTop >= heightOznamy) && !showAboutUs
+    && !(document.body.scrollTop >= heightAboutUs || document.documentElement.scrollTop >= heightAboutUs)) {
+        document.getElementById("prihlasovanieButton").classList.remove("navbarButtonActive");
+        document.getElementById("o_nasButton").classList.add("navbarButtonActive");
+        document.getElementById("oznamyButton").classList.remove("navbarButtonActive");
+        document.getElementById("prac_pozicieButton").classList.remove("navbarButtonActive");
+        document.getElementById("kurzyButton").classList.remove("navbarButtonActive");
+        showPrihlasovanie = false;
+        showAboutUs = true;
+        showOznamy = false;
+        showPozicie = false;
+        showKurzy = false;
+    }
+
     //Pracovne Pozicie
-    if ((document.body.scrollTop >= heightOznamy || document.documentElement.scrollTop >= heightOznamy) && !showPozicie
+    if ((document.body.scrollTop >= heightAboutUs|| document.documentElement.scrollTop >= heightAboutUs) && !showPozicie
     && !(document.body.scrollTop >= heightPozicie || document.documentElement.scrollTop >= heightPozicie)) {
         document.getElementById("prihlasovanieButton").classList.remove("navbarButtonActive");
         document.getElementById("o_nasButton").classList.remove("navbarButtonActive");
@@ -138,19 +141,5 @@ function scrollFunction() {
         showOznamy = false;
         showPozicie = false;
         showKurzy = true;
-    }
-
-    //Ostatne
-    if (document.body.scrollTop >= heightKurzy || document.documentElement.scrollTop >= heightKurzy) {
-        document.getElementById("prihlasovanieButton").classList.remove("navbarButtonActive");
-        document.getElementById("o_nasButton").classList.remove("navbarButtonActive");
-        document.getElementById("oznamyButton").classList.remove("navbarButtonActive");
-        document.getElementById("prac_pozicieButton").classList.remove("navbarButtonActive");
-        document.getElementById("kurzyButton").classList.remove("navbarButtonActive");
-        showPrihlasovanie = false;
-        showAboutUs = false;
-        showOznamy = false;
-        showPozicie = false;
-        showKurzy = false;
     }
 }
