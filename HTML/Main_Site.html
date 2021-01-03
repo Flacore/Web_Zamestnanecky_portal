@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="../CSS/HomeSite/homeSite.css">
     <link rel="stylesheet" href="../CSS/HomeSite/loginForm.css">
     <link rel="stylesheet" href="../CSS/HomeSite/tables.css">
+    <link rel="stylesheet" href="../CSS/text.css">
 </head>
 <body>
     <div class="topnav" id="myTopnav">
@@ -50,99 +51,78 @@
         <div id="scroll_icon"><img id="img_scroll" alt="" src="../PNG/Scroll_Icon.png"></div>
     </div>
 
-    <div class="container" id="oznamy">
+    <div class="container customTableTitle" id="oznamy">
         <br><br>
         <div class="col-md-6">
-            <div class="Container" style=" display: flex;
-          flex-direction: column;
-          justify-content: space-between;">
-            <div>
-                <h2 style="text-align: center;color: white;margin-top: 0;
-                background-color: royalblue; height: 80px;padding-top: 20px">
-                    <span>Aktuality</span>
-                </h2>
-                <div style="width: 20%; height: 50px; margin-left: 40%; margin-top: -5%; background-color: royalblue;
-                border-bottom-left-radius: 50px; border-bottom-right-radius: 50px;text-align: center"
-                id="slideUpAktuality" onclick="aktualityUp()">
-                   <span class="glyphicon glyphicon glyphicon-chevron-up" style="line-height: 25px; font-size: 40px; color: white"></span>
+            <div class="Container">
+                <div>
+                    <h2 class="txtCenter txtWhite">
+                        <span>Aktuality</span>
+                    </h2>
+                    <div class="txtCenter glyphiconUp" id="slideUpAktuality" onclick="aktualityUp()">
+                       <span class="txtWhite glyphicon glyphicon glyphicon-chevron-up"></span>
+                    </div>
+                    <br>
+                    <div class="contentWindow" id="aktualityWindow">
+                        <div>
+                            <h4 class="txtCenter txtBlack">Test</h4>
+                            <h5 class="txtJustify txtBlack">
+                                In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
+                                non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
+                                ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
+                                tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                            </h5>
+                            <h6 class="txtRight txtBlack">Datum: xx.xx.xxxx</h6>
+                        </div>
+                    </div>
+                    <br>
                 </div>
-                <br>
-                <div class="contentWindow" style="width: 100%;max-height: 500px; overflow: scroll" id="aktualityWindow">
-                    <div style=" width: 100%;
-                    height: auto;
-                    border-top: solid black 1px;
-                    border-bottom: solid black 1px">
-                        <h4 style="text-align: center">Test</h4>
-                        <h5 style="color: greenyellow;margin-left: 2%;margin-right: 2%">
-                            In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
-                            non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
-                            ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
-                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-                        </h5>
-                        <h6 style="color: black; text-align: right;margin-right: 2%">Datum: xx.xx.xxxx</h6>
+                <div>
+                    <div class="txtCenter glyphiconDown" id="slideDownAktuality" onclick="aktualityDown()">
+                        <span class="txtWhite glyphicon glyphicon glyphicon-chevron-down"></span>
                     </div>
                 </div>
-                <br>
-            </div>
-            <div>
-                <div style="width: 20%; height: 50px; margin-left: 40%; background-color: royalblue;
-                border-top-left-radius: 50px; border-top-right-radius: 50px;text-align: center"
-                id="slideDownAktuality" onclick="aktualityDown()">
-                    <span class="glyphicon glyphicon glyphicon-chevron-down" style="line-height: 60px; font-size: 40px; color: white"></span>
-                </div>
             </div>
         </div>
-        </div>
+
         <div class="col-md-6">
-            <div class="Container" style=" display: flex;
-          flex-direction: column;
-          justify-content: space-between;">
-            <div>
-                <h2 style="text-align: center;color: white;margin-top: 0;
-                background-color: royalblue; height: 80px;padding-top: 20px">
-                    <span>Oznamy</span>
-                </h2>
-                <div style="width: 20%; height: 50px; margin-left: 40%; margin-top: -5%; background-color: royalblue;
-                border-bottom-left-radius: 50px; border-bottom-right-radius: 50px;text-align: center"
-                id="slideUpOznamy" onclick="oznamyUp()">
-                    <span class="glyphicon glyphicon glyphicon-chevron-up" style="line-height: 25px; font-size: 40px; color: white"></span>
+            <div class="Container">
+                <div>
+                    <h2 class="txtCenter txtWhite">
+                        <span>Oznamy</span>
+                    </h2>
+                    <div class="txtCenter glyphiconUp" id="slideUpOznamy" onclick="oznamyUp()">
+                        <span class="txtWhite glyphicon glyphicon glyphicon-chevron-up"></span>
+                    </div>
+                    <br>
+                    <div class="contentWindow" id="oznamyWindow">
+                        <div>
+                            <h4 class="txtCenter txtBlack">Test</h4>
+                            <h5 class="txtJustify txtBlack">
+                                In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
+                                non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
+                                ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
+                                tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                            </h5>
+                            <h6 class="txtRight txtBlack">Datum: xx.xx.xxxx</h6>
+                        </div>
+                    </div>
+                    <br>
                 </div>
-                <br>
-                <div class="contentWindow" style="width: 100%;max-height: 500px ;overflow: scroll; " id="oznamyWindow">
-                    <div style=" width: 100%;
-                    height: auto;
-                    border-top: solid black 1px;
-                    border-bottom: solid black 1px">
-                        <h4 style="text-align: center">Test</h4>
-                        <h5 style="color: greenyellow;margin-left: 2%;margin-right: 2%">
-                            In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
-                            non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
-                            ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
-                            tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
-                        </h5>
-                        <h6 style="color: black; text-align: right;margin-right: 2%">Datum: xx.xx.xxxx</h6>
+                <div>
+                    <div class="txtCenter glyphiconDown" id="slideDownOznamy" onclick="oznamyDown()">
+                        <span class="txtWhite glyphicon glyphicon glyphicon-chevron-down"></span>
                     </div>
                 </div>
-                <br>
             </div>
-            <div>
-                <div style="width: 20%; height: 50px; margin-left: 40%; background-color: royalblue;
-                border-top-left-radius: 50px; border-top-right-radius: 50px;text-align: center"
-                id="slideDownOznamy" onclick="oznamyDown()">
-                    <span class="glyphicon glyphicon glyphicon-chevron-down" style="line-height: 60px; font-size: 40px; color: white"></span>
-                </div>
-            </div>
-        </div>
         </div>
     </div>
 
-    <div class="container" id="o_nas" style=" display: flex;
-          flex-direction: column;
-          justify-content: space-between;" >
+    <div class="container customTableTitle" id="o_nas">
         <div>
             <br><br>
-            <h2 style="text-align: center">O nás..</h2>
-            <h4 style="width: 90%; text-align: justify; color: black; margin-left: 5%; margin-right: 5%">
+            <h2 class="txtCenter">O nás..</h2>
+            <h4 class="txtJustify txtBlack">
                 Žilinská univerzita v Žiline sme slovenská verejná vysoká škola univerzitného typu so sídlom v Žiline.
                 Poskytujeme vzdelanie v bakalárskych, inžinierskych/magisterských a doktorandských študijných programoch.
                 Naše začiatky sa dátuju do roku 1953 kedy sme sa odlúčili od Českého vysokého učenia technického v Prahe
@@ -150,11 +130,12 @@
             </h4>
             <br>
             <div style="width: 40%; margin-left: 30%;border: royalblue 4px solid; border-radius: 10%; overflow: hidden">
-                <h2 style="text-align: center;color: white;margin-top: 0;
-                background-color: royalblue; height: 80px;padding-top: 20px">
-                    <span>Kontakt</span>
-                </h2>
-                <div style="width: 90%; margin-left: 5%">
+                <div>
+                    <h2 class="txtCenter txtWhite">
+                        <span>Kontakt</span>
+                    </h2>
+                </div>
+                <div class="txtJustify">
                     <h4>ŽILINSKÁ UNIVERZITA V ŽILINE</h4>
                     <h4>Univerzitná 8215/1 010 26 Žilina</h4>
                     <h4>tel.: +421 41 513 5001</h4>
@@ -166,42 +147,39 @@
             </div>
         </div>
         <br>
-        <div style="margin-bottom: 0">
-            <iframe width="100%" height="350"frameborder="0" scrolling="no" marginheight="0" marginwidth="0"
-                    src="https://www.openstreetmap.org/export/embed.html?bbox=18.754311203956608%2C49.20402084615569%2C18.75627994537354%2C49.20559103268037&amp;layer=mapnik"
-                    style="border: 1px solid black"></iframe><br><small><a href="https://www.openstreetmap.org/#map=19/49.20481/18.75530">View Larger Map</a></small>
+        <div>
+            <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=18.754311203956608%2C49.20402084615569%2C18.75627994537354%2C49.20559103268037&amp;layer=mapnik">
+            </iframe><br><small><a href="https://www.openstreetmap.org/#map=19/49.20481/18.75530">View Larger Map</a></small>
         </div>
     </div>
 
-    <div class="oddelovac pocty container-fluid" id="oddelovacPozicie" style="width: 100%; height: auto;
-    background-image: url('https://www.pixel4k.com/wp-content/uploads/2018/10/blue-dark-yellow-abstract-artistic-4k_1539371150.jpg');
-    position: relative; background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover">
+    <div class="oddelovac pocty container-fluid" id="oddelovacPozicie">
         <div class="row">
-            <div class="col-sm-12"><h2 style="text-align: center; color: white">Je nás už viac ako...</h2></div>
+            <div class="col-sm-12"><h2 class="txtCenter txtWhite">Je nás už viac ako...</h2></div>
         </div>
         <div class="row">
             <div class="col-sm-4">
-                <span class="col-xs-12 glyphicon glyphicon-user text-center" style="font-size: 3em; color: white"></span>
-                <h3 class="col-sm-12 stat-count" style="text-align: center; color: white">1234</h3>
-                <h4 class="col-sm-12" style="text-align: center; color: white">Zamestnancov</h4>
+                <span class="col-xs-12 glyphicon glyphicon-user text-center txtWhite txtGlyphiconMDM"></span>
+                <h3 class="col-sm-12 stat-count txtCenter txtWhite">1234</h3>
+                <h4 class="col-sm-12 txtCenter txtWhite">Zamestnancov</h4>
             </div>
             <div class="col-sm-4">
-                <span class="col-xs-12 glyphicon glyphicon-education text-center" style="font-size: 3em; color: white"></span>
-                <h3 class="col-sm-12 stat-count" style="text-align: center; color: white">7924</h3>
-                <h4 class="col-sm-12" style="text-align: center; color: white">Študentov</h4>
+                <span class="col-xs-12 glyphicon glyphicon-education text-center txtWhite txtGlyphiconMDM"></span>
+                <h3 class="col-sm-12 stat-count txtCenter txtWhite">7924</h3>
+                <h4 class="col-sm-12 txtCenter txtWhite">Študentov</h4>
             </div>
             <div class="col-sm-4">
-                <span class="col-xs-12 glyphicon glyphicon-briefcase text-center" style="font-size: 3em; color: white"></span>
-                <h3 class="col-sm-12 stat-count" style="text-align: center; color: white">175</h3>
-                <h4 class="col-sm-12" style="text-align: center; color: white">Pracovísk</h4>
+                <span class="col-xs-12 glyphicon glyphicon-briefcase text-center txtWhite txtGlyphiconMDM"></span>
+                <h3 class="col-sm-12 stat-count txtCenter txtWhite">175</h3>
+                <h4 class="col-sm-12 txtCenter txtWhite" >Pracovísk</h4>
             </div>
         </div>
     </div>
 
     <div class="container" id="prac_pozicie">
         <br><br><br>
-        <h2 style="color: black; text-align: center">Hladáme</h2>
-        <h4 style="width: 100%; text-align: center; color: black">
+        <h2 class="txtCenter txtBlack">Hladáme</h2>
+        <h4 class="txtCenter txtBlack txtFullWidth">
             Stante sa súčasťou nášho profesionálneho týmu...
         </h4>
         <br>
@@ -226,22 +204,17 @@
         <br><br><br>
     </div>
 
-    <div class="oddelovac pocty container-fluid picBorder" id="oddelovacKurzy" style="width: 100%; height: 50%;
-    background-image: url('https://www.fri.uniza.sk/uploads/images/1543515599-DSC-1462.jpg');
-    position: relative; background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover">
+    <div class="oddelovac kurzy container-fluid" id="oddelovacKurzy">
     </div>
 
     <div class="container" id="kurzy">
         <div class="position tableStyle">
             <br><br><br>
-            <h2 style="width: 100%; text-align: center; color: white">
+            <h2 class="txtCenter txtWhite txtFullWidth">
                 Zoznam kurzov a prednášok
             </h2>
-            <h4 style="width: 100%; text-align: center; color: white">
+            <h4 class="txtCenter txtWhite txtFullWidth">
                 Každoročne organizujeme kopu prednášok a vzdelávacích kurzov, ktorých sa môže zúčastniť úplne každý...
-            </h4>
-            <h4 style="width: 100%; text-align: center; color: white">
-
             </h4>
             <br>
             <table>
@@ -260,11 +233,11 @@
                 <tr class="detailHide detail" id="kurzDetail1">
                     <td colspan="4">
                         <div  style="display: flex">
-                            <img style="border: white solid 10px; max-width: 50%;" src="https://www.logaster.com/blog/wp-content/uploads/2020/04/banner-example-2.jpg">
-                            <div style="border: white solid 10px;max-width:80%">
+                            <img alt="" class="Border imgWidth" src="https://www.logaster.com/blog/wp-content/uploads/2020/04/banner-example-2.jpg">
+                            <div class="Border textFrame">
                                 <br>
                                 <h3>Name</h3>
-                                <p>
+                                <p class="txtJustify">
                                     Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut vehicula odio,
                                     at mollis nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
                                     per inceptos himenaeos. Vivamus id tortor imperdiet, dictum odio vel, molestie nisl.
@@ -276,13 +249,13 @@
                                     ipsum, eget finibus enim porta vel. Aliquam lobortis ligula ac tristique eleifend.
                                     Fusce ac cursus libero. Etiam vehicula arcu nec nulla ornare finibus.
                                 </p>
-                                <button style="width: 20%" onclick="">Prihlásiť sa</button>
+                                <button onclick="">Prihlásiť sa</button>
                             </div>
                         </div>
                     </td>
                 </tr>
             </table>
-            <h5 style="width: 100%; text-align: center; color: white; opacity: 0.7">
+            <h5 class="txtCenter txtWhite txtFullWidth txtInfo">
                 *Prihlasovanie na kurzy nie je závezné a však by sme vás chceli
                 poprosiť aby ste tak ku nemu pristupovaly.
             </h5>

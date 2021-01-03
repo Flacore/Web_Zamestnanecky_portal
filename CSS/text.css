@@ -1,0 +1,39 @@
+.txtWhite{
+    color: #f2f2f2;
+}
+
+.txtBlack{
+    color: #000000;
+}
+
+.txtCenter{
+    text-align: center;
+}
+
+.txtRight{
+    text-align: right;
+    margin-right: 2%;
+}
+
+.txtGlyphiconMDM{
+    font-size: 3em;
+}
+
+.txtFullWidth{
+    width: 100%;
+}
+
+.txtJustify{
+    text-align: justify;
+    margin-left: 5%;
+    margin-right: 5%;
+    width: 90%;
+}
+
+.txtInfo{
+    opacity: 0.7;
+}
+
+txtTop{
+  margin-top: 0;
+}

@@ -124,6 +124,23 @@ body{
 #o_nas{
     background-color: #f2f2f2;
     z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#o_nas iframe{
+    width: 100%;
+    height: 350px;
+    frameborder: 0;
+    scrolling: 0;
+    marginheight: 0;
+    marginwidth: 0;
+    border: black solid 1px;
+}
+
+#o_nas > div:last-child{
+    margin-bottom: 0;
 }
 
 #oznamy{
@@ -140,6 +157,38 @@ body{
     margin-left: 10%;
     height: auto;
     min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#oznamy .glyphiconDown{
+    width: 20%;
+    height: 50px;
+    margin-left: 40%;
+    background-color: royalblue;
+    border-top-left-radius: 50px;
+    border-top-right-radius: 50px;
+}
+
+#oznamy .glyphiconUp span{
+    line-height: 25px;
+    font-size: 40px;
+}
+
+#oznamy .glyphiconUp{
+    width: 20%;
+    height: 50px;
+    margin-left: 40%;
+    margin-top: -5%;
+    background-color: royalblue;
+    border-bottom-left-radius: 50px;
+    border-bottom-right-radius: 50px;
+}
+
+#oznamy .glyphiconDown span{
+    line-height: 60px;
+    font-size: 40px;
 }
 
 #prac_pozicie{
@@ -155,9 +204,19 @@ body{
     height: auto;
 }
 
-.picBorder{
-    border-top: 2px black solid !important;
-    border-bottom: 2px black solid; !important;
+.oddelovac{
+    width: 100%;
+    position: relative; background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover"
+}
+
+.kurzy{
+    height: 50%;
+    background-image: url('https://www.fri.uniza.sk/uploads/images/1543515599-DSC-1462.jpg');
+}
+
+.pocty{
+    height: auto;
+    background-image: url('https://www.pixel4k.com/wp-content/uploads/2018/10/blue-dark-yellow-abstract-artistic-4k_1539371150.jpg');
 }
 
 .footer{
