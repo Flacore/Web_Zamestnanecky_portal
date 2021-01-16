@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Zamestnanecký portál</title>
+    <link rel="stylesheet" href="../CSS/System/systemMenu.css">
+    <link rel="stylesheet" href="../CSS/System/system.css">
+
+    <link rel="stylesheet" href="../CSS/System/homeComponent.css">
+
+    <script>
+        $(document).ready( function() {
+            $("#homeButton").on("click", function() {
+                $("#componentWindow").load("SystemComponents/Home_Component.html");
+            });
+            $("#cursesButton").on("click", function() {
+                $("#componentWindow").load("SystemComponents/Curses_Component.html");
+            });
+        });
+    </script>
+</head>
+<body onload="fLoad()">
+    <div class="topnav" id="myTopnav">
+        <a href="Main_Site.html" class="col-sm">Odhlásiť sa</a>
+        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
+            <i class="fa fa-bars"></i>
+        </a>
+    </div>
+
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#" id="homeButton">Domov</a>
+        <a href="#" id="cursesButton">Kurzy</a>
+    </div>
+
+    <div class="siteMiddle innerContainer">
+        <br>
+        <div id="sidenav-button" class="sidenav-opener">
+            <span id="test" class="glyphicon glyphicon-chevron-right" style="font-size:20px;cursor:pointer; color: black" onclick="openNav()"></span>
+        </div>
+
+        <div id="componentWindow" class="component-window"></div>
+    </div>
+
+    <div class="footer" id="footer">
+        <h5>© 2020 Žilinská univerzita v Žiline. Všetky práva vyhradené.</h5>
+    </div>
+</body>
+</html>
+<script>
+    function fLoad() {
+        $("#componentWindow").load("SystemComponents/Home_Component.html");
+    }
+
+    function myFunction() {
+        var x = document.getElementById("myTopnav");
+        if (x.className === "topnav") {
+            x.className += " responsive";
+        } else {
+            x.className = "topnav";
+        }
+    }
+    function openNav() {
+       document.getElementById("mySidenav").style.width = "250px";
+        document.getElementById("sidenav-button").style.width = "0px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("sidenav-button").style.width = "30px";
+    }
+</script>

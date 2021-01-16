@@ -58,12 +58,20 @@
     max-width:80%
 }
 
+#kurzy .imgStyle{
+    object-fit: scale-down;
+}
+
 #kurzy .imgWidth{
-    max-width: 50%;
+    max-width: 100%;
+}
+
+#kurzy .divWhite{
+    background-color: white;
 }
 
 #kurzy button{
-    width: 20%;
+    width: auto;
     background-color:  #0f2557;
     color: #f2f2f2;
 }
