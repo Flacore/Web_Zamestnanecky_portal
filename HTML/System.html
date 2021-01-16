@@ -9,10 +9,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Zamestnanecký portál</title>
+
     <link rel="stylesheet" href="../CSS/System/systemMenu.css">
     <link rel="stylesheet" href="../CSS/System/system.css">
 
     <link rel="stylesheet" href="../CSS/System/homeComponent.css">
+    <link rel="stylesheet" href="../CSS/System/Slideshow.css">
 
     <script>
         $(document).ready( function() {
@@ -22,12 +24,22 @@
             $("#cursesButton").on("click", function() {
                 $("#componentWindow").load("SystemComponents/Curses_Component.html");
             });
+            $("#messegesButton").on("click", function() {
+                $("#componentWindow").load("SystemComponents/Messeges_Component.html");
+            });
+            $("#settingsButton").on("click", function() {
+                $("#componentWindow").load("SystemComponents/Settings_Component.html");
+            });
+            $("#ContactsButton").on("click", function() {
+                $("#componentWindow").load("SystemComponents/Contacts_Component.html");
+            });
         });
+
     </script>
 </head>
 <body onload="fLoad()">
     <div class="topnav" id="myTopnav">
-        <a href="Main_Site.html" class="col-sm">Odhlásiť sa</a>
+        <a href="Main_Site.html" class="col-sm">Odhlásiť <span class="glyphicon glyphicon-log-out"></span></a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
         </a>
@@ -36,13 +48,16 @@
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
         <a href="#" id="homeButton">Domov</a>
+        <a href="#" id="messegesButton">Správy</a>
+        <a href="#" id="ContactsButton">Kontakty</a>
         <a href="#" id="cursesButton">Kurzy</a>
+        <a href="#" id="settingsButton">Nastavenia</a>
     </div>
 
     <div class="siteMiddle innerContainer">
         <br>
         <div id="sidenav-button" class="sidenav-opener">
-            <span id="test" class="glyphicon glyphicon-chevron-right" style="font-size:20px;cursor:pointer; color: black" onclick="openNav()"></span>
+            <span class="glyphicon glyphicon-chevron-right sidenav-glyphicon" onclick="openNav()"></span>
         </div>
 
         <div id="componentWindow" class="component-window"></div>
@@ -54,6 +69,18 @@
 </body>
 </html>
 <script>
+    function ContactsOpen() {
+        $("#componentWindow").load("SystemComponents/Contacts_Component.html");
+    }
+
+    function MessegesOpen() {
+        $("#componentWindow").load("SystemComponents/Messeges_Component.html");
+    }
+
+    function SettingsOpen() {
+        $("#componentWindow").load("SystemComponents/Settings_Component.html");
+    }
+
     function fLoad() {
         $("#componentWindow").load("SystemComponents/Home_Component.html");
     }

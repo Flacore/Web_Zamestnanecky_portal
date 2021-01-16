@@ -5,6 +5,11 @@ html, body {
     background-color: white;
 }
 
+::-webkit-scrollbar {
+    display: none;
+}
+
+
 .innerContainer{
     height: 90%;
     background-color: white;
@@ -23,13 +28,14 @@ html, body {
     top: 0;
     left: 0;
     z-index: 1;
-    width: 100%;
+    width: 98%;
     height: 100%;
     background-color: white;
 }
 
 .footer{
-    position: absolute;
+    z-index: 3;
+    position: fixed;
     bottom: 0;
     left: 0;
     background-color: #20639B;

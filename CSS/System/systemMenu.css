@@ -13,6 +13,13 @@
     transition: 0.3s;
 }
 
+.sidenav-glyphicon{
+    font-size:30px;
+    cursor:pointer;
+    color:black;
+    opacity: 0.5;
+}
+
 .sidenav {
     height: 90%;
     width: 0;
@@ -65,6 +72,7 @@
 
 .topnav {
     position: fixed ;
+    z-index: 3;
     background-color: #20639B;
     position: fixed ;
     top: 0;
@@ -110,7 +118,7 @@
 
 @media screen and (max-width: 700px) {
     .topnav.responsive {
-        z-index:100 ;
+        z-index:3;
         position: fixed ;
         background-color: #20639B;
         position: fixed ;
