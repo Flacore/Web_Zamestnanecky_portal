@@ -1,3 +1,11 @@
+function tableDetail($name) {
+    if(document.getElementById($name).classList.contains("detailHide")){
+        document.getElementById($name).classList.remove("detailHide");
+    }else{
+        document.getElementById($name).classList.add("detailHide");
+    }
+}
+
 function myFunction() {
     var x = document.getElementById("myTopnav");
     if (x.className === "topnav") {
