@@ -1,0 +1,52 @@
+<div class="contactWindow col-sm-12">
+    <div class="col-sm-12 searchWindow">
+        <form>
+            <label>Meno/Priezvisko</label>
+            <input class="input" type="text">
+            <label>Funkcia</label>
+            <select id="position">
+                <option value="1">Funkcia</option>
+            </select>
+            <label>Hlavné pracovisko</label>
+            <select id="place">
+                <option value="1">Miesto</option>
+            </select>
+            <label>Pracovisko</label>
+            <input class="input" type="text">
+            <div class="col-xs-6"><input class="buttons" type="submit" value="Vyhľadať zamestnanca"></div>
+            <div class="col-xs-6"><input class="buttons" type="reset" value="Resetovať vyhľadávanie"></div>
+        </form>
+    </div>
+    <div class="col-sm-12 resultWindow">
+        <div id="searchResults" class="resultsBar">
+
+            <div class="resultsItem row">
+                <div class="col-sm-3 full-height">
+                    <div class="user-img shadow"></div>
+                </div>
+                <div class="col-sm-6 full-height">
+                    <div class="detail-info">
+                        <div class="col-sm-12 resultName"><h2>Name Name</h2></div>
+                        <div class="col-sm-12 info"><h4>Pracovisko: </h4><h4>Lorem Ipsum</h4></div>
+                        <div class="col-sm-12 info"><h4>Miestnosť: </h4><h4>Lorem Ipsum</h4></div>
+                        <div class="col-sm-12 info"><h4>Telefón: </h4><h4>Lorem Ipsum</h4></div>
+                        <div class="col-sm-12 info"><h4>Mobil: </h4><h4>Lorem Ipsum</h4></div>
+                        <div class="col-sm-12 info"><h4>E-mail: </h4><h4>Lorem Ipsum</h4></div>
+                        <div class="col-sm-12 info"><h4>Funkcia: </h4><h4>Lorem Ipsum</h4></div>
+                    </div>
+                </div>
+                <div class="col-sm-3 full-height">
+                    <div class="messege-send" onclick="sendMSG('Text')">
+                        <span class="glyphicon glyphicon-envelope msg-icon"></span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+    function sendMSG($Name) {
+        $("#componentWindow").load("SystemComponents/Messeges_Component.html");
+    }
+</script>

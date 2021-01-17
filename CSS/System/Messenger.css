@@ -123,6 +123,11 @@
     text-align: center;
     color: #4a4843;
 }
+.center-icon{
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translate( -50%);
+}
 
 .NameUnread{
     vertical-align: baseline;

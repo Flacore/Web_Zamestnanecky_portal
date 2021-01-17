@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="../CSS/System/Messenger.css">
     <link rel="stylesheet" href="../CSS/HomeSite/tables.css">
     <link rel="stylesheet" href="../CSS/text.css">
-
+    <link rel="stylesheet" href="../CSS/System/contacts.css">
     <script>
         $(document).ready( function() {
             $("#homeButton").on("click", function() {
@@ -77,6 +77,10 @@
 </body>
 </html>
 <script>
+    function fLoad() {
+        $("#componentWindow").load("SystemComponents/Contacts_Component.html");
+    }
+
     function ContactsOpen() {
         $("#componentWindow").load("SystemComponents/Contacts_Component.html");
     }
@@ -87,10 +91,6 @@
 
     function SettingsOpen() {
         $("#componentWindow").load("SystemComponents/Settings_Component.html");
-    }
-
-    function fLoad() {
-        $("#componentWindow").load("SystemComponents/Home_Component.html");
     }
 
     function myFunction() {

@@ -76,6 +76,7 @@
     background-color: #20639B;
     position: fixed ;
     top: 0;
+    height: 5%;
     width: 100% ;
     display: block;
     transition: top 0.5s;

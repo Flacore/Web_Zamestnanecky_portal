@@ -1,0 +1,171 @@
+.contactWindow{
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translate( -50%);
+    height: 100%;
+    width: 100%;
+    max-width: 1000px;
+}
+
+.searchWindow{
+    position: relative;
+    margin-top: 1%;
+    height: 33%;
+    width: 100%;
+    border: 4px #1167b1 solid;
+    border-bottom: none;
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+}
+
+.searchWindow *{
+    width: 80%;
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translate( -50%);
+}
+
+.searchWindow form .input,
+.searchWindow form select,
+.searchWindow form label{
+    width: 100%;
+}
+
+.searchWindow form .buttons{
+    margin-top: 10px;
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translate( -50%);
+    background-color: #1167b1;
+    background: -webkit-linear-gradient(to bottom, #1167b1, #1976d2);
+    background: linear-gradient(to bottom, #1167b1, #1976d2);
+    border: none;
+    color: white;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.searchWindow form .buttons:hover{
+    background-color: #42a5f5;
+    background: -webkit-linear-gradient(to bottom, #64b5f6, #42a5f5);
+    background: linear-gradient(to bottom, #64b5f6, #42a5f5);
+}
+
+.searchWindow form .col-sm-6{
+    width: 50%;
+    margin-left: unset;
+    margin-right: unset;
+    transform: unset;
+}
+
+.resultWindow{
+    width: 100%;
+    height: 65%;
+    margin-bottom: 1%;
+    border-top: 5px #1167b1 solid;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: #1167b1;
+    background: -webkit-linear-gradient(to bottom, #1167b1, #1976d2);
+    background: linear-gradient(to bottom, #1167b1, #1976d2);
+}
+
+.resultsBar{
+    position: relative;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    width: 100%;
+    height: 97%;
+    overflow: scroll;
+}
+
+.resultsItem{
+    background-color: white;
+    width: 100%;
+    height: auto;
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translate( -50%);
+    padding-bottom: 10px;
+    border: #1167b1 5px solid;
+    border-top: none;
+}
+
+.resultsItem:first-child{
+    border-top-right-radius: 10px;
+    border-top-left-radius: 10px;
+    border-top: #1167b1 5px solid;
+}
+
+.resultsItem:last-child{
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+
+.full-height{
+    height: 100%;
+}
+
+.user-img{
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translate( -50%);
+    border-radius: 100%;
+    margin-top: 5px;
+    width: 180px;
+    height: 180px;
+    overflow: hidden;
+    background-size: cover;
+    background-image: url('https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png');
+}
+
+.resultName{
+    text-align: center;
+    text-transform: uppercase;
+}
+
+.info{
+    text-align: left;
+}
+
+.info h4:first-child{
+    text-transform: uppercase;
+    display:table-cell;
+    padding-right: 10px;
+}
+
+.info h4:last-child{
+    opacity: 0.7;
+    font-weight: normal;
+    display:table-cell;
+}
+
+.messege-send{
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translate( -50%);
+    margin-top: 70px;
+    width: 50px;
+    height: 50px;
+    background-color: #3cc5aa;
+    border-radius: 100%;
+}
+
+.msg-icon{
+    color: white;
+    margin: 50%;
+    transform: translate( -50%,-50%);
+    font-size: 20px;
+}
+
+.detail-info{
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translate( -50%);
+    width: 300px;
+    height: auto;
+}
