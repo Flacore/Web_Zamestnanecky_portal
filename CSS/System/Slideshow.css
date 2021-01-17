@@ -1,0 +1,13 @@
+.infoBox-textContainer {
+    min-width: 90%;
+    min-height: 70%;
+    max-width: 90%;
+    max-height: 70%;
+    margin: auto;
+    overflow: hidden;
+}
+
+.textSlide {
+    color: white;
+    text-align: center;
+}

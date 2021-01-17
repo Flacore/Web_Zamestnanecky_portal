@@ -1,0 +1,243 @@
+.icon {
+    display: none;
+}
+
+.iconContact{
+    background-color: #1abc9c;
+    height: auto;
+    width: auto;
+    margin: 10px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.userIcon{
+    color: white;
+    font-size: 30px;
+    padding: 10px;
+}
+
+.msg-sideMenu{
+    height: 92%;
+    width: 100%;
+}
+
+@media screen and (max-width: 980px) {
+    .msg-sideMenu div{display: none;}
+    .icon {
+        float: right;
+        display: block;
+    }
+    .Messenger-Menu{
+        height: 10% !important;
+        border-bottom: black 1px solid;
+    }
+}
+
+@media screen and (max-width: 980px) {
+    .msg-sideMenu.resp {
+        height: 92%;
+        width: 100%;
+        display: block;
+        transition: top 0.3s;
+    }
+
+    .msg-sideMenu.resp div {
+        display: block;
+    }
+    .respMenu{
+        height: 100% !important;
+        border-bottom: black 1px solid;
+    }
+}
+
+.Messenger-Menu{
+    background-color: white;
+    height: 100%;
+    border-right: black 1px solid;
+}
+
+.topSpace{
+    height: 8%;
+    width: 100%;
+}
+
+.bottomSpace{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 10%;
+    width: 100%;
+}
+
+.newMessege{
+    margin: auto;
+    width: 70px;
+    height: auto;
+    background-color: #3cc5aa;
+    border-radius: 100%;
+}
+
+.newMessege span{
+    color: white;
+    text-align: center;
+    margin: 6px;
+    font-size: 60px;
+}
+
+.NameList{
+    border-top: black solid 1px;
+    max-height: 82%;
+    overflow: scroll;
+}
+
+.NameList-item{
+    border-bottom: black 1px solid;
+    width: 100%;
+    min-height: 60px;
+    height: auto;
+    padding-right: 0;
+}
+
+.NameList-item_Opened{
+    background: #1167b1;
+    background: -webkit-linear-gradient(to right, #187bcd, #1167b1);
+    background: linear-gradient(to right, #187bcd, #1167b1);
+    width: 100%;
+    min-height: 60px;
+    padding-right: 0;
+}
+
+.NameList-item_Opened .Name,
+.NameList-item_Opened .NameUnread{
+    vertical-align: baseline;
+    text-align: center;
+    color: white !important;
+}
+
+.Name{
+    vertical-align: baseline;
+    text-align: center;
+    color: #4a4843;
+}
+
+.NameUnread{
+    vertical-align: baseline;
+    text-align: center;
+    color: #e53935;
+}
+
+.Messenger-img{
+    background-color: white;
+    height: 50px;
+    width: 50px;
+    border-radius: 100%;
+    border: 1px solid black;
+    overflow: hidden;
+    background-size: cover;
+    background-image: url('https://cdn4.iconfinder.com/data/icons/small-n-flat/24/user-alt-512.png')
+}
+
+.nopadding {
+    padding: 0 !important;
+    margin: 0 !important;
+}
+
+.Messenger-messegeWindow{
+    height: 100%;
+}
+.msg-Window{
+    overflow: scroll;
+    position: absolute;
+    left: 0;
+    height: 90%;
+    width: 100%;
+}
+
+.msg-textForm{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 10%;
+    border-top: black 1px solid;
+}
+
+.messege-txt{
+    overflow: scroll;
+    width: 80%;
+    height: 40px;
+    border-radius: 5px;
+    border: black 1px solid;
+    margin-left: 10%;
+}
+
+.send-BT{
+    margin-top: 5px;
+    margin-left: 75%;
+}
+
+.formDisclaimer{
+    margin-left: 70%;
+    opacity: 0.5;
+    font-size: 10px;
+}
+
+.sender{
+    opacity: 0.6;
+    color: #4a4843;
+}
+
+.date{
+    margin-top:2px;
+    opacity: 0.5;
+    color: #4a4843;
+}
+
+.msgText{
+    margin-top: 2px;
+    border-radius: 5px;
+    width: 40%;
+    min-height: 50px;
+}
+
+.sended-msg .msgText{
+    background: #1167b1;
+    background: -webkit-linear-gradient(to left, #187bcd, #1167b1);
+    background: linear-gradient(to left, #187bcd, #1167b1);
+    -webkit-box-shadow: 1px 1px 2px 2px  #ccc;
+    -moz-box-shadow:    1px 1px 2px 2px #ccc;
+    box-shadow:         1px 1px 2px 2px  #ccc;
+    margin-left: 55%;
+    margin-right: 5%;
+}
+
+.sended-msg .sender,
+.sended-msg .date{
+    text-align: right;
+    margin-left: 55%;
+    margin-right: 6%;
+}
+
+.received-msg .msgText{
+    background: #424242;
+    background: -webkit-linear-gradient(to right, #616161, #424242);
+    background: linear-gradient(to right, #616161, #424242);
+    -webkit-box-shadow: 1px 1px 2px 2px  #ccc;
+    -moz-box-shadow:    1px 1px 2px 2px #ccc;
+    box-shadow:         1px 1px 2px 2px  #ccc;
+    margin-right: 55%;
+    margin-left: 5%;
+}
+
+.received-msg .sender,
+.received-msg .date{
+    text-align: left;
+    margin-right: 55%;
+    margin-left: 5%;
+}
+
+.txt-msg{
+    color: white;
+    padding: 10px;
+}
