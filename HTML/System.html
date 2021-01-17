@@ -23,22 +23,27 @@
         $(document).ready( function() {
             $("#homeButton").on("click", function() {
                 $("#componentWindow").load("SystemComponents/Home_Component.html");
+                active(1);
                 closeNav();
             });
             $("#cursesButton").on("click", function() {
                 $("#componentWindow").load("SystemComponents/Curses_Component.html");
+                active(4);
                 closeNav();
             });
             $("#messegesButton").on("click", function() {
                 $("#componentWindow").load("SystemComponents/Messeges_Component.html");
+                active(2);
                 closeNav();
             });
             $("#settingsButton").on("click", function() {
                 $("#componentWindow").load("SystemComponents/Settings_Component.html");
+                active(5);
                 closeNav();
             });
             $("#ContactsButton").on("click", function() {
                 $("#componentWindow").load("SystemComponents/Contacts_Component.html");
+                active(3);
                 closeNav();
             });
         });
@@ -55,11 +60,11 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a href="#" id="homeButton">Domov</a>
-        <a href="#" id="messegesButton">Správy</a>
-        <a href="#" id="ContactsButton">Kontakty</a>
-        <a href="#" id="cursesButton">Kurzy</a>
-        <a href="#" id="settingsButton">Nastavenia</a>
+        <a class="menuItem" href="#" id="homeButton">Domov</a>
+        <a class="menuItem" href="#" id="messegesButton">Správy</a>
+        <a class="menuItem" href="#" id="ContactsButton">Kontakty</a>
+        <a class="menuItem" href="#" id="cursesButton">Kurzy</a>
+        <a class="menuItem" href="#" id="settingsButton">Nastavenia</a>
     </div>
 
     <div class="siteMiddle innerContainer">
@@ -77,20 +82,35 @@
 </body>
 </html>
 <script>
+    function active(k) {
+        var links = document.getElementsByClassName("active");
+        for (i = 0; i < links.length; i++) {
+            links[i].classList.add("menuItem");
+            links[i].classList.remove("active");
+        }
+        var menuItems = document.getElementsByClassName("menuItem");
+        menuItems[k-1].classList.add("active");
+        menuItems[k-1].classList.remove("menuItem");
+    }
+
     function fLoad() {
-        $("#componentWindow").load("SystemComponents/Contacts_Component.html");
+        $("#componentWindow").load("SystemComponents/Home_Component.html");
+        active(1);
     }
 
     function ContactsOpen() {
         $("#componentWindow").load("SystemComponents/Contacts_Component.html");
+        active(3);
     }
 
     function MessegesOpen() {
         $("#componentWindow").load("SystemComponents/Messeges_Component.html");
+        active(2);
     }
 
     function SettingsOpen() {
         $("#componentWindow").load("SystemComponents/Settings_Component.html");
+        active(5);
     }
 
     function myFunction() {

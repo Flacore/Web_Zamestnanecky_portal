@@ -33,7 +33,7 @@
     padding-top: 60px;
 }
 
-.sidenav a {
+.sidenav .menuItem {
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
@@ -46,7 +46,7 @@
     padding: 8px 8px 8px 32px;
     text-decoration: none;
     font-size: 25px;
-    color: #03ADD5;
+    color: white;
     background: #4a4843;
     display: block;
     transition: 0.3s;
@@ -54,6 +54,7 @@
 
 .sidenav a:hover {
     color: #f1f1f1;
+    background: #9a9aa9;
 }
 
 .sidenav .closebtn {
@@ -93,7 +94,8 @@
 }
 
 .topnav a:hover {
-    background-color: #20639B;
+    height: 100%;
+    background-color: #187bcd;
     color: #f2f2f2;
     transition: background-color 0.5s;
 }

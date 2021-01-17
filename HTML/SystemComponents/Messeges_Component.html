@@ -1,3 +1,4 @@
+<div class="messenger-window">
     <div class="col-md-3 Messenger-Menu" id="_sideMenu">
         <div class="topSpace">
             <a href="javascript:void(0);" class="icon" onclick="msgOpen()">
@@ -65,8 +66,8 @@
             </form>
         </div>
     </div>
-
-    <script type="text/javascript">
+</div>
+<script type="text/javascript">
         if ( window.history.replaceState ) {
             window.history.replaceState( null, null, window.location.href );
         }
@@ -86,6 +87,7 @@
 
         $("#openContacts").click(function () {
             $("#componentWindow").load("SystemComponents/Contacts_Component.html");
+            active(3);
         });
 
         function msgOpen() {
@@ -99,4 +101,4 @@
                 z.className="Messenger-Menu";
             }
         }
-    </script>
+</script>
