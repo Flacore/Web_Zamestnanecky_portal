@@ -16,23 +16,29 @@
     <link rel="stylesheet" href="../CSS/System/homeComponent.css">
     <link rel="stylesheet" href="../CSS/System/Slideshow.css">
     <link rel="stylesheet" href="../CSS/System/Messenger.css">
+    <link rel="stylesheet" href="../CSS/HomeSite/tables.css">
 
     <script>
         $(document).ready( function() {
             $("#homeButton").on("click", function() {
                 $("#componentWindow").load("SystemComponents/Home_Component.html");
+                closeNav();
             });
             $("#cursesButton").on("click", function() {
                 $("#componentWindow").load("SystemComponents/Curses_Component.html");
+                closeNav();
             });
             $("#messegesButton").on("click", function() {
                 $("#componentWindow").load("SystemComponents/Messeges_Component.html");
+                closeNav();
             });
             $("#settingsButton").on("click", function() {
                 $("#componentWindow").load("SystemComponents/Settings_Component.html");
+                closeNav();
             });
             $("#ContactsButton").on("click", function() {
                 $("#componentWindow").load("SystemComponents/Contacts_Component.html");
+                closeNav();
             });
         });
 
@@ -83,7 +89,7 @@
     }
 
     function fLoad() {
-        $("#componentWindow").load("SystemComponents/Messeges_Component.html");
+        $("#componentWindow").load("SystemComponents/Home_Component.html");
     }
 
     function myFunction() {

@@ -1,1 +1,68 @@
-<h1 style="text-align: center">Kurzy</h1>
+<div class="container" id="kurzy">
+    <div class="position tableStyle">
+        <br><br><br>
+        <h2 class="txtCenter txtWhite txtFullWidth">
+            Zoznam kurzov a prednášok
+        </h2>
+        <h4 class="txtCenter txtWhite txtFullWidth">
+            Každoročne organizujeme kopu prednášok a vzdelávacích kurzov, ktorých sa môže zúčastniť úplne každý...
+        </h4>
+        <br>
+        <table>
+            <tr>
+                <th>Datum</th>
+                <th>Nazov</th>
+                <th>Miesto</th>
+                <th>Cena</th>
+            </tr>
+            <tr onclick="tableDetail('kurzDetail1')">
+                <td>xx.xx.xxxx</td>
+                <td>Something</td>
+                <td>Somewhere</td>
+                <td>N/a</td>
+            </tr>
+            <tr class="detailHide detail" id="kurzDetail1">
+                <td colspan="4">
+                    <div  class="divWhite">
+                        <div class="col-sm-6">
+                            <br>
+                            <img alt="" class="imgWidth imgStyle" src="https://www.logaster.com/blog/wp-content/uploads/2020/04/banner-example-2.jpg">
+                        </div>
+                        <div class="col-sm-6 ">
+                            <br>
+                            <h3>Name</h3>
+                            <p class="txtJustify">
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut vehicula odio,
+                                at mollis nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
+                                per inceptos himenaeos. Vivamus id tortor imperdiet, dictum odio vel, molestie nisl.
+                                Praesent nec eros eu lorem commodo rhoncus. Duis sed justo sit amet erat molestie
+                                placerat non nec massa. Suspendisse a orci vitae quam dictum dapibus. Quisque placerat
+                                aliquam lacus, nec gravida justo. Nunc id faucibus ante. Mauris feugiat tellus diam,
+                                at rutrum velit ullamcorper nec. Praesent molestie nisl eu ligula sollicitudin, sit
+                                amet tempor eros tincidunt. Mauris varius hendrerit iaculis. Mauris faucibus elit
+                                ipsum, eget finibus enim porta vel. Aliquam lobortis ligula ac tristique eleifend.
+                                Fusce ac cursus libero. Etiam vehicula arcu nec nulla ornare finibus.
+                            </p>
+                            <button class="btn" onclick="">Prihlásiť sa</button>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        </table>
+        <h5 class="txtCenter txtWhite txtFullWidth txtInfo">
+            *Prihlasovanie na kurzy nie je závezné a však by sme vás chceli
+            poprosiť aby ste tak ku nemu pristupovaly.
+        </h5>
+    </div>
+    <br><br><br>
+</div>
+<script>
+
+    function tableDetail($name) {
+        if(document.getElementById($name).classList.contains("detailHide")){
+            document.getElementById($name).classList.remove("detailHide");
+        }else{
+            document.getElementById($name).classList.add("detailHide");
+        }
+    }
+</script>
