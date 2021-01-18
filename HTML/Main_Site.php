@@ -1,5 +1,5 @@
 <?php
-    include "../PHP/login.php"
+    include "../PHP/login.php";
 ?>
 <!DOCTYPE html>
 <html lang="sk">
@@ -67,18 +67,45 @@
                        <span class="txtWhite glyphicon glyphicon glyphicon-chevron-up"></span>
                     </div>
                     <br>
-                    <div class="contentWindow" id="aktualityWindow">
-                        <div onclick="showTextGuest()">
-                            <h4 class="txtCenter txtBlack">Test</h4>
-                            <h5 class="txtJustify txtBlack">
-                                In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
-                                non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
-                                ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
-                                tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                    <?php
+                    $podmienka=" aktualita='1'";
+
+                    $sql = mysqli_query($con, "select * from blog where aktualita='1' ");
+                    $num = mysqli_query($con, "select count(*) as NumberData from blog where aktualita='1' and verejne='1' ");
+                    $num_row=mysqli_fetch_array($num);
+                    $n=$num_row['NumberData'];
+                    $i = 0;
+                    while ($rows = $sql->fetch_assoc()){
+                        $data[$i]=$rows;
+                        ++$i;
+                    }
+
+                    if($n>0) {
+                        for ($i = 0; $i < $n; $i++) {
+                            $row = $data[$i];
+                            if($row['verejne']!=0) {
+                                    echo "  <div class=\"contentWindow\" id=\"aktualityWindow\">
+                                <div onclick=\"showTextGuest()\">
+                                    <h4 class=\"txtCenter txtBlack\">".$row['nadpis']."</h4>
+                                    <h5 class=\"txtJustify txtBlack\">
+                                        ".$row['predtext']."
+                                    </h5>
+                                    <h6 class=\"txtRight txtBlack\">Datum: ".$row['datum']."</h6>
+                                </div>
+                            </div>
+                            ";}
+                        }
+                    }else{
+                        echo " <div class=\"contentWindow\" id=\"aktualityWindow\">
+                        <div>
+                            <h4 class=\"txtCenter txtBlack\">Nič sa tu nenachádza.</h4>
+                            <h5 class=\"txtJustify txtBlack\">
                             </h5>
-                            <h6 class="txtRight txtBlack">Datum: xx.xx.xxxx</h6>
+                            <h6 class=\"txtRight txtBlack\"></h6>
                         </div>
-                    </div>
+                    </div>";
+                    }
+                    ?>
                     <br>
                 </div>
                 <div>
@@ -99,18 +126,43 @@
                         <span class="txtWhite glyphicon glyphicon glyphicon-chevron-up"></span>
                     </div>
                     <br>
-                    <div class="contentWindow" id="oznamyWindow">
-                        <div onclick="showTextGuest()">
-                            <h4 class="txtCenter txtBlack">Test</h4>
-                            <h5 class="txtJustify txtBlack">
-                                In egestas nunc ac consectetur molestie. Cras convallis magna eget massa fermentum condimentum non
-                                non tortor. Proin in maximus ligula, at laoreet purus. Praesent ac iaculis nisi. Integer ultrices
-                                ipsum vitae justo interdum, eget sodales sem semper. Phasellus at placerat velit, non consectetur
-                                tellus. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+                    <?php
+                    $sql = mysqli_query($con, "select * from blog where aktualita='0' ");
+                    $num = mysqli_query($con, "select count(*) as NumberData from blog where aktualita='0' and verejne='1'");
+                    $num_row=mysqli_fetch_array($num);
+                    $n=$num_row['NumberData'];
+                    $i = 0;
+                    while ($rows = $sql->fetch_assoc()){
+                        $data[$i]=$rows;
+                        ++$i;
+                    }
+
+                    if($n>0) {
+                        for ($i = 0; $i < $n; $i++) {
+                            $row = $data[$i];
+                            if($row['verejne']!=0) {
+                            echo "  <div class=\"contentWindow\" id=\"aktualityWindow\">
+                                <div onclick=\"showTextGuest()\">
+                                    <h4 class=\"txtCenter txtBlack\">".$row['nadpis']."</h4>
+                                    <h5 class=\"txtJustify txtBlack\">
+                                        ".$row['predtext']."
+                                    </h5>
+                                    <h6 class=\"txtRight txtBlack\">Datum: ".$row['datum']."</h6>
+                                </div>
+                            </div>
+                            ";}
+                        }
+                    }else{
+                        echo " <div class=\"contentWindow\" id=\"aktualityWindow\">
+                        <div>
+                            <h4 class=\"txtCenter txtBlack\">Nič sa tu nenachádza.</h4>
+                            <h5 class=\"txtJustify txtBlack\">
                             </h5>
-                            <h6 class="txtRight txtBlack">Datum: xx.xx.xxxx</h6>
+                            <h6 class=\"txtRight txtBlack\"></h6>
                         </div>
-                    </div>
+                    </div>";
+                    }
+                    ?>
                     <br>
                 </div>
                 <div>
@@ -187,30 +239,55 @@
             Stante sa súčasťou nášho profesionálneho týmu...
         </h4>
         <br>
-        <div class="position tableStyle">
-            <table>
-                <tr>
-                    <th>Dátum</th>
-                    <th>Popis</th>
-                    <th>Pracovisko</th>
-                    <th>Na stiahnutie</th>
-                </tr>
-                <div>
+        <?php
+        $sql = mysqli_query($con, "select * from kariera join pracovisko ");
+        $num = mysqli_query($con, "select count(*) as NumberData from kariera where verejne='1'");
+        $num_row=mysqli_fetch_array($num);
+        $n=$num_row['NumberData'];
+        $i = 0;
+        while ($rows = $sql->fetch_assoc()){
+            $data[$i]=$rows;
+            ++$i;
+        }
 
-                    <div>
-                        <tr>
-                            <td>xx.xx.xxxx</td>
-                            <td>
-                                Výberové konanie FHV KAJ - 2 pracovné miesta vysokoškolského učiteľa vo funkcii docent
-                            </td>
-                            <td>Fakulta humanitných vied</td>
-                            <td><button class="carier-btn">Dokument (PDF)</button></td>
-                        </tr>
+        if($n>0) {
+            echo "       
+           <div class=\"position tableStyle\">
+                <table>
+                    <tr>
+                        <th>Dátum</th>
+                        <th>Popis</th>
+                        <th>Pracovisko</th>
+                        <th>Na stiahnutie</th>
+                    </tr>
+                    <div>";
+            for ($i = 0; $i < $n; $i++) {
+                $row = $data[$i];
+                if($row['verejne']!=0) {
+                    echo "               
+                     <div>
+                            <tr>
+                                <td>" . $row['datum'] . "</td>
+                                <td>
+                                    " . $row['popis'] . "
+                                </td>
+                                <td>" . $row['Názov'] . "</td>
+                                <td><button class=\"carier-btn\">Dokument (PDF)</button></td>
+                            </tr>
+                        </div>
+                    ";
+                }
+            }
+            echo "
                     </div>
-
-                </div>
-            </table>
-        </div>
+                </table>
+            </div>";
+        }else{
+            echo " 
+                <h2 class=\"txtCenter txtBlack\">Ľutujeme, momentálne niesu dostupné žiadne pracovné pozície.</h2>
+            ";
+        }
+        ?>
         <br><br><br>
     </div>
 
@@ -227,48 +304,70 @@
                 Každoročne organizujeme kopu prednášok a vzdelávacích kurzov, ktorých sa môže zúčastniť úplne každý...
             </h4>
             <br>
-            <table>
-                <tr>
-                    <th>Datum</th>
-                    <th>Nazov</th>
-                    <th>Miesto</th>
-                    <th>Cena</th>
-                </tr>
-                <tr onclick="tableDetail('kurzDetail1')">
-                    <td>xx.xx.xxxx</td>
-                    <td>Something</td>
-                    <td>Somewhere</td>
-                    <td>N/a</td>
-                </tr>
-                <tr class="detailHide detail" id="kurzDetail1">
-                    <td colspan="4">
-                        <div  class="divWhite">
-                           <div class="col-sm-6">
-                               <br>
-                               <img alt="" class="imgWidth imgStyle" src="https://www.logaster.com/blog/wp-content/uploads/2020/04/banner-example-2.jpg">
-                               <br>
-                           </div>
-                            <div class="col-sm-6 ">
-                                <br>
-                                <h3>Name</h3>
-                                <p class="txtJustify">
-                                    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur ut vehicula odio,
-                                    at mollis nisl. Class aptent taciti sociosqu ad litora torquent per conubia nostra,
-                                    per inceptos himenaeos. Vivamus id tortor imperdiet, dictum odio vel, molestie nisl.
-                                    Praesent nec eros eu lorem commodo rhoncus. Duis sed justo sit amet erat molestie
-                                    placerat non nec massa. Suspendisse a orci vitae quam dictum dapibus. Quisque placerat
-                                    aliquam lacus, nec gravida justo. Nunc id faucibus ante. Mauris feugiat tellus diam,
-                                    at rutrum velit ullamcorper nec. Praesent molestie nisl eu ligula sollicitudin, sit
-                                    amet tempor eros tincidunt. Mauris varius hendrerit iaculis. Mauris faucibus elit
-                                    ipsum, eget finibus enim porta vel. Aliquam lobortis ligula ac tristique eleifend.
-                                    Fusce ac cursus libero. Etiam vehicula arcu nec nulla ornare finibus.
-                                </p>
-                                <button class="btn" onclick="showRegistrationGuest()">Prihlásiť sa</button>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-            </table>
+            <?php
+            $sql = mysqli_query($con, "select * from prednasky ");
+            $num = mysqli_query($con, "select count(*) as NumberData from prednasky where verejne='1'");
+            $num_row=mysqli_fetch_array($num);
+            $n=$num_row['NumberData'];
+            $i = 0;
+            while ($rows = $sql->fetch_assoc()){
+                $data[$i]=$rows;
+                ++$i;
+            }
+
+            if($n>0) {
+                echo "       
+                  <table>
+                    <tr>
+                        <th>Datum</th>
+                        <th>Nazov</th>
+                        <th>Miesto</th>
+                        <th>Cena</th>
+                    </tr>";
+                for ($i = 0; $i < $n; $i++) {
+                    $row = $data[$i];
+                    if($row['verejne']!=0) {
+                        if($row['cena']==null)
+                            $cena="n/a";
+                        else
+                            $cena=row['cena'];
+                        echo "               
+                         <tr onclick=\"tableDetail('kurzDetail".$i."')\">
+                                <td>".$row['datum']."</td>
+                                <td>".$row['nazov']."</td>
+                                <td>".$row['miesto']."</td>
+                                <td>".$cena."</td>
+                            </tr>
+                            <tr class=\"detailHide detail\" id=\"kurzDetail".$i."\">
+                                <td colspan=\"4\">
+                                    <div  class=\"divWhite\">
+                                       <div class=\"col-sm-6\">
+                                           <br>
+                                           <img alt=\"\" class=\"imgWidth imgStyle\" src=\"".$row['picture_url']."\">
+                                           <br>
+                                       </div>
+                                        <div class=\"col-sm-6 \">
+                                            <br>
+                                            <h3>".$row['nazov']."</h3>
+                                            <p class=\"txtJustify\">
+                                                ".$row['popis']."
+                                            </p>
+                                            <button class=\"btn\" onclick=\"showRegistrationGuest(".$row['idprednasky'].")\">Prihlásiť sa</button>
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                    ";
+                    }
+                }
+                echo "
+                </table>";
+            }else{
+                echo " 
+                <h2 class=\"txtCenter txtWhite\">Ľutujeme, momentálne niesu dostupné žiadne kurzy alebo prednášky.</h2>
+            ";
+            }
+            ?>
             <h5 class="txtCenter txtWhite txtFullWidth txtInfo">
                 *Prihlasovanie na kurzy nie je závezné a však by sme vás chceli
                 poprosiť aby ste tak ku nemu pristupovaly.
@@ -287,39 +386,40 @@
 
             <div id="registration_guest" class="registration-guest">
                 <h2 class="title col-sm-12">Registrácia</h2>
-                <form>
+                <form method="post" action="../PHP/Main%20Site/curses_user.php">
+                    <input class="hiden" type="text" id="idPrednasky">
                     <div class="col-sm-12">
                         <div class="center">
                             <label>Meno</label>
-                            <input type="text">
+                            <input name="txt_name" type="text" required>
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="center">
                             <label>Priezvisko</label>
-                            <input type="text">
+                            <input name="txt_sname" type="text" required>
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="center">
                             <label>E-mail</label>
-                            <input type="text">
+                            <input name="mail" type="email" pattern="[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="center">
                             <label>Telefónne číslo</label>
-                            <input type="text">
+                            <input name="telephone" type="text" pattern="[-0]{1}[-9]{1}[0-9]{8}|[-+]{1}[0-9]{12}">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="center">
-                            <input class="btn" type="submit">
+                            <input class="btn" value="Pridaj" type="submit" name="but_add" id="but_add">
                         </div>
                     </div>
                     <div class="col-sm-12">
                         <div class="center">
-                            <input class="btn" type="reset">
+                            <input class="btn" value="Resetuj" type="reset">
                         </div>
                     </div>
                 </form>

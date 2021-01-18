@@ -9,9 +9,10 @@ function  showTextGuest() {
     document.getElementById('textShow_guest').style.display='block';
 }
 
-function showRegistrationGuest() {
+function showRegistrationGuest($id) {
     document.getElementById('guest_view').style.display='block';
     document.getElementById('registration_guest').style.display='block';
+    document.getElementById('idPrednasky').value = $id;
 }
 
 function tableDetail($name) {
