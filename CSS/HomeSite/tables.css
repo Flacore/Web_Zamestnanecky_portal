@@ -120,3 +120,25 @@
     background: -webkit-linear-gradient(to bottom, #64b5f6, #42a5f5);
     background: linear-gradient(to bottom, #64b5f6, #42a5f5);
 }
+
+.position_name{
+    display: none;
+}
+
+#powers .btn{
+    margin-left: 50%;
+    margin-right: 50%;
+    transform: translate(-50%);
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #1167b1;
+    background: -webkit-linear-gradient(to bottom, #1167b1, #1976d2);
+    background: linear-gradient(to bottom, #1167b1, #1976d2);
+    color: white;
+}
+
+#powers .btn:hover{
+    background-color: #42a5f5;
+    background: -webkit-linear-gradient(to bottom, #64b5f6, #42a5f5);
+    background: linear-gradient(to bottom, #64b5f6, #42a5f5);
+}
