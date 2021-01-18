@@ -39,12 +39,27 @@
             });
             $("#settingsButton").on("click", function() {
                 $("#componentWindow").load("SystemComponents/Settings_Component.html");
+                active(8);
+                closeNav();
+            });
+            $("#contactsButton").on("click", function() {
+                $("#componentWindow").load("SystemComponents/Contacts_Component.html");
+                active(3);
+                closeNav();
+            });
+            $("#carierButton").on("click", function() {
+                $("#componentWindow").load("SystemComponents/Cariere_Component.html");
                 active(5);
                 closeNav();
             });
-            $("#ContactsButton").on("click", function() {
-                $("#componentWindow").load("SystemComponents/Contacts_Component.html");
-                active(3);
+            $("#blogButton").on("click", function() {
+                $("#componentWindow").load("SystemComponents/Blog_Component.html");
+                active(6);
+                closeNav();
+            });
+            $("#powerButton").on("click", function() {
+                $("#componentWindow").load("SystemComponents/Power_Component.html");
+                active(7);
                 closeNav();
             });
         });
@@ -61,11 +76,14 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-        <a class="menuItem" href="#" id="homeButton">Domov</a>
-        <a class="menuItem" href="#" id="messegesButton">Správy</a>
-        <a class="menuItem" href="#" id="ContactsButton">Kontakty</a>
-        <a class="menuItem" href="#" id="cursesButton">Kurzy</a>
-        <a class="menuItem" href="#" id="settingsButton">Nastavenia</a>
+        <a class="menuItem" href="#" id="homeButton"><span class="glyphicon glyphicon-home"></span> Domov</a>
+        <a class="menuItem" href="#" id="messegesButton"><span class="glyphicon glyphicon-comment"></span> Správy</a>
+        <a class="menuItem" href="#" id="contactsButton"><span class="glyphicon glyphicon-book"></span> Kontakty</a>
+        <a class="menuItem" href="#" id="cursesButton"><span class="glyphicon glyphicon-edit"></span> Kurzy</a>
+        <a class="menuItem" href="#" id="carierButton"><span class="glyphicon glyphicon-briefcase"></span> Kariéra</a>
+        <a class="menuItem" href="#" id="blogButton"><span class="glyphicon glyphicon-pencil"></span> Blog</a>
+        <a class="menuItem" href="#" id="powerButton"><span class="glyphicon glyphicon-ok"></span> Právomoci</a>
+        <a class="menuItem" href="#" id="settingsButton"><span class="glyphicon glyphicon-wrench"></span> Nastavenia</a>
     </div>
 
     <div class="siteMiddle innerContainer">
@@ -99,6 +117,11 @@
         menuItems[k-1].classList.remove("menuItem");
     }
 
+    function BlogOpen() {
+        $("#componentWindow").load("SystemComponents/Blog_Component.html");
+        active(6);
+    }
+
     function ContactsOpen() {
         $("#componentWindow").load("SystemComponents/Contacts_Component.html");
         active(3);
@@ -111,7 +134,7 @@
 
     function SettingsOpen() {
         $("#componentWindow").load("SystemComponents/Settings_Component.html");
-        active(5);
+        active(8);
     }
 
     function myFunction() {

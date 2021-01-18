@@ -52,7 +52,7 @@
     transition: 0.3s;
 }
 
-.sidenav a:hover {
+.sidenav a:not(:first-child):hover{
     color: #f1f1f1;
     background: #9a9aa9;
 }
