@@ -1,5 +1,17 @@
 function guestViewClose(){
     document.getElementById('guest_view').style.display='none';
+    document.getElementById('registration_guest').style.display='none';
+    document.getElementById('textShow_guest').style.display='none';
+}
+
+function  showTextGuest() {
+    document.getElementById('guest_view').style.display='block';
+    document.getElementById('textShow_guest').style.display='block';
+}
+
+function showRegistrationGuest() {
+    document.getElementById('guest_view').style.display='block';
+    document.getElementById('registration_guest').style.display='block';
 }
 
 function tableDetail($name) {
