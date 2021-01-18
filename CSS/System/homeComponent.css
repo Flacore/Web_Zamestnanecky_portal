@@ -90,3 +90,8 @@
 .carousel-item.active {
     display:block;
 }
+
+.last-box{
+    width: 1000px;
+    height: 100px;
+}
