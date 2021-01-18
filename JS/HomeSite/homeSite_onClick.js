@@ -1,3 +1,7 @@
+function guestViewClose(){
+    document.getElementById('guest_view').style.display='none';
+}
+
 function tableDetail($name) {
     if(document.getElementById($name).classList.contains("detailHide")){
         document.getElementById($name).classList.remove("detailHide");

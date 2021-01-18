@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../CSS/HomeSite/loginForm.css">
     <link rel="stylesheet" href="../CSS/HomeSite/tables.css">
     <link rel="stylesheet" href="../CSS/text.css">
+    <link rel="stylesheet" href="../CSS/HomeSite/guestView.css">
 </head>
 <body>
     <div class="topnav" id="myTopnav">
@@ -335,6 +336,62 @@
             </h5>
         </div>
         <br><br><br>
+    </div>
+
+    <div id="guest_view" class="guest-view">
+        <div class="guest-window" >
+            <div class="col-sm-12">
+                <div class="closebtn">
+                    <span class="glyphicon glyphicon-remove" onclick="guestViewClose()"></span>
+                </div>
+            </div>
+
+            <div id="registration-guest" class="registration-guest">
+                <h2 class="title col-sm-12">Registrácia</h2>
+                <form>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <label>Meno</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <label>Priezvisko</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <label>E-mail</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <label>Telefónne číslo</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <input class="btn" type="submit">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <input class="btn" type="reset">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="textShow_guest" class="textShow-guest">
+                <h2 class="title col-sm-12">Nazov clanku</h2>
+
+            </div>
+
+        </div>
     </div>
 
     <div class="footer" id="footer">
