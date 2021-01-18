@@ -255,3 +255,58 @@
     color: white;
     padding: 10px;
 }
+
+.info-blog div h5{
+    padding-bottom: 10px;
+    text-align: center;
+}
+
+.info-blog h2{
+    text-align: center;
+}
+
+.Name-Blog{
+    margin-top: 5px;
+    vertical-align: baseline;
+    text-align: center;
+    color: #4a4843;
+}
+
+.blog-item{
+    min-height: 80px !important;
+}
+
+.blog-article{
+    top: 10%;
+    height: 80% !important;
+}
+
+.blog-bottom{
+    border: none;
+    height: 10% !important;
+}
+
+.blog-top{
+    border: none;
+    height: 10% !important;
+    top: 0;
+    bottom: unset;
+}
+
+.blog-article .predtext{
+    width: 100%;
+    height: auto;
+
+}
+
+.blog-article .text{
+    width: 100%;
+    height: auto;
+}
+
+.blog-article .predtext,
+.blog-article .text{
+    text-align: left;
+    padding-left: 50px;
+    padding-right: 50px;
+}
