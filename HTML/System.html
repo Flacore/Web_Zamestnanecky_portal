@@ -19,6 +19,7 @@
     <link rel="stylesheet" href="../CSS/HomeSite/tables.css">
     <link rel="stylesheet" href="../CSS/text.css">
     <link rel="stylesheet" href="../CSS/System/contacts.css">
+    <link rel="stylesheet" href="../CSS/System/Settings.css">
     <script>
         $(document).ready( function() {
             $("#homeButton").on("click", function() {
@@ -82,6 +83,11 @@
 </body>
 </html>
 <script>
+    function fLoad() {
+        $("#componentWindow").load("SystemComponents/Home_Component.html");
+        active(1);
+    }
+
     function active(k) {
         var links = document.getElementsByClassName("active");
         for (i = 0; i < links.length; i++) {
@@ -91,11 +97,6 @@
         var menuItems = document.getElementsByClassName("menuItem");
         menuItems[k-1].classList.add("active");
         menuItems[k-1].classList.remove("menuItem");
-    }
-
-    function fLoad() {
-        $("#componentWindow").load("SystemComponents/Home_Component.html");
-        active(1);
     }
 
     function ContactsOpen() {
