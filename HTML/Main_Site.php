@@ -1,3 +1,6 @@
+<?php
+    include "../PHP/login.php"
+?>
 <!DOCTYPE html>
 <html lang="sk">
 <head>
@@ -33,16 +36,16 @@
         </div>
         <div class="login_Form border cutOff">
             <div class="form">
-                <form>
-                    <input type="text" id="user" autocomplete="off" required>
+                <form method="post" action="">
+                    <input type="text" id="user" name="txt_uname" autocomplete="off" required>
                     <label>Prihlasovacie meno</label>
                     <span class="spanName"></span>
 
-                    <input type="password" id="password" autocomplete="off" required>
+                    <input type="password" id="password" name="txt_pwd" autocomplete="off" required>
                     <label>Heslo</label>
                     <span class="spanPass"></span>
 
-                    <button class="btn" onclick="location.href='System.html';" type="submit">Prihlásiť</button>
+                    <button class="btn" type="submit" value="Submit" name="but_submit" id="but_submit">Prihlásiť</button>
 <!--                    <a href="#">Zabudnute heslo</a>-->
                 </form>
             </div>

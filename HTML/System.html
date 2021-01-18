@@ -20,55 +20,12 @@
     <link rel="stylesheet" href="../CSS/text.css">
     <link rel="stylesheet" href="../CSS/System/contacts.css">
     <link rel="stylesheet" href="../CSS/System/Settings.css">
-    <script>
-        $(document).ready( function() {
-            $("#homeButton").on("click", function() {
-                $("#componentWindow").load("SystemComponents/Home_Component.html");
-                active(1);
-                closeNav();
-            });
-            $("#cursesButton").on("click", function() {
-                $("#componentWindow").load("SystemComponents/Curses_Component.html");
-                active(4);
-                closeNav();
-            });
-            $("#messegesButton").on("click", function() {
-                $("#componentWindow").load("SystemComponents/Messeges_Component.html");
-                active(2);
-                closeNav();
-            });
-            $("#settingsButton").on("click", function() {
-                $("#componentWindow").load("SystemComponents/Settings_Component.html");
-                active(8);
-                closeNav();
-            });
-            $("#contactsButton").on("click", function() {
-                $("#componentWindow").load("SystemComponents/Contacts_Component.html");
-                active(3);
-                closeNav();
-            });
-            $("#carierButton").on("click", function() {
-                $("#componentWindow").load("SystemComponents/Cariere_Component.html");
-                active(5);
-                closeNav();
-            });
-            $("#blogButton").on("click", function() {
-                $("#componentWindow").load("SystemComponents/Blog_Component.html");
-                active(6);
-                closeNav();
-            });
-            $("#powerButton").on("click", function() {
-                $("#componentWindow").load("SystemComponents/Power_Component.html");
-                active(7);
-                closeNav();
-            });
-        });
-
-    </script>
+    <script src="../JS/MainSite/system_functionality.js"></script>
+    <script src="../JS/MainSite/system_onClick.js"></script>
 </head>
 <body onload="fLoad()">
     <div class="topnav" id="myTopnav">
-        <a href="Main_Site.html" class="col-sm">Odhlásiť <span class="glyphicon glyphicon-log-out"></span></a>
+        <a href="Main_Site.php" class="col-sm">Odhlásiť <span class="glyphicon glyphicon-log-out"></span></a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
         </a>
@@ -98,60 +55,67 @@
     <div class="footer" id="footer">
         <h5>© 2020 Žilinská univerzita v Žiline. Všetky práva vyhradené.</h5>
     </div>
+
+    <div id="guest_view" class="guest-view">
+        <div class="guest-window" >
+            <div class="col-sm-12">
+                <div class="closebtn">
+                    <span class="glyphicon glyphicon-remove" onclick="guestViewClose()"></span>
+                </div>
+            </div>
+
+            <div id="registration_guest" class="registration-guest">
+                <h2 class="title col-sm-12">Registrácia</h2>
+                <form>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <label>Meno</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <label>Priezvisko</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <label>E-mail</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <label>Telefónne číslo</label>
+                            <input type="text">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <input class="btn" type="submit">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <input class="btn" type="reset">
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="textShow_guest" class="textShow-guest">
+                <h2 class="title col-sm-12">Nazov clanku</h2>
+                <div class="text-area">
+                    <h5 class="text col-sm-12">
+
+                    </h5>
+                </div>
+                <h5 class="text-detail col-sm-12">Dátum: xx.xx.xxxx</h5>
+                <h5 class="text-detail col-sm-12">Autor: meno meno</h5>
+            </div>
+
+        </div>
+    </div>
 </body>
 </html>
-<script>
-    function fLoad() {
-        $("#componentWindow").load("SystemComponents/Blog_Component.html");
-        active(1);
-    }
-
-    function active(k) {
-        var links = document.getElementsByClassName("active");
-        for (i = 0; i < links.length; i++) {
-            links[i].classList.add("menuItem");
-            links[i].classList.remove("active");
-        }
-        var menuItems = document.getElementsByClassName("menuItem");
-        menuItems[k-1].classList.add("active");
-        menuItems[k-1].classList.remove("menuItem");
-    }
-
-    function BlogOpen() {
-        $("#componentWindow").load("SystemComponents/Blog_Component.html");
-        active(6);
-    }
-
-    function ContactsOpen() {
-        $("#componentWindow").load("SystemComponents/Contacts_Component.html");
-        active(3);
-    }
-
-    function MessegesOpen() {
-        $("#componentWindow").load("SystemComponents/Messeges_Component.html");
-        active(2);
-    }
-
-    function SettingsOpen() {
-        $("#componentWindow").load("SystemComponents/Settings_Component.html");
-        active(8);
-    }
-
-    function myFunction() {
-        var x = document.getElementById("myTopnav");
-        if (x.className === "topnav") {
-            x.className += " responsive";
-        } else {
-            x.className = "topnav";
-        }
-    }
-    function openNav() {
-       document.getElementById("mySidenav").style.width = "250px";
-        document.getElementById("sidenav-button").style.width = "0px";
-    }
-
-    function closeNav() {
-        document.getElementById("mySidenav").style.width = "0";
-        document.getElementById("sidenav-button").style.width = "30px";
-    }
-</script>
