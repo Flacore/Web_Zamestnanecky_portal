@@ -36,7 +36,7 @@
         </div>
         <div class="login_Form border cutOff">
             <div class="form">
-                <form method="post" action="">
+                <form method="post">
                     <input type="text" id="user" name="txt_uname" autocomplete="off" required>
                     <label>Prihlasovacie meno</label>
                     <span class="spanName"></span>
@@ -84,8 +84,9 @@
                         for ($i = 0; $i < $n; $i++) {
                             $row = $data[$i];
                             if($row['verejne']!=0) {
-                                    echo "  <div class=\"contentWindow\" id=\"aktualityWindow\">
-                                <div onclick=\"showTextGuest()\">
+                                    echo "  <div class=\"contentWindow\">
+                                <div>
+                                    <h1 style='display: none'>".$row['idBlog']."</h1>
                                     <h4 class=\"txtCenter txtBlack\">".$row['nadpis']."</h4>
                                     <h5 class=\"txtJustify txtBlack\">
                                         ".$row['predtext']."
@@ -141,8 +142,9 @@
                         for ($i = 0; $i < $n; $i++) {
                             $row = $data[$i];
                             if($row['verejne']!=0) {
-                            echo "  <div class=\"contentWindow\" id=\"aktualityWindow\">
-                                <div onclick=\"showTextGuest()\">
+                            echo "  <div class=\"contentWindow\">
+                                <div>
+                                    <h1 style='display: none'>".$row['idBlog']."</h1>
                                     <h4 class=\"txtCenter txtBlack\">".$row['nadpis']."</h4>
                                     <h5 class=\"txtJustify txtBlack\">
                                         ".$row['predtext']."
@@ -240,7 +242,7 @@
         </h4>
         <br>
         <?php
-        $sql = mysqli_query($con, "select * from kariera join pracovisko ");
+        $sql = mysqli_query($con, "select * from kariera join pracovisko  where verejne='1'");
         $num = mysqli_query($con, "select count(*) as NumberData from kariera where verejne='1'");
         $num_row=mysqli_fetch_array($num);
         $n=$num_row['NumberData'];
@@ -272,7 +274,7 @@
                                     " . $row['popis'] . "
                                 </td>
                                 <td>" . $row['Názov'] . "</td>
-                                <td><button class=\"carier-btn\">Dokument (PDF)</button></td>
+                                <td><button onclick=\"window.location.href='".$row['pdf']."'\" class=\"carier-btn\">Dokument (PDF)</button></td>
                             </tr>
                         </div>
                     ";
@@ -305,7 +307,7 @@
             </h4>
             <br>
             <?php
-            $sql = mysqli_query($con, "select * from prednasky ");
+            $sql = mysqli_query($con, "select * from prednasky  where verejne='1' ");
             $num = mysqli_query($con, "select count(*) as NumberData from prednasky where verejne='1'");
             $num_row=mysqli_fetch_array($num);
             $n=$num_row['NumberData'];
@@ -426,14 +428,6 @@
             </div>
 
             <div id="textShow_guest" class="textShow-guest">
-                <h2 class="title col-sm-12">Nazov clanku</h2>
-                <div class="text-area">
-                    <h5 class="text col-sm-12">
-
-                    </h5>
-                </div>
-                <h5 class="text-detail col-sm-12">Dátum: xx.xx.xxxx</h5>
-                <h5 class="text-detail col-sm-12">Autor: meno meno</h5>
             </div>
 
         </div>
@@ -443,6 +437,22 @@
         <h5>© 2020 Žilinská univerzita v Žiline. Všetky práva vyhradené.</h5>
     </div>
     <script src="../JS/HomeSite/homeSite_onClick.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $(".contentWindow div").click(function(){
+                $id = $(this).find('h1:first-child').text();
+                $.ajax({
+                    type: 'POST',
+                    data: {id: $id},
+                    url: '../PHP/Main%20Site/text.php',
+                    success: function(data) {
+                        document.getElementById('textShow_guest').innerHTML=data;
+                        showTextGuest();
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html>
 

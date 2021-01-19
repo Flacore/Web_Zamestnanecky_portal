@@ -158,7 +158,8 @@
 }
 
 .Messenger-messegeWindow{
-    height: 100%;
+
+    height: 94%;
 }
 .msg-Window{
     overflow: scroll;
@@ -173,7 +174,7 @@
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 10%;
+    height: 6%;
     border-top: black 1px solid;
 }
 

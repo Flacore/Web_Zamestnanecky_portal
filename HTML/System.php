@@ -1,3 +1,15 @@
+<?php
+    include "../PHP/config.php";
+    if(!isset($_SESSION['session'])){
+        header('Location: Main_Site.php');
+    }
+    $id=$_SESSION['session'];
+
+    if(isset($_POST['but_logout'])){
+        session_destroy();
+        header('Location: Main_Site.php');
+    }
+?>
 <!DOCTYPE html>
 <html lang="sk">
 <head>
@@ -25,7 +37,9 @@
 </head>
 <body onload="fLoad()">
     <div class="topnav" id="myTopnav">
-        <a href="Main_Site.php" class="col-sm">Odhlásiť <span class="glyphicon glyphicon-log-out"></span></a>
+        <form method='post' action="">
+            <input class="btn-submit" type="submit" value="Logout" name="but_logout"></input>
+        </form>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
         </a>

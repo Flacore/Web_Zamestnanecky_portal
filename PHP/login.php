@@ -17,11 +17,13 @@ if(isset($_POST['but_submit'])) {
 
         if ($count > 0) {
             //Prihlasi uzivatela
-            $_SESSION['uname'] = $uname;
-            header('Location: ../HTML/System.html');
+            $result = mysqli_query($con, "select idLogin  as UserData from login where Login='".$uname."' and password='".$password."'");
+            $row = mysqli_fetch_array($result);
+            $id = $row['UserData'];
+            $_SESSION['session'] = $id;
+            header('Location: ../HTML/System.php');
 
         } else {
-            alert($password);
             $message = "Zle meno alebo heslo.";
             echo "<script type='text/javascript'>alert('$message');</script>";
         }

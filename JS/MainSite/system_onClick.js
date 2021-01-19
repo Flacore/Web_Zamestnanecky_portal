@@ -1,5 +1,5 @@
 function fLoad() {
-    $("#componentWindow").load("SystemComponents/Home_Component.html");
+    $("#componentWindow").load("SystemComponents/Home_Component.php");
     active(1);
 }
 
@@ -15,22 +15,22 @@ function active(k) {
 }
 
 function BlogOpen() {
-    $("#componentWindow").load("SystemComponents/Blog_Component.html");
+    $("#componentWindow").load("SystemComponents/Blog_Component.php");
     active(6);
 }
 
 function ContactsOpen() {
-    $("#componentWindow").load("SystemComponents/Contacts_Component.html");
+    $("#componentWindow").load("SystemComponents/Contacts_Component.php");
     active(3);
 }
 
 function MessegesOpen() {
-    $("#componentWindow").load("SystemComponents/Messeges_Component.html");
+    $("#componentWindow").load("SystemComponents/Messeges_Component.php");
     active(2);
 }
 
 function SettingsOpen() {
-    $("#componentWindow").load("SystemComponents/Settings_Component.html");
+    $("#componentWindow").load("SystemComponents/Settings_Component.php");
     active(8);
 }
 
