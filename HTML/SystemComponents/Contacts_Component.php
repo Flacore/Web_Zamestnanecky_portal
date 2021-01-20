@@ -7,9 +7,9 @@
     <div class="col-sm-12 searchWindow">
         <form id="myForm" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/System/contacts.php" method="post">
             <label>Meno/Priezvisko</label>
-            <input name="Meno" class="input" type="text">
+            <input id="Meno" name="Meno" class="input" type="text">
             <label>Pracovisko</label>
-            <input name="pracovisko" class="input" type="text">
+            <input id="pracovisko" name="pracovisko" class="input" type="text">
             <div class="col-xs-6"><input class="buttons" type="submit" value="Vyhľadať zamestnanca"></div>
             <div class="col-xs-6"><input class="buttons" type="reset" value="Resetovať vyhľadávanie"></div>
         </form>

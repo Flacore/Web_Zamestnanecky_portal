@@ -29,7 +29,7 @@ while ($rows = $sql->fetch_assoc()){
 }
 for ($j=0;$j<$i;$j++){
     $row=$dataText[$j];
-    if($row['Uzivatel_idUzivatel']=$prijemca){
+    if($row['Uzivatel_idUzivatel']==$prijemca){
         echo "<div class=\"received-msg col-sm-12\">
                     <h5 class=\"sender\">".$prijemca_meno."</h5>
                     <div class=\"msgText\">
