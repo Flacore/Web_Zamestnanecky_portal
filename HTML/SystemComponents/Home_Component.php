@@ -42,7 +42,7 @@
                             if($i>0) {
                                 for ($j = 0; $j < 1; $j++) {
                                     echo "<div class=\"NotificationSlides textSlide\">
-                                <h4>text</h4>
+                                <h4>".$i.". notifikácií</h4>
                                  </div>";
                                 }
                             }else{
@@ -74,7 +74,7 @@
                             if($i>0) {
                                 for ($j = 0; $j < 1; $j++) {
                                     echo "<div class=\"AktualitySlides textSlide\">
-                                <h4>text</h4>
+                                <h4>".$i.". aktualít</h4>
                                  </div>";
                                 }
                             }else{
@@ -105,7 +105,7 @@
                             if($i>0) {
                                 for ($j = 0; $j < 1; $j++) {
                                     echo "<div class=\"OznamySlides textSlide\">
-                                <h4>text</h4>
+                                <h4>".$i.". oznamov</h4>
                                  </div>";
                                 }
                             }else{
@@ -161,7 +161,7 @@
                             if($i>0) {
                                 for ($j = 0; $j < 1; $j++) {
                                     echo "<div class=\"MessegesSlides textSlide\">
-                                <h4>".$row['text']."</h4>
+                                <h4>".$i.". správ</h4>
                                  </div>";
                                 }
                             }else{

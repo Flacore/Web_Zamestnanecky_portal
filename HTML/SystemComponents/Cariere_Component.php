@@ -5,7 +5,7 @@
         <h2 class="txtCenter txtBlack">Hladáme</h2>
         <br>
         <?php
-        $sql = mysqli_query($con, "select * from kariera join pracovisko ");
+        $sql = mysqli_query($con, "select * from kariera join pracovisko on kariera.Pracovisko_idPracovisko=pracovisko.idPracovisko ");
         $num = mysqli_query($con, "select count(*) as NumberData from kariera");
         $num_row=mysqli_fetch_array($num);
         $n=$num_row['NumberData'];
@@ -28,7 +28,7 @@
                         <div>";
             for ($i = 0; $i < $n; $i++) {
                 $row = $data[$i];
-                if($row['verejne']!=0) {
+                if($row['verejne']==0 || $row['verejne']==1) {
                     echo "               
                          <div>
                                 <tr>

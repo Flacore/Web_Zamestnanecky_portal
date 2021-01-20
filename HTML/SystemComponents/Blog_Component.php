@@ -10,7 +10,7 @@
         <div id="_msg-sideMenu" class="msg-sideMenu">
             <div id="_NameList" class="NameList row">
                 <?php
-                $sql = mysqli_query($con, "select * from blog join (uzivatel join os_udaje)");
+                $sql = mysqli_query($con, "select * from blog join (uzivatel join os_udaje on uzivatel.OS_udaje_idOS_udaje=os_udaje.idOS_udaje)on blog.Uzivatel_idUzivatel=uzivatel.idUzivatel");
                 $num = mysqli_query($con, "select count(*) as NumberData from blog ");
                 $num_row=mysqli_fetch_array($num);
                 $n=$num_row['NumberData'];
@@ -24,7 +24,7 @@
                     for ($i = 0; $i < $n; $i++) {
                         $row = $data[$i];
                         echo "
-                    <div class=\"NameList-item blog-item\" id='list-item'>
+                    <div class=\"NameList-item blog-item\">
                     <h1 style='display: none'>".$row['idBlog']."</h1>
                     <div class=\"col-md-12\">
                         <h4 class=\"Name-Blog\">".$row['nadpis']."</h4>
@@ -78,14 +78,13 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function(){
-        $("#list-item").click(function(){
+        $("#_NameList .NameList-item").click(function(){
             $id = $(this).find('h1:first-child').text();
             $.ajax({
                 type: 'POST',
                 data: {id: $id},
                 url: '../PHP/System/blog.php',
                 success: function(data) {
-                    alert("idem")
                     document.getElementById('messegeWindow').innerHTML=data;
                 }
             });

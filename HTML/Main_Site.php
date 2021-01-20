@@ -71,7 +71,7 @@
                     $podmienka=" aktualita='1'";
 
                     $sql = mysqli_query($con, "select * from blog where aktualita='1' ");
-                    $num = mysqli_query($con, "select count(*) as NumberData from blog where aktualita='1' and verejne='1' ");
+                    $num = mysqli_query($con, "select count(*) as NumberData from blog where aktualita='1'");
                     $num_row=mysqli_fetch_array($num);
                     $n=$num_row['NumberData'];
                     $i = 0;
@@ -129,7 +129,7 @@
                     <br>
                     <?php
                     $sql = mysqli_query($con, "select * from blog where aktualita='0' ");
-                    $num = mysqli_query($con, "select count(*) as NumberData from blog where aktualita='0' and verejne='1'");
+                    $num = mysqli_query($con, "select count(*) as NumberData from blog where aktualita='0' ");
                     $num_row=mysqli_fetch_array($num);
                     $n=$num_row['NumberData'];
                     $i = 0;
@@ -137,12 +137,11 @@
                         $data[$i]=$rows;
                         ++$i;
                     }
-
                     if($n>0) {
                         for ($i = 0; $i < $n; $i++) {
                             $row = $data[$i];
                             if($row['verejne']!=0) {
-                            echo "  <div class=\"contentWindow\">
+                                echo "  <div class=\"contentWindow\">
                                 <div>
                                     <h1 style='display: none'>".$row['idBlog']."</h1>
                                     <h4 class=\"txtCenter txtBlack\">".$row['nadpis']."</h4>
@@ -329,10 +328,10 @@
                 for ($i = 0; $i < $n; $i++) {
                     $row = $data[$i];
                     if($row['verejne']!=0) {
-                        if($row['cena']==null)
+                        if($row['cena']==null || $row['cena']==0.0)
                             $cena="n/a";
                         else
-                            $cena=row['cena'];
+                            $cena=$row['cena'];
                         echo "               
                          <tr onclick=\"tableDetail('kurzDetail".$i."')\">
                                 <td>".$row['datum']."</td>

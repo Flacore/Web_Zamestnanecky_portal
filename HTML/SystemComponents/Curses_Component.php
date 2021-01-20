@@ -32,11 +32,11 @@
                         </tr>";
                 for ($i = 0; $i < $n; $i++) {
                     $row = $data[$i];
-                    if($row['verejne']!=0) {
-                        if($row['cena']==null)
+                    if(true) {
+                        if($row['cena']==null || $row['cena']==0)
                             $cena="n/a";
                         else
-                            $cena=row['cena'];
+                            $cena=$row['cena'];
                         echo "               
                              <tr onclick=\"tableDetail('kurzDetail".$i."')\">
                                     <td>".$row['datum']."</td>
