@@ -10,7 +10,6 @@ $id=$_SESSION['session'] ?>
     <div id="_msg-sideMenu" class="msg-sideMenu">
         <div id="_NameList" class="NameList row">
 
-
             <?php
             $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
             $i = 0;
@@ -39,7 +38,7 @@ $id=$_SESSION['session'] ?>
                     else
                         $prijemca=$row['Uzivatel_idUzivatel2'];
 
-                    $sql = mysqli_query($con, "select * from os_udaje join uzivatel where idUzivatel='".$uzivatel."' ");
+                    $sql = mysqli_query($con, "select * from os_udaje join uzivatel on OS_udaje_idOS_udaje=idOS_udaje where idUzivatel='".$prijemca."' ");
                     $k = 0;
                     while ($rows = $sql->fetch_assoc()){
                         $_data[$k]=$rows;
