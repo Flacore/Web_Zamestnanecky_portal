@@ -15,6 +15,7 @@ $id=$_SESSION['session'] ?>
                         <th>Kariéra</th>
                         <th>Blog</th>
                         <th>Právomoci</th>
+                        <th>Odstráň</th>
                     </tr>
                     <div id="position_window">
                         <div id="position_item">
@@ -37,6 +38,7 @@ $id=$_SESSION['session'] ?>
                                         <td><input ".checkbox($row['Kariera'])." name=\"care_".($j+1)."\" type=\"checkbox\"></td>
                                         <td><input ".checkbox($row['Blog'])." name=\"blog_".($j+1)."\" type=\"checkbox\"></td>
                                         <td><input ".checkbox($row['Pravomoci'])." name=\"powr_".($j+1)."\" type=\"checkbox\"></td>
+                                        <td><input  name=\"odst_".($j+1)."\" type=\"checkbox\"></td>
                                     </tr>
                                 ";
                             }
