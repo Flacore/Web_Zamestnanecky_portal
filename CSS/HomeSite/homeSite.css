@@ -132,10 +132,6 @@ body{
 #o_nas iframe{
     width: 100%;
     height: 350px;
-    frameborder: 0;
-    scrolling: 0;
-    marginheight: 0;
-    marginwidth: 0;
     border: black solid 1px;
 }
 
@@ -206,7 +202,8 @@ body{
 
 .oddelovac{
     width: 100%;
-    position: relative; background-attachment: fixed; background-position: center; background-repeat: no-repeat; background-size: cover"
+    position: relative; background-attachment: fixed; background-position: center; background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .kurzy{
