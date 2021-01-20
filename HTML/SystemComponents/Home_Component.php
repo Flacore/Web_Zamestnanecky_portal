@@ -9,7 +9,7 @@
                 <div class="col-sm-12 center"><div class="imgAvatar center shadow"></div></div>
                 <div class="col-sm-12 center"><h2 class="welcomSign ">Dobrý deň,
                     <?php
-                    $sql = mysqli_query($con, "select * from login join (uzivatel join os_udaje) where idLogin='".$id."'");
+                    $sql = mysqli_query($con, "select * from login join (uzivatel join os_udaje on uzivatel.OS_udaje_idOS_udaje = os_udaje.idOS_udaje) on Login.idLogin= uzivatel.Login_idLogin where idLogin='".$id."'");
                     $i = 0;
                     while ($rows = $sql->fetch_assoc()) {
                         $data[$i] = $rows;
