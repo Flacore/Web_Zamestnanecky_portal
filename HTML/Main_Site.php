@@ -242,7 +242,7 @@
         </h4>
         <br>
         <?php
-        $sql = mysqli_query($con, "select * from kariera join pracovisko  where verejne='1'");
+        $sql = mysqli_query($con, "select * from kariera join pracovisko on kariera.Pracovisko_idPracovisko=pracovisko.idPracovisko where verejne='1'");
         $num = mysqli_query($con, "select count(*) as NumberData from kariera where verejne='1'");
         $num_row=mysqli_fetch_array($num);
         $n=$num_row['NumberData'];
