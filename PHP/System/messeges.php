@@ -47,5 +47,6 @@ for ($j=0;$j<$i;$j++){
                 </div>";
     }
 }
+echo "<input name='conv_id' type='text' style='display: none'  value='$konverzacia'>";
 
 ?>

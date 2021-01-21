@@ -6,7 +6,7 @@
             <div class="settings-label"><h3 class="txt-label">Zmena profilových údajov</h3></div>
             <div class="personal-settings ">
                 <form method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/personalSetting.php">
-                    <div id="_NameList" class="NameList row">
+                    <div class="settings_view row">
                         <?php
                         $sql = mysqli_query($con, "select * from os_udaje join uzivatel where Login_idLogin='".$id."' ");
                         $i = 0;
@@ -48,7 +48,7 @@
         <div class="settings-border col-md-4">
             <div class="settings-label"><h3 class="txt-label">Prehlad osobných údajov</h3></div>
             <div class="info-overview row">
-                <div id="_NameList" class="NameList row">
+                <div class="settings_view row">
                     <?php
                     $sql = mysqli_query($con, "select * from pracovisko join (login join pozícia) where idLogin='".$id."' ");
                     $i = 0;

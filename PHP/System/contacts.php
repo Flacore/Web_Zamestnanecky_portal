@@ -39,8 +39,9 @@ for ($j = 0; $j<$i; $j++) {
                         </div>
                     </div>
                     <div class=\"col-sm-3 full-height\">
-                        <div class=\"messege-send\" onclick=\"sendMSG('Text')\">
-                            <span class=\"glyphicon glyphicon-envelope msg-icon\"></span>
+                        <div class=\"messege-send\" onclick=\"sendMSG('".$row['idUzivatel']."')\">
+                        <span class=\"glyphicon glyphicon-envelope msg-icon\">
+                            </span>                   
                         </div>
                     </div>
                 </div>

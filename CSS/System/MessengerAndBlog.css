@@ -101,6 +101,7 @@
 }
 
 .NameList-item{
+    cursor: pointer;
     border-bottom: black 1px solid;
     width: 100%;
     min-height: 60px;
@@ -155,6 +156,10 @@
 .nopadding {
     padding: 0 !important;
     margin: 0 !important;
+}
+
+#msg_Window{
+    visibility: hidden;
 }
 
 .Messenger-messegeWindow{

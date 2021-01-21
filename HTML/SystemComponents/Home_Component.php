@@ -42,12 +42,12 @@
                             if($i>0) {
                                 for ($j = 0; $j < 1; $j++) {
                                     echo "<div class=\"NotificationSlides textSlide\">
-                                <h4>".$i.". notifikácií</h4>
+                                <h4>".$i."x</h4>
                                  </div>";
                                 }
                             }else{
                                 echo "<div class=\"NotificationSlides textSlide\">
-                                <h4>Neexistuje dostatok záznamov.</h4>
+                                <h4>Žiadna nová notifikácia.</h4>
                                  </div>";
                             }
                             ?>
@@ -74,12 +74,12 @@
                             if($i>0) {
                                 for ($j = 0; $j < 1; $j++) {
                                     echo "<div class=\"AktualitySlides textSlide\">
-                                <h4>".$i.". aktualít</h4>
+                                <h4>".$i."x</h4>
                                  </div>";
                                 }
                             }else{
                                 echo "<div class=\"AktualitySlides textSlide\">
-                                <h4>Neexistuje dostatok záznamov.</h4>
+                                <h4>Žiadna nová aktualita.</h4>
                                  </div>";
                             }
                             ?>
@@ -105,12 +105,12 @@
                             if($i>0) {
                                 for ($j = 0; $j < 1; $j++) {
                                     echo "<div class=\"OznamySlides textSlide\">
-                                <h4>".$i.". oznamov</h4>
+                                <h4>".$i."x</h4>
                                  </div>";
                                 }
                             }else{
                                 echo "<div class=\"OznamySlides textSlide\">
-                                <h4>Neexistuje dostatok záznamov.</h4>
+                                <h4>Žiadny nový oznam.</h4>
                                  </div>";
                             }
                             ?>
@@ -161,12 +161,12 @@
                             if($i>0) {
                                 for ($j = 0; $j < 1; $j++) {
                                     echo "<div class=\"MessegesSlides textSlide\">
-                                <h4>".$i.". správ</h4>
+                                <h4>".$i."x</h4>
                                  </div>";
                                 }
                             }else{
                                 echo "<div class=\"MessegesSlides textSlide\">
-                                <h4>Neexistuje dostatok záznamov.</h4>
+                                <h4>Žiadna nová správa.</h4>
                                  </div>";
                             }
                             ?>

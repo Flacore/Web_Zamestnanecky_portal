@@ -76,19 +76,19 @@ $id=$_SESSION['session'] ?>
     </div>
 </div>
 
-<div class="col-md-9 Messenger-messegeWindow">
-    <div id="msgs" class="msg-Window">
+<div id="msg_Window" class="col-md-9 Messenger-messegeWindow">
+    <form action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_messege.php" method="post">
+        <div id="msgs" class="msg-Window">
 
-    </div>
+        </div>
 
-    <div class="msg-textForm">
-        <form target="#here" method="post">
-            <br>
-            <input type="text" class="messege-txt col-sm-12">
-            <label class=" col-sm-12 formDisclaimer">Odoslať stlačním ENTER</label>
-            <div class="col-sm-12 send-BT"><input type="submit" value="Odoslať"></div>
-        </form>
-    </div>
+        <div class="msg-textForm">
+                <br>
+                <input name="msg_text" type="text" class="messege-txt col-sm-12">
+                <label class=" col-sm-12 formDisclaimer">Odoslať stlačním ENTER</label>
+                <div class="col-sm-12 send-BT"><input type="submit" value="Odoslať"></div>
+        </div>
+    </form>
 </div>
 
 <script type="text/javascript">
@@ -110,7 +110,8 @@ $id=$_SESSION['session'] ?>
     });
 
     $("#openContacts").click(function () {
-        $("#componentWindow").load("SystemComponents/Contacts_Component.html");
+        $("#componentWindow").load("SystemComponents/Contacts_Component.php");
+        active(3);
     });
 
     function msgOpen() {
@@ -133,9 +134,10 @@ $id=$_SESSION['session'] ?>
             $.ajax({
                 type: 'POST',
                 data: {n: $n,k:$k},
-                url: '../PHP/System/massages.php',
+                url: '../PHP/System/messeges.php',
                 success: function(data) {
                     document.getElementById('msgs').innerHTML=data;
+                    document.getElementById('msg_Window').style.visibility="visible";
                 }
             });
         });
