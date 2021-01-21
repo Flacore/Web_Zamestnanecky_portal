@@ -28,9 +28,9 @@ $id=$_SESSION['session'] ?>
                 ++$i;
             }
             $row = $data[0];
-            $konv=$row['idKonverzacie'];
 
             if($i>0) {
+                $konv=$row['idKonverzacie'];
                 for ($j = 0; $j < $i; $j++) {
                     $row=$data[$j];
                     if($row['Uzivatel_idUzivatel2']==$uzivatel)

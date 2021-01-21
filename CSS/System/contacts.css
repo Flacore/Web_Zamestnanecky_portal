@@ -153,6 +153,7 @@
     height: 50px;
     background-color: #3cc5aa;
     border-radius: 100%;
+    cursor: pointer;
 }
 
 .msg-icon{
