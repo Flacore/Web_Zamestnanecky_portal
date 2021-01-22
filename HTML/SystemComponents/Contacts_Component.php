@@ -38,9 +38,10 @@
     });
     function sendMSG($Name) {
         $.post("http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/new_konverzation.php",{ user_id: $Name} ,function(data) {
-            if(data=="ok")
-            $("#componentWindow").load("SystemComponents/Messeges_Component.php");
-            active(2);
+            if(data=="ok") {
+                $("#componentWindow").load("SystemComponents/Messeges_Component.php");
+                active(2);
+            }
         });
     }
 </script>

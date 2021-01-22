@@ -1,4 +1,6 @@
-<?php include "../../PHP/config.php"; ?>
+<?php include "../../PHP/config.php";
+$id=$_SESSION['session'];
+?>
 <body>
     <div class="container" id="kurzy">
         <div class="position tableStyle">
@@ -58,7 +60,7 @@
                                                 <p class=\"txtJustify\">
                                                     ".$row['popis']."
                                                 </p>
-                                                <button class=\"btn\" onclick=\"showRegistrationGuest(".$row['idprednasky'].")\">Prihlásiť sa</button>
+                                                <button class=\"btn\" onclick=\"Registration(".$row['idprednasky'].",".$id.")\">Prihlásiť sa</button>
                                             </div>
                                         </div>
                                     </td>
@@ -82,6 +84,14 @@
         <br><br><br>
     </div>
     <script>
+
+        function Registration($prednaska,$login) {
+            $.post("http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_userCurses_registration.php",{ prednaska_id: $prednaska, login_id: $login} ,function(data) {
+                alert("Prihlásenie prebehlo úspešne!")
+                $("#componentWindow").load("SystemComponents/Home_Component.php");
+                active(1);
+            });
+        }
 
         function tableDetail($name) {
             if(document.getElementById($name).classList.contains("detailHide")){

@@ -53,6 +53,34 @@
     <div class="col-md-9 Messenger-messegeWindow" id="messegeWindow">
 
     </div>
+
+    <div class="display_No" id="addBlog">
+        <div class="add_Blog">
+            <form action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_blog.php" method="post">
+                <legend>Kategória:</legend>
+                <input checked type="checkbox" name="typ" value='1' onclick="onlyOne(this,'Typ',2)">Aktualita<br>
+                <input type="checkbox" name="typ" value='0' onclick="onlyOne(this,'Typ',1)">Oznam<br>
+
+                <legend>Obecenstvo:</legend>
+                <input checked type="checkbox" name="verejnost" value='1' onclick="onlyOne(this,'Verejnost',0)">Verejná<br>
+                <input type="checkbox" name="verejnost" value='0' onclick="onlyOne(this,'Verejnost',0)">Súkromná<br>
+
+                <legend>Nadpis:</legend>
+                <textarea required name="nadpis" rows="1"></textarea>
+
+                <legend>Úvod:</legend>
+                <textarea required name="predtext" rows="5"></textarea>
+
+                <div id="text_area">
+                    <legend>Text:</legend>
+                    <textarea name="text" rows="10"></textarea>
+                </div>
+
+                <div class="col-sm-12 send-BT"><input name="but_submit" id="but_submit" type="submit" value="Odoslať"></div>
+            </form>
+        </div>
+    </div>
+
 </div>
 <script type="text/javascript">
     if ( window.history.replaceState ) {
@@ -61,8 +89,25 @@
 
 
     $("#newBlog").click(function () {
-
+        document.getElementById('messegeWindow').innerHTML="";
+        var outer = document.getElementById('messegeWindow');
+        var inner = document.getElementById('addBlog');
+        outer.innerHTML=inner.innerHTML;
+        msgOpen();
     });
+
+    function onlyOne(checkbox,druh,tmp) {
+        var checkboxes = document.getElementsByName(druh)
+        checkboxes.forEach((item) => {
+            if (item !== checkbox) item.checked = false
+        })
+        if(tmp==1){
+            document.getElementById('text_area').style.display='none';
+        }
+        if(tmp==2){
+            document.getElementById('text_area').style.display='block';
+        }
+    }
 
     function msgOpen() {
         var x = document.getElementById("_msg-sideMenu");
@@ -76,9 +121,11 @@
         }
     }
 </script>
+
 <script type="text/javascript">
     $(document).ready(function(){
         $("#_NameList .NameList-item").click(function(){
+            document.getElementById('messegeWindow').innerHTML="";
             $id = $(this).find('h1:first-child').text();
             $.ajax({
                 type: 'POST',
@@ -86,6 +133,7 @@
                 url: '../PHP/System/blog.php',
                 success: function(data) {
                     document.getElementById('messegeWindow').innerHTML=data;
+                    msgOpen();
                 }
             });
         });
