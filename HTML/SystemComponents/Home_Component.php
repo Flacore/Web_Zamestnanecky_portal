@@ -149,7 +149,7 @@
                             $uzivatel= $row['idUzivatel'];
 
                             $uzivatel=$row['idUzivatel'];
-                            $sql = mysqli_query($con, "select * from sprava join konverzacia where Uzivatel_idUzivatel2='".$uzivatel."'
+                            $sql = mysqli_query($con, "select * from konverzacia where Uzivatel_idUzivatel2='".$uzivatel."'
                             or Uzivatel_idUzivatel1='".$uzivatel."'");
                             $i = 0;
                             while ($rows = $sql->fetch_assoc()) {

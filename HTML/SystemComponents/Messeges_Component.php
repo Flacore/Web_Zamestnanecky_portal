@@ -27,12 +27,11 @@ $id=$_SESSION['session'] ?>
                 $data[$i] = $rows;
                 ++$i;
             }
-            $row = $data[0];
 
             if($i>0) {
-                $konv=$row['idKonverzacie'];
                 for ($j = 0; $j < $i; $j++) {
                     $row=$data[$j];
+                    $konv=$row['idKonverzacie'];
                     if($row['Uzivatel_idUzivatel2']==$uzivatel)
                         $prijemca=$row['Uzivatel_idUzivatel1'];
                     else

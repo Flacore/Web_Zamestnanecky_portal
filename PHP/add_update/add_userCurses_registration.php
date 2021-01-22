@@ -21,7 +21,7 @@ while ($rows = $sql->fetch_assoc()){
 }
 
 if($k==0){
-    $sql = "INSERT into prihlaseny (Uzivatel_idUzivatel,prednasky_idprednasky)Values ('$id_uzivatel','$id_uzivatel')";
+    $sql = "INSERT into prihlaseny (Uzivatel_idUzivatel,prednasky_idprednasky)Values ('$id_uzivatel','$id_prednaska')";
     mysqli_query($con, $sql);
 }
 

@@ -93,7 +93,6 @@
         var outer = document.getElementById('messegeWindow');
         var inner = document.getElementById('addBlog');
         outer.innerHTML=inner.innerHTML;
-        msgOpen();
     });
 
     function onlyOne(checkbox,druh,tmp) {
@@ -119,6 +118,7 @@
             x.className = "msg-sideMenu";
             z.className="Messenger-Menu";
         }
+
     }
 </script>
 
@@ -133,7 +133,6 @@
                 url: '../PHP/System/blog.php',
                 success: function(data) {
                     document.getElementById('messegeWindow').innerHTML=data;
-                    msgOpen();
                 }
             });
         });
