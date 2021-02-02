@@ -11,21 +11,17 @@ while ($rows = $sql->fetch_assoc()){
 }
 $row=$data[0];
 echo "
-        <div class=\"msg-textForm blog-top\">
-            <div class=\"col-sm-12 info-blog\">
+        <div class='blog-top'>
+            <div class=\"col-md-12 info-blog\">
                 <h2>".$row['nadpis']."</h2>
             </div>
-        </div>
-
-        <div id=\"article_view\" class=\"msg-Window blog-article\">
-            <div class=\"col-sm-12 predtext\">
+            <div class=\"col-md-12 predtext\">
                 <h5>".$row['predtext']."</h5>
             </div>
-            <div class=\"col-sm-12 text\">
+            <div class=\"col-md-12 text\">
                 <h5>".$row['text']."</h5>
             </div>
         </div>
-
         <div class=\"msg-textForm blog-bottom\">
             <div class=\"col-sm-12 info-blog\">
                 <div class=\"col-md-6\">

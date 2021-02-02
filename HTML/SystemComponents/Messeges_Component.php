@@ -93,6 +93,18 @@ $id=$_SESSION['session'] ?>
         window.history.replaceState( null, null, window.location.href );
     }
 
+    $(window).resize(function () {
+        var x = document.getElementById("_msg-sideMenu");
+        var z = document.getElementById("_sideMenu");
+        if($(window).width()>980){
+            x.className="";
+            z.className="";
+            x.classList.add('msg-sideMenu');
+            z.classList.add('Messenger-Menu');
+            z.classList.add('col-md-3');
+        }
+    });
+
     $(function() {
         $('#msgText').each(function() {
             $(this).find('input').keypress(function(e) {
@@ -118,8 +130,11 @@ $id=$_SESSION['session'] ?>
             z.className="respMenu";
             x.className += " resp";
         } else {
-            x.className = "msg-sideMenu";
-            z.className="Messenger-Menu";
+            x.className="";
+            z.className="";
+            x.classList.add('msg-sideMenu');
+            z.classList.add('Messenger-Menu');
+            z.classList.add('col-md-3');
         }
     }
 
@@ -143,6 +158,9 @@ $id=$_SESSION['session'] ?>
                 success: function(data) {
                     document.getElementById('msgs').innerHTML=data;
                     document.getElementById('msg_Window').style.visibility="visible";
+                    if($(window).width()<=980){
+                        msgOpen();
+                    }
                 }
             });
         });

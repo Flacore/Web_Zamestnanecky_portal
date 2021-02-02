@@ -1,32 +1,27 @@
-.messenger-window{
-    width: 100%;
-    height: 100%;
-    overflow: hidden;
-}
+    .Messenger-messegeWindow{
+        height: 94%;
+    }
 
-.icon {
-    display: none;
-}
+    .msg-sideMenu{
+        height: 92%;
+        width: 100%;
+    }
 
-.iconContact{
-    background-color: #1abc9c;
-    height: auto;
-    width: auto;
-    margin: 10px;
-    border-radius: 100%;
-    overflow: hidden;
-}
+    .icon {
+        display: none;
+    }
 
-.userIcon{
-    color: white;
-    font-size: 30px;
-    padding: 10px;
-}
+    .Messenger-Menu{
+        background-color: white;
+        height: 100%;
+        border-right: black 1px solid;
+    }
 
-.msg-sideMenu{
-    height: 92%;
-    width: 100%;
-}
+    .messenger-window{
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    }
 
 @media screen and (max-width: 980px) {
     .Messenger-messegeWindow{
@@ -41,17 +36,15 @@
         height: 10% !important;
         border-bottom: black 1px solid;
     }
-}
 
-@media screen and (max-width: 980px) {
-    .msg-sideMenu.resp {
+    .resp {
         height: 92%;
         width: 100%;
         display: block;
         transition: top 0.3s;
     }
 
-    .msg-sideMenu.resp div {
+    .resp div {
         display: block;
     }
     .respMenu{
@@ -60,10 +53,20 @@
     }
 }
 
-.Messenger-Menu{
-    background-color: white;
-    height: 100%;
-    border-right: black 1px solid;
+
+.iconContact{
+    background-color: #1abc9c;
+    height: auto;
+    width: auto;
+    margin: 10px;
+    border-radius: 100%;
+    overflow: hidden;
+}
+
+.userIcon{
+    color: white;
+    font-size: 30px;
+    padding: 10px;
 }
 
 .topSpace{
@@ -163,10 +166,6 @@
     visibility: hidden;
 }
 
-.Messenger-messegeWindow{
-
-    height: 94%;
-}
 .msg-Window{
     overflow: scroll;
     position: absolute;
@@ -294,22 +293,28 @@
 }
 
 .blog-item{
-    min-height: 80px !important;
-}
-
-.blog-article{
-    top: 10%;
-    height: 80% !important;
+    min-height: 100px !important;
+    height: auto !important;
 }
 
 .blog-bottom{
-    border: none;
-    height: 10% !important;
+    border-top: black solid 1px;
+    width: 100%;
+    height: 1% !important;
+}
+
+@media screen and (max-width: 980px) {
+        .blog-bottom{
+            border-top: black solid 1px;
+            width: 100%;
+            height: 10% !important;
+        }
 }
 
 .blog-top{
     border: none;
-    height: 10% !important;
+    overflow: scroll;
+    height: 90% !important;
     top: 0;
     bottom: unset;
 }

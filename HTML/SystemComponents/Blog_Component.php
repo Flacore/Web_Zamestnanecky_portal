@@ -87,6 +87,18 @@
         window.history.replaceState( null, null, window.location.href );
     }
 
+    $(window).resize(function () {
+        var x = document.getElementById("_msg-sideMenu");
+        var z = document.getElementById("_sideMenu");
+        if($(window).width()>980){
+            x.className="";
+            z.className="";
+            x.classList.add('msg-sideMenu');
+            z.classList.add('Messenger-Menu');
+            z.classList.add('col-md-3');
+        }
+    });
+
 
     $("#newBlog").click(function () {
         document.getElementById('messegeWindow').innerHTML="";
@@ -113,10 +125,13 @@
         var z = document.getElementById("_sideMenu");
         if (x.className === "msg-sideMenu") {
             z.className="respMenu";
-            x.className += " resp";
+            x.className = " resp";
         } else {
-            x.className = "msg-sideMenu";
-            z.className="Messenger-Menu";
+            x.className="";
+            z.className="";
+            x.classList.add('msg-sideMenu');
+            z.classList.add('Messenger-Menu');
+            z.classList.add('col-md-3');
         }
 
     }
@@ -140,6 +155,9 @@
                 url: '../PHP/System/blog.php',
                 success: function(data) {
                     document.getElementById('messegeWindow').innerHTML=data;
+                    if($(window).width()<=980){
+                        msgOpen();
+                    }
                 }
             });
         });
