@@ -17,6 +17,11 @@ function showRegistrationGuest() {
 
 function tableDetail($name) {
     if(document.getElementById($name).classList.contains("detailHide")){
+        var x, i;
+        x = document.querySelectorAll(".detail");
+        for (i = 0; i < x.length; i++) {
+            x[i].classList.add('detailHide');
+        }
         document.getElementById($name).classList.remove("detailHide");
     }else{
         document.getElementById($name).classList.add("detailHide");

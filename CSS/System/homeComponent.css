@@ -31,6 +31,7 @@
 }
 
 .infoBox{
+    cursor: pointer;
     margin-top: 20px;
     width: 250px;
     height: 250px;
@@ -69,6 +70,7 @@
 }
 
 .title{
+    cursor: pointer;
     text-align: center;
     color: white;
     text-transform: uppercase;

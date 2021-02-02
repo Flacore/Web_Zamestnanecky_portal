@@ -40,9 +40,6 @@
         <form method='post' action="">
             <input class="btn-submit" type="submit" value="Logout" name="but_logout"></input>
         </form>
-        <a href="javascript:void(0);" class="icon" onclick="myFunction()">
-            <i class="fa fa-bars"></i>
-        </a>
     </div>
 
     <div id="mySidenav" class="sidenav">

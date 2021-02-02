@@ -115,6 +115,7 @@
     background: linear-gradient(to right, #187bcd, #1167b1);
     width: 100%;
     min-height: 60px;
+    height: auto;
     padding-right: 0;
 }
 
@@ -271,11 +272,25 @@
     text-align: center;
 }
 
-.Name-Blog{
+.NameList-item .Name-Blog{
     margin-top: 5px;
     vertical-align: baseline;
     text-align: center;
     color: #4a4843;
+}
+.NameList-item_Opened .Name-Blog{
+    margin-top: 5px;
+    vertical-align: baseline;
+    text-align: center;
+    color: white;
+}
+
+.NameList-item .Date-Blog{
+    color: #4a4843;
+}
+
+.NameList-item_Opened .Date-Blog{
+    color: white;
 }
 
 .blog-item{

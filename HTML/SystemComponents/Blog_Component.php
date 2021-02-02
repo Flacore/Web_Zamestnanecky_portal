@@ -26,12 +26,12 @@
                         echo "
                     <div class=\"NameList-item blog-item\">
                     <h1 style='display: none'>".$row['idBlog']."</h1>
-                    <div class=\"col-md-12\">
+                    <div class=\"col-sm-12\">
                         <h4 class=\"Name-Blog\">".$row['nadpis']."</h4>
                     </div>
                     <div class=\"col-sm-12 info-blog\">
-                        <div class=\"col-md-6\">
-                            <h5>".$row['datum']."</h5>
+                        <div class=\"col-sm-12\">
+                            <h5 class='Date-Blog'>".$row['datum']."</h5>
                         </div>
                     </div>
                 </div>
@@ -120,13 +120,20 @@
         }
 
     }
-</script>
 
-<script type="text/javascript">
     $(document).ready(function(){
         $("#_NameList .NameList-item").click(function(){
             document.getElementById('messegeWindow').innerHTML="";
             $id = $(this).find('h1:first-child').text();
+
+            var x, i;
+            x = document.querySelectorAll(".NameList-item");
+            for (i = 0; i < x.length; i++) {
+                x[i].classList.remove('NameList-item_Opened');
+            }
+
+            $(this).addClass('NameList-item_Opened');
+
             $.ajax({
                 type: 'POST',
                 data: {id: $id},
