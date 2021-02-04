@@ -58,12 +58,12 @@
         <div class="add_Blog">
             <form action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_blog.php" method="post">
                 <legend>Kategória:</legend>
-                <input checked type="checkbox" name="typ" value='1' onclick="onlyOne(this,'Typ',2)">Aktualita<br>
-                <input type="checkbox" name="typ" value='0' onclick="onlyOne(this,'Typ',1)">Oznam<br>
+                <input checked class="typ" type="checkbox" name="typ" value='1' onclick="onlyOne(this,'.typ',2,1)">Aktualita<br>
+                <input class="typ" type="checkbox" name="typ" value='0' onclick="onlyOne(this,'.typ',1,2)">Oznam<br>
 
                 <legend>Obecenstvo:</legend>
-                <input checked type="checkbox" name="verejnost" value='1' onclick="onlyOne(this,'Verejnost',0)">Verejná<br>
-                <input type="checkbox" name="verejnost" value='0' onclick="onlyOne(this,'Verejnost',0)">Súkromná<br>
+                <input checked class="verejnost" type="checkbox" name="verejnost" value='1' onclick="onlyOne(this,'.verejnost',0,1)">Verejná<br>
+                <input class="verejnost" type="checkbox" name="verejnost" value='0' onclick="onlyOne(this,'.verejnost',0,2)">Súkromná<br>
 
                 <legend>Nadpis:</legend>
                 <textarea required name="nadpis" rows="1"></textarea>
@@ -99,7 +99,6 @@
         }
     });
 
-
     $("#newBlog").click(function () {
         document.getElementById('messegeWindow').innerHTML="";
         var outer = document.getElementById('messegeWindow');
@@ -107,11 +106,15 @@
         outer.innerHTML=inner.innerHTML;
     });
 
-    function onlyOne(checkbox,druh,tmp) {
-        var checkboxes = document.getElementsByName(druh)
-        checkboxes.forEach((item) => {
-            if (item !== checkbox) item.checked = false
-        })
+    function onlyOne(checkbox,druh,tmp,n) {
+        x = document.querySelectorAll(druh);
+        for (i = 0; i < x.length; i++) {
+            if(i+1!=n)
+                x[i].checked = false;
+            else
+                x[i].checked = true;
+        }
+
         if(tmp==1){
             document.getElementById('text_area').style.display='none';
         }
