@@ -27,6 +27,10 @@ if(true) {
 
     $sql = "INSERT into sprava (idSprva,text,datum,konverzacia_idKonverzacie,Uzivatel_idUzivatel)Values ('$id_sprava','$text',CURRENT_DATE,'$konverzacia','$id_uzivatel')";
     mysqli_query($con, $sql);
+
+    $sql = "UPDATE konverzacia SET precitane='0'  WHERE idKonverzacie='".$konverzacia."'";
+    $con->query($sql);
+    $con->close();
 }
 header('Location: http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/HTML/System.php');
 function alert($msg) {

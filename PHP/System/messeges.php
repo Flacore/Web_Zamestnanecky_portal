@@ -1,5 +1,6 @@
 <?php
 include "../config.php";
+
 $id=$_SESSION['session'];
 $prijemca=$_POST['n'];
 $konverzacia=$_POST['k'];
@@ -11,7 +12,8 @@ while ($rows = $sql->fetch_assoc()){
     ++$k;
 }
 $info=$_data[0];
-$prijemca_meno=$info['Meno']." ".$info['Priezvisko'];;
+$prijemca_meno=$info['Meno']." ".$info['Priezvisko'];
+
 $sql = mysqli_query($con, "select * from os_udaje join uzivatel on OS_udaje_idOS_udaje=idOS_udaje where idUzivatel='".$id."' ");
 $k = 0;
 while ($rows = $sql->fetch_assoc()){
@@ -20,6 +22,19 @@ while ($rows = $sql->fetch_assoc()){
 }
 $info=$_data[0];
 $ja_meno=$info['Meno']." ".$info['Priezvisko'];
+
+$dta = mysqli_query($con, "select * from sprava  where konverzacia_idKonverzacie='".$konverzacia."' ORDER BY datum ASC");
+$i=0;
+while ($row = $dta->fetch_assoc()) {
+    $data_inner[$i] = $row;
+    $i++;
+}
+$row=$data_inner[0];
+$odosielatel= $row['Uzivatel_idUzivatel'];
+if($prijemca!=$odosielatel){
+    $sql = "UPDATE konverzacia SET precitane='1'  WHERE idKonverzacie='".$konverzacia."'";
+    $con->query($sql);
+}
 
 $sql = mysqli_query($con, "SELECT * FROM sprava where konverzacia_idKonverzacie='".$konverzacia."' ");
 $i = 0;

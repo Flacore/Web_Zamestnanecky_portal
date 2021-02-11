@@ -76,8 +76,10 @@
                             while ($rows = $sql->fetch_assoc()) {
                                 $idBlog=$rows['idBlog'];
                                 $false=false;
-                                $dta = mysqli_query($con, "select * from precitane_blog  where Blog_idBlog ='".$idBlog."' and Uzivatel_idUzivatel not'".$uzivatel."'");
-                                if($dta==null)
+                                $dta = mysqli_query($con, "select count(*) as Numbers from precitane_blog  where Blog_idBlog ='".$idBlog."' and Uzivatel_idUzivatel ='".$uzivatel."'");
+                                $row = mysqli_fetch_array($dta);
+                                $count = $row['Numbers'];
+                                if($count==0)
                                     $i++;
                             }
 
@@ -118,8 +120,10 @@
                             while ($rows = $sql->fetch_assoc()) {
                                 $idBlog=$rows['idBlog'];
                                 $false=false;
-                                $dta = mysqli_query($con, "select * from precitane_blog  where Blog_idBlog ='".$idBlog."' and Uzivatel_idUzivatel not'".$uzivatel."'");
-                                if($dta==null)
+                                $dta = mysqli_query($con, "select count(*) as Numbers from precitane_blog  where Blog_idBlog ='".$idBlog."' and Uzivatel_idUzivatel='".$uzivatel."'");
+                                $row = mysqli_fetch_array($dta);
+                                $count = $row['Numbers'];
+                                if($count==0)
                                     $i++;
                             }
 
