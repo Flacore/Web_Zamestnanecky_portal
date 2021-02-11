@@ -36,7 +36,6 @@
                                 ++$i;
                             }
                             $row = $data[0];
-
                             $uzivatel=$row['idUzivatel'];
 
                             if($i>0) {
@@ -63,13 +62,24 @@
                         <div class="infoBox-textContainer">
 
                             <?php
-                            $sql = mysqli_query($con, "select * from blog where aktualita='1'");
+                            $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
                             $i = 0;
                             while ($rows = $sql->fetch_assoc()) {
                                 $data[$i] = $rows;
                                 ++$i;
                             }
-                            $row = $data[0];
+                            $row=$data[0];
+                            $uzivatel= $row['idUzivatel'];
+
+                            $sql = mysqli_query($con, "select * from blog where aktualita='1'");
+                            $i = 0;
+                            while ($rows = $sql->fetch_assoc()) {
+                                $idBlog=$rows['idBlog'];
+                                $false=false;
+                                $dta = mysqli_query($con, "select * from precitane_blog  where Blog_idBlog ='".$idBlog."' and Uzivatel_idUzivatel not'".$uzivatel."'");
+                                if($dta==null)
+                                    $i++;
+                            }
 
                             if($i>0) {
                                 for ($j = 0; $j < 1; $j++) {
@@ -94,13 +104,24 @@
                         <div class="infoBox-textContainer">
 
                             <?php
-                            $sql = mysqli_query($con, "select * from blog where aktualita='0'");
+                            $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
                             $i = 0;
                             while ($rows = $sql->fetch_assoc()) {
                                 $data[$i] = $rows;
                                 ++$i;
                             }
-                            $row = $data[0];
+                            $row=$data[0];
+                            $uzivatel= $row['idUzivatel'];
+
+                            $sql = mysqli_query($con, "select * from blog where aktualita='0'");
+                            $i = 0;
+                            while ($rows = $sql->fetch_assoc()) {
+                                $idBlog=$rows['idBlog'];
+                                $false=false;
+                                $dta = mysqli_query($con, "select * from precitane_blog  where Blog_idBlog ='".$idBlog."' and Uzivatel_idUzivatel not'".$uzivatel."'");
+                                if($dta==null)
+                                    $i++;
+                            }
 
                             if($i>0) {
                                 for ($j = 0; $j < 1; $j++) {
@@ -148,15 +169,20 @@
                             $row=$data[0];
                             $uzivatel= $row['idUzivatel'];
 
-                            $uzivatel=$row['idUzivatel'];
-                            $sql = mysqli_query($con, "select * from konverzacia where Uzivatel_idUzivatel2='".$uzivatel."'
-                            or Uzivatel_idUzivatel1='".$uzivatel."'");
+                            $sql = mysqli_query($con, "select * from konverzacia where (Uzivatel_idUzivatel2='".$uzivatel."'
+                            or Uzivatel_idUzivatel1='".$uzivatel."')and precitane='0'");
                             $i = 0;
                             while ($rows = $sql->fetch_assoc()) {
-                                $data[$i] = $rows;
-                                ++$i;
+                                $konverzacia=$rows['idKonverzacie'];
+                                $dta = mysqli_query($con, "select * from sprava  where konverzacia_idKonverzacie='".$konverzacia."' ORDER BY datum ASC");
+                                while ($row = $dta->fetch_assoc()) {
+                                    $data_inner[$i] = $row;
+                                }
+                                $row=$data_inner[0];
+                                $odosielatel= $row['Uzivatel_idUzivatel'];
+                                if($uzivatel!=$odosielatel)
+                                    ++$i;
                             }
-                            $row = $data[0];
 
                             if($i>0) {
                                 for ($j = 0; $j < 1; $j++) {

@@ -15,7 +15,7 @@ if(isset($_POST['but_submit'])) {
         $row = mysqli_fetch_array($result);
         $count = $row['UserData'];
 
-        if ($count > 0) {
+        if ($count > 0 && $count<2) {
             //Prihlasi uzivatela
             $result = mysqli_query($con, "select idLogin  as UserData from login where Login='".$uname."' and password='".$password."'");
             $row = mysqli_fetch_array($result);

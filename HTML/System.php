@@ -52,6 +52,7 @@
         <a class="menuItem" href="#" id="blogButton"><span class="glyphicon glyphicon-pencil"></span> Blog</a>
         <a class="menuItem" href="#" id="powerButton"><span class="glyphicon glyphicon-ok"></span> Právomoci</a>
         <a class="menuItem" href="#" id="settingsButton"><span class="glyphicon glyphicon-wrench"></span> Nastavenia</a>
+        <a class="menuItem" href="#" id="moodleButton"><span class="glyphicon glyphicon-blackboard"></span> Moodle</a>
     </div>
 
     <div class="siteMiddle innerContainer">

@@ -39,4 +39,5 @@ $(document).ready( function() {
         active(7);
         closeNav();
     });
+
 });
