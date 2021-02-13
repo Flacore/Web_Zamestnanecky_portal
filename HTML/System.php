@@ -44,15 +44,50 @@
 
     <div id="mySidenav" class="sidenav">
         <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+
         <a class="menuItem" href="#" id="homeButton"><span class="glyphicon glyphicon-home"></span> Domov</a>
-        <a class="menuItem" href="#" id="messegesButton"><span class="glyphicon glyphicon-comment"></span> Správy</a>
-        <a class="menuItem" href="#" id="contactsButton"><span class="glyphicon glyphicon-book"></span> Kontakty</a>
-        <a class="menuItem" href="#" id="cursesButton"><span class="glyphicon glyphicon-edit"></span> Kurzy</a>
-        <a class="menuItem" href="#" id="carierButton"><span class="glyphicon glyphicon-briefcase"></span> Kariéra</a>
-        <a class="menuItem" href="#" id="blogButton"><span class="glyphicon glyphicon-pencil"></span> Blog</a>
-        <a class="menuItem" href="#" id="powerButton"><span class="glyphicon glyphicon-ok"></span> Právomoci</a>
-        <a class="menuItem" href="#" id="settingsButton"><span class="glyphicon glyphicon-wrench"></span> Nastavenia</a>
-        <a class="menuItem" href="#" id="moodleButton"><span class="glyphicon glyphicon-blackboard"></span> Moodle</a>
+
+        <a class="menuItem" id="System">System
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <div class="dropdown-container" id="System_container">
+            <a class="menuItem" href="#" id="messegesButton"><span class="glyphicon glyphicon-comment"></span> Správy</a>
+            <a class="menuItem" href="#" id="contactsButton"><span class="glyphicon glyphicon-book"></span> Kontakty</a>
+            <a class="menuItem" href="#" id="cursesButton"><span class="glyphicon glyphicon-edit"></span> Kurzy</a>
+            <a class="menuItem" href="#" id="carierButton"><span class="glyphicon glyphicon-briefcase"></span> Kariéra</a>
+            <a class="menuItem" href="#" id="blogButton"><span class="glyphicon glyphicon-pencil"></span> Blog</a>
+        </div>
+
+        <a class="menuItem" id="Links">Odkazy
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <div class="dropdown-container" id="Links_container">
+            <a class="menuItem" href="https://strava.uniza.sk/WebKredit/" ><span class="glyphicon glyphicon-cutlery"></span> Stravovanie</a>
+            <a class="menuItem" href="http://ukzu.uniza.sk/en/elementor-171/" ><span class="glyphicon glyphicon-book"></span> Knižnica</a>
+            <a class="menuItem" href="https://uschovna.uniza.sk/index.php" ><span class="glyphicon glyphicon-download-alt"></span> Uložisko</a>
+            <a class="menuItem" href="https://www.iklub.sk/?q=ubytko" ><span class="glyphicon glyphicon-home"></span> Ubytovanie</a>
+            <a class="menuItem" href="https://webmail.stud.uniza.sk/roundcubemail/" ><span class="glyphicon glyphicon-envelope"></span> Mail</a>
+            <a class="menuItem" href="https://helpdesk.uniza.sk/ikt/" ><span class="glyphicon glyphicon-pencil"></span> IKT-Služby</a>
+            <a class="menuItem" href="http://vzdelavanie.uniza.sk/vzdelavanie/" ><span class="glyphicon glyphicon-education"></span> Vzdelavanie</a>
+            <a class="menuItem" href="https://emany.uniza.sk/"><span class="glyphicon glyphicon-credit-card"></span> E-Many</a>
+        </div>
+
+        <a class="menuItem" id="Marks">Zalozky
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <div class="dropdown-container" id="Marks_container">
+            <a class="menuItem" href="#">Link 1</a>
+            <a class="menuItem" href="#">Link 2</a>
+            <a class="menuItem" href="#">Link 3</a>
+        </div>
+
+        <a class="menuItem" id="Personal">Osobne
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <div class="dropdown-container" id="Personal_container">
+            <a class="menuItem" href="#" id="powerButton"><span class="glyphicon glyphicon-ok"></span> Právomoci</a>
+            <a class="menuItem" href="#" id="settingsButton"><span class="glyphicon glyphicon-wrench"></span> Nastavenia</a>
+        </div>
     </div>
 
     <div class="siteMiddle innerContainer">
