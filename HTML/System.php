@@ -62,23 +62,72 @@
             <i class="fa fa-caret-down"></i>
         </a>
         <div class="dropdown-container" id="Links_container">
-            <a class="menuItem" href="https://strava.uniza.sk/WebKredit/" ><span class="glyphicon glyphicon-cutlery"></span> Stravovanie</a>
-            <a class="menuItem" href="http://ukzu.uniza.sk/en/elementor-171/" ><span class="glyphicon glyphicon-book"></span> Knižnica</a>
-            <a class="menuItem" href="https://uschovna.uniza.sk/index.php" ><span class="glyphicon glyphicon-download-alt"></span> Uložisko</a>
-            <a class="menuItem" href="https://www.iklub.sk/?q=ubytko" ><span class="glyphicon glyphicon-home"></span> Ubytovanie</a>
-            <a class="menuItem" href="https://webmail.stud.uniza.sk/roundcubemail/" ><span class="glyphicon glyphicon-envelope"></span> Mail</a>
-            <a class="menuItem" href="https://helpdesk.uniza.sk/ikt/" ><span class="glyphicon glyphicon-pencil"></span> IKT-Služby</a>
-            <a class="menuItem" href="http://vzdelavanie.uniza.sk/vzdelavanie/" ><span class="glyphicon glyphicon-education"></span> Vzdelavanie</a>
-            <a class="menuItem" href="https://emany.uniza.sk/"><span class="glyphicon glyphicon-credit-card"></span> E-Many</a>
+            <?php
+            $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
+            $i = 0;
+            while ($rows = $sql->fetch_assoc()) {
+                $data[$i] = $rows;
+                ++$i;
+            }
+            $row=$data[0];
+            $uzivatel= $row['idUzivatel'];
+
+            $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel is null order by Nazov asc");
+            $i = 0;
+            while ($rows = $sql->fetch_assoc()) {
+                $data[$i] = $rows;
+                ++$i;
+            }
+
+            if($i>0) {
+                for ($j = 0; $j < $i; $j++) {
+                    $row = $data[$j];
+                    $link=$row['link'];
+                    $glyphicon=$row['glyphicon'];
+                    $nazov=$row['Nazov'];
+                    echo "
+                     <a class=\"menuItem\" href=\"".$link."\"><span class=\"glyphicon ".$glyphicon."\"></span> ".$nazov."</a>
+                    ";
+                }
+            }
+            ?>
+            <!--            TODO: Vytvranie editacia-->
         </div>
 
         <a class="menuItem" id="Marks">Zalozky
             <i class="fa fa-caret-down"></i>
         </a>
         <div class="dropdown-container" id="Marks_container">
-            <a class="menuItem" href="#">Link 1</a>
-            <a class="menuItem" href="#">Link 2</a>
-            <a class="menuItem" href="#">Link 3</a>
+            <?php
+            $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
+            $i = 0;
+            while ($rows = $sql->fetch_assoc()) {
+                $data[$i] = $rows;
+                ++$i;
+            }
+            $row=$data[0];
+            $uzivatel= $row['idUzivatel'];
+
+            $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel='".$uzivatel."' order by Nazov asc");
+            $i = 0;
+            while ($rows = $sql->fetch_assoc()) {
+                $data[$i] = $rows;
+                ++$i;
+            }
+
+            if($i>0) {
+                for ($j = 0; $j < $i; $j++) {
+                    $row = $data[$j];
+                    $link=$row['link'];
+                    $glyphicon=$row['glyphicon'];
+                    $nazov=$row['Nazov'];
+                    echo "
+                     <a class=\"menuItem\" href=\"".$link."\"><span class=\"glyphicon ".$glyphicon."\"></span> ".$nazov."</a>
+                    ";
+                }
+            }
+            ?>
+            <!--            TODO: Vytvranie editacia-->
         </div>
 
         <a class="menuItem" id="Personal">Osobne
