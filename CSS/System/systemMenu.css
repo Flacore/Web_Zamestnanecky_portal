@@ -62,7 +62,7 @@
     height: 52px;
 }
 
-.link_adder .link_button{
+.link_button{
     cursor: pointer;
     margin-top: 0;
     width: 40px;
@@ -204,4 +204,55 @@
         display: block;
         text-align: left;
     }
+}
+
+.remove_link_bt{
+    margin-top: -50px;
+    float: right
+}
+
+.edit_link_bt{
+    margin-right: 60px;
+    margin-top: -50px;
+    float: right
+}
+
+.edit_link_bt span{
+    font-size: 30px !important;
+    margin: 10px !important;
+}
+
+
+.glyphicon_change{
+    width: 50px;
+    height: 50px;
+    background-color: #3ca7aa;
+    border-radius: 50px;
+    cursor:pointer;
+}
+
+.glyphicon_change span{
+    color: white;
+    text-align: center;
+    font-size: 40px;
+    margin: 5px;
+}
+
+.left{
+    float: left;
+}
+
+.right{
+    float: right;
+}
+
+.center_item{
+    padding-left: 50%;
+}
+
+.center_item span{
+    text-align: center;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 40px;
 }

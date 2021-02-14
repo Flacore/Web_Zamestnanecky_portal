@@ -41,18 +41,123 @@
     <div class="modal">
         <div class="modal-content">
             <span class="close-btn" onclick="close_modal()">&times;</span>
-            <form>
                 <div class="hidden" id="adding_link">
-                    <input class="hidden" value="" id="idlogin" name="idLogin">
-                    <input value="" id="Name" name="Name">
-                    <input value="" id="Link" name="Link">
+                    <form id="link_form" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_link.php" method="post">
+                        <input class="hidden" value="" id="idlogin" name="idLogin">
+                        <input class="hidden" value="" id="id_Link" name="idLink">
+                        <div class="center">
+                            <label>Zadaj nazov:</label>
+                            <input value="" id="Name" name="Name">
+                        </div>
+                        <div class="center">
+                            <label>Zadaj link na stranku:</label>
+                            <input value="" id="Link" name="Link">
+                        </div>
+                        <div>
+                            <input class="hidden" value="glyphicon-heart" id="icon_value" name="icon">
+                            <div class="glyphicon_change left" onclick="prevGlyph()">
+                                    <span class="glyphicon glyphicon-arrow-left">
+                            </div>
+                            <div class="glyphicon_change right" onclick="nextGlyph()">
+                                <span class="glyphicon glyphicon-arrow-right">
+                            </div>
+                            <div class="center_item">
+                                        <span id="showing_icon" class="glyphicon glyphicon-heart">
+                            </div>
+                        </div>
+
+                        <br>
+                        <input type="submit" class="col-sm-12 btn-submit center-icon" name="Sub" value="Potvrdiť">
+                    </form>
                 </div>
-                <div class="hidden" id="edit_link">
-                    <div id="displayed"> </div>
+
+                <div class="hidden" id="edit_link_all">
+                        <?php
+                        $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
+                        $i = 0;
+                        while ($rows = $sql->fetch_assoc()) {
+                            $data[$i] = $rows;
+                            ++$i;
+                        }
+                        $row=$data[0];
+                        $uzivatel= $row['idUzivatel'];
+
+                        $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel is null order by Nazov asc");
+                        $i = 0;
+                        while ($rows = $sql->fetch_assoc()) {
+                            $data[$i] = $rows;
+                            ++$i;
+                        }
+
+                        echo "<br><hr>";
+                        if($i>0) {
+                            for ($j = 0; $j < $i; $j++) {
+                                $row = $data[$j];
+                                $id_link=$row['idZalozka'];
+                                $link=$row['link'];
+                                $glyphicon=$row['glyphicon'];
+                                $nazov=$row['Nazov'];
+                                echo "
+                                 <div>
+                                    <h3><span class='glyphicon ".$glyphicon."'> ".$nazov."</h3>
+                                        <div class='edit_link_bt glyphicon_change' onclick=\"edit_link('".$id_link."','".$nazov."','".$link."','".$glyphicon."')\">
+                                            <span class=\"glyphicon glyphicon-edit\">
+                                        </div>
+                                        <div class=\"remove_link_bt glyphicon_change delete_link\" >
+                                            <value style='display: none'>".($id_link)."</value>   
+                                            <span class=\"glyphicon glyphicon-remove\">
+                                        </div>
+                                 </div>
+                                 <hr>
+                                ";
+                            }
+                        }
+                        ?>
                 </div>
-                <br>
-                <input type="submit" class="btn-submit" name="Sub" value="submit">
-            </form>
+
+                <div class="hidden" id="edit_link_self">
+                        <?php
+                        $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
+                        $i = 0;
+                        while ($rows = $sql->fetch_assoc()) {
+                            $data[$i] = $rows;
+                            ++$i;
+                        }
+                        $row=$data[0];
+                        $uzivatel= $row['idUzivatel'];
+
+                        $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel='".$uzivatel."' order by Nazov asc");
+                        $i = 0;
+                        while ($rows = $sql->fetch_assoc()) {
+                            $data[$i] = $rows;
+                            ++$i;
+                        }
+
+                        echo "<br><hr>";
+                        if($i>0) {
+                            for ($j = 0; $j < $i; $j++) {
+                                $row = $data[$j];
+                                $id_link=$row['idZalozka'];
+                                $link=$row['link'];
+                                $glyphicon=$row['glyphicon'];
+                                $nazov=$row['Nazov'];
+                                echo "
+                                 <div>
+                                    <h3><span class='glyphicon ".$glyphicon."'> ".$nazov."</h3>
+                                        <div class='edit_link_bt glyphicon_change' onclick=\"edit_link('".$id_link."','".$nazov."','".$link."','".$glyphicon."')\">
+                                            <span class=\"glyphicon glyphicon-edit\">
+                                        </div>
+                                        <div class=\"remove_link_bt glyphicon_change delete_link\" >
+                                            <value style='display: none'>".($id_link)."</value>   
+                                            <span class=\"glyphicon glyphicon-remove\">
+                                        </div>
+                                 </div>
+                                 <hr>
+                                ";
+                            }
+                        }
+                        ?>
+                </div>
         </div>
     </div>
 
@@ -117,7 +222,7 @@
             </a>
         </div>
 
-        <a class="menuItem" id="Marks">Zalozky
+        <a class="menuItem" id="Marks">Záložky
             <i class="fa fa-caret-down"></i>
         </a>
         <div class="dropdown-container" id="Marks_container">

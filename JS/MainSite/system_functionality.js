@@ -85,4 +85,17 @@ $(document).ready( function() {
             dropdownContent1.style.display = "block";
         }
     });
+
+    $(".delete_link").click(function () {
+        let $id = $(this).find('value:first-child').text();
+        $.ajax({
+            type: 'POST',
+            data: {id: $id},
+            url: '../PHP/add_update/remove_link.php',
+            success: function(data) {
+                location.reload();
+            }
+        });
+    })
+
 });
