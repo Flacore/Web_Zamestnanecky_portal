@@ -52,6 +52,49 @@
     padding-top: 60px;
 }
 
+.link_adder{
+    cursor: unset;
+    height: 52px;
+}
+
+.link_adder:hover{
+    background-color: transparent !important;
+    height: 52px;
+}
+
+.link_adder .link_button{
+    cursor: pointer;
+    margin-top: 0;
+    width: 40px;
+    height: 40px;
+    background-color: #3cc5aa;
+    border-radius: 40px;
+}
+
+.link_adder :first-child{
+    float: left;
+    margin-left: 10%;
+}
+
+.link_adder :last-child{
+    float: right;
+    margin-right: 15%;
+}
+
+.link_adder .link_button:hover{
+    background-color: #3ca7aa;
+}
+
+.link_adder .link_button span:hover{
+    background-color: transparent;
+    color: white;
+}
+
+.link_adder .link_button span{
+    color: white;
+    text-align: center;
+    margin: 6px;
+}
 
 .sidenav .menuItem {
     padding: 8px 8px 8px 32px;

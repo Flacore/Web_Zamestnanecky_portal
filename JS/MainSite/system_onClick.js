@@ -57,8 +57,10 @@ function hideDropdowns(){
     var dropdownContent2 = document.getElementById("Links_container");
     var dropdownContent3 = document.getElementById("Personal_container");
     var dropdownContent4 = document.getElementById("System_container");
+    var dropdownContent5 = document.getElementById("Admin_container");
     dropdownContent1.style.display = "none";
     dropdownContent2.style.display = "none";
     dropdownContent3.style.display = "none";
     dropdownContent4.style.display = "none";
+    dropdownContent5.style.display = "none";
 }

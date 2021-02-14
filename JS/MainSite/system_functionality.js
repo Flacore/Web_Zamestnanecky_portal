@@ -76,5 +76,13 @@ $(document).ready( function() {
             dropdownContent1.style.display = "block";
         }
     });
-
+    $("#Admin").on("click",function () {
+        var dropdownContent1 = document.getElementById("Admin_container");
+        if (dropdownContent1.style.display === "block") {
+            dropdownContent1.style.display = "none";
+        } else {
+            hideDropdowns();
+            dropdownContent1.style.display = "block";
+        }
+    });
 });

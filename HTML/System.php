@@ -32,10 +32,30 @@
     <link rel="stylesheet" href="../CSS/text.css">
     <link rel="stylesheet" href="../CSS/System/contacts.css">
     <link rel="stylesheet" href="../CSS/System/Settings.css">
+    <link rel="stylesheet" href="../CSS/System/modal_window.css">
     <script src="../JS/MainSite/system_functionality.js"></script>
     <script src="../JS/MainSite/system_onClick.js"></script>
+    <script src="../JS/MainSite/modal_window.js"></script>
 </head>
 <body onload="fLoad()">
+    <div class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="close_modal()">&times;</span>
+            <form>
+                <div class="hidden" id="adding_link">
+                    <input class="hidden" value="" id="idlogin" name="idLogin">
+                    <input value="" id="Name" name="Name">
+                    <input value="" id="Link" name="Link">
+                </div>
+                <div class="hidden" id="edit_link">
+                    <div id="displayed"> </div>
+                </div>
+                <br>
+                <input type="submit" class="btn-submit" name="Sub" value="submit">
+            </form>
+        </div>
+    </div>
+
     <div class="topnav" id="myTopnav">
         <form method='post' action="">
             <input class="btn-submit" type="submit" value="Logout" name="but_logout"></input>
@@ -91,7 +111,10 @@
                 }
             }
             ?>
-            <!--            TODO: Vytvranie editacia-->
+            <a class="menuItem link_adder">
+                <div class="link_button" onclick="edit_links('admin')"><span class="glyphicon glyphicon-pencil"></span></div>
+                <div class="link_button" onclick="add_link('admin')"><span class="glyphicon glyphicon-plus"></span></div>
+            </a>
         </div>
 
         <a class="menuItem" id="Marks">Zalozky
@@ -127,7 +150,10 @@
                 }
             }
             ?>
-            <!--            TODO: Vytvranie editacia-->
+            <a class="menuItem link_adder">
+                <div class="link_button" onclick="edit_links('<?php echo $id; ?>')"><span class="glyphicon glyphicon-pencil"></span></div>
+                <div class="link_button" onclick="add_link('<?php echo $id; ?>')"><span class="glyphicon glyphicon-plus"></span></div>
+            </a>
         </div>
 
         <a class="menuItem" id="Personal">Osobne
@@ -135,7 +161,12 @@
         </a>
         <div class="dropdown-container" id="Personal_container">
             <a class="menuItem" href="#" id="powerButton"><span class="glyphicon glyphicon-ok"></span> Právomoci</a>
-            <a class="menuItem" href="#" id="settingsButton"><span class="glyphicon glyphicon-wrench"></span> Nastavenia</a>
+        </div>
+        <a class="menuItem" id="Admin">Administratorska sekcia
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <div class="dropdown-container" id="Admin_container">
+            <a class="menuItem" href="#" id="powerButton"><span class="glyphicon glyphicon-ok"></span> Právomoci</a>
         </div>
     </div>
 
