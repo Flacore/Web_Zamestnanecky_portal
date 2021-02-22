@@ -1,5 +1,5 @@
 <?php
-include "../config.php";
+include "../config_DB.php";
 $id=$_SESSION['session'];
 if(isset($_POST["but_add"])) {
     $oldpass=$_POST['old_pass'];

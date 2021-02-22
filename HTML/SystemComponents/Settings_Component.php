@@ -1,4 +1,4 @@
-<?php include "../../PHP/config.php";
+<?php include "../../PHP/config_DB.php";
     $id=$_SESSION['session'] ?>
 <body>
     <div class="settings-window row">

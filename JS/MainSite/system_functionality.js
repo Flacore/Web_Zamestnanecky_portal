@@ -39,6 +39,11 @@ $(document).ready( function() {
         active("powerButton","null");
         closeNav();
     });
+    $("#databaseButton").on("click", function() {
+        $("#componentWindow").load("SystemComponents/db_Component.php");
+        active("databaseButton","null");
+        closeNav();
+    });
 
     $("#Links").on("click",function () {
         var dropdownContent1 = document.getElementById("Links_container");

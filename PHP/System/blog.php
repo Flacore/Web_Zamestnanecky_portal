@@ -1,5 +1,5 @@
 <?php
-include "../config.php";
+include "../config_DB.php";
 
 $id_uziv=$_SESSION['session'];
 $id=$_POST['id'];

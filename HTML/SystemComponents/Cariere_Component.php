@@ -1,4 +1,4 @@
-<?php include "../../PHP/config.php"; ?>
+<?php include "../../PHP/config_DB.php"; ?>
 <body>
     <div class="container" id="prac_pozicie">
         <br><br><br>

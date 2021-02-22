@@ -1,5 +1,5 @@
 <?php
-include "../config.php";
+include "../config_DB.php";
 $id_Login = $_SESSION['session'];
 
 $Name = $_POST['Name'];

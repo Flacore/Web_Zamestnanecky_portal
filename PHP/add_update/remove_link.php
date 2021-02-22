@@ -1,5 +1,5 @@
 <?php
-    include "../config.php";
+    include "../config_DB.php";
     $id_link = $_POST['id'];
 
     $sql = mysqli_query($con, "select * from zalozka where idZalozka='" . $id_link . "'");

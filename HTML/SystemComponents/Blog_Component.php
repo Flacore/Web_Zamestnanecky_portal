@@ -1,4 +1,4 @@
-<?php include"../../PHP/config.php";  ?>
+<?php include "../../PHP/config_DB.php";  ?>
 <body>
 <div class="messenger-window">
     <div class="col-md-3 Messenger-Menu" id="_sideMenu">

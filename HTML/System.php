@@ -1,5 +1,5 @@
 <?php
-    include "../PHP/config.php";
+    include "../PHP/config_DB.php";
     if(!isset($_SESSION['session'])){
         header('Location: Main_Site.php');
     }
@@ -114,7 +114,7 @@
                         }
                         ?>
                 </div>
-<!--        //-->
+
                 <div class="hidden" id="edit_link_self">
                         <?php
                         $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
@@ -265,13 +265,14 @@
             <i class="fa fa-caret-down"></i>
         </a>
         <div class="dropdown-container" id="Personal_container">
-            <a class="menuItem" href="#" id="powerButton"><span class="glyphicon glyphicon-ok"></span> Právomoci</a>
+            <a class="menuItem" href="#" id="settingsButton"><span class="glyphicon glyphicon-cog"></span> Nastavenia</a>
         </div>
         <a class="menuItem" id="Admin">Administratorska sekcia
             <i class="fa fa-caret-down"></i>
         </a>
         <div class="dropdown-container" id="Admin_container">
             <a class="menuItem" href="#" id="powerButton"><span class="glyphicon glyphicon-ok"></span> Právomoci</a>
+            <a class="menuItem" href="#" id="databaseButton"><span class="glyphicon glyphicon-copy"></span> Databáza</a>
         </div>
     </div>
 

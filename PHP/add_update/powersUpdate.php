@@ -1,5 +1,5 @@
 <?php
-include "../config.php";
+include "../config_DB.php";
 
 $sql = mysqli_query($con, "select * from pozícia");
 $i = 0;

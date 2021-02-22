@@ -1,5 +1,5 @@
 <?php
-include "../config.php";
+include "../config_DB.php";
 
 $id_login=$_POST['login_id'];
 $id_prednaska=$_POST['prednaska_id'];
