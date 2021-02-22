@@ -114,7 +114,7 @@
                         }
                         ?>
                 </div>
-
+<!--        //-->
                 <div class="hidden" id="edit_link_self">
                         <?php
                         $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
