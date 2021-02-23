@@ -3,7 +3,7 @@ function fLoad() {
     active(1);
 }
 
-function active(k,podskupina) {
+function active(k,podskupina=null) {
     var links = document.getElementsByClassName("active");
     for (i = 0; i < links.length; i++) {
         links[i].classList.add("menuItem");
@@ -58,11 +58,13 @@ function hideDropdowns(){
     var dropdownContent3 = document.getElementById("Personal_container");
     var dropdownContent4 = document.getElementById("System_container");
     var dropdownContent5 = document.getElementById("Admin_container");
+    var dropdownContent6 = document.getElementById("Document_container");
     dropdownContent1.style.display = "none";
     dropdownContent2.style.display = "none";
     dropdownContent3.style.display = "none";
     dropdownContent4.style.display = "none";
     dropdownContent5.style.display = "none";
+    dropdownContent6.style.display = "none";
 }
 
 function glyphiconList(text,i) {

@@ -1,11 +1,7 @@
 <?php
     include "../config_FTP.php";
 
-    $target_dir = "/";
-    $files = ftp_nlist($ftp_connection, $target_dir);
-    foreach($files as $file) {
-        echo "<a href=\"download.php?file=".urlencode($file)."\">".htmlspecialchars($file)."</a>";
-        echo "<br>";
-    }
-
+    header('Content-Type: application/octet-stream');
+    header('Content-Disposition: attachment; filename='.basename($_GET["cesta"]));
+    echo file_get_contents('http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/'.str_replace(' ', '%20', $_GET["cesta"]));
 ?>

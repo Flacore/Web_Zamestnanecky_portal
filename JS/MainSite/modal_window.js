@@ -1,31 +1,43 @@
 
-function  add_link(login_id) {
+
+function  add_link(login_id,zalozka=false) {
     clear_form();
     close_modal();
     let modal = document.querySelector(".modal")
     modal.style.display = "block"
 
-    var module=document.getElementById("adding_link");
+    var module = document.getElementById("adding_link");
     module.classList.remove("hidden");
-
-    if(login_id!="admin"){
-        var input = document.getElementById("idlogin");
-        input.value=login_id;
+    if(zalozka){
+        if (login_id != "admin") {
+            var input = document.getElementById("idlogin");
+            input.value = login_id;
+        }
+    }else{
+        var link = document.getElementById("Link");
+        link.classList.add("hidden");
+        var link_t = document.getElementById("Link_Text");
+        link_t.classList.add("hidden");
     }
 }
 
-function edit_links(login_id) {
+
+function edit_links(login_id,zalozka=false) {
     clear_form();
     close_modal();
     let modal = document.querySelector(".modal")
     modal.style.display = "block"
 
-    //Pridaj podmienku
-    if(login_id!="admin"){
-        var module=document.getElementById("edit_link_self");
-        module.classList.remove("hidden");
+    if(zalozka) {
+        if (login_id != "admin") {
+            var module = document.getElementById("edit_link_self");
+            module.classList.remove("hidden");
+        } else {
+            var module = document.getElementById("edit_link_all");
+            module.classList.remove("hidden");
+        }
     }else{
-        var module=document.getElementById("edit_link_all");
+        var module = document.getElementById("edit_files_category");
         module.classList.remove("hidden");
     }
 }
@@ -37,6 +49,8 @@ function  close_modal() {
     module=document.getElementById("edit_link_all");
     module.classList.add("hidden");
     module=document.getElementById("edit_link_self");
+    module.classList.add("hidden");
+    module=document.getElementById("edit_files_category");
     module.classList.add("hidden");
     let modal = document.querySelector(".modal")
     modal.style.display = "none"
@@ -52,6 +66,9 @@ function clear_form() {
     Name.value="";
     var Link = document.getElementById("Link");
     Link.value="";
+    Link.classList.remove("hidden");
+    var link_t = document.getElementById("Link_Text");
+    link_t.classList.remove("hidden");
     var id=document.getElementById("id_Link");
     id.value="";
     setGlyph(glyphiconList(glyphiconList("",0),null));

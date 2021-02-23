@@ -50,7 +50,7 @@
                             <input value="" id="Name" name="Name">
                         </div>
                         <div class="center">
-                            <label>Zadaj link na stranku:</label>
+                            <label id="Link_Text">Zadaj link na stranku:</label>
                             <input value="" id="Link" name="Link">
                         </div>
                         <div>
@@ -82,7 +82,7 @@
                         $row=$data[0];
                         $uzivatel= $row['idUzivatel'];
 
-                        $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel is null order by Nazov asc");
+                        $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel is null and link is not null order by Nazov asc");
                         $i = 0;
                         while ($rows = $sql->fetch_assoc()) {
                             $data[$i] = $rows;
@@ -126,7 +126,7 @@
                         $row=$data[0];
                         $uzivatel= $row['idUzivatel'];
 
-                        $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel='".$uzivatel."' order by Nazov asc");
+                        $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel='".$uzivatel."' and link is not null order by Nazov asc");
                         $i = 0;
                         while ($rows = $sql->fetch_assoc()) {
                             $data[$i] = $rows;
@@ -158,6 +158,50 @@
                         }
                         ?>
                 </div>
+
+            <div class="hidden" id="edit_files_category">
+                <?php
+                $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
+                $i = 0;
+                while ($rows = $sql->fetch_assoc()) {
+                    $data[$i] = $rows;
+                    ++$i;
+                }
+                $row=$data[0];
+                $uzivatel= $row['idUzivatel'];
+
+                $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel is null and link is null order by Nazov asc");
+                $i = 0;
+                while ($rows = $sql->fetch_assoc()) {
+                    $data[$i] = $rows;
+                    ++$i;
+                }
+
+                echo "<br><hr>";
+                if($i>0) {
+                    for ($j = 0; $j < $i; $j++) {
+                        $row = $data[$j];
+                        $id_link=$row['idZalozka'];
+                        $link=$row['link'];
+                        $glyphicon=$row['glyphicon'];
+                        $nazov=$row['Nazov'];
+                        echo "
+                                 <div>
+                                    <h3><span class='glyphicon ".$glyphicon."'> ".$nazov."</h3>
+                                        <div class='edit_link_bt glyphicon_change' onclick=\"edit_link('".$id_link."','".$nazov."','".$link."','".$glyphicon."')\">
+                                            <span class=\"glyphicon glyphicon-edit\">
+                                        </div>
+                                        <div class=\"remove_link_bt glyphicon_change delete_link\" >
+                                            <value style='display: none'>".($id_link)."</value>   
+                                            <span class=\"glyphicon glyphicon-remove\">
+                                        </div>
+                                 </div>
+                                 <hr>
+                                ";
+                    }
+                }
+                ?>
+            </div>
         </div>
     </div>
 
@@ -183,6 +227,45 @@
             <a class="menuItem" href="#" id="blogButton"><span class="glyphicon glyphicon-pencil"></span> Blog</a>
         </div>
 
+        <a class="menuItem" id="Documents">Tlačivá a dokumenty
+            <i class="fa fa-caret-down"></i>
+        </a>
+        <div class="dropdown-container" id="Documents_container">
+            <?php
+            $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
+            $i = 0;
+            while ($rows = $sql->fetch_assoc()) {
+                $data[$i] = $rows;
+                ++$i;
+            }
+            $row=$data[0];
+            $uzivatel= $row['idUzivatel'];
+
+            $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel is null and link is null order by Nazov asc");
+            $i = 0;
+            while ($rows = $sql->fetch_assoc()) {
+                $data[$i] = $rows;
+                ++$i;
+            }
+
+            if($i>0) {
+                for ($j = 0; $j < $i; $j++) {
+                    $row = $data[$j];
+                    $link=$row['link'];
+                    $glyphicon=$row['glyphicon'];
+                    $nazov=$row['Nazov'];
+                    echo "
+                     <a class=\"menuItem down_button\"><value class='hidden'>".$row['idZalozka']."</value><span class=\"glyphicon ".$glyphicon."\"></span> ".$nazov."</a>
+                    ";
+                }
+            }
+            ?>
+            <a class="menuItem link_adder">
+                <div class="link_button" onclick="edit_links('<?php echo $id; ?>')"><span class="glyphicon glyphicon-pencil"></span></div>
+                <div class="link_button" onclick="add_link('<?php echo $id; ?>')"><span class="glyphicon glyphicon-plus"></span></div>
+            </a>
+        </div>
+
         <a class="menuItem" id="Links">Odkazy
             <i class="fa fa-caret-down"></i>
         </a>
@@ -197,7 +280,7 @@
             $row=$data[0];
             $uzivatel= $row['idUzivatel'];
 
-            $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel is null order by Nazov asc");
+            $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel is null and link is not null order by Nazov asc");
             $i = 0;
             while ($rows = $sql->fetch_assoc()) {
                 $data[$i] = $rows;
@@ -217,8 +300,8 @@
             }
             ?>
             <a class="menuItem link_adder">
-                <div class="link_button" onclick="edit_links('admin')"><span class="glyphicon glyphicon-pencil"></span></div>
-                <div class="link_button" onclick="add_link('admin')"><span class="glyphicon glyphicon-plus"></span></div>
+                <div class="link_button" onclick="edit_links('admin',true)"><span class="glyphicon glyphicon-pencil"></span></div>
+                <div class="link_button" onclick="add_link('admin',true)"><span class="glyphicon glyphicon-plus"></span></div>
             </a>
         </div>
 
@@ -236,7 +319,7 @@
             $row=$data[0];
             $uzivatel= $row['idUzivatel'];
 
-            $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel='".$uzivatel."' order by Nazov asc");
+            $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel='".$uzivatel."' and link is not null order by Nazov asc");
             $i = 0;
             while ($rows = $sql->fetch_assoc()) {
                 $data[$i] = $rows;
@@ -256,8 +339,8 @@
             }
             ?>
             <a class="menuItem link_adder">
-                <div class="link_button" onclick="edit_links('<?php echo $id; ?>')"><span class="glyphicon glyphicon-pencil"></span></div>
-                <div class="link_button" onclick="add_link('<?php echo $id; ?>')"><span class="glyphicon glyphicon-plus"></span></div>
+                <div class="link_button" onclick="edit_links('<?php echo $id; ?>',true)"><span class="glyphicon glyphicon-pencil"></span></div>
+                <div class="link_button" onclick="add_link('<?php echo $id; ?>',true)"><span class="glyphicon glyphicon-plus"></span></div>
             </a>
         </div>
 

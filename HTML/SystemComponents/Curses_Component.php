@@ -5,13 +5,6 @@ $id=$_SESSION['session'];
     <div class="container" id="kurzy">
         <div class="position tableStyle">
             <br><br><br>
-            <h2 class="txtCenter txtBlack txtFullWidth">
-                Zoznam kurzov a prednášok
-            </h2>
-            <h4 class="txtCenter txtBlack txtFullWidth">
-                Každoročne organizujeme kopu prednášok a vzdelávacích kurzov, ktorých sa môže zúčastniť úplne každý...
-            </h4>
-            <br>
             <?php
             $sql = mysqli_query($con, "select * from prednasky ");
             $num = mysqli_query($con, "select count(*) as NumberData from prednasky");
@@ -52,7 +45,7 @@ $id=$_SESSION['session'];
                                            <div class=\"col-sm-6\">
                                                <br>
                                                <img alt=\"\" class=\"imgWidth imgStyle\" src=\"".$row['picture_url']."\">
-                                               <br>
+                                               <br><br>
                                            </div>
                                             <div class=\"col-sm-6 \">
                                                 <br>

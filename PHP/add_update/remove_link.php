@@ -10,6 +10,9 @@
     }
 
     if($i==1) {
+        $sql = "Delete from subor where Zalozka_idZalozka='" . $id_link . "'";
+        $con->query($sql);
+
         $sql = "Delete from zalozka where idZalozka='" . $id_link . "'";
         $con->query($sql);
         $con->close();

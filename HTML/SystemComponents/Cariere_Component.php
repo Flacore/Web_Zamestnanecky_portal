@@ -2,8 +2,6 @@
 <body>
     <div class="container" id="prac_pozicie">
         <br><br><br>
-        <h2 class="txtCenter txtBlack">Hladáme</h2>
-        <br>
         <?php
         $sql = mysqli_query($con, "select * from kariera join pracovisko on kariera.Pracovisko_idPracovisko=pracovisko.idPracovisko ");
         $num = mysqli_query($con, "select count(*) as NumberData from kariera");

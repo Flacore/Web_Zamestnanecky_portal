@@ -23,14 +23,21 @@ if (true) {
     $n = 0;
     while ($rows = $sql->fetch_assoc()) {
         $_data[$k] = $rows;
-        ++$n;
+        $info = $_data[$k];
+        if($n<$info['idZalozka'])
+            $n=$info['idZalozka'];
     }
     $id_zalozka = $n + 1;
 
     if($id_uzivatel!=null)
         $sql = "INSERT into zalozka (idZalozka, Nazov, link, glyphicon, Uzivatel_idUzivatel)Values ('$id_zalozka','$Name','$Link','$Glyph','$id_uzivatel')";
-    else
-        $sql = "INSERT into zalozka (idZalozka, Nazov, link, glyphicon)Values ('$id_zalozka','$Name','$Link','$Glyph')";
+    else {
+        if ($Link == "") {
+            $sql = "INSERT into zalozka (idZalozka, Nazov, glyphicon)Values ('$id_zalozka','$Name','$Glyph')";
+        } else {
+            $sql = "INSERT into zalozka (idZalozka, Nazov, link, glyphicon)Values ('$id_zalozka','$Name','$Link','$Glyph')";
+        }
+    }
     mysqli_query($con, $sql);
 }
 header('Location: http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/HTML/System.php');

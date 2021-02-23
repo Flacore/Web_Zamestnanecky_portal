@@ -7,7 +7,11 @@ $Link = $_POST['Link'];
 $Glyph = $_POST['icon'];
 $id_sended = $_POST['idLogin'];
 
-$sql = "UPDATE zalozka SET link='$Link' ,glyphicon='$Glyph',Nazov='$Name'  WHERE idZalozka='$id'";
+if($Link==""){
+    $sql = "UPDATE zalozka SET link=null,glyphicon='$Glyph',Nazov='$Name'  WHERE idZalozka='$id'";
+}else {
+    $sql = "UPDATE zalozka SET link='$Link' ,glyphicon='$Glyph',Nazov='$Name'  WHERE idZalozka='$id'";
+}
 $con->query($sql);
 $con->close();
 

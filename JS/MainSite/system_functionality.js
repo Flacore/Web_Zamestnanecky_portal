@@ -90,9 +90,18 @@ $(document).ready( function() {
             dropdownContent1.style.display = "block";
         }
     });
+    $("#Documents").on("click",function () {
+        var dropdownContent1 = document.getElementById("Documents_container");
+        if (dropdownContent1.style.display === "block") {
+            dropdownContent1.style.display = "none";
+        } else {
+            hideDropdowns();
+            dropdownContent1.style.display = "block";
+        }
+    });
 
     $(".delete_link").click(function () {
-        let $id = $(this).find('value:first-child').text();
+        let $id = $(this).find('value:first-child').value;
         $.ajax({
             type: 'POST',
             data: {id: $id},
@@ -101,6 +110,20 @@ $(document).ready( function() {
                 location.reload();
             }
         });
-    })
+    });
+
+    $(".down_button").click(function () {
+        $("#componentWindow").load("SystemComponents/files.php");
+        closeNav();
+        let $id = $(this).find('value:first-child').text();
+        $.ajax({
+            type: 'POST',
+            data: {id: $id},
+            url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/System/files_list.php',
+            success: function(data) {
+                document.getElementById('downloadable').innerHTML=data;
+            }
+        });
+    });
 
 });

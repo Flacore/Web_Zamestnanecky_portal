@@ -345,7 +345,7 @@
                                        <div class=\"col-sm-6\">
                                            <br>
                                            <img alt=\"\" class=\"imgWidth imgStyle\" src=\"".$row['picture_url']."\">
-                                           <br>
+                                           <br><br>
                                        </div>
                                         <div class=\"col-sm-6 \">
                                             <br>
