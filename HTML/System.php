@@ -33,6 +33,7 @@
     <link rel="stylesheet" href="../CSS/System/contacts.css">
     <link rel="stylesheet" href="../CSS/System/Settings.css">
     <link rel="stylesheet" href="../CSS/System/modal_window.css">
+    <link rel="stylesheet" href="../CSS/System/file_list.css">
     <script src="../JS/MainSite/system_functionality.js"></script>
     <script src="../JS/MainSite/system_onClick.js"></script>
     <script src="../JS/MainSite/modal_window.js"></script>

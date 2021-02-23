@@ -10,6 +10,7 @@ while ($rows = $sql->fetch_assoc()) {
     ++$i;
 }
 
+echo "<br>";
 if($i>0){
     for($n=0;$n<$i;$n++){
         $data_na_rozdelenie=$data[$n];
@@ -19,7 +20,7 @@ if($i>0){
         $Datum=$data_na_rozdelenie['vytvorenie'];
         $popis=$data_na_rozdelenie['popis'];
         echo "
-        <div>
+        <div class='item_DownloadList'>
               <div class='row'>
                 <div class='col-sm-12'><h3>".$Nazov."</h3></div>
               </div>

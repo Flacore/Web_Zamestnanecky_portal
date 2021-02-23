@@ -9,8 +9,7 @@
             type: 'POST',
             data: {cesta: cesta},
             url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/ftp/Download_file.php',
-            success: function(data) {
-                alert(cesta);
+            success: function(data){
             }
         });
     }
