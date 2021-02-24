@@ -13,5 +13,15 @@
             }
         });
     }
+  function remove_item(id_subor) {
+        $.ajax({
+            type: 'POST',
+            data: {idSubor: id_subor},
+            url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/remove_file.php',
+            success: function(data) {
+                location.reload();
+            }
+        });
+    };
 </script>
 </body>

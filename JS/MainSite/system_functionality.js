@@ -111,18 +111,6 @@ $(document).ready( function() {
             }
         });
     });
-    //TODO uprav
-    $(".remove_downloadable_content").click(function () {
-        let $id = $(this).find('value:first-child').text();
-        $.ajax({
-            type: 'POST',
-            data: {idSubor: $id},
-            url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/remove_file.php',
-            success: function(data) {
-                location.reload();
-            }
-        });
-    });
     $(".down_button").click(function () {
         $("#componentWindow").load("SystemComponents/files.php");
         closeNav();

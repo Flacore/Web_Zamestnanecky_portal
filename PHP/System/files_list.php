@@ -29,8 +29,7 @@ if($i>0){
                     </div>
                      <div class='col-sm-6'><h3>".$Nazov."</h3></div>
                     <div class=\"col-sm-3\" >
-                        <div class='remove_downloadable_content file_inside_btn center'>
-                            <value style='display: none'>".($idSubor)."</value> 
+                        <div class='file_inside_btn center' onclick='remove_item(\"$idSubor\")'>
                             <span class=\"glyphicon glyphicon-remove\">
                         </div>
                     </div>
