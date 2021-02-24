@@ -3,8 +3,8 @@
 function  add_link(login_id,zalozka=false) {
     clear_form();
     close_modal();
-    let modal = document.querySelector(".modal")
-    modal.style.display = "block"
+    let modal = document.getElementById("modal_links");
+    modal.style.display = "block";
 
     var module = document.getElementById("adding_link");
     module.classList.remove("hidden");
@@ -25,7 +25,7 @@ function  add_link(login_id,zalozka=false) {
 function edit_links(login_id,zalozka=false) {
     clear_form();
     close_modal();
-    let modal = document.querySelector(".modal")
+    let modal = document.getElementById("modal_links");
     modal.style.display = "block"
 
     if(zalozka) {
@@ -52,8 +52,8 @@ function  close_modal() {
     module.classList.add("hidden");
     module=document.getElementById("edit_files_category");
     module.classList.add("hidden");
-    let modal = document.querySelector(".modal")
-    modal.style.display = "none"
+    let modal = document.getElementById("modal_links");
+    modal.style.display = "none";
 }
 
 function clear_form() {
@@ -89,8 +89,35 @@ function edit_link(id_link,name,link,glyph){
     Link.value=link;
     setGlyph(glyphiconList(glyph,null));
 
-    let modal = document.querySelector(".modal");
+    let modal = document.getElementById("modal_links");
     modal.style.display = "block";
     var module=document.getElementById("adding_link");
     module.classList.remove("hidden");
+}
+
+function open_modal_file(element,value) {
+    reset_modal_file();
+    let o_element = document.getElementById(element);
+    o_element.value=value;
+
+    let modal = document.getElementById("modal_file");
+    modal.style.display = "block";
+}
+
+function close_modal_file() {
+    let modal = document.getElementById("modal_file");
+    modal.style.display = "none";
+}
+
+function reset_modal_file(){
+    let prednaska = document.getElementById("idPrednaska_file");
+    let pozicia = document.getElementById("idPozicia_file");
+    let zalozka = document.getElementById("idSubor_file");
+    prednaska.value="null";
+    pozicia.value="null";
+    zalozka.value="null";
+
+    document.getElementById("file_path").value=null;
+    document.getElementById("description").value=null;
+    document.getElementById("name").value=null;
 }

@@ -1,7 +1,7 @@
 <?php include "../../PHP/config_DB.php"; ?>
 <body>
-<div class="container" id="downloadable">
-
+<div class="container files">
+    <div id="downloadable"></div>
 </div>
 <script>
     function download(cesta) {

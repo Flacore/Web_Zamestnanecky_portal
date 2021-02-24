@@ -1,0 +1,56 @@
+.item_DownloadList{
+    margin-top: 10px;
+    border: #1167b1 2px solid;
+    width: 100%;
+    height: auto;
+    text-align: center;
+}
+
+.item_DownloadList button{
+    float: right;
+    margin-right: 10px;
+}
+
+.item_DownloadList button{
+    background-color: #1167b1;
+    background: -webkit-linear-gradient(to bottom, #1167b1, #1976d2);
+    background: linear-gradient(to bottom, #1167b1, #1976d2);
+    border: none;
+    color: white;
+    max-width: 200px;
+    min-width: 200px;
+    padding: 8px 15px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.item_DownloadList h3{
+    color: #1167b1;
+    font-weight: bold;
+    font-family: "Arial";
+}
+
+.item_DownloadList h5{
+    text-align: left !important;
+    margin-left: 10px;
+    font-family: "Arial";
+}
+
+.item_DownloadList h6{
+    font-weight: bold;
+    font-family: "Arial";
+}
+
+.files .link_button{
+    cursor: pointer;
+}
+
+.files .link_button .button_icon{
+    font-size: 40px;
+    margin: 5px;
+    text-align: center;
+    color: white;
+}

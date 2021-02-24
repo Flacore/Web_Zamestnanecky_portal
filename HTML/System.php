@@ -39,7 +39,27 @@
     <script src="../JS/MainSite/modal_window.js"></script>
 </head>
 <body onload="fLoad()">
-    <div class="modal">
+    <div class="modal" id="modal_file">
+        <div class="modal-content">
+            <span class="close-btn" onclick="close_modal_file()">&times;</span>
+
+            <form enctype="multipart/form-data" method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_file.php">
+                <input type="number" class="hidden" value="null" id="idPrednaska_file" name="idPrednaska">
+                <input type="number" class="hidden" value="null" id="idPozicia_file" name="idPozicia">
+                <input type="number" class="hidden" value="null" id="idSubor_file" name="idSubor">
+                <label>Názov</label>
+                <input type="text" required id="name" name="name">
+                <label>Popis</label>
+                <input type="text" id="description" name="description">
+                <label>Súbor</label>
+                <input type="file" required id="file_path" name="file_path">
+                <input type="submit" value="Odoslať" name="button_file">
+            </form>
+
+        </div>
+    </div>
+
+    <div class="modal" id="modal_links">
         <div class="modal-content">
             <span class="close-btn" onclick="close_modal()">&times;</span>
                 <div class="hidden" id="adding_link">

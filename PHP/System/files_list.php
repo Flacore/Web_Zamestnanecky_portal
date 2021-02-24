@@ -3,14 +3,14 @@ include "../config_DB.php";
 
 $idSkupina=$_POST['id'];
 
-$sql = mysqli_query($con, "select * from subor where Zalozka_idZalozka = '".$idSkupina."'");
+$sql = mysqli_query($con, "select * from subor where Zalozka_idZalozka = '".$idSkupina."' order by vytvorenie desc");
 $i = 0;
 while ($rows = $sql->fetch_assoc()) {
     $data[$i] = $rows;
     ++$i;
 }
 
-echo "<br>";
+echo "<div class=\"link_button\" onclick=\"open_modal_file('idSubor_file','".$idSkupina."')\"><span class=\"button_icon glyphicon glyphicon-plus\"></span></div><br>";
 if($i>0){
     for($n=0;$n<$i;$n++){
         $data_na_rozdelenie=$data[$n];
