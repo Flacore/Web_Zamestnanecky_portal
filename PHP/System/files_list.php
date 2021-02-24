@@ -10,7 +10,7 @@ while ($rows = $sql->fetch_assoc()) {
     ++$i;
 }
 
-echo "<div class=\"link_button\" onclick=\"open_modal_file('idSubor_file','".$idSkupina."')\"><span class=\"button_icon glyphicon glyphicon-plus\"></span></div><br>";
+echo "<br><div class='col-sm-12'><div class=\"center file_item_btn\" onclick=\"open_modal_file('idSubor_file','".$idSkupina."')\"><span class=\"button_icon glyphicon glyphicon-plus\"></span></div></div><br><br><br>";
 if($i>0){
     for($n=0;$n<$i;$n++){
         $data_na_rozdelenie=$data[$n];
@@ -22,7 +22,18 @@ if($i>0){
         echo "
         <div class='item_DownloadList'>
               <div class='row'>
-                <div class='col-sm-12'><h3>".$Nazov."</h3></div>
+                  <div class='col-sm-3'>
+                        <div class='file_inside_btn center'>
+                            <span class=\"glyphicon glyphicon-edit\">
+                        </div>
+                    </div>
+                     <div class='col-sm-6'><h3>".$Nazov."</h3></div>
+                    <div class=\"col-sm-3\" >
+                        <div class='remove_downloadable_content file_inside_btn center'>
+                            <value style='display: none'>".($idSubor)."</value> 
+                            <span class=\"glyphicon glyphicon-remove\">
+                        </div>
+                    </div>
               </div>
               <div class='row'>
                 <div class='col-sm-8'><h5>".$popis."</h5></div>
@@ -33,6 +44,7 @@ if($i>0){
               <div class='row'>
                 <div class='col-sm-12'><h6>".$Datum."</h6></div>
               </div>
+            <br>
          </div>";
     }
 }else{

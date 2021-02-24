@@ -17,7 +17,6 @@
         $con->query($sql);
         $con->close();
     }
-    header('Location: http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/HTML/System.php');
 
 function alert($msg) {
     echo "<script type='text/javascript'>alert('$msg');</script>";
