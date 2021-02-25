@@ -43,17 +43,26 @@
         <div class="modal-content">
             <span class="close-btn" onclick="close_modal_file()">&times;</span>
 
-            <form enctype="multipart/form-data" method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_file.php">
+            <form id="form_file" enctype="multipart/form-data" method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_file.php">
+                <input type="number" class="hidden" value="null" id="idFile" name="idFile">
                 <input type="number" class="hidden" value="null" id="idPrednaska_file" name="idPrednaska">
                 <input type="number" class="hidden" value="null" id="idPozicia_file" name="idPozicia">
                 <input type="number" class="hidden" value="null" id="idSubor_file" name="idSubor">
-                <label>Názov</label>
-                <input type="text" required id="name" name="name">
-                <label>Popis</label>
-                <input type="text" id="description" name="description">
-                <label>Súbor</label>
-                <input type="file" required id="file_path" name="file_path">
-                <input type="submit" value="Odoslať" name="button_file">
+                <div class="center">
+                    <label>Názov</label>
+                    <input type="text" required id="name" name="name">
+                </div>
+                <div class="center">
+                    <label>Popis</label>
+                    <input type="text" id="description" name="description">
+                </div>
+                <br>
+                <div class="center">
+                    <label>Nahraj súbor:</label>
+                </div>
+                <input class="center" type="file" required id="file_path" name="file_path">
+                <br>
+                <input class="col-sm-12 btn-submit center-icon" type="submit" value="Odoslať" name="button_file">
             </form>
 
         </div>
@@ -246,6 +255,7 @@
             <a class="menuItem" href="#" id="cursesButton"><span class="glyphicon glyphicon-edit"></span> Kurzy</a>
             <a class="menuItem" href="#" id="carierButton"><span class="glyphicon glyphicon-briefcase"></span> Kariéra</a>
             <a class="menuItem" href="#" id="blogButton"><span class="glyphicon glyphicon-pencil"></span> Blog</a>
+            <a class="menuItem" href="#" id="quizButton"><span class="glyphicon glyphicon-copy"></span> Dotazníky a Formuláre</a>
         </div>
 
         <a class="menuItem" id="Documents">Tlačivá a dokumenty
@@ -282,8 +292,8 @@
             }
             ?>
             <a class="menuItem link_adder">
-                <div class="link_button" onclick="edit_links('<?php echo $id; ?>')"><span class="glyphicon glyphicon-pencil"></span></div>
-                <div class="link_button" onclick="add_link('<?php echo $id; ?>')"><span class="glyphicon glyphicon-plus"></span></div>
+                <div class="link_button" onclick="edit_links('<?php echo $id; ?>',false)"><span class="glyphicon glyphicon-pencil"></span></div>
+                <div class="link_button" onclick="add_link('<?php echo $id; ?>',false)"><span class="glyphicon glyphicon-plus"></span></div>
             </a>
         </div>
 

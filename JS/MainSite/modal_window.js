@@ -110,12 +110,17 @@ function close_modal_file() {
 }
 
 function reset_modal_file(){
+    let file_input = document.getElementById("file_path");
+    file_input.required=true;
+    document.getElementById("idFile").value=null;
+    let formular=document.getElementById("form_file");
     let prednaska = document.getElementById("idPrednaska_file");
     let pozicia = document.getElementById("idPozicia_file");
     let zalozka = document.getElementById("idSubor_file");
     prednaska.value="null";
     pozicia.value="null";
     zalozka.value="null";
+    formular.action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_file.php";
 
     document.getElementById("file_path").value=null;
     document.getElementById("description").value=null;

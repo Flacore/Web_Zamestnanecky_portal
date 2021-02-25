@@ -44,6 +44,11 @@ $(document).ready( function() {
         active("databaseButton","null");
         closeNav();
     });
+    $("#quizButton").on("click", function() {
+        $("#componentWindow").load("SystemComponents/Quiz_Component.php");
+        active("quizButton","null");
+        closeNav();
+    });
 
     $("#Links").on("click",function () {
         var dropdownContent1 = document.getElementById("Links_container");

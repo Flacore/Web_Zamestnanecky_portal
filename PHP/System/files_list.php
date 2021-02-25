@@ -23,7 +23,7 @@ if($i>0){
         <div class='item_DownloadList'>
               <div class='row'>
                   <div class='col-sm-3'>
-                        <div class='file_inside_btn center'>
+                        <div onclick='edit_file(\"$idSubor\",\"idSubor_file\",\"$idSkupina\",\"$Nazov\",\"$popis\")' class='file_inside_btn center'>
                             <span class=\"glyphicon glyphicon-edit\">
                         </div>
                     </div>
