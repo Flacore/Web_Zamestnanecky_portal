@@ -32,7 +32,6 @@
         }
         $idSubor = $n + 1;
 
-        alert($idSubor);
 
         $cesta_subor=$server_dir.$subor['file_path']['name'];
 
