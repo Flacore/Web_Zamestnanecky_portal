@@ -36,8 +36,23 @@
 }
 
 .Quiz_menu .Quiz_menu_item{
-    border: black solid 1px;
-    width: 50px;
-    height: 50px;
+    border: #616161 solid 1px;
+    width: 30px;
+    height: 30px;
     cursor: pointer;
+    background-color: #9a9aa9;
+}
+
+#question_dropdown .Quiz_menu_item{
+    border: #9a9aa9 solid 1px !important;
+    background-color: #616161 !important;
+}
+
+.Quiz_menu .Quiz_menu_item span{
+    color: #f2f2f2;
+    font-size: 20px;
+    left: 50%;
+    top: 45%;
+    margin-left: -10px;
+    margin-top: -10px;
 }
