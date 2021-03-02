@@ -8,7 +8,7 @@
         <div class="center file_item_btn" onclick="add_quiz()"><span class="button_icon glyphicon glyphicon-plus"></span></div>
     </div>
     <br><br><br>
-<!--        TODO:Prehlad Quizov-->
+<!--        TODO:Show detail-->
     <?php
 
     $sql = mysqli_query($con, "select * from uzivatel where idUzivatel='" . $id_uziv . "' ");
