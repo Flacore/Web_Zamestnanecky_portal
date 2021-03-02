@@ -15,3 +15,5 @@ $text=$_POST['text'];
 $id_prvok=$_POST['id_parent'];
 $sql = "INSERT into moznost (idMoznost, text, prvok_idprvok) Values ('$id_moznost','$text','$id_prvok')";
 mysqli_query($con, $sql);
+
+echo $id_moznost;

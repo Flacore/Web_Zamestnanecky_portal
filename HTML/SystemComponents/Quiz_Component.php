@@ -97,12 +97,15 @@
             let typ=item.elements.namedItem('type').value;
             url=item.action;
             tmp_name="#"+item.id;
+            var formData =$(tmp_name).serialize();
             $.ajax({
                 type: "POST",
                 url: url,
-                data: $(tmp_name).serialize(),
+                data: formData,
+                enctype: 'multipart/form-data',
                 success: function(data)
                 {
+                    alert(data);
                     if(typ === '9' || typ === '10'){
                         submit_moznost(data,'moznost',true,item.parentElement.id);
                     }
@@ -119,6 +122,7 @@
         var prvky = document.getElementsByClassName(clas);
         for (var i = 0; i < prvky.length; ++i) {
             var item = prvky[i];
+            alert(item.parentElement.parentElement.parentElement.parentElement.id);
             if(!bool) {
                 if(parent===item.parentElement.id) {
                     let html = document.createElement('input');
@@ -126,7 +130,7 @@
                     html.name = "id_parent";
                     html.value = parseInt(id, 10);
                     item.append(html);
-                    url = item.attr('action');
+                    url = item.action;
                     tmp_name = "#" + item.id;
                     $.ajax({
                         type: "POST",
@@ -138,13 +142,18 @@
                     });
                 }
             }else{
-                if(parent===item.parentElement.parentElement.parentElement.id) {
+                let bol=false;
+                if(clas==="moznost")
+                    bol=parent===item.parentElement.parentElement.parentElement.parentElement.id
+                if(clas==="submoznost")
+                    bol=parent===item.parentElement.parentElement.parentElement.id
+                if(bol) {
                     let html = document.createElement('input');
                     html.type = "number";
                     html.name = "id_parent";
                     html.value = parseInt(id, 10);
                     item.append(html);
-                    url = item.attr('action');
+                    url = item.action;
                     tmp_name = "#" + item.id;
                     $.ajax({
                         type: "POST",
@@ -169,14 +178,14 @@
         document.getElementById("open_dropdown").classList.remove("hidden");
     }
 
-    function add_option(id,clas) {
+    function add_option(id,clas,action) {
         let elemet=document.createElement('form');
-        let html=" <input type=\"text\" name='moznost'>";
+        let html=" <input type=\"text\" name='text'>";
         elemet.id=idtmp();
         elemet.innerHTML=html;
         elemet.classList.add(clas);
         elemet.method="post";
-        elemet.action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_submoznost.php";
+        elemet.action=action;
         insert(elemet,id)
     }
 
@@ -184,16 +193,17 @@
         tmp++;
         let elemet=document.createElement('div');
         let html="              <div class=\"col-sm-6\">" +
-            "                        <form id='"+idtmp()+" class='moznost' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php\">" +
-            "                            <input type=\"text\" name='moznost'>" +
+            "                        <form id='"+idtmp()+"' class=\"moznost\" method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php\">" +
+            "                            <input type=\"text\" name='text'>" +
             "                        </form>" +
             "                    </div>" +
             "                    <div class=\"col-sm-6\">" +
             "                        <div id=\"catOption"+tmp+"\">"+
             "                        </div>" +
-            "                        <button onclick=\"add_option('catOption"+tmp+"','submoznost')\">Pridaj možnosť</button>" +
+            "                        <button onclick=\"add_option('catOption"+tmp+"','submoznost','http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_submoznost.php')\">Pridaj možnosť</button>" +
             "                    </div>";
         elemet.innerHTML=html;
+        elemet.id="som_id"+idtmp();
         elemet.classList.add("row");
         insert(elemet,id)
     }
@@ -269,10 +279,10 @@
             "                    <input type=\"checkbox\" name='vyzaduje'><label for=\"\">Vyžadovať</label>" +
             "                </form>" +
             "                <form id='"+idtmp()+"' class='moznost' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php\">" +
-            "                    <input type=\"text\">" +
+            "                    <input type=\"text\" name='text'>" +
             "                </form>" +
             "            </div>" +
-            "            <button onclick=\"add_option('one_ans_box"+tmp+"','moznost')\">Pridaj možnosť</button>";
+            "            <button onclick=\"add_option('one_ans_box"+tmp+"','moznost','http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php')\">Pridaj možnosť</button>";
         elemet.innerHTML=html;
         insert(elemet,id);
     }
@@ -292,10 +302,10 @@
             "                    <input type=\"checkbox\" name='vyzaduje'><label for=\"\">Vyžadovať</label>" +
             "                </form>" +
             "                <form id='"+idtmp()+"' class='moznost' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php\">" +
-            "                    <input type=\"text\">" +
+            "                    <input type=\"text\" name='text'>" +
             "                </form>" +
             "            </div>" +
-            "            <button onclick=\"add_option('multi_ans_box"+tmp+"','moznost')\">Pridaj možnosť</button>";
+            "            <button onclick=\"add_option('multi_ans_box"+tmp+"','moznost','http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php')\">Pridaj možnosť</button>";
         elemet.innerHTML=html;
         insert(elemet,id);
     }
@@ -315,10 +325,10 @@
             "                    <input type=\"checkbox\" name='vyzaduje'><label for=\"\">Vyžadovať</label>" +
             "                </form>" +
             "                <form id='"+idtmp()+"' class='moznost' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php\">" +
-            "                    <input type=\"text\">" +
+            "                    <input type=\"text\" name='text'>" +
             "                </form>" +
             "            </div>" +
-            "            <button onclick=\"add_option('list_ans_box"+tmp+"','moznost')\">Pridaj možnosť</button>";
+            "            <button onclick=\"add_option('list_ans_box"+tmp+"','moznost','http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php')\">Pridaj možnosť</button>";
         elemet.innerHTML=html;
         insert(elemet,id);
     }
@@ -453,7 +463,7 @@
             "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
             "                <input type=\"checkbox\" name='url_bt'><label for=\"scales\">Použiť URL adresu</label>" +
             "                <input type=\"text\" value=\"url\" name='url'>" +
-            "                <input type=\"file\" value=\"file\" name='file'>" +
+            "                <input type=\"file\" name='file_path'>" +
             "            </form>";
         elemet.innerHTML=html;
         insert(elemet,id);
@@ -470,7 +480,7 @@
             "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
             "                <input type=\"checkbox\" name='url_bt'><label for=\"scales\">Použiť URL adresu</label>" +
             "                <input type=\"text\" value=\"url\" name='url'>" +
-            "                <input type=\"file\" value=\"file\" name='file'>" +
+            "                <input type=\"file\" name='file_path'>" +
             "            </form>";
         elemet.innerHTML=html;
         insert(elemet,id);

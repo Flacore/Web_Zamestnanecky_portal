@@ -51,27 +51,26 @@ if($type > 11){
                     $n=$info['idSubor'];
             }
             $id_subor = $n + 1;
-
-            //Insert to Subor
-            $file=$_FILES;
-            $nazov="form_file";
-            $server_dir="/dotaznik/"+$id_form+"/";
-            $cesta_subor=$server_dir.$file['file']['name'];
-            upload_file($file,$server_dir);
-            $sql = "INSERT into subor (idSubor, nazov, cesta, vytvorenie) Values ('$id_subor','$nazov','$cesta_subor',CURRENT_DATE)";
-            mysqli_query($con, $sql);
-
-            $sql = mysqli_query($con, "select * from obsah");
-            $n = 0;
-            while ($rows = $sql->fetch_assoc()) {
-                $info = $rows;
-                if($n<$info['idObsah'])
-                    $n=$info['idObsah'];
-            }
-            $id_obsah = $n + 1;
-
-            $sql = "INSERT into obsah (idObsah, prvok_idprvok, Subor_idSubor) Values ('$id_obsah','$id_prvok','$id_subor')";
-            mysqli_query($con, $sql);
+            echo  $_FILES['file_path']['name'];
+//            $file=$_FILES;
+//            $nazov="form_file";
+//            $server_dir="/dotaznik/"+$id_form+"/";
+//            $cesta_subor=$server_dir.$file['file_path']['name'];
+//            upload_file($file,$server_dir);
+//            $sql = "INSERT into subor (idSubor, nazov, cesta, vytvorenie) Values ('$id_subor','$nazov','$cesta_subor',CURRENT_DATE)";
+//            mysqli_query($con, $sql);
+//
+//            $sql = mysqli_query($con, "select * from obsah");
+//            $n = 0;
+//            while ($rows = $sql->fetch_assoc()) {
+//                $info = $rows;
+//                if($n<$info['idObsah'])
+//                    $n=$info['idObsah'];
+//            }
+//            $id_obsah = $n + 1;
+//
+//            $sql = "INSERT into obsah (idObsah, prvok_idprvok, Subor_idSubor) Values ('$id_obsah','$id_prvok','$id_subor')";
+//            mysqli_query($con, $sql);
         }
         exit();
     }else{
