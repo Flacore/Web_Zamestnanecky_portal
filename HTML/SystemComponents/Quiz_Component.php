@@ -6,7 +6,7 @@
         <div class="center file_item_btn" onclick="add_quiz()"><span class="button_icon glyphicon glyphicon-plus"></span></div>
     </div>
     <br><br><br>
-<!--        Prehlad Quizov-->
+<!--        TODO:Prehlad Quizov-->
     <br><br><br>
 </div>
 
@@ -104,41 +104,59 @@
                 success: function(data)
                 {
                     if(typ === '9' || typ === '10'){
-                        submit_moznost(data,'moznost',true);
+                        submit_moznost(data,'moznost',true,item.parentElement.id);
                     }
                     if(typ === '3' || typ === '4' || typ ==='5'){
-                        submit_moznost(data,'moznost',false);
+                        submit_moznost(data,'moznost',false,item.parentElement.id);
                     }
                 }
             });
         }
     }
 
-    //iba prvky ktore su v elemente
-    function submit_moznost(data,clas,bool) {
-        // let id=data;
-        // var prvky = document.getElementsByClassName(clas);
-        // for (var i = 0; i < prvky.length; ++i) {
-        //     var item = prvky[i];
-        //     let html=document.createElement('input');
-        //     html.type="number";
-        //     html.name="id_parent";
-        //     html.value=parseInt(id,10);
-        //     item.append(html);
-        //     url=item.attr('action');
-        //     tmp_name="#"+item.id;
-        //     $.ajax({
-        //         type: "POST",
-        //         url: url,
-        //         data: $(tmp_name).serialize(),
-        //         success: function(data)
-        //         {
-        //             if(bool){
-        //                 submit_moznost(data,"submoznost",false)
-        //             }
-        //         }
-        //     });
-        // }
+    function submit_moznost(data,clas,bool,parent) {
+        let id=data;
+        var prvky = document.getElementsByClassName(clas);
+        for (var i = 0; i < prvky.length; ++i) {
+            var item = prvky[i];
+            if(!bool) {
+                if(parent===item.parentElement.id) {
+                    let html = document.createElement('input');
+                    html.type = "number";
+                    html.name = "id_parent";
+                    html.value = parseInt(id, 10);
+                    item.append(html);
+                    url = item.attr('action');
+                    tmp_name = "#" + item.id;
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $(tmp_name).serialize(),
+                        success: function (data) {
+
+                        }
+                    });
+                }
+            }else{
+                if(parent===item.parentElement.parentElement.parentElement.id) {
+                    let html = document.createElement('input');
+                    html.type = "number";
+                    html.name = "id_parent";
+                    html.value = parseInt(id, 10);
+                    item.append(html);
+                    url = item.attr('action');
+                    tmp_name = "#" + item.id;
+                    $.ajax({
+                        type: "POST",
+                        url: url,
+                        data: $(tmp_name).serialize(),
+                        success: function (data) {
+                            submit_moznost(data,'submoznost',true,item.parentElement.parentElement.id);
+                        }
+                    });
+                }
+            }
+        }
     }
 
     function open_dropdown() {
@@ -310,7 +328,7 @@
         let elemet=document.createElement('div');
         elemet.classList.add("date_answ");
         elemet.classList.add("quiz_compartmant");
-        let html="            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
+        let html="      <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"2\" name=\"type\">" +
             "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
