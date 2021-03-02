@@ -62,9 +62,6 @@
     </div>
 </div>
 <iframe class="hidden" id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;">
-    <script language="javascript" type="text/javascript">
-        window.top.window.stopUpload(<?php echo $result; ?>);
-    </script>
 </iframe>
 </body>
 <script type="text/javascript">
@@ -110,7 +107,6 @@
                 enctype: 'multipart/form-data',
                 success: function(data)
                 {
-                    alert(data);
                     if(typ === '9' || typ === '10'){
                         submit_moznost(data,'moznost',true,item.parentElement.id);
                     }
@@ -466,9 +462,17 @@
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"14\" name=\"type\">" +
             "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
-            "                <input type=\"checkbox\" name='url_bt' checked><label for=\"scales\">Použiť URL adresu</label>" +
+            "                <input id='"+id_element2+"' type=\"checkbox\" name='url_bt' checked><label for=\"scales\" >Použiť URL adresu</label>" +
             "                <input type=\"text\" value=\"url\" name='url'>" +
+            "                <input id='"+id_element+"' class='hidden' type=\"number\" name='file_path'>" +
+            "            </form>"+
+            "<p style='display: none' id=\"f1_upload_process\">Nahrávam...<br/><img src=\"https://mir-s3-cdn-cf.behance.net/project_modules/disp/585d0331234507.564a1d239ac5e.gif\" /></p>"+
+            "<p id=\"result\"></p>"+
+            "        <form action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/quiz_file.php\" method=\"post\" enctype=\"multipart/form-data\" target=\"upload_target\" onsubmit=\"startUpload();\">"+
             "                <input type=\"file\" name='file_path'>" +
+            "                <input value='"+id_element+"' class='hidden' type=\"number\" name='id_path'>" +
+            "  <input value='"+id_element2+"' class='hidden' type=\"number\" name='prev'>" +
+            " <input type=\"submit\" name=\"submitBtn\" value=\"Upload\" />"+
             "            </form>";
         elemet.innerHTML=html;
         insert(elemet,id);
@@ -479,18 +483,22 @@
         let elemet=document.createElement('div');
         elemet.classList.add("video");
         elemet.classList.add("quiz_compartmant");
+        id_element=idtmp();
+        id_element2=idtmp();
         let html="            <form id='"+idtmp()+"' enctype=\"multipart/form-data\" class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"15\" name=\"type\">" +
             "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
-            "                <input type=\"checkbox\" name='url_bt' checked><label for=\"scales\" >Použiť URL adresu</label>" +
+            "                <input id='"+id_element2+"' type=\"checkbox\" name='url_bt' checked><label for=\"scales\" >Použiť URL adresu</label>" +
             "                <input type=\"text\" value=\"url\" name='url'>" +
-            "                <input class='hidden' type=\"number\" name='file_path'>" +
+            "                <input id='"+id_element+"' class='hidden' type=\"number\" name='file_path'>" +
             "            </form>"+
-            "<p style='visibility: hidden' id=\"f1_upload_process\">Loading...<br/><img src=\"https://mir-s3-cdn-cf.behance.net/project_modules/disp/585d0331234507.564a1d239ac5e.gif\" /></p>"+
+            "<p style='display: none' id=\"f1_upload_process\">Nahrávam...<br/><img src=\"https://mir-s3-cdn-cf.behance.net/project_modules/disp/585d0331234507.564a1d239ac5e.gif\" /></p>"+
             "<p id=\"result\"></p>"+
             "        <form action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/quiz_file.php\" method=\"post\" enctype=\"multipart/form-data\" target=\"upload_target\" onsubmit=\"startUpload();\">"+
         "                <input type=\"file\" name='file_path'>" +
+        "                <input value='"+id_element+"' class='hidden' type=\"number\" name='id_path'>" +
+          "  <input value='"+id_element2+"' class='hidden' type=\"number\" name='prev'>" +
         " <input type=\"submit\" name=\"submitBtn\" value=\"Upload\" />"+
         "            </form>";
         elemet.innerHTML=html;
@@ -513,21 +521,24 @@
     }
 
     function startUpload(){
-        document.getElementById('f1_upload_process').style.visibility = 'visible';
+        document.getElementById('f1_upload_process').style.display = 'block';
         return true;
     }
 
-    function stopUpload(success){
-        var result = '';
+    function stopUpload(success,id,id_prvok,prev){
+        alert(id_prvok);
+        alert(prev);
         if (success == 1){
             document.getElementById('result').innerHTML =
-                '<span class="msg">The file was uploaded successfully!<\/span><br/><br/>';
+                '<span class="msg">Súbor sa nahral!<\/span><br/><br/>';
         }
         else {
             document.getElementById('result').innerHTML =
-                '<span class="emsg">There was an error during file upload!<\/span><br/><br/>';
+                '<span class="emsg">Došlo ku chybe!<\/span><br/><br/>';
         }
-        document.getElementById('f1_upload_process').style.visibility = 'hidden';
+        document.getElementById('f1_upload_process').style.display = 'none';
+        document.getElementById(id_prvok).value=id;
+        document.getElementById(prev).checked=false;
         return true;
     }
 </script>

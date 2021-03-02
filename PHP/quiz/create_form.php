@@ -40,9 +40,9 @@ while ($rows = $sql->fetch_assoc()){
 $info=$_data[0];
 $id_uzivatel=$info['idUzivatel'];
 
-//$sql = "INSERT into formular (idformular, Uzivatel_idUzivatel, typ, vytvorenie, platnost_od, platnost_do) Values ('$id_form','$id_uzivatel','$form_type',CURRENT_DATE,'$platnost_od','$platnost_do')";
-//mysqli_query($con, $sql);
-//$sql = "INSERT into prvok (idprvok, formular_idformular, typ_prvku, z_index, Nazov, Popis) Values ('$id_prvok','$id_form','$type','$z_value','$Nazov','$popis')";
-//mysqli_query($con, $sql);
+$sql = "INSERT into formular (idformular, Uzivatel_idUzivatel, typ, vytvorenie, platnost_od, platnost_do) Values ('$id_form','$id_uzivatel','$form_type',CURRENT_DATE,'$platnost_od','$platnost_do')";
+mysqli_query($con, $sql);
+$sql = "INSERT into prvok (idprvok, formular_idformular, typ_prvku, z_index, Nazov, Popis) Values ('$id_prvok','$id_form','$type','$z_value','$Nazov','$popis')";
+mysqli_query($con, $sql);
 
 echo $id_form;

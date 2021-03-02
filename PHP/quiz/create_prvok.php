@@ -60,7 +60,7 @@ if($type > 11){
         }
         exit();
     }else{
-        $Popis=$_POST['popis'];
+        $popis=$_POST['popis'];
         $sql = "INSERT into prvok (idprvok, formular_idformular, typ_prvku, z_index, Nazov, Popis) Values ('$id_prvok','$id_form','$type','$z_value','$Nazov','$popis')";
     }
 }else {

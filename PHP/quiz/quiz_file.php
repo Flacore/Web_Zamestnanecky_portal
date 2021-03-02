@@ -4,6 +4,10 @@ include "../ftp/Upload_file.php";
     if(!isset($_SESSION['session'])){
         header('Location: Main_Site.php');
     }
+    $id=99;
+    $id2=91;
+    $id=$_POST['id_path'];
+    $id2=$_POST['prev'];
     $result=0;
     $sql = mysqli_query($con, "select * from subor");
     $n = 0;
@@ -21,5 +25,8 @@ include "../ftp/Upload_file.php";
     mysqli_query($con, $sql);
     if($cesta_subor!=null)
         $result = 1;
-    echo $result;
+    sleep(1);
 ?>
+<script language="javascript" type="text/javascript">
+    window.top.window.stopUpload(<?php echo $result; ?>,<?php echo $id_subor; ?>,<?php echo $id; ?>,<?php echo $id2; ?>);
+</script>
