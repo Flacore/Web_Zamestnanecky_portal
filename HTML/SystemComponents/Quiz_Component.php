@@ -61,8 +61,13 @@
         <div class="Quiz_menu_item" onclick="close_dropdown()"><span class="glyphicon glyphicon-chevron-up"></div>
     </div>
 </div>
+<iframe class="hidden" id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:0px solid #fff;">
+    <script language="javascript" type="text/javascript">
+        window.top.window.stopUpload(<?php echo $result; ?>);
+    </script>
+</iframe>
 </body>
-<script  type="text/javascript">
+<script type="text/javascript">
     var id_tmp=0;
     var tmp=0;
     var z_index = 1;
@@ -461,7 +466,7 @@
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"14\" name=\"type\">" +
             "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
-            "                <input type=\"checkbox\" name='url_bt'><label for=\"scales\">Použiť URL adresu</label>" +
+            "                <input type=\"checkbox\" name='url_bt' checked><label for=\"scales\">Použiť URL adresu</label>" +
             "                <input type=\"text\" value=\"url\" name='url'>" +
             "                <input type=\"file\" name='file_path'>" +
             "            </form>";
@@ -478,10 +483,16 @@
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"15\" name=\"type\">" +
             "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
-            "                <input type=\"checkbox\" name='url_bt'><label for=\"scales\">Použiť URL adresu</label>" +
+            "                <input type=\"checkbox\" name='url_bt' checked><label for=\"scales\" >Použiť URL adresu</label>" +
             "                <input type=\"text\" value=\"url\" name='url'>" +
-            "                <input type=\"file\" name='file_path'>" +
-            "            </form>";
+            "                <input class='hidden' type=\"number\" name='file_path'>" +
+            "            </form>"+
+            "<p style='visibility: hidden' id=\"f1_upload_process\">Loading...<br/><img src=\"https://mir-s3-cdn-cf.behance.net/project_modules/disp/585d0331234507.564a1d239ac5e.gif\" /></p>"+
+            "<p id=\"result\"></p>"+
+            "        <form action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/quiz_file.php\" method=\"post\" enctype=\"multipart/form-data\" target=\"upload_target\" onsubmit=\"startUpload();\">"+
+        "                <input type=\"file\" name='file_path'>" +
+        " <input type=\"submit\" name=\"submitBtn\" value=\"Upload\" />"+
+        "            </form>";
         elemet.innerHTML=html;
         insert(elemet,id);
     }
@@ -499,5 +510,24 @@
             "            </form>";
         elemet.innerHTML=html;
         insert(elemet,id);
+    }
+
+    function startUpload(){
+        document.getElementById('f1_upload_process').style.visibility = 'visible';
+        return true;
+    }
+
+    function stopUpload(success){
+        var result = '';
+        if (success == 1){
+            document.getElementById('result').innerHTML =
+                '<span class="msg">The file was uploaded successfully!<\/span><br/><br/>';
+        }
+        else {
+            document.getElementById('result').innerHTML =
+                '<span class="emsg">There was an error during file upload!<\/span><br/><br/>';
+        }
+        document.getElementById('f1_upload_process').style.visibility = 'hidden';
+        return true;
     }
 </script>

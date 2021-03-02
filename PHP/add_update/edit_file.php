@@ -21,8 +21,7 @@ if(isset($_POST['button_file'])) {
         if ($idZalozka == null && $idPrednask == null)
             $server_dir = "/pozicia_dokumenty/";
 
-        upload_file($subor, $server_dir);
-        $cesta_subor = $server_dir . $subor['file_path']['name'];
+        $cesta_subor=upload_file($subor, $server_dir);
         $sql = "UPDATE subor SET cesta='".$cesta_subor."',vytvorenie=current_date, popis='" . $popis . "' ,nazov='" . $nazov . "' WHERE idSubor='".$idSubor."'";
     }else {
         $sql = "UPDATE subor SET vytvorenie=current_date, popis='" . $popis . "' ,nazov='" . $nazov . "' WHERE idSubor='".$idSubor."'";

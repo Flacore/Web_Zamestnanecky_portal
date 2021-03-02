@@ -3,7 +3,7 @@ include "../config_FTP.php";
 
 function upload_file($subor,$server_dir)
 {
-    $cesta_server=$server_dir.basename($subor['file_path']['name']);
+        $cesta_server=$server_dir.strval(rand(1,999999)).basename($subor['file_path']['name']);
 
     $ftp_connection=config_FTP();
 
@@ -13,7 +13,7 @@ function upload_file($subor,$server_dir)
     ftp_chdir($ftp_connection, $server_dir);
     ftp_put($ftp_connection, $cesta_server, $subor['file_path']['tmp_name'], FTP_BINARY);
     ftp_close($ftp_connection);
-
+    return $cesta_server;
 }
 function clean_ftp_nlist($ftp,$server){
     $file_on_server=ftp_nlist($ftp,$server);

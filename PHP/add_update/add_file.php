@@ -20,7 +20,7 @@
         if($idZalozka==null && $idPrednask==null)
             $server_dir="/pozicia_dokumenty/";
 
-        upload_file($subor,$server_dir);
+        $cesta_subor=upload_file($subor,$server_dir);
 
         //Vloz
         $sql = mysqli_query($con, "select * from subor");
@@ -31,9 +31,6 @@
                 $n=$info['idSubor'];
         }
         $idSubor = $n + 1;
-
-
-        $cesta_subor=$server_dir.$subor['file_path']['name'];
 
         if($idZalozka==null && $idPozicia==null)
             $sql = "INSERT into subor (idSubor, nazov, cesta, vytvorenie, popis, prednasky_idprednasky) Values ('$idSubor','$nazov','$cesta_subor',CURRENT_DATE,'$popis','$idPrednask')";
