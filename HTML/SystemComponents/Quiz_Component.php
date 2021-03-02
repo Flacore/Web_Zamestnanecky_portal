@@ -1,4 +1,6 @@
-<?php include "../../PHP/config_DB.php"; ?>
+<?php include "../../PHP/config_DB.php";
+    $id_uziv=$_SESSION['session'];
+?>
 <body>
 <div id="overview_quiz" class="container">
     <br>
@@ -7,6 +9,45 @@
     </div>
     <br><br><br>
 <!--        TODO:Prehlad Quizov-->
+    <?php
+
+    $sql = mysqli_query($con, "select * from uzivatel where idUzivatel='" . $id_uziv . "' ");
+    $k = 0;
+    while ($rows = $sql->fetch_assoc()) {
+        $_data[$k] = $rows;
+        ++$k;
+    }
+    $info = $_data[0];
+    $ja_id = $info['idUzivatel'];
+
+    $sql = mysqli_query($con, "SELECT * FROM formular join prvok on(idformular=formular_idformular) where prvok.typ_prvku='12' and Uzivatel_idUzivatel='".$ja_id."'");
+    $i = 0;
+    while ($rows = $sql->fetch_assoc()){
+        $data[$i]=$rows;
+        ++$i;
+    }
+
+    for($tmp=0;$tmp<$i;$tmp++) {
+        $row=$data[$tmp];
+
+        $sql = mysqli_query($con, "SELECT * FROM vyplnenie_formulara where formular_idformular='".$row['idformular']."'");
+        $k = 0;
+        while ($rows = $sql->fetch_assoc()){
+            $data[$k]=$rows;
+            ++$k;
+        }
+
+        echo "
+        <div class='quiz_compartmant'>
+               <h3>Nazov: ".$row['Nazov']."</h3>
+               <h6>Popis: ".$row['Popis']."</h6>
+               <h5>Vytvorenie: ".$row['vytvorenie']."</h5>
+               <h5>Vyplnené: ".$k."x</h5>
+               <button onclick='generateURL(".$row['idformular'].")'>Zdieľaj</button>
+        </div>
+        ";
+    }
+    ?>
     <br><br><br>
 </div>
 
@@ -69,6 +110,20 @@
     var tmp=0;
     var z_index = 1;
 
+    function generateURL(id){
+        let url="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/HTML/Dotaznik/questionnaire.php?id="+id;
+        const el = document.createElement('textarea');
+        el.value = url;
+        el.setAttribute('readonly', '');
+        el.style.position = 'absolute';
+        el.style.left = '-9999px';
+        document.body.appendChild(el);
+        el.select();
+        document.execCommand('copy');
+        document.body.removeChild(el);
+        alert("Skopirované do schránky: "+url);
+    }
+
     function submit() {
         let form = document.getElementById('main_form');
         let url = form.action;
@@ -79,7 +134,7 @@
             success: function(data)
             {
                 submit_prvok(data,'prvok');
-                // location.reload();
+                location.reload();
             }
         });
 
