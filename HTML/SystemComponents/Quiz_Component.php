@@ -178,7 +178,6 @@
         var prvky = document.getElementsByClassName(clas);
         for (var i = 0; i < prvky.length; ++i) {
             var item = prvky[i];
-            alert(item.parentElement.parentElement.parentElement.parentElement.id);
             if(!bool) {
                 if(parent===item.parentElement.id) {
                     let html = document.createElement('input');
@@ -568,7 +567,7 @@
         let html="            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"13\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
+            "                <input type=\"text\" value=\"Nazov\" name='Text'>" +
             "                <input type=\"text\" value=\"popis\" name='popis'>" +
             "            </form>";
         elemet.innerHTML=html;
@@ -581,8 +580,6 @@
     }
 
     function stopUpload(success,id,id_prvok,prev){
-        alert(id_prvok);
-        alert(prev);
         if (success == 1){
             document.getElementById('result').innerHTML =
                 '<span class="msg">Súbor sa nahral!<\/span><br/><br/>';
