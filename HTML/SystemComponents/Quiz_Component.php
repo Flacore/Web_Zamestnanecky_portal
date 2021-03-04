@@ -395,7 +395,7 @@
         elemet.classList.add("quiz_compartmant");
         let html="      <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
-            "                <input class=\"hidden\" type=\"number\" value=\"2\" name=\"type\">" +
+            "                <input class=\"hidden\" type=\"number\" value=\"7\" name=\"type\">" +
             "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
             "                <input type=\"checkbox\" name='vyzaduje'><label for=\"scales\">Vyžadovať</label>" +
             "            </form>";
@@ -425,7 +425,7 @@
         elemet.classList.add("quiz_compartmant");
         let html="            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
-            "                <input class=\"hidden\" type=\"number\" value=\"1\" name=\"type\">" +
+            "                <input class=\"hidden\" type=\"number\" value=\"8\" name=\"type\">" +
             "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
             "                <input type=\"checkbox\" name='vyzaduje'><label for=\"scales\">Vyžadovať</label>" +
             "            </form>";
