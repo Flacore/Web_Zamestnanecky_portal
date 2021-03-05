@@ -134,7 +134,7 @@
             success: function(data)
             {
                 submit_prvok(data,'prvok');
-                location.reload();
+                // location.reload();
             }
         });
 
@@ -143,8 +143,8 @@
     function submit_prvok(data,clas) {
         let id=data;
         var prvky = document.getElementsByClassName(clas);
-        for (var i = 0; i < prvky.length; ++i) {
-            var item = prvky[i];
+        for (let i = 0; i < prvky.length; ++i) {
+            let item = prvky[i];
             let html=document.createElement('input');
             html.classList.add("hidden");
             html.type="number";
@@ -154,7 +154,7 @@
             let typ=item.elements.namedItem('type').value;
             url=item.action;
             tmp_name="#"+item.id;
-            var formData =$(tmp_name).serialize();
+            let formData = $(tmp_name).serialize();
             $.ajax({
                 type: "POST",
                 url: url,
@@ -175,14 +175,15 @@
 
     function submit_moznost(data,clas,bool,parent) {
         let id=data;
-        var prvky = document.getElementsByClassName(clas);
-        for (var i = 0; i < prvky.length; ++i) {
-            var item = prvky[i];
+        let prvky = document.getElementsByClassName(clas);
+        for (let i = 0; i < prvky.length; ++i) {
+            let item = prvky[i];
             if(!bool) {
                 if(parent===item.parentElement.id) {
                     let html = document.createElement('input');
                     html.type = "number";
                     html.name = "id_parent";
+                    html.classList.add("hidden");
                     html.value = parseInt(id, 10);
                     item.append(html);
                     url = item.action;
@@ -198,14 +199,23 @@
                 }
             }else{
                 let bol=false;
-                if(clas==="moznost")
-                    bol=parent===item.parentElement.parentElement.parentElement.parentElement.id
-                if(clas==="submoznost")
-                    bol=parent===item.parentElement.parentElement.parentElement.id
+                if(clas==='moznost') {
+                    if (parent === item.parentElement.parentElement.parentElement.parentElement.id) {
+                        alert(item.parentElement.parentElement.parentElement.parentElement.id+" "+parent)
+                        bol = true;
+                    }
+                }
+                if(clas==='submoznost') {
+                    if (parent === item.parentElement.parentElement.parentElement.id) {
+                        bol = true;
+                        alert(item.parentElement.parentElement.parentElement.id+" "+parent)
+                    }
+                }
                 if(bol) {
                     let html = document.createElement('input');
                     html.type = "number";
                     html.name = "id_parent";
+                    html.classList.add("hidden");
                     html.value = parseInt(id, 10);
                     item.append(html);
                     url = item.action;
@@ -439,9 +449,9 @@
         let elemet=document.createElement('div');
         elemet.classList.add("list_ans");
         elemet.classList.add("quiz_compartmant");
-        let html="            <div id=\"list_ans_box\">" +
+        let html="            <div id=\"list_ans_box"+tmp+"\">" +
             "                <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
-            "                    <input class=\"hidden\" type=\"number\" value=\"\" name=\"z_value\">" +
+            "                    <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                    <input class=\"hidden\" type=\"number\" value=\"10\" name=\"type\">" +
             "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
             "                    <input type=\"checkbox\" name='ine'><label for=\"\">Pridaj možnosť iné</label>" +
@@ -460,9 +470,9 @@
         let elemet=document.createElement('div');
         elemet.classList.add("list_ans");
         elemet.classList.add("quiz_compartmant");
-        let html="            <div id=\"list_ans_box\">" +
+        let html="            <div id=\"list_ans_box"+tmp+"\">" +
             "                <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
-            "                    <input class=\"hidden\" type=\"number\" value=\"\" name=\"z_value\">" +
+            "                    <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                    <input class=\"hidden\" type=\"number\" value=\"9\" name=\"type\">" +
             "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
             "                    <input type=\"checkbox\" name='ine'><label for=\"\">Pridaj možnosť iné</label>" +
@@ -500,7 +510,7 @@
         let html="            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"16\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
+            "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
             "                <input type=\"text\" value=\"popis\" name='popis'>" +
             "            </form>";
         elemet.innerHTML=html;
@@ -567,7 +577,7 @@
         let html="            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"13\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Nazov\" name='Text'>" +
+            "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
             "                <input type=\"text\" value=\"popis\" name='popis'>" +
             "            </form>";
         elemet.innerHTML=html;
