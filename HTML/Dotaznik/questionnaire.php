@@ -19,6 +19,7 @@
 </head>
 <body>
     <div class="form_div">
+        <div class="section">
         <?php
         $sql = mysqli_query($con, "select * from prvok where formular_idformular='".$form_id."' order by z_index asc");
         $num = mysqli_query($con, "select count(*) as NumberData from prvok where formular_idformular='".$form_id."' ");
@@ -71,6 +72,7 @@
         }
 
         ?>
+        </div>
     </div>
 </body>
 </html>
@@ -104,18 +106,23 @@ function comp_2($element){
           </form>";
 }
 
+
+//oneAns
 function comp_3($element){
 
 }
 
+//multiAns
 function comp_4($element){
 
 }
 
+//ListAns
 function comp_5($element){
 
 }
 
+//FileAns
 function comp_6($element){
 
 }
@@ -148,36 +155,55 @@ function comp_8($element){
           </form>";
 }
 
+//one Matrix
 function comp_9($element){
 
 }
 
+//multi Matrix
 function comp_10($element){
 
 }
 
+//interval
 function comp_11($element){
 
 }
 
-function comp_12($element){
 
+function comp_12($element){
+    echo"<div class='form_tittle'>
+            <h3 class='center'>".$element['Nazov']."</h3>
+            <h5 class='center'>".$element['Popis']."</h5>
+        </div>";
 }
+
 
 function comp_13($element){
-
+    echo"<div class='text'>
+            <h3 class='center'>".$element['Nazov']."</h3>
+            <h5 class='center'>".$element['Popis']."</h5>
+        </div>";
 }
 
+//Obrazok
 function comp_14($element){
 
 }
 
+//Video
 function comp_15($element){
 
 }
 
-function comp_16($element){
 
+function comp_16($element){
+    echo "   </div>
+        <div class=\"section\">
+        <div class='form_tittle'>
+            <h3 class='center'>".$element['Nazov']."</h3>
+            <h5 class='center'>".$element['Popis']."</h5>
+        </div>";
 }
 
 ?>
