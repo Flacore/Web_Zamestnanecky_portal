@@ -64,9 +64,9 @@
             if($typ==13)
                 comp_13($row);
             if($typ==14)
-                comp_14($row);
+                comp_14($row,$con);
             if($typ==15)
-                comp_15($row);
+                comp_15($row,$con);
             if($typ==16)
                 comp_16($row);
         }
@@ -186,14 +186,62 @@ function comp_13($element){
         </div>";
 }
 
-//Obrazok
-function comp_14($element){
-
+function comp_14($element,$con){
+    $sql = mysqli_query($con, "select * from obsah where prvok_idprvok='".$element['idprvok']."'");
+    $i=0;
+    while ($rows = $sql->fetch_assoc()){
+        $data[$i]=$rows;
+        ++$i;
+    }
+    $local_element=$data[0];
+    if($local_element['url']==null || $local_element['url']==""){
+        $sql = mysqli_query($con, "select * from subor where idSubor='".$local_element['Subor_idSubor']."'");
+        $i=0;
+        while ($rows = $sql->fetch_assoc()){
+            $data[$i]=$rows;
+            ++$i;
+        }
+        $file=$data[0];
+        $url="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server".$file['cesta'];
+    }else{
+        $url=$local_element['url'];
+    }
+    echo "
+        <div>
+            <h3 class='center'>".$element['Nazov']."</h3>
+            <img src=\"".$url."\" width=\"500\" height=\"333\">
+        </div>
+    ";
 }
 
-//Video
-function comp_15($element){
-
+function comp_15($element,$con){
+    $sql = mysqli_query($con, "select * from obsah where prvok_idprvok='".$element['idprvok']."'");
+    $i=0;
+    while ($rows = $sql->fetch_assoc()){
+        $data[$i]=$rows;
+        ++$i;
+    }
+    $local_element=$data[0];
+    if($local_element['url']==null || $local_element['url']==""){
+        $sql = mysqli_query($con, "select * from subor where idSubor='".$local_element['Subor_idSubor']."'");
+        $i=0;
+        while ($rows = $sql->fetch_assoc()){
+            $data[$i]=$rows;
+            ++$i;
+        }
+        $file=$data[0];
+        $url="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server".$file['cesta'];
+    }else{
+        $url=$local_element['url'];
+    }
+    echo "
+        <div>
+            <h3 class='center'>".$element['Nazov']."</h3>
+            <video src=\"".$url."\" controls>
+              Your browser does not support the video tag.
+            </video>
+        </div>
+    ";
 }
 
 
