@@ -21,6 +21,7 @@
     <div class="form_div">
         <div class="section">
         <?php
+        $questions=0;
         $sql = mysqli_query($con, "select * from prvok where formular_idformular='".$form_id."' order by z_index asc");
         $num = mysqli_query($con, "select count(*) as NumberData from prvok where formular_idformular='".$form_id."' ");
         $num_row=mysqli_fetch_array($num);
@@ -36,6 +37,8 @@
 
             $typ=$row['typ_prvku'];
 
+            if($typ<12)
+                $questions++;
 
             if($typ==1)
                 comp_1($row);
@@ -70,6 +73,8 @@
             if($typ==16)
                 comp_16($row);
         }
+        if($questions>0)
+            echo "<button>Odoslať</button>";
 
         ?>
         </div>
