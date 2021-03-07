@@ -134,7 +134,7 @@
             success: function(data)
             {
                 submit_prvok(data,'prvok');
-                // location.reload();
+                location.reload();
             }
         });
 
@@ -201,14 +201,12 @@
                 let bol=false;
                 if(clas==='moznost') {
                     if (parent === item.parentElement.parentElement.parentElement.parentElement.id) {
-                        alert(item.parentElement.parentElement.parentElement.parentElement.id+" "+parent)
                         bol = true;
                     }
                 }
                 if(clas==='submoznost') {
                     if (parent === item.parentElement.parentElement.parentElement.id) {
                         bol = true;
-                        alert(item.parentElement.parentElement.parentElement.id+" "+parent)
                     }
                 }
                 if(bol) {
