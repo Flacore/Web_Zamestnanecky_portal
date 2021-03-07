@@ -9,7 +9,7 @@ while ($rows = $sql->fetch_assoc()) {
         $n=$info['idVyplnenie_formulara'];
 }
 $id_vyplnenie = $n + 1;
-$sql = "INSERT into vyplnenie_formulara (idVyplnenie_formulara, formular_idformular) Values ('$id_vyplnenie','$formId',CURRENT_DATE)";
+$sql = "INSERT into vyplnenie_formulara (idVyplnenie_formulara, formular_idformular,vyplnenie) Values ('$id_vyplnenie','$formId',CURRENT_DATE)";
 mysqli_query($con, $sql);
 echo $id_vyplnenie;
 ?>

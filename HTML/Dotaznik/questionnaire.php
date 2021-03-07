@@ -34,7 +34,7 @@
         }
 
         echo "
-            <form class='hidden' action='../../PHP/quiz/create_ans.php' method='post'>
+            <form id='form_quiz_ans' name='form_quiz_ans' class='hidden' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_ans.php' method='post'>
                 <input class='hidden' type='number' value='".$form_id."' name='formID'>
             </form>
         ";
@@ -84,7 +84,7 @@
                 echo "<br></div>";
         }
         if($questions>0)
-            echo "<br><button class='center'>Odoslať</button>";
+            echo "<br><button onclick='submit_form()' class='center'>Odoslať</button>";
 
         ?>
         </div>
@@ -120,24 +120,20 @@
         document.getElementById('f1_upload_process').style.display = 'none';
         return true;
     }
-    //Todo
+
     function submit_form() {
-        var prvky = document.getElementsByClassName('form_quiz_ans');
-        for (let i = 0; i < prvky.length; ++i) {
-            let item = prvky[i];
-            let formData = $(item).serialize();
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: formData,
-                enctype: 'multipart/form-data',
-                success: function(data)
-                {
-                    submit_item(data);
-                    location.href="questionnaire_succes.php";
-                }
-            });
-        }
+        let url=document.form_quiz_ans.action;
+        let formData = $("#form_quiz_ans").serialize();
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: formData,
+            success: function(data)
+            {
+                submit_item(data);
+                // location.href="questionnaire_succes.php";
+            }
+        });
     }
 
     //TODO
@@ -170,6 +166,7 @@ function comp_1($element){
     }
     echo "<h3 class='center'>".$element['Nazov']."</h3>";
     echo "<form class='form_quiz' method='post' action=''>
+            <input class='hidden' type='number' value='tmp' name='vyplnenie'>
             <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>
             <input class='hidden' type='number' value='1' name='type'>
             <input class='center' type='text' name='odpoved' ".$requered." maxlength=\"256\">
@@ -184,6 +181,7 @@ function comp_2($element){
     }
     echo "<h3 class='center'>".$element['Nazov']."</h3>";
     echo "<form class='form_quiz' method='post' action=''>
+            <input class='hidden' type='number' value='tmp' name='vyplnenie'>
             <input class='hidden' type='number' value='".$element['idprvok']."'>
             <input class='hidden' type='number' value='2' name='type'>
             <input class='center' type='text' name='odpoved' ".$requered." maxlength=\"2048\">
@@ -250,7 +248,7 @@ function comp_5($element,$con){
     echo "
     <div class='center'>
         <form class='form_quiz' method='post' action=''>
-        <input list=\"list".$element['idprvok']."\"  ".$requered.">
+        <input list=\"list".$element['idprvok']."\"  ".$requered." name='list_item'>
         <datalist id=\"list".$element['idprvok']."\">";
     for($n=0;$n<$i;$n++){
         $row=$data[$n];
@@ -389,6 +387,9 @@ function comp_11($element,$con){
     }
     echo "<h3 class='center'>".$element['Nazov']."</h3> 
     <div class='center'><form class='form_quiz' method='post' action=''><table class='center'>";
+    echo "<input value='".$element['idprvok']."' class='hidden' type='number' name='idprvok'>
+          <input class='hidden' type='number' value='".$min."' name='min'>
+          <input class='hidden' type='number' value='".$max."' name='max'>";
     if($max-$min<10){
         echo "<tr>";
         for($n=$min;$n<=$max;$n++){
@@ -397,11 +398,11 @@ function comp_11($element,$con){
         echo "</tr>";
         echo "<tr>";
         for($n=$min;$n<=$max;$n++){
-            echo "<td><input type=\"checkbox\" name='group".$element['idprvok']."' value='".$n."'/></td>";
+            echo "<td><input type=\"checkbox\" name='".$element['idprvok']."_".$n."' value='true'/></td>";
         }
         echo "</tr>";
     }else{
-        echo "<input  type='number' min='".$min."' max='".$max."'>";
+        echo "<input  type='number' min='".$min."' max='".$max."' name='value'>";
     }
     echo "</table></form></div>";
 }
