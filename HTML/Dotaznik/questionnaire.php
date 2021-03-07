@@ -41,6 +41,7 @@
             if($typ<12)
                 $questions++;
 
+            echo "<div class='form_container'>";
             if($typ==1)
                 comp_1($row);
             if($typ==2)
@@ -73,6 +74,7 @@
                 comp_15($row,$con);
             if($typ==16)
                 comp_16($row);
+            echo "</div>";
         }
         if($questions>0)
             echo "<br><button class='center'>Odoslať</button>";
@@ -225,15 +227,80 @@ function comp_8($element){
 
 //one Matrix
 function comp_9($element,$con){
-    echo "<h3 class='center'>".$element['Nazov']."</h3> ";
+    if($element['Vyzadovanie']==null){
+        $requered='';
+    }else{
+        $requered='required';
+    }
+    echo "<h3 class='center'>".$element['Nazov']."</h3> 
+    <div class='center'><table class='center'><form method='post' action=''>";
+    $sql = mysqli_query($con, "select * from moznost where prvok_idprvok='".$element['idprvok']."'");
+    $i=0;
+    while ($rows = $sql->fetch_assoc()){
+        $data[$i]=$rows;
+        ++$i;
+    }
+    for($n=0;$n<$i;$n++){
+        $row=$data[$n];
+        $sql = mysqli_query($con, "select * from moznost where moznost_idMoznost='".$row['idMoznost']."'");
+        $j=0;
+        while ($rows = $sql->fetch_assoc()){
+            $data_submoznost[$j]=$rows;
+            ++$j;
+        }
+        echo "<tr><th>".$row['text']."</th>";
+        for($k=0;$k<$j;$k++){
+            $submoznost=$data_submoznost[$k];
+            echo "
+                    <td>
+                        <h5>".$submoznost['text']."</h5>
+                        <input type=\"checkbox\" name='group".$element['idprvok']."_".$row['idMoznost']."' />
+                    </td>
+            ";
+        }
+        echo "</tr>";
+    }
+    echo "</form></table></div>";
 }
 
 //multi Matrix
 function comp_10($element,$con){
-    echo "<h3 class='center'>".$element['Nazov']."</h3>";
+    if($element['Vyzadovanie']==null){
+        $requered='';
+    }else{
+        $requered='required';
+    }
+    echo "<h3 class='center'>".$element['Nazov']."</h3> 
+    <div class='center'><table class='center'><form method='post' action=''>";
+    $sql = mysqli_query($con, "select * from moznost where prvok_idprvok='".$element['idprvok']."'");
+    $i=0;
+    while ($rows = $sql->fetch_assoc()){
+        $data[$i]=$rows;
+        ++$i;
+    }
+    for($n=0;$n<$i;$n++){
+        $row=$data[$n];
+        $sql = mysqli_query($con, "select * from moznost where moznost_idMoznost='".$row['idMoznost']."'");
+        $j=0;
+        while ($rows = $sql->fetch_assoc()){
+            $data_submoznost[$j]=$rows;
+            ++$j;
+        }
+        echo "<tr><th>".$row['text']."</th>";
+        for($k=0;$k<$j;$k++){
+            $submoznost=$data_submoznost[$k];
+            echo "
+                    <td>
+                        <h5>".$submoznost['text']."</h5>
+                        <input type=\"checkbox\" name='group".$element['idprvok']."_".$row['idMoznost']."_".$submoznost['idMoznost']."' />
+                    </td>
+            ";
+        }
+        echo "</tr>";
+    }
+    echo "</form></table></div>";
 }
 
-//interval
 function comp_11($element,$con){
     $min=$element['min'];
     $max=$element['max'];
