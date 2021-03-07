@@ -21,5 +21,5 @@ if($cesta_subor!=null)
 sleep(1);
 ?>
 <script language="javascript" type="text/javascript">
-    window.top.window.stopUpload(<?php echo $result; ?>,<?php echo $_POST['idPrvok'];?>,<?php echo $_POST['idPrvok']."_".$_POST['FormID'];?>,<?php echo $id_subor;?>);
+    window.top.window.stopUpload(<?php echo $result; ?>,<?php echo $_POST['idPrvok'];?>,<?php echo $_POST['FormID'];?>,<?php echo $id_subor;?>);
 </script>

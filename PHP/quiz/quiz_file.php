@@ -4,8 +4,6 @@ include "../ftp/Upload_file.php";
     if(!isset($_SESSION['session'])){
         header('Location: Main_Site.php');
     }
-    $id=99;
-    $id2=91;
     $id=$_POST['id_path'];
     $id2=$_POST['prev'];
     $result=0;

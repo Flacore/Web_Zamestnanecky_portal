@@ -33,6 +33,12 @@
             ++$i;
         }
 
+        echo "
+            <form class='hidden' action='../../PHP/quiz/create_ans.php' method='post'>
+                <input class='hidden' type='number' value='".$form_id."' name='formID'>
+            </form>
+        ";
+
         for($i=0;$i<$n;$i++){
             $row = $data[$i];
 
@@ -103,8 +109,8 @@
                 '<span class="cente msg">Súbor sa nahral!<\/span><br/><br/>';
             document.getElementById(idPrvok).classList.add('hidden');
             alert(value);
-            alert(idvalue);
-            let tmp=document.getElementById(idvalue);
+            alert(idPrvok+"_"+idvalue);
+            let tmp=document.getElementById(idPrvok+"_"+idvalue);
             tmp.value=value;
         }
         else {
@@ -114,8 +120,28 @@
         document.getElementById('f1_upload_process').style.display = 'none';
         return true;
     }
+    //Todo
+    function submit_form() {
+        var prvky = document.getElementsByClassName('form_quiz_ans');
+        for (let i = 0; i < prvky.length; ++i) {
+            let item = prvky[i];
+            let formData = $(item).serialize();
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: formData,
+                enctype: 'multipart/form-data',
+                success: function(data)
+                {
+                    submit_item(data);
+                    location.href="questionnaire_succes.php";
+                }
+            });
+        }
+    }
 
-    function submit() {
+    //TODO
+    function submit_item(data) {
         var prvky = document.getElementsByClassName('form_quiz');
         for (let i = 0; i < prvky.length; ++i) {
             let item = prvky[i];
@@ -241,7 +267,7 @@ function comp_6($element,$formID){
     echo       "<p class='center' style='display: none' id=\"f1_upload_process\">Nahrávam...<br/><img src=\"https://mir-s3-cdn-cf.behance.net/project_modules/disp/585d0331234507.564a1d239ac5e.gif\" /></p>
                 <p class='center' id=\"result\"></p>
                 <form class='form_quiz' class='hidden'>
-                    <input id='".$element['idprvok']."_".$formID."' type='number' name='id_subor'>
+                    <input class='hidden' id='".$element['idprvok']."_".$formID."' type='number' name='id_subor'>
                 </form>
                 <form id='".$element['idprvok']."' class='center' action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/file_ans.php\" method=\"post\" enctype=\"multipart/form-data\" target=\"upload_target\" onsubmit=\"startUpload();\">
                     <input class='center' type=\"file\" name='file_path'>
