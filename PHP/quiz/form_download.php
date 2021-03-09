@@ -17,7 +17,7 @@ $filename="export.csv";
 if($k>0) {
     $f = fopen('php://memory', 'w');
 
-    for($n=-1;$n<=$k;$n++){
+    for($n=-1;$n<$k;$n++){
         $tmp_array=null;
         if($n>=0){
             $tmp=$id_list[0];
@@ -33,11 +33,11 @@ if($k>0) {
             foreach ($array as $list){
                 if($list['typ_prvku']==10 ||$list['typ_prvku']==9){
                     $sql = mysqli_query($con, "select * from moznost where prvok_idprvok='".$list['idprvok']."'");
-                    $k = 0;
+                    $g = 0;
                     while ($rows = $sql->fetch_assoc()){
-                        $tmp[$k]=$rows;
-                        $tmp_list=$tmp[$k];
-                        ++$k;
+                        $tmp[$g]=$rows;
+                        $tmp_list=$tmp[$g];
+                        ++$g;
                         $tmp_array[$p]=getValue($list['typ_prvku'],$list['idprvok'],$tmp_list['idMoznost'],$vyplnenie,$con);
                         $p++;
                     }
@@ -59,10 +59,10 @@ if($k>0) {
             foreach ($array as $list){
                 if($list['typ_prvku']==10 ||$list['typ_prvku']==9){
                     $sql = mysqli_query($con, "select * from moznost where prvok_idprvok='".$list['idprvok']."'");
-                    $k = 0;
+                    $g = 0;
                     while ($rows = $sql->fetch_assoc()){
-                        $tmp[$k]=$rows;
-                        ++$k;
+                        $tmp[$g]=$rows;
+                        ++$g;
                     }
                     foreach ($tmp as $tmp_list){
                         $tmp_array[$p] = $tmp_list['text'];
@@ -165,7 +165,7 @@ function getValue($typ,$idPrvok,$idMoznost,$id,$con){
                     $item[$i] = $rows;
                     $lines=$item[$i];
                     ++$i;
-                    $line =$lines['text'];
+                    $line =$line.$lines['text'];
                 }
                 return $line;
             }
