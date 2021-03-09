@@ -43,9 +43,12 @@
                <h6>Popis: ".$row['Popis']."</h6>
                <h5>Vytvorenie: ".$row['vytvorenie']."</h5>
                <h5>Vyplnené: ".$k."x</h5>
-               <button onclick='generateURL(".$row['idformular'].")'>Zdieľaj</button>
-        </div>
-        ";
+               <button onclick='generateURL(".$row['idformular'].")'>Zdieľaj</button>";
+        if($k>0){
+            echo "<button onclick='show_form(".$row['idformular'].")'>Zobraziť</button>
+               <button onclick='Download_form(".$row['idformular'].")'>Stiahnuť</button>";
+        }
+        echo "</div>";
     }
     ?>
     <br><br><br>
@@ -61,6 +64,7 @@
         <div class="form_settings quiz_compartmant">
             <form id="main_form" method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_form.php">
                 <label>
+                    Druh:
                     <input class="hidden" type="number" value="1" name="z_value">
                 </label>
                 <select name="form_type">
@@ -68,9 +72,13 @@
                     <option value="2">Formulár</option>
                 </select>
                 <input class="hidden" type="number" value="12" name="type">
-                <input type="text" value="Nazov" name="Nazov">
-                <input type="text" value="popis" name="popis">
+                <label>Nazov:</label>
+                <input type="text" value="" name="Nazov" required>
+                <label>Popis:</label>
+                <input type="text" value="" name="popis">
+                <label>Platnosť od:</label>
                 <input type="date" name="platnost_od">
+                <label>Platnosť do:</label>
                 <input type="date" name="platnost_do">
             </form>
         </div>
@@ -110,6 +118,23 @@
     var tmp=0;
     var z_index = 1;
 
+    function show_form(form_id) {
+        let url="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/echo_form.php";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {form_id: form_id},
+            success: function (data) {
+                //Nahraj data do modalu
+            }
+        });
+    }
+
+    function Download_form(form_id) {
+        let url="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/form_download.php?id="+form_id;
+        window.open(url);
+    }
+
     function generateURL(id){
         let url="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/HTML/Dotaznik/questionnaire.php?id="+id;
         const el = document.createElement('textarea');
@@ -124,19 +149,24 @@
         alert("Skopirované do schránky: "+url);
     }
 
+    function delete_item(id) {
+        document.getElementById(id).remove();
+    }
+
     function submit() {
         let form = document.getElementById('main_form');
         let url = form.action;
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: $('#main_form').serialize() ,
-            success: function(data)
-            {
-                submit_prvok(data,'prvok');
-                location.reload();
-            }
-        });
+        if(test()) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: $('#main_form').serialize(),
+                success: function (data) {
+                    submit_prvok(data, 'prvok');
+                    location.reload();
+                }
+            });
+        }
 
     }
 
@@ -231,6 +261,28 @@
         }
     }
 
+    function test() {
+        let divko=document.getElementById('adding_question');
+        let prvky = divko.getElementsByTagName('form');
+        for (let i = 0; i < prvky.length; ++i) {
+            let tmp=prvky[i];
+            if(!(tmp.checkValidity())){
+                alert("Vo formulári sú dáta ktoré niesu vyplnené!");
+                tmp.scrollIntoView();
+                return false;
+            }else{
+                if(tmp.children[1].value==="11"){
+                    if(tmp.children[5].value>=tmp.children[7].value){
+                        alert("Hodnota \"Min\" je väčšia ako hodnota \"Max\".");
+                        tmp.scrollIntoView();
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
+    }
+
     function open_dropdown() {
         document.getElementById("question_dropdown").classList.remove("hidden");
         document.getElementById("open_dropdown").classList.add("hidden");
@@ -243,7 +295,7 @@
 
     function add_option(id,clas,action) {
         let elemet=document.createElement('form');
-        let html=" <input type=\"text\" name='text'>";
+        let html=" <input type=\"text\" name='text' required>";
         elemet.id=idtmp();
         elemet.innerHTML=html;
         elemet.classList.add(clas);
@@ -257,7 +309,7 @@
         let elemet=document.createElement('div');
         let html="              <div class=\"col-sm-6\">" +
             "                        <form id='"+idtmp()+"' class=\"moznost\" method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php\">" +
-            "                            <input type=\"text\" name='text'>" +
+            "                            <input type=\"text\" name='text' required>" +
             "                        </form>" +
             "                    </div>" +
             "                    <div class=\"col-sm-6\">" +
@@ -269,6 +321,8 @@
         elemet.id="som_id"+idtmp();
         elemet.classList.add("row");
         insert(elemet,id)
+        add_option('catOption'+tmp,'submoznost','http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_submoznost.php');
+        add_option('catOption'+tmp,'submoznost','http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_submoznost.php');
     }
 
     function index() {
@@ -299,12 +353,16 @@
     function add_shortANS() {
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("short_answ");
         elemet.classList.add("quiz_compartmant");
-        let html="            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "   <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"1\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
+            "<label>Otazka: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
             "                <input type=\"checkbox\" name='vyzaduje'><label for=\"scales\">Vyžadovať</label>" +
             "            </form>" +
             "        </div>";
@@ -315,12 +373,16 @@
     function add_longANS() {
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("long_answ");
         elemet.classList.add("quiz_compartmant");
-        let html="            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"2\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
+            "<label>Otazka: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
             "                <input type=\"checkbox\" name='vyzaduje'><label for=\"scales\">Vyžadovať</label>" +
             "            </form>";
         elemet.innerHTML=html;
@@ -331,80 +393,96 @@
         tmp++;
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("one_ans");
         elemet.classList.add("quiz_compartmant");
-        let html="            <div id=\"one_ans_box"+tmp+"\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <div id=\"one_ans_box"+tmp+"\">" +
             "                <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                    <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                    <input class=\"hidden\" type=\"number\" value=\"3\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
-            "                    <input type=\"checkbox\" name='ine'><label for=\"\">Pridaj možnosť iné</label>" +
+            "<label>Otazka: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
             "                    <input type=\"checkbox\" name='vyzaduje'><label for=\"\">Vyžadovať</label>" +
             "                </form>" +
             "                <form id='"+idtmp()+"' class='moznost' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php\">" +
-            "                    <input type=\"text\" name='text'>" +
+            "                    <input type=\"text\" name='text' required>" +
             "                </form>" +
             "            </div>" +
             "            <button onclick=\"add_option('one_ans_box"+tmp+"','moznost','http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php')\">Pridaj možnosť</button>";
         elemet.innerHTML=html;
         insert(elemet,id);
+        add_option('one_ans_box'+tmp,'moznost','http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php');
     }
 
     function add_multiANS() {
         tmp++;
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("multi_ans");
         elemet.classList.add("quiz_compartmant");
-        let html="            <div id=\"multi_ans_box"+tmp+"\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <div id=\"multi_ans_box"+tmp+"\">" +
             "                <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                    <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                    <input class=\"hidden\" type=\"number\" value=\"4\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
-            "                    <input type=\"checkbox\" name='ine'><label for=\"\">Pridaj možnosť iné</label>" +
+            "<label>Otazka: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
             "                    <input type=\"checkbox\" name='vyzaduje'><label for=\"\">Vyžadovať</label>" +
             "                </form>" +
             "                <form id='"+idtmp()+"' class='moznost' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php\">" +
-            "                    <input type=\"text\" name='text'>" +
+            "                    <input type=\"text\" name='text' required>" +
             "                </form>" +
             "            </div>" +
             "            <button onclick=\"add_option('multi_ans_box"+tmp+"','moznost','http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php')\">Pridaj možnosť</button>";
         elemet.innerHTML=html;
         insert(elemet,id);
+        add_option('multi_ans_box'+tmp,'moznost','http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php');
     }
 
     function add_listANS() {
         tmp++;
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("list_ans");
         elemet.classList.add("quiz_compartmant");
-        let html="            <div id=\"list_ans_box"+tmp+"\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <div id=\"list_ans_box"+tmp+"\">" +
             "                <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                    <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                    <input class=\"hidden\" type=\"number\" value=\"5\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
-            "                    <input type=\"checkbox\" name='ine'><label for=\"\">Pridaj možnosť iné</label>" +
+            "<label>Otazka: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
             "                    <input type=\"checkbox\" name='vyzaduje'><label for=\"\">Vyžadovať</label>" +
             "                </form>" +
             "                <form id='"+idtmp()+"' class='moznost' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php\">" +
-            "                    <input type=\"text\" name='text'>" +
+            "                    <input type=\"text\" name='text' required>" +
             "                </form>" +
             "            </div>" +
             "            <button onclick=\"add_option('list_ans_box"+tmp+"','moznost','http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php')\">Pridaj možnosť</button>";
         elemet.innerHTML=html;
         insert(elemet,id);
+        add_option('list_ans_box'+tmp,'moznost','http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_moznost.php');
     }
 
     function add_DATE() {
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("date_answ");
         elemet.classList.add("quiz_compartmant");
-        let html="      <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "      <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"7\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
+            "<label>Otazka: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
             "                <input type=\"checkbox\" name='vyzaduje'><label for=\"scales\">Vyžadovať</label>" +
             "            </form>";
         elemet.innerHTML=html;
@@ -414,12 +492,16 @@
     function add_File() {
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("file_ans");
         elemet.classList.add("quiz_compartmant");
-        let html="            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"6\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
+            "<label>Otazka: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
             "                <input type=\"checkbox\" name='vyzaduje'><label for=\"scales\">Vyžadovať</label>" +
             "            </form>";
         elemet.innerHTML=html;
@@ -429,12 +511,16 @@
     function add_Time() {
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("time_answ");
         elemet.classList.add("quiz_compartmant");
-        let html="            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"8\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
+            "<label>Otazka: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
             "                <input type=\"checkbox\" name='vyzaduje'><label for=\"scales\">Vyžadovať</label>" +
             "            </form>";
         elemet.innerHTML=html;
@@ -445,14 +531,17 @@
         tmp++;
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("list_ans");
         elemet.classList.add("quiz_compartmant");
-        let html="            <div id=\"list_ans_box"+tmp+"\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <div id=\"list_ans_box"+tmp+"\">" +
             "                <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                    <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                    <input class=\"hidden\" type=\"number\" value=\"10\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
-            "                    <input type=\"checkbox\" name='ine'><label for=\"\">Pridaj možnosť iné</label>" +
+            "<label>Otazka: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
             "                    <input type=\"checkbox\" name='vyzaduje'><label for=\"\">Vyžadovať</label>" +
             "                </form>" +
             "                <div class=\"row\" id=\"option"+tmp+"\"></div>" +
@@ -460,20 +549,24 @@
             "            <button onclick=\"add_Category('option"+tmp+"')\">Pridaj možnosť</button>";
         elemet.innerHTML=html;
         insert(elemet,id);
+        add_Category('option'+tmp)
     }
 
     function add_oneMATRIX() {
         tmp++;
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("list_ans");
         elemet.classList.add("quiz_compartmant");
-        let html="            <div id=\"list_ans_box"+tmp+"\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <div id=\"list_ans_box"+tmp+"\">" +
             "                <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                    <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                    <input class=\"hidden\" type=\"number\" value=\"9\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
-            "                    <input type=\"checkbox\" name='ine'><label for=\"\">Pridaj možnosť iné</label>" +
+            "<label>Otazka: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
             "                    <input type=\"checkbox\" name='vyzaduje'><label for=\"\">Vyžadovať</label>" +
             "                </form>" +
             "                <div class=\"row\" id=\"option"+tmp+"\"></div>" +
@@ -481,19 +574,26 @@
             "            <button onclick=\"add_Category('option"+tmp+"')\">Pridaj možnosť</button>";
         elemet.innerHTML=html;
         insert(elemet,id);
+        add_Category('option'+tmp)
     }
 
     function add_interval() {
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("intrvl_answ");
         elemet.classList.add("quiz_compartmant");
-        let html="            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"11\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Otazka\" name='Otazka'>" +
-            "                <input type=\"number\" name=\"min\">" +
-            "                <input type=\"number\" name=\"max\">" +
+            "<label>Otazka: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
+            "<label>Min: </label>"+
+            "                <input type=\"number\" name=\"min\" required>" +
+            "<label>Max: </label>"+
+            "                <input type=\"number\" name=\"max\" required>" +
             "                <input type=\"checkbox\" name='vyzaduje'><label for=\"scales\">Vyžadovať</label>" +
             "            </form>";
         elemet.innerHTML=html;
@@ -503,13 +603,18 @@
     function add_Section() {
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("section");
         elemet.classList.add("quiz_compartmant");
-        let html="            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"16\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
-            "                <input type=\"text\" value=\"popis\" name='popis'>" +
+            "<label>Nazov: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
+            "<label>Popis: </label>"+
+            "                <input type=\"text\" value=\"\" name='popis'>" +
             "            </form>";
         elemet.innerHTML=html;
         insert(elemet,id);
@@ -518,14 +623,21 @@
     function add_picture() {
         let id="adding_question";
         let elemet=document.createElement('div');
-        elemet.classList.add("picture");
+        let id_i=idtmp();
+        elemet.id=id_i;
+        elemet.classList.add("video");
         elemet.classList.add("quiz_compartmant");
-        let html="            <form id='"+idtmp()+"' enctype=\"multipart/form-data\" class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
+        id_element=idtmp();
+        id_element2=idtmp();
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <form id='"+idtmp()+"' enctype=\"multipart/form-data\" class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"14\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
+            "<label>Nazov: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
             "                <input id='"+id_element2+"' type=\"checkbox\" name='url_bt' checked><label for=\"scales\" >Použiť URL adresu</label>" +
-            "                <input type=\"text\" value=\"url\" name='url'>" +
+            "<label>URL: </label>"+
+            "                <input type=\"text\" value=\"\" name='url'>" +
             "                <input id='"+id_element+"' class='hidden' type=\"number\" name='file_path'>" +
             "            </form>"+
             "<p style='display: none' id=\"f1_upload_process\">Nahrávam...<br/><img src=\"https://mir-s3-cdn-cf.behance.net/project_modules/disp/585d0331234507.564a1d239ac5e.gif\" /></p>"+
@@ -543,16 +655,21 @@
     function add_video() {
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("video");
         elemet.classList.add("quiz_compartmant");
         id_element=idtmp();
         id_element2=idtmp();
-        let html="            <form id='"+idtmp()+"' enctype=\"multipart/form-data\" class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <form id='"+idtmp()+"' enctype=\"multipart/form-data\" class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"15\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
+            "<label>Nazov: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
             "                <input id='"+id_element2+"' type=\"checkbox\" name='url_bt' checked><label for=\"scales\" >Použiť URL adresu</label>" +
-            "                <input type=\"text\" value=\"url\" name='url'>" +
+            "<label>URL: </label>"+
+            "                <input type=\"text\" value=\"\" name='url'>" +
             "                <input id='"+id_element+"' class='hidden' type=\"number\" name='file_path'>" +
             "            </form>"+
             "<p style='display: none' id=\"f1_upload_process\">Nahrávam...<br/><img src=\"https://mir-s3-cdn-cf.behance.net/project_modules/disp/585d0331234507.564a1d239ac5e.gif\" /></p>"+
@@ -570,13 +687,18 @@
     function add_text() {
         let id="adding_question";
         let elemet=document.createElement('div');
+        let id_i=idtmp();
+        elemet.id=id_i;
         elemet.classList.add("text");
         elemet.classList.add("quiz_compartmant");
-        let html="            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
+        let html=         "<span class=\"close-btn-form\" onclick=\"delete_item('"+id_i+"')\" >&times;</span>"+
+            "            <form id='"+idtmp()+"' class='prvok' method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_prvok.php\">" +
             "                <input class=\"hidden\" type=\"number\" value=\""+index()+"\" name=\"z_value\">" +
             "                <input class=\"hidden\" type=\"number\" value=\"13\" name=\"type\">" +
-            "                <input type=\"text\" value=\"Nazov\" name='Otazka'>" +
-            "                <input type=\"text\" value=\"popis\" name='popis'>" +
+            "<label>Nazov: </label>"+
+            "                <input type=\"text\" value=\"\" name='Otazka' required>" +
+            "<label>Popis: </label>"+
+            "                <input type=\"text\" value=\"\" name='popis'>" +
             "            </form>";
         elemet.innerHTML=html;
         insert(elemet,id);

@@ -30,7 +30,7 @@ html, body {
     overflow-y: scroll;
     margin-left: 5%;
     margin-top: 5%;
-    background-color:#f2f2f2;
+    background-color:white;
     border-radius: 10px;
 }
 
@@ -42,6 +42,19 @@ html, body {
     text-align: center;
     margin-left: 50%;
     transform: translate(-50%);
+}
+
+.vyzadovanie_text{
+    text-decoration: black underline;
+}
+
+.nevyplnene{
+    color: #e53935;
+    text-decoration: #e53935 underline !important;
+}
+
+.border{
+    border: black 1px solid;
 }
 
 .section{

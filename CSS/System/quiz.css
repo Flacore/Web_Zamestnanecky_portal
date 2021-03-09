@@ -56,3 +56,15 @@
     margin-left: -10px;
     margin-top: -10px;
 }
+
+.close-btn-form {
+    cursor: pointer;
+    float: right;
+    margin-right: 50px;
+    color: lightgray;
+    font-size: 24px;
+    font-weight: bold;
+}
+.close-btn-form:hover {
+    color: darkgray;
+}

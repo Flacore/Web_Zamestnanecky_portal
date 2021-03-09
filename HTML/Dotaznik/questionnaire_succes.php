@@ -13,6 +13,9 @@
     <link rel="stylesheet" href="../../CSS/Dotaznik/form.css">
 </head>
 <body>
-    <h3>Succes</h3>
+<div class="form_div">
+    <h2 class="center">Odpovede úspešne nahrané.</h2>
+    <h4 class="center">Ďakujeme za vyplnenie.</h4>
+</div>
 </body>
 </html>

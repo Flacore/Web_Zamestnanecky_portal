@@ -1,5 +1,3 @@
-
-
 function  add_link(login_id,zalozka=false) {
     clear_form();
     close_modal();

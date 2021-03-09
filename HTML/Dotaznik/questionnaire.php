@@ -122,16 +122,17 @@
     function submit_form() {
         let url=document.form_quiz_ans.action;
         let formData = $("#form_quiz_ans").serialize();
-        $.ajax({
-            type: "POST",
-            url: url,
-            data: formData,
-            success: function(data)
-            {
-                submit_item(data);
-                // location.href="questionnaire_succes.php";
-            }
-        });
+        if(control()) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: formData,
+                success: function (data) {
+                    submit_item(data);
+                    location.href="questionnaire_succes.php";
+                }
+            });
+        }
     }
 
     function submit_item(data) {
@@ -149,56 +150,140 @@
             let formData = $(item).serialize();
             url = item.action;
 
-            alert(formData);
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: formData,
-                success: function(data)
-                {
-                }
-            });
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    data: formData,
+                    success: function (data) {
+                    }
+                });
         }
+    }
+
+    function control() {
+        let bool=false;
+        let prvky = document.getElementsByClassName('form_quiz');
+        for (let i = 0; i < prvky.length; ++i) {
+            let item=prvky[i];
+            if (item.checkValidity() && checkOther(item,item.children[0].value)) {
+                bool = true;
+            } else {
+                alert("Vo formulári sú dáta ktoré niesu vyplnené!");
+                item.scrollIntoView();
+                let tmp = item.previousElementSibling;
+                tmp.classList.add("nevyplnene");
+                bool = false;
+                break;
+            }
+        }
+        return bool;
+    }
+
+    function checkOther(item,typ) {
+        if(item.getElementsByTagName('input')[1].value==1) {
+            if (typ === "3" || typ === "11") {
+                let checkboxes = item.querySelectorAll('input[type=checkbox]:checked');
+                if (checkboxes.length > 0)
+                    return true;
+                else {
+                    if(typ === "3" ){
+                        let sibling=item.nextSibling;
+                        if((sibling.children[3].value===""||sibling.children[3].value===null))
+                            return true;
+                    }
+                    return false;
+                }
+            }
+            if (typ === "4" || typ === "9" || typ === "10") {
+                let id = item.getElementsByTagName('input')[3].value;
+                let prvky = document.getElementsByClassName('form_quiz');
+                for (let i = 0; i < prvky.length; ++i) {
+                    let prvok = prvky[i];
+                    if (typ === prvok.getElementsByTagName('input')[0].value) {
+                        if (id === prvok.getElementsByTagName('input')[3].value) {
+                            let checkboxes = prvok.querySelectorAll('input[type=checkbox]:checked');
+                            if (checkboxes.length > 0)
+                                return true;
+                        }
+                    }
+                }
+                if(typ === "4" ){
+                    let prvky = document.getElementsByClassName('form_quiz');
+                    for (let i = 0; i < prvky.length; ++i) {
+                        if ("1" === prvok.getElementsByTagName('input')[0].value) {
+                            if (id === prvok.getElementsByTagName('input')[2].value) {
+                                sibling=prvky[i];
+                                let sibling=item.nextSibling;
+                                if((sibling.children[3].value===""||sibling.children[3].value===null))
+                                    return true;
+                            }
+                        }
+                    }
+                }
+                return false;
+            }
+        }
+        return true;
     }
 </script>
 <?php
 $num=0;
 
 function comp_1($element){
-    if($element['Vyzadovanie']==null){
+    if($element['Vyzadovanie']==0){
         $requered='';
+        $hviezdicka='';
+        $css='';
+        $bool=0;
     }else{
         $requered='required';
+        $hviezdicka='*';
+        $css='vyzadovanie_text';
+        $bool=1;
     }
-    echo "<h3 class='center'>".$element['Nazov']."</h3>";
+    echo "<h3 class='center ".$css."'>".$element['Nazov']." ".$hviezdicka."</h3>";
     echo "<form class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
-            <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>
             <input class='hidden' type='number' value='1' name='type'>
+            <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
+            <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>           
             <input class='center' type='text' name='odpoved' ".$requered." maxlength=\"256\">
           </form>";
 }
 
 function comp_2($element){
-    if($element['Vyzadovanie']==null){
+    if($element['Vyzadovanie']==0){
         $requered='';
+        $hviezdicka='';
+        $css='';
+        $bool=0;
     }else{
         $requered='required';
+        $hviezdicka='*';
+        $css='vyzadovanie_text';
+        $bool=1;
     }
-    echo "<h3 class='center'>".$element['Nazov']."</h3>";
+    echo "<h3 class='center ".$css."'>".$element['Nazov']." ".$hviezdicka."</h3>";
     echo "<form class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
-            <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>
             <input class='hidden' type='number' value='2' name='type'>
+            <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
+            <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>           
             <input class='center' type='text' name='odpoved' ".$requered." maxlength=\"2048\">
           </form>";
 }
 
 function comp_3($element,$con){
-    if($element['Vyzadovanie']==null){
+    if($element['Vyzadovanie']==0){
         $requered='';
+        $hviezdicka='';
+        $css='';
+        $bool=0;
     }else{
         $requered='required';
+        $hviezdicka='*';
+        $css='vyzadovanie_text';
+        $bool=1;
     }
-    echo "<h3 class='center'>".$element['Nazov']."</h3> <div class='center'><form  class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>";
+       echo "<h3 class='center ".$css."'>".$element['Nazov']." ".$hviezdicka."</h3><div class='center'><form  class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>";
     $sql = mysqli_query($con, "select * from moznost where prvok_idprvok='".$element['idprvok']."'");
     $i=0;
     while ($rows = $sql->fetch_assoc()){
@@ -206,47 +291,81 @@ function comp_3($element,$con){
         ++$i;
     }
     echo "  <input class='hidden' type='number' value='3' name='type'>
+            <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
             <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>";
     for($n=0;$n<$i;$n++){
         $row=$data[$n];
         echo "
-             <input type=\"checkbox\" name='group".$element['idprvok']."' value='".$row['idMoznost']."' />
+             <input type=\"checkbox\" name='prvok".$element['idprvok']."' value='".$row['idMoznost']."' />
             <label>".$row['text']."</label>";
     }
-    echo "</form></div>";
+    echo "</form>";
+    if($element['Mozn_ine']==1){
+        echo "<form class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
+            <input class='hidden' type='number' value='1' name='type'>
+            <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
+            <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>           
+            <input class='center' type='text' name='odpoved' maxlength=\"256\">
+          </form>";
+    }
+    echo"</div>";
 }
 
 function comp_4($element,$con){
-    if($element['Vyzadovanie']==null){
+    if($element['Vyzadovanie']==0){
         $requered='';
+        $hviezdicka='';
+        $css='';
+        $bool=0;
     }else{
         $requered='required';
+        $hviezdicka='*';
+        $css='vyzadovanie_text';
+        $bool=1;
     }
-    echo "<h3 class='center'>".$element['Nazov']."</h3> <div class='center'><form  class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>";
+    echo "<h3 class='center ".$css."'>".$element['Nazov']." ".$hviezdicka."</h3><div class='center'>";
     $sql = mysqli_query($con, "select * from moznost where prvok_idprvok='".$element['idprvok']."'");
     $i=0;
     while ($rows = $sql->fetch_assoc()){
         $data[$i]=$rows;
         ++$i;
     }
-    echo "  <input class='hidden' type='number' value='4' name='type'>
-            <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>";
     for($n=0;$n<$i;$n++){
         $row=$data[$n];
         echo "
-             <input type=\"checkbox\" name='group".$element['idprvok']."_".$row['idMoznost']."' value='".$row['idMoznost']."' />
-            <label>".$row['text']."</label>";
+            <form  class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
+             <input class='hidden' type='number' value='4' name='type'>
+             <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
+             <input class='hidden' type='number' value='".$row['idMoznost']."' name='submoznost'>
+             <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>
+             <input type=\"checkbox\" name='group".$row['idMoznost']."' value='".$row['idMoznost']."' />
+            <label>".$row['text']."</label>
+            </form>";
     }
-    echo "</form></div>";
+    if($element['Mozn_ine']==1){
+        echo "<form class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
+            <input class='hidden' type='number' value='1' name='type'>
+            <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
+            <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>           
+            <input class='center' type='text' name='odpoved' maxlength=\"256\">
+          </form>";
+    }
+    echo "</div>";
 }
 
 function comp_5($element,$con){
-    if($element['Vyzadovanie']==null){
+    if($element['Vyzadovanie']==0){
         $requered='';
+        $hviezdicka='';
+        $css='';
+        $bool=0;
     }else{
         $requered='required';
+        $hviezdicka='*';
+        $css='vyzadovanie_text';
+        $bool=1;
     }
-    echo "<h3 class='center'>".$element['Nazov']."</h3>";
+    echo "<div class='center'><h3 class='".$css."'>".$element['Nazov']." ".$hviezdicka."</h3>";
     $sql = mysqli_query($con, "select * from moznost where prvok_idprvok='".$element['idprvok']."'");
     $i=0;
     while ($rows = $sql->fetch_assoc()){
@@ -254,16 +373,15 @@ function comp_5($element,$con){
         ++$i;
     }
     echo "
-    <div class='center'>
         <form  class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
-        <input list=\"list".$element['idprvok']."\"  ".$requered." name='list_item'>
-        <datalist id=\"list".$element['idprvok']."\">";
+        <input class='hidden' type='number' value='5' name='type'>
+        <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
+        <select id=\"list".$element['idprvok']."\" ".$requered." name='list_item'>";
     for($n=0;$n<$i;$n++){
         $row=$data[$n];
-        echo "<option value='".$row['idMoznost']."' >";
+        echo "<option value='".$row['idMoznost']."' >".$row['text']."</option>";
     }
-    echo" </datalist>
-          <input class='hidden' type='number' value='5' name='type'>
+    echo" </datalist>         
           <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>
     </form>
     </div>  
@@ -271,13 +389,25 @@ function comp_5($element,$con){
 }
 
 function comp_6($element,$formID){
-    echo "<h3 class='center'>".$element['Nazov']."</h3>";
+    if($element['Vyzadovanie']==0){
+        $requered='';
+        $hviezdicka='';
+        $css='';
+        $bool=0;
+    }else{
+        $requered='required';
+        $hviezdicka='*';
+        $css='vyzadovanie_text';
+        $bool=1;
+    }
     echo       "<p class='center' style='display: none' id=\"f1_upload_process\">Nahrávam...<br/><img src=\"https://mir-s3-cdn-cf.behance.net/project_modules/disp/585d0331234507.564a1d239ac5e.gif\" /></p>
                 <p class='center' id=\"result\"></p>
+                <h3 class='center ".$css."'>".$element['Nazov']." ".$hviezdicka."</h3>
                 <form  class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
                     <input class='hidden' type='number' value='6' name='type'>
+                    <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
                     <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>
-                    <input class='hidden' id='".$element['idprvok']."_".$formID."' type='number' name='id_subor'>
+                    <input class='hidden' id='".$element['idprvok']."_".$formID."' type='number' name='id_subor' ".$requered.">
                 </form>
                 <form id='".$element['idprvok']."' class='center' action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/file_ans.php\" method=\"post\" enctype=\"multipart/form-data\" target=\"upload_target\" onsubmit=\"startUpload();\">
                     <input class='hidden' type='number' value='0' name='vyplnenie'>
@@ -289,44 +419,61 @@ function comp_6($element,$formID){
 }
 
 function comp_7($element){
-    if($element['Vyzadovanie']==null){
+    if($element['Vyzadovanie']==0){
         $requered='';
+        $hviezdicka='';
+        $css='';
+        $bool=0;
     }else{
         $requered='required';
+        $hviezdicka='*';
+        $css='vyzadovanie_text';
+        $bool=1;
     }
-    echo "<h3 class='center'>".$element['Nazov']."</h3>";
+    echo "<h3 class='center ".$css."'>".$element['Nazov']." ".$hviezdicka."</h3>";
     echo "<form  class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
             <input class='hidden' type='number' value='7' name='type'>
+            <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
             <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>
             <input class='center' type='date' name='datum' ".$requered.">
           </form>";
 }
 
 function comp_8($element){
-    if($element['Vyzadovanie']==null){
+    if($element['Vyzadovanie']==0){
         $requered='';
+        $hviezdicka='';
+        $css='';
+        $bool=0;
     }else{
         $requered='required';
+        $hviezdicka='*';
+        $css='vyzadovanie_text';
+        $bool=1;
     }
-    echo "<h3 class='center'>".$element['Nazov']."</h3>";
+    echo "<h3 class='center ".$css."'>".$element['Nazov']." ".$hviezdicka."</h3>";
     echo "<form  class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
-            <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>
             <input class='hidden' type='number' value='8' name='type'>
+            <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
+            <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>            
             <input class='center' type='time' name='cas' ".$requered.">
           </form>";
 }
 
 function comp_9($element,$con){
-    if($element['Vyzadovanie']==null){
+    if($element['Vyzadovanie']==0){
         $requered='';
+        $hviezdicka='';
+        $css='';
+        $bool=0;
     }else{
         $requered='required';
+        $hviezdicka='*';
+        $css='vyzadovanie_text';
+        $bool=1;
     }
-    echo "<h3 class='center'>".$element['Nazov']."</h3> 
-    <div class='center'><table class='center'>
-    <form class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
-    <input class='hidden' type='number' value='9' name='type'>
-    <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>";
+    echo "<h3 class='center ".$css."'>".$element['Nazov']." ".$hviezdicka."</h3>
+    <div class='center'>";
     $sql = mysqli_query($con, "select * from moznost where prvok_idprvok='".$element['idprvok']."'");
     $i=0;
     while ($rows = $sql->fetch_assoc()){
@@ -341,32 +488,41 @@ function comp_9($element,$con){
             $data_submoznost[$j]=$rows;
             ++$j;
         }
-        echo "<tr><th>".$row['text']."</th>";
+        echo "<div class='row center'><h4 class='border col-sm-3'>".$row['text']."</h4>";
         for($k=0;$k<$j;$k++){
             $submoznost=$data_submoznost[$k];
             echo "
-                    <td>
+             <form class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
+                    <input class='hidden' type='number' value='9' name='type'>
+                     <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
+                    <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>
+                    <input class='hidden' type='number' value='".$submoznost['moznost_idMoznost']."' name='moznost'>
+                    <input class='hidden' type='number' value='".$submoznost['moznost_idMoznost']."' name='submoznost'>
+                    <div class='border col-sm-2'>
                         <h5>".$submoznost['text']."</h5>
-                        <input type=\"checkbox\" name='group".$element['idprvok']."_".$row['idMoznost']."' />
-                    </td>
-            ";
+                        <input type=\"checkbox\" name='group".$submoznost['moznost_idMoznost']."' value='".$submoznost['idMoznost']."'>
+                    </div>
+                    </form>";
         }
-        echo "</tr>";
+        echo "</div>";
     }
-    echo "</form></table></div>";
+    echo "</div>";
 }
 
 function comp_10($element,$con){
-    if($element['Vyzadovanie']==null){
+    if($element['Vyzadovanie']==0){
         $requered='';
+        $hviezdicka='';
+        $css='';
+        $bool=0;
     }else{
         $requered='required';
+        $hviezdicka='*';
+        $css='vyzadovanie_text';
+        $bool=1;
     }
-    echo "<h3 class='center'>".$element['Nazov']."</h3> 
-    <div class='center'><table class='center'>
-    <form  class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php''>
-    <input class='hidden' type='number' value='10' name='type'>
-    <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>";
+    echo "<h3 class='center ".$css."'>".$element['Nazov']." ".$hviezdicka."</h3>
+    <div class='center'>";
     $sql = mysqli_query($con, "select * from moznost where prvok_idprvok='".$element['idprvok']."'");
     $i=0;
     while ($rows = $sql->fetch_assoc()){
@@ -381,34 +537,47 @@ function comp_10($element,$con){
             $data_submoznost[$j]=$rows;
             ++$j;
         }
-        echo "<tr><th>".$row['text']."</th>";
+        echo "<div class='row center'><h4 class='border col-sm-3'>".$row['text']."</h4>";
         for($k=0;$k<$j;$k++){
             $submoznost=$data_submoznost[$k];
             echo "
-                    <td>
+             <form class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
+                    <input class='hidden' type='number' value='9' name='type'>
+                     <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
+                    <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>
+                    <input class='hidden' type='number' value='".$submoznost['moznost_idMoznost']."' name='moznost'>
+                    <input class='hidden' type='number' value='".$submoznost['idMoznost']."' name='submoznost'>
+                    <div class='border col-sm-2'>
                         <h5>".$submoznost['text']."</h5>
-                        <input type=\"checkbox\" name='group".$element['idprvok']."_".$row['idMoznost']."_".$submoznost['idMoznost']."' />
-                    </td>
-            ";
+                        <input type=\"checkbox\" name='group".$submoznost['idMoznost']."' value='".$submoznost['idMoznost']."'>
+                    </div>
+                    </form>";
         }
-        echo "</tr>";
+        echo "</div>";
     }
-    echo "</form></table></div>";
+    echo "</div>";
 }
 
 function comp_11($element,$con){
     $min=$element['min'];
     $max=$element['max'];
-    if($element['Vyzadovanie']==null){
+    if($element['Vyzadovanie']==0){
         $requered='';
+        $hviezdicka='';
+        $css='';
+        $bool=0;
     }else{
         $requered='required';
+        $hviezdicka='*';
+        $css='vyzadovanie_text';
+        $bool=1;
     }
-    echo "<h3 class='center'>".$element['Nazov']."</h3> 
+    echo "<h3 class='center ".$css."'>".$element['Nazov']." ".$hviezdicka."</h3>
     <div class='center'>
     <form  class='form_quiz' method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/ans_item.php'>
-    <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>
-    <input class='hidden' type='number' value='11' name='type'>
+                   <input class='hidden' type='number' value='11' name='type'>
+                     <input class='hidden' type='number' value='".$bool."' name='vyzadovanie'>
+                    <input class='hidden' type='number' value='".$element['idprvok']."' name='prvok_id'>
     <table class='center'>";
     echo "<input value='".$element['idprvok']."' class='hidden' type='number' name='idprvok'>
           <input class='hidden' type='number' value='".$min."' name='min'>
