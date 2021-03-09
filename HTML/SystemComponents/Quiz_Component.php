@@ -123,7 +123,7 @@
         $.ajax({
             type: "POST",
             url: url,
-            data: {form_id: form_id},
+            data: {id: form_id},
             success: function (data) {
                 //Nahraj data do modalu
             }
