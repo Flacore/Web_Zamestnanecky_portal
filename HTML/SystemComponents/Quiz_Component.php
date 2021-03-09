@@ -53,7 +53,19 @@
     ?>
     <br><br><br>
 </div>
+<div id="overview" class="container hidden">
 
+    <br>
+    <span class="close-btn" onclick="close_view()">&times;</span>
+    <br>
+
+    <div id="adding_view">
+
+    </div>
+
+    <br>
+    <br><br><br><br><br>
+</div>
 <div id="adding_quiz" class="container hidden">
 
     <br>
@@ -118,14 +130,33 @@
     var tmp=0;
     var z_index = 1;
 
+    function showParent(id) {
+        let items=document.getElementsByClassName('hidden_content');
+        for (let i=0;i<items.length;i++){
+            let tmp=items[i].firstChild;
+            tmp.class='hidden';
+        }
+        let element=document.getElementById(id);
+        if(element.classList.contains('hidden')){
+            element.classList.remove('hidden');
+        }else{
+            element.classList.add('hidden');
+        }
+    }
+
     function show_form(form_id) {
         let url="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/echo_form.php";
+        let dt=0;
+        let vpln=-1;
         $.ajax({
             type: "POST",
             url: url,
-            data: {id: form_id},
+            data: {id: form_id,detail: dt,vpln: vpln},
             success: function (data) {
-                //Nahraj data do modalu
+                alert(data);
+                close_view();
+                document.getElementById('adding_view').innerHTML=data;
+                show_view();
             }
         });
     }
@@ -333,6 +364,18 @@
     function idtmp() {
         id_tmp++;
         return id_tmp;
+    }
+
+    function close_view() {
+        document.getElementById("overview").classList.add("hidden");
+        document.getElementById("adding_view").innerHTMl="";
+        document.getElementById("overview_quiz").classList.remove("hidden");
+    }
+
+    function show_view() {
+        document.getElementById("overview").classList.remove("hidden");
+        document.getElementById("adding_view").innerHTMl="";
+        document.getElementById("overview_quiz").classList.add("hidden");
     }
 
     function close_adding() {

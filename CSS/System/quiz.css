@@ -68,3 +68,10 @@
 .close-btn-form:hover {
     color: darkgray;
 }
+
+.showParent_btn{
+    width: 100px;
+    height: 50px;
+    left: 50%;
+    right: 50%;
+}
