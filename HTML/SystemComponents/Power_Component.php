@@ -26,21 +26,36 @@ $id=$_SESSION['session'] ?>
                                 $data[$i]=$rows;
                                 ++$i;
                             }
-                            $data[($i+1)]=null;
+                            $data[($i)]=null;
                             for ($j = 0; $j<=$i; $j++) {
                                 $row=$data[$j];
-                                echo "
+                                if($row['Nazov']=='admin'){
+                                    echo "
                                     <tr>
-                                        <td style='display: none'><input name=\"id_".($j+1)."\" type=\"value\" value=".($j+1)."></td>
-                                        <td><input name=\"name_".($j+1)."\" type=\"text\" value=".$row['Nazov']."></td>
-                                        <td><input ".checkbox($row['Kontakty'])." name=\"cont_".($j+1)."\" type=\"checkbox\"></td>
-                                        <td><input ".checkbox($row['Kurzy'])." name=\"curs_".($j+1)."\" type=\"checkbox\"></td>
-                                        <td><input ".checkbox($row['Kariera'])." name=\"care_".($j+1)."\" type=\"checkbox\"></td>
-                                        <td><input ".checkbox($row['Blog'])." name=\"blog_".($j+1)."\" type=\"checkbox\"></td>
-                                        <td><input ".checkbox($row['Pravomoci'])." name=\"powr_".($j+1)."\" type=\"checkbox\"></td>
-                                        <td><input  name=\"odst_".($j+1)."\" type=\"checkbox\"></td>
+                                        <td style='display: none'><input name=\"id_" . ($j + 1) . "\" type=\"value\" value=" . ($j + 1) . "></td>
+                                        <td>".$row['Nazov']."</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td></td>
                                     </tr>
                                 ";
+                                }else {
+                                    echo "
+                                    <tr>
+                                        <td style='display: none'><input name=\"id_" . ($j + 1) . "\" type=\"value\" value=" . ($j + 1) . "></td>
+                                        <td><input name=\"name_" . ($j + 1) . "\" type=\"text\" value=" . $row['Nazov'] . "></td>
+                                        <td><input " . checkbox($row['Kontakty']) . " name=\"cont_" . ($j + 1) . "\" type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Kurzy']) . " name=\"curs_" . ($j + 1) . "\" type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Kariera']) . " name=\"care_" . ($j + 1) . "\" type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Blog']) . " name=\"blog_" . ($j + 1) . "\" type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Pravomoci']) . " name=\"powr_" . ($j + 1) . "\" type=\"checkbox\"></td>
+                                        <td><input  name=\"odst_" . ($j + 1) . "\" type=\"checkbox\"></td>
+                                    </tr>
+                                ";
+                                }
                             }
                             function checkbox($var){
                                 if($var == '1'){

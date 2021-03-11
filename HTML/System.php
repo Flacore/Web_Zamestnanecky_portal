@@ -387,7 +387,6 @@
         </a>
         <div class="dropdown-container" id="Admin_container">
             <a class="menuItem" href="#" id="powerButton"><span class="glyphicon glyphicon-ok"></span> Právomoci</a>
-            <a class="menuItem" href="#" id="databaseButton"><span class="glyphicon glyphicon-copy"></span> Databáza</a>
         </div>
     </div>
 
