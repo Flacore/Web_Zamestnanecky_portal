@@ -3,6 +3,16 @@
     include "../../PHP/config_DB.php";
     $form_id=$_GET['id'];
 
+    $sql = mysqli_query($con, "select * from formular where idformular='" . $form_id . "'");
+    $q = 0;
+    while ($row = $sql->fetch_assoc()) {
+        ++$q;
+    }
+
+    if ($q == 0) {
+        echo "<script> location.href='questionnaire_failed.php' </script>";
+    }
+    
 ?>
 <!DOCTYPE html>
 <html lang="sk">
