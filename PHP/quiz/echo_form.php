@@ -240,7 +240,7 @@ if(1 == $detail && $vypln!=-1){
 
 function get_detail($form_id,$vypln,$con){
     echo "<div class='hidden_content'>
-            <div class='hidden' id='".$vypln."'>";
+            <div class='hidden' id='".$vypln."'><hr>";
 
     $sql = mysqli_query($con, "select * from formular where idformular='" . $form_id . "'");
     $q = 0;
@@ -251,7 +251,7 @@ function get_detail($form_id,$vypln,$con){
     $tmp = $form_info[0];
     $type_form = $tmp['typ'];
 
-    if ($type_form == 1) {
+    if ($type_form == 0) {
         $sql = mysqli_query($con, "select * from prvok where typ_prvku<'12' and formular_idformular='" . $form_id . "' order by z_index asc ");
         $q = 0;
         while ($row = $sql->fetch_assoc()) {
@@ -262,33 +262,23 @@ function get_detail($form_id,$vypln,$con){
             $form_item=$form_info[$i];
             $item_type=$form_item['typ_prvku'];
 
-            //TODO: uprav tento prvok
             if($item_type<3){
-                echo "<div class='hidden_content'>
-                    <h3>".$form_item['Nazov']."</h3>
-                    <div class='hidden' id='".$form_item['idprvok']."'>";
-                $sql = mysqli_query($con, "select * from odpoved join vyplnenie_formulara 
-                    on(vyplnenie_formulara_idVyplnenie_formulara=idVyplnenie_formulara)
-                    where formular_idformular='".$form_item['formular_idformular']."'
-                    AND prvok_idprvok='".$form_item['idprvok']."' and text is not null order by text asc ");
-                $z = 0;
-                while ($row = $sql->fetch_assoc()) {
-                    $times[$z] = $row;
-                    ++$z;
-                }
-                for($x=0;$x<$z;$x++){
-                    $time=$times[$x];
-                    echo "<h4>".($x+1).". ".$time['text']."</h4>";
-                }
-
-                echo "</div></div>
-                <button class='showParent_btn' onclick=\"showParent('".$form_item['idprvok']."')\">Zobraz</button>";
+                echo "<h3>".$form_item['Nazov']."</h3>";
+                $sql = mysqli_query($con,"select * from odpoved 
+                                                where prvok_idprvok='".$form_item['idprvok']."' and
+                                                vyplnenie_formulara_idVyplnenie_formulara='".$vypln."'");
+                $row = $sql->fetch_assoc();
+                if($row['text']!=null)
+                    echo "<h4>Odpoveď: ".$row['text']."</h4>";
+                else
+                    echo "<h4>Uživateľ nevyplnil odpoveď.</h4>";
             }
 
-            //TODO: uprav tento prvok
             if($item_type>2 && $item_type<6){
                 echo "<h3>".$form_item['Nazov']."</h3>";
-                $sql=mysqli_query($con,"SELECT * FROM moznost WHERE prvok_idprvok='".$form_item['idprvok']."' ORDER by idMoznost asc");
+                $sql = mysqli_query($con,"select mo.text as text from odpoved join moznost mo on(odpoved.moznost_idMoznost=idMoznost)
+                                                where odpoved.prvok_idprvok='".$form_item['idprvok']."' and
+                                                vyplnenie_formulara_idVyplnenie_formulara='".$vypln."'");
                 $z = 0;
                 while ($row = $sql->fetch_assoc()) {
                     $data[$z] = $row;
@@ -296,26 +286,24 @@ function get_detail($form_id,$vypln,$con){
                 }
                 if($z>0){
                     for($n=0;$n<$z;$n++) {
-                        $item =$data[$n];
-                        $sql=mysqli_query($con,"SELECT count(*) as sucet FROM odpoved join vyplnenie_formulara on(vyplnenie_formulara_idVyplnenie_formulara=idVyplnenie_formulara)
-                                                           WHERE prvok_idprvok='".$item['prvok_idprvok']."' AND formular_idformular='".$form_item['formular_idformular']."'");
-                        $row = $sql->fetch_assoc();
+                        $row=$data[$n];
+                        echo "<h4>Odpoveď: ".$row['text']."</h4>";
                     }
+                }else{
+                    echo "<h4>Uživateľ nevyplnil odpoveď.</h4>";
                 }
             }
 
-            //TODO: uprav tento prvok
             if($item_type==='6'){
-                echo "<div class='hidden_content'>
-                            <h3>".$form_item['Nazov']."</h3>
-                          <div class='hidden' id='".$form_item['idprvok']."'>";
-                $sql = mysqli_query($con, "select * from subor where idSubor in ( SELECT Subor_idSubor FROM obsah WHERE prvok_idprvok='".$form_item['idprvok']."') order by vytvorenie desc");
+                echo "<h3>".$form_item['Nazov']."</h3>";
+                $sql = mysqli_query($con, "select * from subor join odpoved on(Subor_idSubor=idSubor)
+                WHERE vyplnenie_formulara_idVyplnenie_formulara='".$vypln."' and prvok_idprvok='".$form_item['idprvok']."' order by vytvorenie desc");
                 $z = 0;
                 while ($row = $sql->fetch_assoc()) {
                     $data[$z] = $row;
                     ++$z;
                 }
-                if($i>0){
+                if($z>0){
                     for($n=0;$n<$z;$n++){
                         $data_na_rozdelenie=$data[$n];
                         $Cesta=$data_na_rozdelenie['cesta'];
@@ -333,58 +321,35 @@ function get_detail($form_id,$vypln,$con){
                                 <br>
                              </div>";
                     }
+                }else{
+                    echo "<h4>Uživateľ nevyplnil odpoveď.</h4>";
                 }
-
-                echo "</div></div><button class='showParent_btn' onclick=\"showParent('".$form_item['idprvok']."')\">Zobraz</button>";
             }
 
-            //TODO: uprav tento prvok
             if($item_type==7){
-                echo "<div class='hidden_content'>
-                    <h3>".$form_item['Nazov']."</h3>
-                    <div class='hidden' id='".$form_item['idprvok']."'>";
-                $sql = mysqli_query($con, "select * from odpoved join vyplnenie_formulara 
-                    on(vyplnenie_formulara_idVyplnenie_formulara=idVyplnenie_formulara)
-                    where formular_idformular='".$form_item['formular_idformular']."'
-                    AND prvok_idprvok='".$form_item['idprvok']."' and datum is not null order by datum asc ");
-                $z = 0;
-                while ($row = $sql->fetch_assoc()) {
-                    $times[$z] = $row;
-                    ++$z;
-                }
-                for($x=0;$x<$z;$x++){
-                    $time=$times[$x];
-                    echo "<h4>".($x+1).". ".date("d-m-Y", strtotime($time['datum']))."</h4>";
-                }
-
-                echo "</div></div>
-                <button class='showParent_btn' onclick=\"showParent('".$form_item['idprvok']."')\">Zobraz</button>";
+                echo "<h3>".$form_item['Nazov']."</h3>";
+                $sql = mysqli_query($con,"select * from odpoved 
+                                                where prvok_idprvok='".$form_item['idprvok']."' and
+                                                vyplnenie_formulara_idVyplnenie_formulara='".$vypln."'");
+                $row = $sql->fetch_assoc();
+                if($row['datum']!=null)
+                    echo "<h4>Odpoveď: ".date("d-m-Y", strtotime($row['datum']))."</h4>";
+                else
+                    echo "<h4>Uživateľ nevyplnil odpoveď.</h4>";
             }
 
-            //TODO: uprav tento prvok
             if($item_type==8){
-                echo "<div class='hidden_content'>
-                    <h3>".$form_item['Nazov']."</h3>
-                    <div class='hidden' id='".$form_item['idprvok']."'>";
-                $sql = mysqli_query($con, "select * from odpoved join vyplnenie_formulara 
-                    on(vyplnenie_formulara_idVyplnenie_formulara=idVyplnenie_formulara)
-                    where formular_idformular='".$form_item['formular_idformular']."'
-                    AND prvok_idprvok='".$form_item['idprvok']."' and cas is not null order by cas asc ");
-                $z = 0;
-                while ($row = $sql->fetch_assoc()) {
-                    $times[$z] = $row;
-                    ++$z;
-                }
-                for($x=0;$x<$z;$x++){
-                    $time=$times[$x];
-                    echo "<h4>".($x+1).". ".$time['cas']."</h4>";
-                }
-
-                echo "</div></div>
-                    <button class='showParent_btn' onclick=\"showParent('".$form_item['idprvok']."')\">Zobraz</button>";
+                echo "<h3>".$form_item['Nazov']."</h3>";
+                $sql = mysqli_query($con,"select * from odpoved 
+                                                where prvok_idprvok='".$form_item['idprvok']."' and
+                                                vyplnenie_formulara_idVyplnenie_formulara='".$vypln."'");
+                $row = $sql->fetch_assoc();
+                if($row['cas']!=null)
+                    echo "<h4>Odpoveď: ".$row['cas']."</h4>";
+                else
+                    echo "<h4>Uživateľ nevyplnil odpoveď.</h4>";
             }
 
-            //TODO: uprav tento prvok
             if($item_type>8 && $item_type<11){
                 echo "<h3>".$form_item['Nazov']."</h3>";
                 $sql=mysqli_query($con,"SELECT * FROM moznost WHERE prvok_idprvok='".$form_item['idprvok']."' ORDER by idMoznost asc");
@@ -396,52 +361,38 @@ function get_detail($form_id,$vypln,$con){
                 if($z>0){
                     for($n=0;$n<$z;$n++) {
                         $items=$datas[$n];
-                        $sql=mysqli_query($con,"SELECT * FROM moznost WHERE moznost_idMoznost='".$items['idMoznost']."' ORDER by idMoznost asc");
+                        echo "<h3>".($n+1).". ".$items['text']."</h3>";
+                        $sql = mysqli_query($con,"select mo.text as text from odpoved join moznost mo on(odpoved.moznost_idMoznost=idMoznost)
+                                                where mo.moznost_idMoznost='".$items['idMoznost']."' and odpoved.prvok_idprvok='".$form_item['idprvok']."' and
+                                                vyplnenie_formulara_idVyplnenie_formulara='".$vypln."'
+                                                 ORDER by mo.idMoznost asc");
                         $y = 0;
                         while ($row = $sql->fetch_assoc()) {
                             $data[$y] = $row;
                             ++$y;
                         }
-                        echo "<h3>".($n+1).". ".$items['text']."</h3>";
                         if($y>0){
                             for($a=0;$a<$y;$a++) {
                                 $item=$data[$a];
-                                $sql=mysqli_query($con,"SELECT count(*) as sucet FROM odpoved join vyplnenie_formulara on(vyplnenie_formulara_idVyplnenie_formulara=idVyplnenie_formulara)
-                                    WHERE moznost_idMoznost='".$item['idMoznost']."' and prvok_idprvok='".$items['prvok_idprvok']."' AND formular_idformular='".$form_item['formular_idformular']."'");
-                                $row = $sql->fetch_assoc();
-                                echo "<h4>".($n+1).".".($a+1).". ".$item['text']." - ".$row['sucet']."x (".(($row['sucet']/$celkovo)*100)."%)</h4>";
+                                echo "<h4>Odpoveď: ".$item['text']."</h4>";
                             }
+                        }else{
+                            echo "<h4>Uživateľ nevyplnil odpoveď.</h4>";
                         }
                     }
                 }
             }
 
-            //TODO: uprav tento prvok
             if($item_type==11){
                 echo "<h3>".$form_item['Nazov']."</h3>";
-                $min=$form_item['min'];
-                $max=$form_item['max'];
-                if($min>$max){
-                    $tmp=$min;
-                    $min=$max;
-                    $max=$tmp;
-                }
-                if(($max-$min)>10){
-                    echo "<div class='hidden_content'>
-                        <div class='hidden' id='".$form_item['idprvok']."'>";
-                }
-
-                for($n=$min;$n<=$max;$n++){
-                    $sql = mysqli_query($con,"select count(*) as sucet from odpoved 
-                                                        where prvok_idprvok='".$form_item['idprvok']."' and hodnotenie='".$n."'");
+                $sql = mysqli_query($con,"select * from odpoved 
+                                                where prvok_idprvok='".$form_item['idprvok']."' and
+                                                vyplnenie_formulara_idVyplnenie_formulara='".$vypln."'");
                     $row = $sql->fetch_assoc();
-                    echo "<h4>".($n).". ".$row['sucet']."x (".(($row['sucet']/$celkovo)*100)."%)</h4>";
-                }
-
-                if(($max-$min)>10){
-                    echo "</div></div>
-                        <button class='showParent_btn' onclick=\"showParent('".$form_item['idprvok']."')\">Zobraz</button>";
-                }
+                if($row['hodnotenie']!=null)
+                    echo "<h4>Odpoveď: ".$row['hodnotenie']."</h4>";
+                else
+                    echo "<h4>Uživateľ nevyplnil odpoveď.</h4>";
             }
 
         }
