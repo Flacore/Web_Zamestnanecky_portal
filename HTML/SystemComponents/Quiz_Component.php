@@ -153,7 +153,6 @@
             url: url,
             data: {id: form_id,detail: dt,vpln: vpln},
             success: function (data) {
-                alert(data);
                 close_view();
                 document.getElementById('adding_view').innerHTML=data;
                 show_view();
