@@ -8,7 +8,6 @@
         <div class="center file_item_btn" onclick="add_quiz()"><span class="button_icon glyphicon glyphicon-plus"></span></div>
     </div>
     <br><br><br>
-<!--        TODO:Show detail-->
     <?php
 
     $sql = mysqli_query($con, "select * from uzivatel where idUzivatel='" . $id_uziv . "' ");
@@ -46,8 +45,12 @@
                <button onclick='generateURL(".$row['idformular'].")'>Zdieľaj</button>";
         if($k>0){
             echo "<button onclick='show_form(".$row['idformular'].")'>Zobraziť</button>
-               <button onclick='Download_form(".$row['idformular'].")'>Stiahnuť</button>";
+               <button onclick='Download_form(".$row['idformular'].")'>Stiahnuť</button>
+               <button onclick='copy_form(".$row['idformular'].")'>Kopíruj</button>'";
+        }else{
+            echo "<button onclick='change_form(".$row['idformular'].")'>Uprav</button>";
         }
+        echo "<button onclick='delete_form(".$row['idformular'].")'>Odstráň</button>";
         echo "</div>";
     }
     ?>
@@ -158,6 +161,22 @@
                 show_view();
             }
         });
+    }
+
+    function delete_form(form_id) {
+        let form = document.getElementById('main_form');
+        let url = "http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/delete_form.php";
+        if(test()) {
+            $.ajax({
+                type: "POST",
+                url: url,
+                data: {id: form_id},
+                success: function (data) {
+                    alert("Formulár bol úspešne odstránení!")
+                    location.reload();
+                }
+            });
+        }
     }
 
     function Download_form(form_id) {
