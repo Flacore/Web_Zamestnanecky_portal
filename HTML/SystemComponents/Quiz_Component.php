@@ -46,11 +46,11 @@
         if($k>0){
             echo "<button onclick='show_form(".$row['idformular'].")'>Zobraziť</button>
                <button onclick='Download_form(".$row['idformular'].")'>Stiahnuť</button>
-               <button onclick='copy_form(".$row['idformular'].")'>Kopíruj</button>'";
+               <button onclick=\"edit_form(".$row['idformular'].",'0')\">Kopíruj</button>";
         }else{
-            echo "<button onclick='change_form(".$row['idformular'].")'>Uprav</button>";
+            echo "<button onclick=\"edit_form(".$row['idformular'].",'1')\">Uprav</button>";
         }
-        echo "<button onclick='delete_form(".$row['idformular'].")'>Odstráň</button>";
+        echo "<button onclick='Delete_form(".$row['idformular'].")'>Odstráň</button>";
         echo "</div>";
     }
     ?>
@@ -78,6 +78,7 @@
     <div id="adding_question">
         <div class="form_settings quiz_compartmant">
             <form id="main_form" method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_form.php">
+                <input id="form_id" class="hidden" type="number" value="-1" name="id">
                 <label>
                     Druh:
                     <input class="hidden" type="number" value="1" name="z_value">
@@ -133,6 +134,19 @@
     var tmp=0;
     var z_index = 1;
 
+    function edit_form(id,type) {
+        let url = "http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/edit_form.php";
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {id: id,typ: type},
+            success: function (data) {
+                add_quiz();
+                document.getElementById('adding_question').innerHTML=data;
+            }
+        });
+    }
+
     function showParent(id) {
         let items=document.getElementsByClassName('hidden_content');
         for (let i=0;i<items.length;i++){
@@ -163,20 +177,17 @@
         });
     }
 
-    function delete_form(form_id) {
-        let form = document.getElementById('main_form');
+    function Delete_form(form_id) {
         let url = "http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/delete_form.php";
-        if(test()) {
-            $.ajax({
-                type: "POST",
-                url: url,
-                data: {id: form_id},
-                success: function (data) {
-                    alert("Formulár bol úspešne odstránení!")
-                    location.reload();
-                }
-            });
-        }
+        $.ajax({
+            type: "POST",
+            url: url,
+            data: {id: form_id},
+            success: function (data) {
+                alert("Formulár bol úspešne odstránení!")
+                location.reload();
+            }
+        });
     }
 
     function Download_form(form_id) {
@@ -203,6 +214,9 @@
     }
 
     function submit() {
+        // let form_id=document.getElementById('form_id');
+        // if(form_id.value>=0)
+        //     Delete_form(form_id.value);
         let form = document.getElementById('main_form');
         let url = form.action;
         if(test()) {
@@ -402,6 +416,26 @@
         document.getElementById("overview_quiz").classList.remove("hidden");
     }
     function add_quiz() {
+        document.getElementById("adding_question").innerHTML="  <div class=\"form_settings quiz_compartmant\">\n" +
+            "            <form id=\"main_form\" method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_form.php\">\n" +
+            "                <label>\n" +
+            "                    Druh:\n" +
+            "                    <input class=\"hidden\" type=\"number\" value=\"1\" name=\"z_value\">\n" +
+            "                </label>\n" +
+            "                <select name=\"form_type\">\n" +
+            "                    <option value=\"1\">Dotazník</option>\n" +
+            "                    <option value=\"2\">Formulár</option>\n" +
+            "                </select>\n" +
+            "                <input class=\"hidden\" type=\"number\" value=\"12\" name=\"type\">\n" +
+            "                <label>Nazov:</label>\n" +
+            "                <input type=\"text\" value=\"\" name=\"Nazov\" required>\n" +
+            "                <label>Popis:</label>\n" +
+            "                <input type=\"text\" value=\"\" name=\"popis\">\n" +
+            "                <label>Platnosť od:</label>\n" +
+            "                <input type=\"date\" name=\"platnost_od\">\n" +
+            "                <label>Platnosť do:</label>\n" +
+            "                <input type=\"date\" name=\"platnost_do\">\n" +
+            "            </form>";
         document.getElementById("adding_quiz").classList.remove("hidden");
         document.getElementById("Quiz_Menu").classList.remove("hidden");
         document.getElementById("overview_quiz").classList.add("hidden");
