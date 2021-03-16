@@ -80,7 +80,7 @@
                 }
 
             }
-            $sql = "Delete from vyplnenie_formulara where idVyplnenie_formulara='" . $form_id . "'";
+            $sql = "Delete from prvok where formular_idformular='" . $form_id . "'";
             $con->query($sql);
         }
 

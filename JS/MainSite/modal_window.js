@@ -107,6 +107,30 @@ function close_modal_file() {
     modal.style.display = "none";
 }
 
+function close_modal_nt() {
+    let modal = document.getElementById('modal_notification');
+    modal.style.display="none"
+    document.getElementById('notification_list').classList.add('hidden');
+    document.getElementById('notification_form').classList.add('hidden');
+}
+
+function close_ntForm() {
+    document.getElementById('notification_list').classList.remove('hidden');
+    document.getElementById('notification_form').classList.add('hidden');
+}
+
+function open_ntForm() {
+    document.getElementById('notification_list').classList.add('hidden');
+    document.getElementById('notification_form').classList.remove('hidden');
+}
+
+function open_modal_nt() {
+    let modal = document.getElementById('modal_notification');
+    modal.style.display="block"
+    document.getElementById('notification_list').classList.remove('hidden');
+    document.getElementById('notification_form').classList.add('hidden');
+}
+
 function reset_modal_file(){
     let file_input = document.getElementById("file_path");
     file_input.required=true;

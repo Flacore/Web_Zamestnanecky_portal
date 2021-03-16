@@ -34,6 +34,20 @@
     color: darkgray;
 }
 
+.nt_seen{
+    width: 100%;
+    height: auto;
+    border: black solid 1px;
+    background-color: #187bcd;
+}
+
+.nt_unseen{
+    width: 100%;
+    height: auto;
+    border: black solid 1px;
+    background-color: #81c43c;
+}
+
 .hidden{
     display: none;
 }

@@ -50,7 +50,7 @@
         }else{
             echo "<button onclick=\"edit_form(".$row['idformular'].",'1')\">Uprav</button>";
         }
-        echo "<button onclick='Delete_form(".$row['idformular'].")'>Odstráň</button>";
+        echo "<button onclick='Delete_form(".$row['idformular'].",true)'>Odstráň</button>";
         echo "</div>";
     }
     ?>
@@ -177,15 +177,17 @@
         });
     }
 
-    function Delete_form(form_id) {
+    function Delete_form(form_id,boolean) {
         let url = "http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/delete_form.php";
         $.ajax({
             type: "POST",
             url: url,
             data: {id: form_id},
             success: function (data) {
-                alert("Formulár bol úspešne odstránení!")
-                location.reload();
+                if(boolean) {
+                    alert("Formulár bol úspešne odstránení!")
+                    location.reload();
+                }
             }
         });
     }
@@ -214,9 +216,9 @@
     }
 
     function submit() {
-        // let form_id=document.getElementById('form_id');
-        // if(form_id.value>=0)
-        //     Delete_form(form_id.value);
+        let form_id=document.getElementById('form_id');
+        if(form_id.value>=0)
+            Delete_form(form_id.value,false);
         let form = document.getElementById('main_form');
         let url = form.action;
         if(test()) {
@@ -418,7 +420,8 @@
     function add_quiz() {
         document.getElementById("adding_question").innerHTML="  <div class=\"form_settings quiz_compartmant\">\n" +
             "            <form id=\"main_form\" method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_form.php\">\n" +
-            "                <label>\n" +
+            "<input id=\"form_id\" class=\"hidden\" type=\"number\" value=\"-1\" name=\"id\">                " +
+            "<label>\n" +
             "                    Druh:\n" +
             "                    <input class=\"hidden\" type=\"number\" value=\"1\" name=\"z_value\">\n" +
             "                </label>\n" +

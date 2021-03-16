@@ -21,7 +21,7 @@ if ($k != 0) {
     if ($type == 1) {
         echo "   <div class=\"form_settings quiz_compartmant\">
             <form id=\"main_form\" method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_form.php\">
-                <input class=\"hidden\" type=\"number\" value=\"" . $form_id . "\" name=\"id\">
+                <input id=\"form_id\" class=\"hidden\" type=\"number\" value=\"" . $form_id . "\" name=\"id\">
             <label>
                     Druh:
                     <input class=\"hidden\" type=\"number\" value='".$data_item['z_index']."' name=\"z_value\">
@@ -35,7 +35,7 @@ if ($k != 0) {
                               <option value=\"2\" selected>Formulár</option>";
                     }
         echo"   </select>
-                <input class=\"hidden\" type=\"number\"  value='".$data['typ']."' name=\"type\">
+                <input class=\"hidden\" type=\"number\"  value='12' name=\"type\">
                 <label>Nazov:</label>
                 <input type=\"text\" value='".$data_item['Nazov']."' name=\"Nazov\" required>
                 <label>Popis:</label>
@@ -49,7 +49,7 @@ if ($k != 0) {
     } else {
         echo "   <div class=\"form_settings quiz_compartmant\">
             <form id=\"main_form\" method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/quiz/create_form.php\">
-                <input class=\"hidden\" type=\"number\" value=\"-1\" name=\"id\">
+                <input id=\"form_id\" class=\"hidden\" type=\"number\" value=\"-1\" name=\"id\">
                 <label>
                     Druh:
                     <input class=\"hidden\" type=\"number\" value='".$data_item['z_index']."' name=\"z_value\">

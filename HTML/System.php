@@ -40,6 +40,56 @@
     <script src="../JS/MainSite/modal_window.js"></script>
 </head>
 <body onload="fLoad()">
+    <div class="modal" id="modal_notification">
+        <div class="modal-content">
+            <span class="close-btn" onclick="close_modal_nt()">&times;</span>
+            <div class="hidden" id="notification_list">
+                <button onclick="open_ntForm()">Vytvor</button>
+                <?php
+                $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
+                $i = 0;
+                while ($rows = $sql->fetch_assoc()) {
+                    $data[$i] = $rows;
+                    ++$i;
+                }
+                $row=$data[0];
+                $uzivatel= $row['idUzivatel'];
+
+                $sql = mysqli_query($con, "select * from notifikacia where Uzivatel_idUzivatel='".$uzivatel."'order by datum asc");
+                $i = 0;
+                while ($rows = $sql->fetch_assoc()) {
+                    $data[$i] = $rows;
+                    ++$i;
+                }
+
+                if($i>0){
+                    for($index=0;$index<$i;$index++){
+                        $line=$data[$index];
+                        if($line['text']!=null)
+                            echo "<div class='nt_seen'>";
+                        else
+                            echo "<div class='nt_unseen'>";
+                        echo "      <h3 class='col-sm-12'>".$line['text']."</h3>
+                                    <h5 class=' col-sm-12'>".$line['datum']."</h5>
+                              </div>";
+                    }
+                }else{
+                    echo "<h3>Neexistuje žiadna notifikácia.</h3>";
+                }
+
+                ?>
+            </div>
+            <div class="hidden" id="notification_form">
+                <span class="close-btn" onclick="close_ntForm()">&times;</span>
+                <form method="post" action="">
+                    <label>Zadaj text notifikácie:</label>
+                    <input type="text" name="text" required>
+                    <input type="submit">
+                </form>
+            </div>
+        </div>
+    </div>
+
     <div class="modal" id="modal_file">
         <div class="modal-content">
             <span class="close-btn" onclick="close_modal_file()">&times;</span>

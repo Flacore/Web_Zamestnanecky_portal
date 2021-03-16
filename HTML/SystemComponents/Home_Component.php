@@ -24,7 +24,7 @@
 
             <div class="col-sm-12">
                 <div class="col-sm-4">
-                    <div class="infoBox center color1 shadow">
+                    <div class="infoBox center color1 shadow" onclick="open_modal_nt()">
                         <h3 class="title"><span class="glyphicon glyphicon-bell"> Notifikacie</span></h3>
 
                         <div class="infoBox-textContainer">
