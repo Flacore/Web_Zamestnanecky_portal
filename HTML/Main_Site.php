@@ -237,13 +237,13 @@
                             for($n=0;$n<$k;$n++){
                                 $row = $_data[$n];
                                 if($n==0){
-                                    echo "<div class=\"item active\" onclick=\"showdetail_inz('".$row['Titulok']."')\">";
+                                    echo "<div class=\"item active\" >";
                                 }else{
-                                    echo "<div class=\"item\" onclick=\"showdetail_inz('".$row['Titulok']."')\">";
+                                    echo "<div class=\"item\" >";
                                 }
                                 if($row['cesta']==null){
                                     echo "
-                                    <img  class='inzercia_img carousel_img' src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/unz.png\" alt=\"img\">
+                                    <img   class='inzercia_img carousel_img' src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/unz.png\" alt=\"img\">
                                     <div class=\"inzercia_txt carousel-caption\">
                                         <h3>".$row['Titulok']."</h3>
                                         <p>".$row['Popis']."</p>
@@ -503,14 +503,71 @@
                     <span class="glyphicon glyphicon-remove" onclick="inzViewClose()"></span>
                 </div>
             </div>
-            <div id="inzercia_all class="col-sm-12">
+
+            <div id="inzercia_cat" class="inzercia_inside" hidden>
+
+                <?php
+
+                echo "<div onclick=\"openCategory(-1)\" class=\" category\">
+                    <img alt=\"\" class=\"img\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/categoria/uncat.webp\">
+                    <h3>Nezaradene</h3>
+                </div>";
+
+                $sql = mysqli_query($con, "SELECT * FROM kategoria");
+                $k = 0;
+                while ($rows = $sql->fetch_assoc()) {
+                    $_data[$k] = $rows;
+                    ++$k;
+                }
+                if ($k <= 0) {
+//                    neexistuje ziadna konkretna kategoria
+                } else {
+                    for ($n = 0; $n < $k; $n++) {
+                        $row = $_data[$n];
+                        if ($row['Subor_idSubor'] == null) {
+                            echo "<div class=\" category\">
+                                  <img onclick=\"openCategory(1)\" alt=\"\" class=\"img\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/categoria/def.jpg\">
+                                  <h3>".$row['Názov']."</h3>
+                                  </div>";
+                        } else {
+                            echo "<div class=\" category\">
+                                  <img onclick=\"openCategory(1)\" alt=\"\" class=\"img\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/categoria/def.jpg\">
+                                  <h3>".$row['Názov']."</h3>
+                                  </div>";
+                        }
+                    }
+                }
+
+
+                ?>
+
             </div>
+
+            <div id="inzercia_all" class="inzercia_inside hiden">
+
+                <div class=" category">
+                    <img onclick="showDetail_inz(2)" alt="" class="img" src="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/categoria/def.jpg">
+                    <h3>Kat1</h3>
+                </div>
+                <div onclick="showDetail_inz(1)" class=" category">
+                    <img alt="" class="img" src="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/categoria/uncat.webp">
+                    <h3>Nezaradene</h3>
+                </div>
+
+            </div>
+
+            <div id="inzercia_det" class="inzercia_inside hiden">
+
+            </div>
+
         </div>
     </div>
+
 
     <div class="footer" id="footer">
         <h5>© 2020 Žilinská univerzita v Žiline. Všetky práva vyhradené.</h5>
     </div>
+
     <script src="../JS/HomeSite/homeSite_onClick.js"></script>
     <script type="text/javascript">
         $(document).ready(function(){
@@ -530,17 +587,47 @@
 
         function inzViewClose(){
             document.getElementById('inzercia_view').style.display='none';
+            document.getElementById('inzercia_cat').style.display='none';
+            document.getElementById('inzercia_all').style.display='none';
+            document.getElementById('inzercia_det').style.display='none';
         }
 
         function  inzViewOpen() {
+            document.getElementById('inzercia_cat').style.display='block';
             document.getElementById('inzercia_view').style.display='block';
             document.getElementById('inzercia_all').load("SystemComponents/inzercia.php");
+            document.getElementById('inzercia_all').style.display='none';
+            document.getElementById('inzercia_det').style.display='none';
         }
 
         function showDetail_inz(id) {
-            document.getElementById('inzercia_view').style.display='block';
+            document.getElementById('inzercia_det').innerHTML="";
+            $.ajax({
+                type: 'POST',
+                data: {id: id,typ: 2},
+                url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/Main%20Site/inzercia.php',
+                success: function(data) {
+                    document.getElementById('inzercia_det').innerHTML=data;
+                }
+            });
+            document.getElementById('inzercia_cat').style.display='none';
+            document.getElementById('inzercia_all').style.display='none';
+            document.getElementById('inzercia_det').style.display='block';
+        }
+
+        function openCategory(id){
             document.getElementById('inzercia_all').innerHTML="";
-            document.getElementById('inzercia_all').innerHTML=id;
+            $.ajax({
+                type: 'POST',
+                data: {id: id,typ: 1},
+                url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/Main%20Site/inzercia.php',
+                success: function(data) {
+                    document.getElementById('inzercia_all').innerHTML=data;
+                }
+            });
+            document.getElementById('inzercia_cat').style.display='none';
+            document.getElementById('inzercia_all').style.display='block';
+            document.getElementById('inzercia_det').style.display='none';
         }
 
     </script>
