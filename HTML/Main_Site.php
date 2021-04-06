@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="../CSS/HomeSite/tables.css">
     <link rel="stylesheet" href="../CSS/text.css">
     <link rel="stylesheet" href="../CSS/HomeSite/guestView.css">
+    <link rel="stylesheet" href="../CSS/inzercia.css">
 </head>
 <body>
     <div class="topnav" id="myTopnav">
@@ -46,7 +47,6 @@
                     <span class="spanPass"></span>
 
                     <button class="btn" type="submit" value="Submit" name="but_submit" id="but_submit">Prihlásiť</button>
-<!--                    <a href="#">Zabudnute heslo</a>-->
                 </form>
             </div>
         </div>
@@ -208,9 +208,73 @@
             <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=18.754311203956608%2C49.20402084615569%2C18.75627994537354%2C49.20559103268037&amp;layer=mapnik">
             </iframe><br><small><a href="https://www.openstreetmap.org/#map=19/49.20481/18.75530">View Larger Map</a></small>
         </div>
+        <div class="spacer_inzercia"></div>
     </div>
 
-    <div class="oddelovac pocty container-fluid" id="oddelovacPozicie">
+    <div class="inzercia_container">
+        <div class="triangle_left"></div>
+
+        <div class="inzercia inzercia_out">
+            <h3>INZERCIA</h3>
+            <div class="showOf">
+
+<!--                TODO-->
+
+                <div id="myCarousel" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                        <?php
+                        $sql = mysqli_query($con, "SELECT * FROM inzerat left join subor on(inzerat.id_inzerat = subor.inzerat_id_inzerat) order by inzerat.vytvorenie desc");
+                        $k = 0;
+                        while ($rows = $sql->fetch_assoc()) {
+                            $_data[$k] = $rows;
+                            ++$k;
+                        }
+                        if($k<=0){
+                            echo "<div class=\"item active\">
+                                      <h3>Neexistuje ziadny inzerát</h3>
+                                </div>";
+                        }else {
+                            for($n=0;$n<$k;$n++){
+                                $row = $_data[$n];
+                                if($n==0){
+                                    echo "<div class=\"item active\" onclick=\"showdetail_inz('".$row['Titulok']."')\">";
+                                }else{
+                                    echo "<div class=\"item\" onclick=\"showdetail_inz('".$row['Titulok']."')\">";
+                                }
+                                if($row['cesta']==null){
+                                    echo "
+                                    <img  class='inzercia_img carousel_img' src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/unz.png\" alt=\"img\">
+                                    <div class=\"inzercia_txt carousel-caption\">
+                                        <h3>".$row['Titulok']."</h3>
+                                        <p>".$row['Popis']."</p>
+                                    </div>
+                                    </div>";
+                                }else{
+                                    echo "
+                                    <img class='inzercia_img carousel_img' src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server".$row['cesta']."\" alt=\"img\">
+                                    <div class=\"inzercia_txt carousel-caption\">
+                                        <h3>".$row['Titulok']."</h3>
+                                        <p>".$row['Popis']."</p>
+                                    </div>
+                                    </div>";
+                                }
+                            }
+                        }
+
+                        ?>
+
+                    </div>
+                </div>
+
+            </div>
+            <button onclick="inzViewOpen()">Zobraz inzerciu</button>
+        </div>
+
+        <div class="triangle_right"></div>
+    </div>
+
+    <div class="oddelovac pocty container-fluid" style="z-index: 50" id="oddelovacPozicie">
+        <div class="spacer_inzercia"></div>
         <div class="row">
             <div class="col-sm-12"><h2 class="txtCenter txtWhite">Je nás už viac ako...</h2></div>
         </div>
@@ -432,6 +496,18 @@
         </div>
     </div>
 
+    <div id="inzercia_view" class="guest-view">
+        <div class="guest-window" >
+            <div class="col-sm-12">
+                <div class="closebtn">
+                    <span class="glyphicon glyphicon-remove" onclick="inzViewClose()"></span>
+                </div>
+            </div>
+            <div id="inzercia_all class="col-sm-12">
+            </div>
+        </div>
+    </div>
+
     <div class="footer" id="footer">
         <h5>© 2020 Žilinská univerzita v Žiline. Všetky práva vyhradené.</h5>
     </div>
@@ -451,6 +527,22 @@
                 });
             });
         });
+
+        function inzViewClose(){
+            document.getElementById('inzercia_view').style.display='none';
+        }
+
+        function  inzViewOpen() {
+            document.getElementById('inzercia_view').style.display='block';
+            document.getElementById('inzercia_all').load("SystemComponents/inzercia.php");
+        }
+
+        function showDetail_inz(id) {
+            document.getElementById('inzercia_view').style.display='block';
+            document.getElementById('inzercia_all').innerHTML="";
+            document.getElementById('inzercia_all').innerHTML=id;
+        }
+
     </script>
 </body>
 </html>

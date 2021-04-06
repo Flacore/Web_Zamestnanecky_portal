@@ -29,6 +29,11 @@ $(document).ready( function() {
         active("carierButton","null");
         closeNav();
     });
+    $("#sellButton").on("click", function() {
+        $("#componentWindow").load("SystemComponents/inzercia.php");
+        active("sellButton","null");
+        closeNav();
+    });
     $("#blogButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/Blog_Component.php");
         active("blogButton","null");

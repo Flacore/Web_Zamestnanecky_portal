@@ -35,6 +35,7 @@
     <link rel="stylesheet" href="../CSS/System/modal_window.css">
     <link rel="stylesheet" href="../CSS/System/file_list.css">
     <link rel="stylesheet" href="../CSS/System/quiz.css">
+    <link rel="stylesheet" href="../CSS/inzercia.css">
     <script src="../JS/MainSite/system_functionality.js"></script>
     <script src="../JS/MainSite/system_onClick.js"></script>
     <script src="../JS/MainSite/modal_window.js"></script>
@@ -306,6 +307,7 @@
             <a class="menuItem" href="#" id="cursesButton"><span class="glyphicon glyphicon-edit"></span> Kurzy</a>
             <a class="menuItem" href="#" id="carierButton"><span class="glyphicon glyphicon-briefcase"></span> Kariéra</a>
             <a class="menuItem" href="#" id="blogButton"><span class="glyphicon glyphicon-pencil"></span> Blog</a>
+            <a class="menuItem" href="#" id="sellButton"><span class="glyphicon glyphicon-usd"></span> Inzercia</a>
             <a class="menuItem" href="#" id="quizButton"><span class="glyphicon glyphicon-copy"></span> Dotazníky a Formuláre</a>
         </div>
 
