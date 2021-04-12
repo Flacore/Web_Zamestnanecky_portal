@@ -160,7 +160,6 @@
         document.getElementById("ad_list").classList.add('hidden');
         let modal = document.getElementById("modal_ad");
         modal.style.display = "block";
-
     }
 
     function add_adlist() {

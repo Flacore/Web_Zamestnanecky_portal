@@ -75,7 +75,7 @@
         // modal-Window
         function close_modal_ad() {
             let modal = document.getElementById("modal_ad");
-            modal.classList.add('hidden');
+            modal.style.display = "none";
             document.getElementById("ad_form_item").classList.add('hidden');
             document.getElementById("ad_form_cat").classList.add('hidden');
             document.getElementById("ad_list").classList.add('hidden');
