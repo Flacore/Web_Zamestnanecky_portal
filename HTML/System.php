@@ -39,8 +39,147 @@
     <script src="../JS/MainSite/system_functionality.js"></script>
     <script src="../JS/MainSite/system_onClick.js"></script>
     <script src="../JS/MainSite/modal_window.js"></script>
+    <style>
+        /*Insert into inzercia*/
+        #ad_list table{
+            width: 100%;
+        }
+
+        #ad_list table tr th,
+        #ad_list table tr td{
+            border: solid 1px black;
+        }
+
+        #ad_list table tr th{
+            background-color: #28559A;
+            color: white;
+            text-align: center;
+        }
+
+        #ad_list table tr td{
+            background-color: #81c43c;
+        }
+    </style>
+    <script>
+        //modal-window
+        function delete_ad(id) {
+            $.ajax({
+                type: 'POST',
+                data: {id: id,typ: 2},
+                url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/System/ad_editing.php',
+                success: function(data) {
+                }
+            });
+        }
+
+        // modal-Window
+        function close_modal_ad() {
+            let modal = document.getElementById("modal_ad");
+            modal.classList.add('hidden');
+            document.getElementById("ad_form_item").classList.add('hidden');
+            document.getElementById("ad_form_cat").classList.add('hidden');
+            document.getElementById("ad_list").classList.add('hidden');
+        }
+    </script>
 </head>
 <body onload="fLoad()">
+
+    <div class="modal" id="modal_ad">
+        <div class="modal-content">
+            <span class="close-btn" onclick="close_modal_ad()">&times;</span>
+
+            <div id="ad_list" class="hidden">
+                <?php
+
+                $sql = mysqli_query($con, "SELECT * FROM inzerat left join kategoria on(inzerat.kategoria_id_kategoria = kategoria.id_kategoria) 
+                                                where Uzivatel_idUzivatel='".$id."' order by vytvorenie desc");
+                $k = 0;
+                while ($rows = $sql->fetch_assoc()) {
+                    $_data[$k] = $rows;
+                    ++$k;
+                }
+                if($k > 0){
+
+                    echo "       
+                    <table>
+                    <tr>
+                        <th>Datum</th>
+                        <th>Nazov</th>
+                        <th>Kategória</th>
+                        <th>Cena</th>
+                    </tr>";
+
+                    for($i = 0; $i < $k; $i++){
+                        $row=$_data[$i];
+                        echo "               
+                             <tr onclick=\"tableDetail('kurzDetail".$i."')\">
+                                <td>".$row['vytvorenie']."</td>
+                                <td>".$row['Titulok']."</td>";
+
+                        if($row['kategoria_id_kategoria']==null){
+                            echo"<td>Nezaradené</td>";
+                        }else{
+                            echo"<td>".$row['Názov']."</td>";
+                        }
+
+                        echo" <td><button onclick=\"delete_ad('".$row['id_inzerat']."')\" class=\"carier-btn\">Vymazať</button></td>
+                            </tr>";
+                    }
+
+                    echo "
+                    </table>";
+                }else{
+                    echo "<h3>Nevytvorili ste žiadny inzerát.</h3>";
+                }
+
+                ?>
+            </div>
+
+            <div id="ad_form_cat" class="hidden">
+                <form method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/System/ad_editing.php">
+                    <input class="hidden" type="number" value="3" name="typ">
+                    <label>Názov</label>
+                    <input type="text" name="Nazov">
+                    <!--                                                      TODO:    Subor-->
+                    <input type="button" value="Odoslať">
+                </form>
+            </div>
+
+            <div id="ad_form_item" class="hidden">
+                <form method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/System/ad_editing.php">
+                    <input class="hidden" type="number" value="2" name="typ">
+                    <label>Názov</label>
+                    <input type="text" name="Nazov">
+                    <label>Popis</label>
+                    <input type="text" name="Popis">
+                    <label>Zobraziť telefón.</label>
+                    <input type="checkbox" name="tel">
+                    <label>Cena.</label>
+                    <input type="number" step=".01" name="cena">
+                    <label for="cat">Kategória.</label>
+                    <select id="cat" name="cat">
+                        <option value="-1">Nezaradené</option>
+                        <?php
+                        $sql = mysqli_query($con, "SELECT * FROM kategoria");
+                        $k = 0;
+                        while ($rows = $sql->fetch_assoc()) {
+                            $_data[$k] = $rows;
+                            ++$k;
+                        }
+                        for($i=0; $i<$k; $i++){
+                            $row=$_data[$i];
+                            echo "<option value=\"".$row['id_kategoria']."\">".$row['Názov']."</option>";
+                        }
+                        ?>
+                    </select>
+                    <!--                                                             TODO: Subor-->
+                    <input type="button" value="Odoslať">
+                </form>
+            </div>
+
+        </div>
+    </div>
+
     <div class="modal" id="modal_notification">
         <div class="modal-content">
             <span class="close-btn" onclick="close_modal_nt()">&times;</span>
@@ -350,7 +489,7 @@
             </a>
         </div>
 
-        <a class="menuItem" id="Links">Odkazy
+        <a class="menuItem" id="Links">Dôležité odkazy
             <i class="fa fa-caret-down"></i>
         </a>
         <div class="dropdown-container" id="Links_container">
@@ -389,7 +528,7 @@
             </a>
         </div>
 
-        <a class="menuItem" id="Marks">Záložky
+        <a class="menuItem" id="Marks">Obľúbené odkazy
             <i class="fa fa-caret-down"></i>
         </a>
         <div class="dropdown-container" id="Marks_container">

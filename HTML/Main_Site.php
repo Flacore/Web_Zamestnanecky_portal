@@ -218,8 +218,6 @@
             <h3>INZERCIA</h3>
             <div class="showOf">
 
-<!--                TODO-->
-
                 <div id="myCarousel" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                         <?php
@@ -504,7 +502,7 @@
                 </div>
             </div>
 
-            <div id="inzercia_cat" class="inzercia_inside" hidden>
+            <div id="inzercia_cat" class="inzercia_inside" >
 
                 <?php
 
@@ -543,7 +541,7 @@
 
             </div>
 
-            <div id="inzercia_all" class="inzercia_inside hiden">
+            <div id="inzercia_all" class="inzercia_inside">
 
                 <div class=" category">
                     <img onclick="showDetail_inz(2)" alt="" class="img" src="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/categoria/def.jpg">
@@ -556,7 +554,7 @@
 
             </div>
 
-            <div id="inzercia_det" class="inzercia_inside hiden">
+            <div id="inzercia_det" class="inzercia_inside">
 
             </div>
 
@@ -595,7 +593,8 @@
         function  inzViewOpen() {
             document.getElementById('inzercia_cat').style.display='block';
             document.getElementById('inzercia_view').style.display='block';
-            document.getElementById('inzercia_all').load("SystemComponents/inzercia.php");
+            let tmp = document.getElementById('inzercia_all');
+            tmp.load("SystemComponents/inzercia.php");
             document.getElementById('inzercia_all').style.display='none';
             document.getElementById('inzercia_det').style.display='none';
         }

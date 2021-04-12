@@ -5,9 +5,9 @@ $id=$_POST['id'];
 if($_POST['typ']==1){
     //prvky v kategorii
     if($id>=0)
-        $sql = mysqli_query($con, "SELECT * FROM inzerat left join subor on(inzerat.id_inzerat = subor.idSubor) where kategoria_id_kategoria='".$id."' order by inzerat.vytvorenie desc");
+        $sql = mysqli_query($con, "SELECT * FROM inzerat left join subor on(inzerat.id_inzerat = subor.inzerat_id_inzerat) where kategoria_id_kategoria='".$id."' order by inzerat.vytvorenie desc");
     else
-        $sql = mysqli_query($con, "SELECT * FROM inzerat left join subor on(inzerat.id_inzerat = subor.idSubor) where kategoria_id_kategoria is null order by inzerat.vytvorenie desc");
+        $sql = mysqli_query($con, "SELECT * FROM inzerat left join subor on(inzerat.id_inzerat = subor.inzerat_id_inzerat) where kategoria_id_kategoria is null order by inzerat.vytvorenie desc");
     $k = 0;
     while ($rows = $sql->fetch_assoc()) {
         $_data[$k] = $rows;
