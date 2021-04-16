@@ -84,6 +84,58 @@
 </head>
 <body onload="fLoad()">
 
+<!--todo-->
+<div class="modal" id="modal_career">
+    <div class="modal-content">
+        <span class="close-btn" onclick="close_modal_career()">&times;</span>
+
+        <div id="ad_career" class="hidden">
+            <form method="post" action="">
+                <label>Popis</label>
+                <input type="text" name="desc">
+                <h3>TODO: pracovisko</h3>
+                <h3>TODO: subor</h3>
+                <input type="submit" value="Odoslať">
+            </form>
+        </div>
+
+        <div id="my_career" class="hidden">
+            <h3>Zoznam mojich kurzov</h3>
+        </div>
+
+    </div>
+</div>
+
+<!--TODO-->
+<div class="modal" id="modal_curses">
+    <div class="modal-content">
+        <span class="close-btn" onclick="close_modal_curses()">&times;</span>
+
+        <div id="ad_curse" class="hidden">
+            <form method="post" action="">
+                <label>Nazov</label>
+                <input type="text" name="name">
+                <label>Popis</label>
+                <input type="text" name="desc">
+                <label>Cena</label>
+                <input type="number" name="price">
+                <h3>TODO: miesto</h3>
+                <h3>TODO: Subor</h3>
+                <input type="submit" value="Odoslať">
+            </form>
+        </div>
+
+        <div id="my_curses" class="hidden">
+            <h3>Zoznam mojich kurzov</h3>
+        </div>
+
+        <div id="curses_loged" class="hidden">
+            <h3>Sem sa nahrava zoznam ludi cez ajax</h3>
+        </div>
+
+    </div>
+</div>
+
     <div class="modal" id="modal_ad">
         <div class="modal-content">
             <span class="close-btn" onclick="close_modal_ad()">&times;</span>
@@ -140,7 +192,7 @@
                     <input class="hidden" type="number" value="3" name="typ">
                     <label>Názov</label>
                     <input type="text" name="Nazov">
-                    <!--                                                      TODO:    Subor-->
+                    <h3>TODO: file</h3>
                     <input type="button" value="Odoslať">
                 </form>
             </div>
@@ -172,8 +224,8 @@
                         }
                         ?>
                     </select>
-                    <!--                                                             TODO: Subor-->
-                    <input type="button" value="Odoslať">
+                    <h3>TODO: file</h3>
+                    <input type="submit" value="Odoslať">
                 </form>
             </div>
 

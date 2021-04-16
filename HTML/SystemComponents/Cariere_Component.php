@@ -1,5 +1,7 @@
 <?php include "../../PHP/config_DB.php"; ?>
 <body>
+    <br>
+
     <div class="container" id="prac_pozicie">
         <br><br><br>
         <?php
@@ -51,6 +53,12 @@
                 ";
         }
         ?>
+        <br>
+        <div class="center">
+            <div id="newBlog" class="newMessege" onclick="#href">
+                <span class="glyphicon glyphicon-plus"></span>
+            </div>
+        </div>
         <br><br><br>
     </div>
 </body>

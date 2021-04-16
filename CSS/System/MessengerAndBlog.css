@@ -83,6 +83,7 @@
 }
 
 .newMessege{
+    cursor: pointer;
     margin: auto;
     width: 70px;
     height: auto;

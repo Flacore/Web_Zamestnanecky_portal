@@ -43,7 +43,7 @@
                 <br>
             </div>
             <div class="bottomSpace">
-                <div id="newBlog" class="newMessege">
+                <div id="newBlog" class="newMessege" onclick="#href">
                     <span class="glyphicon glyphicon-plus"></span>
                 </div>
             </div>
@@ -104,6 +104,9 @@
         var outer = document.getElementById('messegeWindow');
         var inner = document.getElementById('addBlog');
         outer.innerHTML=inner.innerHTML;
+        if($(window).width()<=980){
+            msgOpen();
+        }
     });
 
     function onlyOne(checkbox,druh,tmp,n) {

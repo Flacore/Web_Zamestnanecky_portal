@@ -69,10 +69,16 @@ $id=$_SESSION['session'];
                 ";
             }
             ?>
-            <h5 class="txtCenter txtWhite txtFullWidth txtInfo">
+            <h5 class="txtCenter txtBlack txtFullWidth txtInfo">
                 *Prihlasovanie na kurzy nie je závezné a však by sme vás chceli
                 poprosiť aby ste tak ku nemu pristupovaly.
             </h5>
+        </div>
+        <br>
+        <div class="center">
+            <div id="newBlog" class="newMessege" onclick="#href">
+                <span class="glyphicon glyphicon-plus"></span>
+            </div>
         </div>
         <br><br><br>
     </div>
