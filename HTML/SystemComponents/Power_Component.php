@@ -1,11 +1,25 @@
 <?php include "../../PHP/config_DB.php";
-$id=$_SESSION['session'] ?>
+$id=$_SESSION['session'];
+$sql = mysqli_query($con, "
+            SELECT * from os_udaje ou
+            join prirad_funkcia pf on(ou.rod_cislo = pf.os_udaje_rod_cislo)
+            join pravomoci po on(po.funkcie_idPozícia = pf.funkcie_idPozícia)
+            where pf.do is null and ou.rod_cislo ='".$id."'
+        ");
+$info = $sql->fetch_assoc();
+?>
 <body>
     <div class="container" id="powers">
         <br><br><br>
         <h2 class="txtCenter txtBlack">Právomoci</h2>
         <br>
-        <form method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/powersUpdate.php">
+        <?php
+        if($info['Pravomoci']==1){
+            echo "
+                    <form method=\"post\" action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/powersUpdate.php\">
+        ";
+        }
+        ?>
             <div class="position tableStyle">
                 <table>
                     <tr>
@@ -68,8 +82,14 @@ $id=$_SESSION['session'] ?>
                     </div>
                 </table>
             </div>
-            <input name="but_add" id="but_add" class="btn" type="submit" value="Potvrď">
+        <?php
+                if($info['Pravomoci']==1){
+                echo "
+            <input name=\"but_add\" id=\"but_add\" class=\"btn\" type=\"submit\" value=\"Potvrď\">
         </form>
+        ";
+        }
+        ?>
         <br><br><br>
     </div>
 </body>

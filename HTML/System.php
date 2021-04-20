@@ -4,11 +4,24 @@
         header('Location: Main_Site.php');
     }
     $id=$_SESSION['session'];
+    $sql = mysqli_query($con, "
+            SELECT count(*) as counter from os_udaje 
+            where rod_cislo ='".$id."'
+        ");
+    $info = $sql->fetch_assoc();
 
-    if(isset($_POST['but_logout'])){
+    if(isset($_POST['but_logout'])|| $info['counter']==0){
         session_destroy();
         header('Location: Main_Site.php');
     }
+
+    $sql = mysqli_query($con, "
+        SELECT * from os_udaje ou
+        join prirad_funkcia pf on(ou.rod_cislo = pf.os_udaje_rod_cislo)
+        join pravomoci po on(po.funkcie_idPozícia = pf.funkcie_idPozícia)
+        where pf.do is null and ou.rod_cislo ='".$id."'
+    ");
+    $info = $sql->fetch_assoc();
 ?>
 <!DOCTYPE html>
 <html lang="sk">
@@ -61,6 +74,22 @@
         }
     </style>
     <script>
+        function hideDropdowns(){
+            var dropdownContent1 = document.getElementById("Marks_container");
+            var dropdownContent2 = document.getElementById("Links_container");
+            var dropdownContent3 = document.getElementById("Personal_container");
+            var dropdownContent4 = document.getElementById("System_container");
+            var dropdownContent5 = document.getElementById("Admin_container");
+            var dropdownContent6 = document.getElementById("Documents_container");
+            dropdownContent1.style.display = "none";
+            dropdownContent2.style.display = "none";
+            dropdownContent3.style.display = "none";
+            dropdownContent4.style.display = "none";
+            if(dropdownContent5 != null)
+                dropdownContent5.style.display = "none";
+            dropdownContent6.style.display = "none";
+        }
+
         //modal-window
         function delete_ad(id) {
             $.ajax({
@@ -572,7 +601,13 @@
             <a class="menuItem" href="#" id="carierButton"><span class="glyphicon glyphicon-briefcase"></span> Projekty</a>
             <a class="menuItem" href="#" id="blogButton"><span class="glyphicon glyphicon-pencil"></span> Blog</a>
             <a class="menuItem" href="#" id="sellButton"><span class="glyphicon glyphicon-usd"></span> Inzercia</a>
-            <a class="menuItem" href="#" id="quizButton"><span class="glyphicon glyphicon-copy"></span> Dotazníky a Formuláre</a>
+            <?php
+            if($info['Dotazniky']==1){
+                echo "
+             <a class=\"menuItem\" href=\"#\" id=\"quizButton\"><span class=\"glyphicon glyphicon-copy\"></span> Dotazníky a Formuláre</a>
+                ";
+            }
+            ?>
         </div>
 
         <a class="menuItem" id="Documents">Tlačivá a dokumenty
@@ -599,10 +634,16 @@
                 }
             }
             ?>
-            <a class="menuItem link_adder">
-                <div class="link_button" onclick="edit_links('<?php echo $id; ?>',false)"><span class="glyphicon glyphicon-pencil"></span></div>
-                <div class="link_button" onclick="add_link('<?php echo $id; ?>',false)"><span class="glyphicon glyphicon-plus"></span></div>
+            <?php
+            if($info['Dokumenty']==1){
+                echo "
+            <a class=\"menuItem link_adder\">
+                <div class=\"link_button\" onclick=\"edit_links('<?php echo $id; ?>',false)\"><span class=\"glyphicon glyphicon-pencil\"></span></div>
+                <div class=\"link_button\" onclick=\"add_link('<?php echo $id; ?>',false)\"><span class=\"glyphicon glyphicon-plus\"></span></div>
             </a>
+                ";
+            }
+            ?>
         </div>
 
         <a class="menuItem" id="Links">Dôležité odkazy
@@ -629,10 +670,16 @@
                 }
             }
             ?>
-            <a class="menuItem link_adder">
-                <div class="link_button" onclick="edit_links('admin',true)"><span class="glyphicon glyphicon-pencil"></span></div>
-                <div class="link_button" onclick="add_link('admin',true)"><span class="glyphicon glyphicon-plus"></span></div>
-            </a>
+            <?php
+            if($info['Zalozky']==1){
+                echo "
+            <a class=\"menuItem link_adder\">
+                <div class=\"link_button\" onclick=\"edit_links('admin',true)\"><span class=\"glyphicon glyphicon-pencil\"></span></div>
+                <div class=\"link_button\" onclick=\"add_link('admin',true)\"><span class=\"glyphicon glyphicon-plus\"></span></div>
+            </a>  
+                ";
+            }
+            ?>
         </div>
 
         <a class="menuItem" id="Marks">Obľúbené odkazy
@@ -671,14 +718,30 @@
         <div class="dropdown-container" id="Personal_container">
             <a class="menuItem" href="#" id="settingsButton"><span class="glyphicon glyphicon-cog"></span> Nastavenia</a>
         </div>
-        <a class="menuItem" id="Admin">Administratorska sekcia
-            <i class="fa fa-caret-down"></i>
-        </a>
-        <div class="dropdown-container" id="Admin_container">
-            <a class="menuItem" href="#" id="powerButton"><span class="glyphicon glyphicon-ok"></span> Právomoci</a>
-            <a class="menuItem" href="#" id="addButton"><span class="glyphicon glyphicon-user"></span> Pridať uživateľa</a>
-            <a class="menuItem" href="#" id="importButton"><span class="glyphicon glyphicon-hdd"></span> Pridať uživateľov</a>
-        </div>
+        <?php
+        if($info['Pravomoci']==1 || $info['Kontakty']==1){
+            echo "
+            <a class=\"menuItem\" id=\"Admin\">Administratorska sekcia
+                <i class=\"fa fa-caret-down\"></i>
+            </a>
+            <div class=\"dropdown-container\" id=\"Admin_container\">
+            ";
+            if($info['Pravomoci']==1 ){
+                echo "
+                <a class=\"menuItem\" href=\"#\" id=\"powerButton\"><span class=\"glyphicon glyphicon-ok\"></span> Právomoci</a>
+            ";
+            }
+            if($info['Kontakty']==1){
+                echo "
+                <a class=\"menuItem\" href=\"#\" id=\"addButton\"><span class=\"glyphicon glyphicon-user\"></span> Pridať uživateľa</a>
+                <a class=\"menuItem\" href=\"#\" id=\"importButton\"><span class=\"glyphicon glyphicon-hdd\"></span> Pridať uživateľov</a>
+            ";
+            }
+            echo "
+            </div>
+            ";
+        }
+        ?>
     </div>
 
     <div class="siteMiddle innerContainer">
@@ -692,68 +755,6 @@
 
     <div class="footer" id="footer">
         <h5>© 2020 Žilinská univerzita v Žiline. Všetky práva vyhradené.</h5>
-    </div>
-
-    <div id="guest_view" class="guest-view">
-        <div class="guest-window" >
-            <div class="col-sm-12">
-                <div class="closebtn">
-                    <span class="glyphicon glyphicon-remove" onclick="guestViewClose()"></span>
-                </div>
-            </div>
-
-            <div id="registration_guest" class="registration-guest">
-                <h2 class="title col-sm-12">Registrácia</h2>
-                <form>
-                    <div class="col-sm-12">
-                        <div class="center">
-                            <label>Meno</label>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="center">
-                            <label>Priezvisko</label>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="center">
-                            <label>E-mail</label>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="center">
-                            <label>Telefónne číslo</label>
-                            <input type="text">
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="center">
-                            <input class="btn" type="submit">
-                        </div>
-                    </div>
-                    <div class="col-sm-12">
-                        <div class="center">
-                            <input class="btn" type="reset">
-                        </div>
-                    </div>
-                </form>
-            </div>
-
-            <div id="textShow_guest" class="textShow-guest">
-                <h2 class="title col-sm-12">Nazov clanku</h2>
-                <div class="text-area">
-                    <h5 class="text col-sm-12">
-
-                    </h5>
-                </div>
-                <h5 class="text-detail col-sm-12">Dátum: xx.xx.xxxx</h5>
-                <h5 class="text-detail col-sm-12">Autor: meno meno</h5>
-            </div>
-
-        </div>
     </div>
 
 </body>

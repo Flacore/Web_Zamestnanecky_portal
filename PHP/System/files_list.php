@@ -1,6 +1,15 @@
 <?php
 include "../config_DB.php";
 
+$id=$_SESSION['session'];
+$sql = mysqli_query($con, "
+            SELECT * from os_udaje ou
+            join prirad_funkcia pf on(ou.rod_cislo = pf.os_udaje_rod_cislo)
+            join pravomoci po on(po.funkcie_idPozícia = pf.funkcie_idPozícia)
+            where pf.do is null and ou.rod_cislo ='".$id."'
+        ");
+$info = $sql->fetch_assoc();
+
 $idSkupina=$_POST['id'];
 
 $sql = mysqli_query($con, "select * from subor where Zalozka_idZalozka = '".$idSkupina."' order by vytvorenie desc");
@@ -10,7 +19,9 @@ while ($rows = $sql->fetch_assoc()) {
     ++$i;
 }
 
-echo "<br><div class='col-sm-12'><div class=\"center file_item_btn\" onclick=\"open_modal_file('idSubor_file','".$idSkupina."')\"><span class=\"button_icon glyphicon glyphicon-plus\"></span></div></div><br><br><br>";
+if($info['Dokumenty']==1) {
+    echo "<br><div class='col-sm-12'><div class=\"center file_item_btn\" onclick=\"open_modal_file('idSubor_file','" . $idSkupina . "')\"><span class=\"button_icon glyphicon glyphicon-plus\"></span></div></div><br><br><br>";
+}
 if($i>0){
     for($n=0;$n<$i;$n++){
         $data_na_rozdelenie=$data[$n];

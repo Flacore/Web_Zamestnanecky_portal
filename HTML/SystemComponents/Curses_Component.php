@@ -1,17 +1,30 @@
 <?php include "../../PHP/config_DB.php";
 $id=$_SESSION['session'];
+$sql = mysqli_query($con, "
+            SELECT * from os_udaje ou
+            join prirad_funkcia pf on(ou.rod_cislo = pf.os_udaje_rod_cislo)
+            join pravomoci po on(po.funkcie_idPozícia = pf.funkcie_idPozícia)
+            where pf.do is null and ou.rod_cislo ='".$id."'
+        ");
+$info = $sql->fetch_assoc();
 ?>
 <body>
     <div class="container" id="kurzy">
+        <?php
+        if($info['Kurzy']==1){
+            echo "
         <br>
-        <div style="width: 200px;" class="center">
-            <div style="float: left;" id="newCurse" class="newMessege" onclick="create_curse()">
-                <span class="glyphicon glyphicon-plus"></span>
+        <div style=\"width: 200px;\" class=\"center\">
+            <div style=\"float: left;\" id=\"newCurse\" class=\"newMessege\" onclick=\"create_curse()\">
+                <span class=\"glyphicon glyphicon-plus\"></span>
             </div>
-            <div style="float: right;" id="My_Curses" class="newMessege" onclick="my_curse()">
-                <span class="glyphicon glyphicon-list"></span>
+            <div style=\"float: right;\" id=\"My_Curses\" class=\"newMessege\" onclick=\"my_curse()\">
+                <span class=\"glyphicon glyphicon-list\"></span>
             </div>
         </div>
+        ";
+        }
+        ?>
         <br>
         <div class="position tableStyle">
             <br><br><br>

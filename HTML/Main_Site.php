@@ -1,5 +1,9 @@
 <?php
     include "../PHP/login.php";
+    if(isset($_SESSION['session'])){
+        header('Location: System.php');
+    }
+
 ?>
 <!DOCTYPE html>
 <html lang="sk">

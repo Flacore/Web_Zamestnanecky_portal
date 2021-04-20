@@ -1,4 +1,13 @@
-<?php include "../../PHP/config_DB.php";  ?>
+<?php include "../../PHP/config_DB.php";
+    $id=$_SESSION['session'];
+    $sql = mysqli_query($con, "
+            SELECT * from os_udaje ou
+            join prirad_funkcia pf on(ou.rod_cislo = pf.os_udaje_rod_cislo)
+            join pravomoci po on(po.funkcie_idPozícia = pf.funkcie_idPozícia)
+            where pf.do is null and ou.rod_cislo ='".$id."'
+        ");
+    $info = $sql->fetch_assoc()
+?>
 <body>
 <div class="messenger-window">
     <div class="col-md-3 Messenger-Menu" id="_sideMenu">
@@ -42,10 +51,17 @@
 
                 <br>
             </div>
+
             <div class="bottomSpace">
-                <div id="newBlog" class="newMessege" onclick="#href">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </div>
+                <?php
+                if($info['Blog']==1){
+                    echo "
+                    <div id=\"newBlog\" class=\"newMessege\" onclick=\"#href\">
+                        <span class=\"glyphicon glyphicon-plus\"></span>
+                    </div>
+                    ";
+                }
+                ?>
             </div>
         </div>
     </div>
@@ -54,32 +70,38 @@
 
     </div>
 
-    <div class="display_No" id="addBlog">
-        <div class="add_Blog">
-            <form action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_blog.php" method="post">
-                <legend>Kategória:</legend>
-                <input checked class="typ" type="checkbox" name="typ" value='1' onclick="onlyOne(this,'.typ',2,1)">Aktualita<br>
-                <input class="typ" type="checkbox" name="typ" value='0' onclick="onlyOne(this,'.typ',1,2)">Oznam<br>
-
-                <legend>Obecenstvo:</legend>
-                <input checked class="verejnost" type="checkbox" name="verejnost" value='1' onclick="onlyOne(this,'.verejnost',0,1)">Verejná<br>
-                <input class="verejnost" type="checkbox" name="verejnost" value='0' onclick="onlyOne(this,'.verejnost',0,2)">Súkromná<br>
-
-                <legend>Nadpis:</legend>
-                <textarea required name="nadpis" rows="1"></textarea>
-
-                <legend>Úvod:</legend>
-                <textarea required name="predtext" rows="5"></textarea>
-
-                <div id="text_area">
-                    <legend>Text:</legend>
-                    <textarea name="text" rows="10"></textarea>
+    <?php
+        if($info['Blog']==1){
+            echo "
+                <div class=\"display_No\" id=\"addBlog\">
+                    <div class=\"add_Blog\">
+                        <form action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_blog.php\" method=\"post\">
+                            <legend>Kategória:</legend>
+                            <input checked class=\"typ\" type=\"checkbox\" name=\"typ\" value='1' onclick=\"onlyOne(this,'.typ',2,1)\">Aktualita<br>
+                            <input class=\"typ\" type=\"checkbox\" name=\"typ\" value='0' onclick=\"onlyOne(this,'.typ',1,2)\">Oznam<br>
+            
+                            <legend>Obecenstvo:</legend>
+                            <input checked class=\"verejnost\" type=\"checkbox\" name=\"verejnost\" value='1' onclick=\"onlyOne(this,'.verejnost',0,1)\">Verejná<br>
+                            <input class=\"verejnost\" type=\"checkbox\" name=\"verejnost\" value='0' onclick=\"onlyOne(this,'.verejnost',0,2)\">Súkromná<br>
+            
+                            <legend>Nadpis:</legend>
+                            <textarea required name=\"nadpis\" rows=\"1\"></textarea>
+            
+                            <legend>Úvod:</legend>
+                            <textarea required name=\"predtext\" rows=\"5\"></textarea>
+            
+                            <div id=\"text_area\">
+                                <legend>Text:</legend>
+                                <textarea name=\"text\" rows=\"10\"></textarea>
+                            </div>
+            
+                            <div class=\"col-sm-12 send-BT\"><input name=\"but_submit\" id=\"but_submit\" type=\"submit\" value=\"Odoslať\"></div>
+                        </form>
+                    </div>
                 </div>
-
-                <div class="col-sm-12 send-BT"><input name="but_submit" id="but_submit" type="submit" value="Odoslať"></div>
-            </form>
-        </div>
-    </div>
+            ";
+        }
+    ?>
 
 </div>
 <script type="text/javascript">

@@ -1,4 +1,13 @@
-<?php include "../../PHP/config_DB.php"; ?>
+<?php include "../../PHP/config_DB.php";
+$id=$_SESSION['session'];
+$sql = mysqli_query($con, "
+            SELECT * from os_udaje ou
+            join prirad_funkcia pf on(ou.rod_cislo = pf.os_udaje_rod_cislo)
+            join pravomoci po on(po.funkcie_idPozícia = pf.funkcie_idPozícia)
+            where pf.do is null and ou.rod_cislo ='".$id."'
+        ");
+$info = $sql->fetch_assoc();
+?>
 <body>
 <style>
     .inzercia_menu{
@@ -38,18 +47,24 @@
         margin-right: 25px;
     }
 </style>
+<?php
+if($info['Inzercia']==1){
+    echo "
+        <div class=\"inzercia_menu center\">
+            <div class=\"inzercia_add iz_item\" onclick=\"add_ad()\">
+                <span class=\"glyphicon glyphicon-plus\"</span>
+            </div>
+            <div class=\"inzercia_add list\" onclick=\"add_adlist()\">
+                <span class=\"glyphicon glyphicon-th-list\"</span>
+            </div>
+            <div class=\"inzercia_add iz_category\" onclick=\"add_adcat()\">
+                <span class=\"glyphicon glyphicon-folder-open\"</span>
+            </div>
+        </div>
+        ";
+}
+?>
 
-<div class="inzercia_menu center">
-    <div class="inzercia_add iz_item" onclick="add_ad()">
-        <span class="glyphicon glyphicon-plus"</span>
-    </div>
-    <div class="inzercia_add list" onclick="add_adlist()">
-        <span class="glyphicon glyphicon-th-list"</span>
-    </div>
-    <div class="inzercia_add iz_category" onclick="add_adcat()">
-        <span class="glyphicon glyphicon-folder-open"</span>
-    </div>
-</div>
 
 <div class="inzercia inzercia_inside">
 
