@@ -3,11 +3,21 @@ $id=$_SESSION['session'];
 ?>
 <body>
     <div class="container" id="kurzy">
+        <br>
+        <div style="width: 200px;" class="center">
+            <div style="float: left;" id="newCurse" class="newMessege" onclick="create_curse()">
+                <span class="glyphicon glyphicon-plus"></span>
+            </div>
+            <div style="float: right;" id="My_Curses" class="newMessege" onclick="my_curse()">
+                <span class="glyphicon glyphicon-list"></span>
+            </div>
+        </div>
+        <br>
         <div class="position tableStyle">
             <br><br><br>
             <?php
-            $sql = mysqli_query($con, "select * from prednasky ");
-            $num = mysqli_query($con, "select count(*) as NumberData from prednasky");
+            $sql = mysqli_query($con, "select * from celoziv_vzdel where os_udaje_rod_cislo<>'".$id."' and datum > CURRENT_DATE order by datum asc");
+            $num = mysqli_query($con, "select count(*) as NumberData from celoziv_vzdel where os_udaje_rod_cislo<>'".$id."' and datum > CURRENT_DATE");
             $num_row=mysqli_fetch_array($num);
             $n=$num_row['NumberData'];
             $i = 0;
@@ -44,7 +54,13 @@ $id=$_SESSION['session'];
                                         <div  class=\"divWhite\">
                                            <div class=\"col-sm-6\">
                                                <br>
-                                               <img alt=\"\" class=\"imgWidth imgStyle\" src=\"".$row['picture_url']."\">
+                                               ";
+                        if($row['cesta']!=null) {
+                            echo "<img alt=\"\" class=\"imgWidth imgStyle\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server" . $row['cesta'] . "\">";
+                        } else {
+                        echo "<img alt=\"\" class=\"imgWidth imgStyle\" src=\"\">";
+                        }
+                        echo"
                                                <br><br>
                                            </div>
                                             <div class=\"col-sm-6 \">
@@ -74,15 +90,25 @@ $id=$_SESSION['session'];
                 poprosiť aby ste tak ku nemu pristupovaly.
             </h5>
         </div>
-        <br>
-        <div class="center">
-            <div id="newBlog" class="newMessege" onclick="#href">
-                <span class="glyphicon glyphicon-plus"></span>
-            </div>
-        </div>
         <br><br><br>
     </div>
     <script>
+
+        function create_curse() {
+            let modal = document.getElementById("modal_curses");
+            modal.style.display = "block";
+            document.getElementById("ad_curse").classList.remove('hidden');
+            document.getElementById("my_curses").classList.add('hidden');
+            document.getElementById("curses_loged").classList.add('hidden');
+        }
+
+        function my_curse() {
+            let modal = document.getElementById("modal_curses");
+            modal.style.display = "block";
+            document.getElementById("ad_curse").classList.add('hidden');
+            document.getElementById("my_curses").classList.remove('hidden');
+            document.getElementById("curses_loged").classList.add('hidden');
+        }
 
         function Registration($prednaska,$login) {
             $.post("http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_userCurses_registration.php",{ prednaska_id: $prednaska, login_id: $login} ,function(data) {

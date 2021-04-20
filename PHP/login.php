@@ -17,7 +17,7 @@ if(isset($_POST['but_submit'])) {
 
         if ($count > 0 && $count<2) {
             //Prihlasi uzivatela
-            $result = mysqli_query($con, "select idLogin  as UserData from login where Login='".$uname."' and password='".$password."'");
+            $result = mysqli_query($con, "select Os_udaje_rod_cislo  as UserData from login where Login='".$uname."' and password='".$password."'");
             $row = mysqli_fetch_array($result);
             $id = $row['UserData'];
             $_SESSION['session'] = $id;

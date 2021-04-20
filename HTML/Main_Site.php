@@ -24,6 +24,7 @@
         <a class="col-sm" id="prihlasovanieButton" href="#prihlasovanie">Prihlasovanie</a>
         <a class="col-sm" id="oznamyButton" href="#oznamy">Oznamy a Aktuality</a>
         <a class="col-sm" id="o_nasButton" href="#o_nas">O nás</a>
+        <a class="col-sm" id="inzerciaButton" href="#inzercia">Inzercia</a>
         <a class="col-sm" id="prac_pozicieButton" href="#prac_pozicie">Volné pracovné pozície</a>
         <a class="col-sm" id="kurzyButton" href="#kurzy">Kurzy</a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
@@ -211,7 +212,7 @@
         <div class="spacer_inzercia"></div>
     </div>
 
-    <div class="inzercia_container">
+    <div class="inzercia_container" id="inzercia">
         <div class="triangle_left"></div>
 
         <div class="inzercia inzercia_out">
@@ -303,8 +304,8 @@
         </h4>
         <br>
         <?php
-        $sql = mysqli_query($con, "select * from kariera join pracovisko on kariera.Pracovisko_idPracovisko=pracovisko.idPracovisko where verejne='1'");
-        $num = mysqli_query($con, "select count(*) as NumberData from kariera where verejne='1'");
+        $sql = mysqli_query($con, "select * from projekty left join subor on(subor.idSubor = projekty.Subor_idSubor) where verejne='1'");
+        $num = mysqli_query($con, "select count(*) as NumberData from projekty where verejne='1'");
         $num_row=mysqli_fetch_array($num);
         $n=$num_row['NumberData'];
         $i = 0;
@@ -320,7 +321,6 @@
                     <tr>
                         <th>Dátum</th>
                         <th>Popis</th>
-                        <th>Pracovisko</th>
                         <th>Na stiahnutie</th>
                     </tr>
                     <div>";
@@ -334,8 +334,7 @@
                                 <td>
                                     " . $row['popis'] . "
                                 </td>
-                                <td>" . $row['Názov'] . "</td>
-                                <td><button onclick=\"window.location.href='".$row['pdf']."'\" class=\"carier-btn\">Dokument (PDF)</button></td>
+                                <td><button onclick=\"download('".$row['cesta']."')\" class=\"carier-btn\">Dokument</button></td>
                             </tr>
                         </div>
                     ";
@@ -368,8 +367,8 @@
             </h4>
             <br>
             <?php
-            $sql = mysqli_query($con, "select * from prednasky  where verejne='1' ");
-            $num = mysqli_query($con, "select count(*) as NumberData from prednasky where verejne='1'");
+            $sql = mysqli_query($con, "select * from celoziv_vzdel left join subor on(celoziv_vzdel.Subor_idSubor = subor.idSubor)  where verejne='1' ");
+            $num = mysqli_query($con, "select count(*) as NumberData from celoziv_vzdel where verejne='1'");
             $num_row=mysqli_fetch_array($num);
             $n=$num_row['NumberData'];
             $i = 0;
@@ -405,8 +404,13 @@
                                 <td colspan=\"4\">
                                     <div  class=\"divWhite\">
                                        <div class=\"col-sm-6\">
-                                           <br>
-                                           <img alt=\"\" class=\"imgWidth imgStyle\" src=\"".$row['picture_url']."\">
+                                           <br>";
+                        if($row['cesta']!=null) {
+                            echo "<img alt=\"\" class=\"imgWidth imgStyle\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server" . $row['cesta'] . "\">";
+                        }else{
+                            echo "<img alt=\"\" class=\"imgWidth imgStyle\" src=\"\">";
+                        }
+                        echo"
                                            <br><br>
                                        </div>
                                         <div class=\"col-sm-6 \">

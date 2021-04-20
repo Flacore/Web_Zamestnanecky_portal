@@ -20,7 +20,7 @@ $id=$_SESSION['session'] ?>
                     <div id="position_window">
                         <div id="position_item">
                             <?php
-                            $sql = mysqli_query($con, "select * from pozícia");
+                            $sql = mysqli_query($con, "select * from funkcie join pravomoci on (funkcie_idPozícia=idPozícia)");
                             $i = 0;
                             while ($rows = $sql->fetch_assoc()){
                                 $data[$i]=$rows;

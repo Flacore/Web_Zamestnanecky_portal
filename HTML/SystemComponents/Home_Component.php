@@ -9,7 +9,7 @@
                 <div class="col-sm-12 center"><div class="imgAvatar center shadow"></div></div>
                 <div class="col-sm-12 center"><h2 class="welcomSign ">Dobrý deň,
                     <?php
-                    $sql = mysqli_query($con, "select * from login join (uzivatel join os_udaje on uzivatel.OS_udaje_idOS_udaje = os_udaje.idOS_udaje) on Login.idLogin= uzivatel.Login_idLogin where idLogin='".$id."'");
+                    $sql = mysqli_query($con, "select * from os_udaje where rod_cislo='".$id."'");
                     $i = 0;
                     while ($rows = $sql->fetch_assoc()) {
                         $data[$i] = $rows;
@@ -29,14 +29,13 @@
 
                         <div class="infoBox-textContainer">
                             <?php
-                            $sql = mysqli_query($con, "select * from notifikacia join uzivatel  where Login_idLogin='".$id."'");
+                            $sql = mysqli_query($con, "select * from notifikacia where os_udaje_rod_cislo='".$id."'");
                             $i = 0;
                             while ($rows = $sql->fetch_assoc()) {
                                 $data[$i] = $rows;
                                 ++$i;
                             }
                             $row = $data[0];
-                            $uzivatel=$row['idUzivatel'];
 
                             if($i>0) {
                                 for ($j = 0; $j < 1; $j++) {
@@ -62,21 +61,12 @@
                         <div class="infoBox-textContainer">
 
                             <?php
-                            $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
-                            $i = 0;
-                            while ($rows = $sql->fetch_assoc()) {
-                                $data[$i] = $rows;
-                                ++$i;
-                            }
-                            $row=$data[0];
-                            $uzivatel= $row['idUzivatel'];
-
                             $sql = mysqli_query($con, "select * from blog where aktualita='1'");
                             $i = 0;
                             while ($rows = $sql->fetch_assoc()) {
                                 $idBlog=$rows['idBlog'];
                                 $false=false;
-                                $dta = mysqli_query($con, "select count(*) as Numbers from precitane_blog  where Blog_idBlog ='".$idBlog."' and Uzivatel_idUzivatel ='".$uzivatel."'");
+                                $dta = mysqli_query($con, "select count(*) as Numbers from precitane_blog  where Blog_idBlog ='".$idBlog."' and os_udaje_rod_cislo='".$id."'");
                                 $row = mysqli_fetch_array($dta);
                                 $count = $row['Numbers'];
                                 if($count==0)
@@ -106,21 +96,12 @@
                         <div class="infoBox-textContainer">
 
                             <?php
-                            $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
-                            $i = 0;
-                            while ($rows = $sql->fetch_assoc()) {
-                                $data[$i] = $rows;
-                                ++$i;
-                            }
-                            $row=$data[0];
-                            $uzivatel= $row['idUzivatel'];
-
                             $sql = mysqli_query($con, "select * from blog where aktualita='0'");
                             $i = 0;
                             while ($rows = $sql->fetch_assoc()) {
                                 $idBlog=$rows['idBlog'];
                                 $false=false;
-                                $dta = mysqli_query($con, "select count(*) as Numbers from precitane_blog  where Blog_idBlog ='".$idBlog."' and Uzivatel_idUzivatel='".$uzivatel."'");
+                                $dta = mysqli_query($con, "select count(*) as Numbers from precitane_blog  where Blog_idBlog ='".$idBlog."' and os_udaje_rod_cislo='".$id."'");
                                 $row = mysqli_fetch_array($dta);
                                 $count = $row['Numbers'];
                                 if($count==0)
@@ -164,17 +145,8 @@
 
                         <div class="infoBox-textContainer">
                             <?php
-                            $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
-                            $i = 0;
-                            while ($rows = $sql->fetch_assoc()) {
-                                $data[$i] = $rows;
-                                ++$i;
-                            }
-                            $row=$data[0];
-                            $uzivatel= $row['idUzivatel'];
-
-                            $sql = mysqli_query($con, "select * from konverzacia where (Uzivatel_idUzivatel2='".$uzivatel."'
-                            or Uzivatel_idUzivatel1='".$uzivatel."')and precitane='0'");
+                            $sql = mysqli_query($con, "select * from konverzacia where (Uzivatel2='".$id."'
+                            or Uzivatel1='".$id."')and precitane='0'");
                             $i = 0;
                             while ($rows = $sql->fetch_assoc()) {
                                 $konverzacia=$rows['idKonverzacie'];
@@ -183,8 +155,8 @@
                                     $data_inner[$i] = $row;
                                 }
                                 $row=$data_inner[0];
-                                $odosielatel= $row['Uzivatel_idUzivatel'];
-                                if($uzivatel!=$odosielatel)
+                                $odosielatel= $row['Odosielatel'];
+                                if($id!=$odosielatel)
                                     ++$i;
                             }
 

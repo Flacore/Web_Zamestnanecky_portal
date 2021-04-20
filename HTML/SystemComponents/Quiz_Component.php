@@ -1,5 +1,5 @@
 <?php include "../../PHP/config_DB.php";
-    $id_uziv=$_SESSION['session'];
+    $ja_id=$_SESSION['session'];
 ?>
 <body>
 <div id="overview_quiz" class="container">
@@ -9,49 +9,43 @@
     </div>
     <br><br><br>
     <?php
-
-    $sql = mysqli_query($con, "select * from uzivatel where idUzivatel='" . $id_uziv . "' ");
-    $k = 0;
-    while ($rows = $sql->fetch_assoc()) {
-        $_data[$k] = $rows;
-        ++$k;
-    }
-    $info = $_data[0];
-    $ja_id = $info['idUzivatel'];
-
-    $sql = mysqli_query($con, "SELECT * FROM formular join prvok on(idformular=formular_idformular) where prvok.typ_prvku='12' and Uzivatel_idUzivatel='".$ja_id."'");
+    $sql = mysqli_query($con, "SELECT * FROM formular join prvok on(idformular=formular_idformular) where prvok.typ_prvku='12' and os_udaje_rod_cislo='".$ja_id."'");
     $i = 0;
     while ($rows = $sql->fetch_assoc()){
         $data[$i]=$rows;
         ++$i;
     }
 
-    for($tmp=0;$tmp<$i;$tmp++) {
-        $row=$data[$tmp];
+    if($i!=0) {
+        for ($tmp = 0; $tmp < $i; $tmp++) {
+            $row = $data[$tmp];
 
-        $sql = mysqli_query($con, "SELECT * FROM vyplnenie_formulara where formular_idformular='".$row['idformular']."'");
-        $k = 0;
-        while ($rows = $sql->fetch_assoc()){
-            $data[$k]=$rows;
-            ++$k;
-        }
+            $sql = mysqli_query($con, "SELECT * FROM vyplnenie_formulara where formular_idformular='" . $row['idformular'] . "'");
+            $k = 0;
+            while ($rows = $sql->fetch_assoc()) {
+                $data[$k] = $rows;
+                ++$k;
+            }
 
-        echo "
+            echo "
         <div class='quiz_compartmant'>
-               <h3>Nazov: ".$row['Nazov']."</h3>
-               <h6>Popis: ".$row['Popis']."</h6>
-               <h5>Vytvorenie: ".$row['vytvorenie']."</h5>
-               <h5>Vyplnené: ".$k."x</h5>
-               <button onclick='generateURL(".$row['idformular'].")'>Zdieľaj</button>";
-        if($k>0){
-            echo "<button onclick='show_form(".$row['idformular'].")'>Zobraziť</button>
-               <button onclick='Download_form(".$row['idformular'].")'>Stiahnuť</button>
-               <button onclick=\"edit_form(".$row['idformular'].",'0')\">Kopíruj</button>";
-        }else{
-            echo "<button onclick=\"edit_form(".$row['idformular'].",'1')\">Uprav</button>";
+               <h3>Nazov: " . $row['Nazov'] . "</h3>
+               <h6>Popis: " . $row['Popis'] . "</h6>
+               <h5>Vytvorenie: " . $row['vytvorenie'] . "</h5>
+               <h5>Vyplnené: " . $k . "x</h5>
+               <button onclick='generateURL(" . $row['idformular'] . ")'>Zdieľaj</button>";
+            if ($k > 0) {
+                echo "<button onclick='show_form(" . $row['idformular'] . ")'>Zobraziť</button>
+               <button onclick='Download_form(" . $row['idformular'] . ")'>Stiahnuť</button>
+               <button onclick=\"edit_form(" . $row['idformular'] . ",'0')\">Kopíruj</button>";
+            } else {
+                echo "<button onclick=\"edit_form(" . $row['idformular'] . ",'1')\">Uprav</button>";
+            }
+            echo "<button onclick='Delete_form(" . $row['idformular'] . ",true)'>Odstráň</button>";
+            echo "</div>";
         }
-        echo "<button onclick='Delete_form(".$row['idformular'].",true)'>Odstráň</button>";
-        echo "</div>";
+    }else{
+        echo "<h3 class='center'>Neexistuje žiadny vytvorený formulár.</h3>";
     }
     ?>
     <br><br><br>

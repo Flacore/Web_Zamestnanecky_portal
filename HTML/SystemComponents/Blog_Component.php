@@ -10,7 +10,7 @@
         <div id="_msg-sideMenu" class="msg-sideMenu">
             <div id="_NameList" class="NameList row">
                 <?php
-                $sql = mysqli_query($con, "select * from blog join (uzivatel join os_udaje on uzivatel.OS_udaje_idOS_udaje=os_udaje.idOS_udaje)on blog.Uzivatel_idUzivatel=uzivatel.idUzivatel");
+                $sql = mysqli_query($con, "select * from blog join os_udaje on(os_udaje_rod_cislo = rod_cislo) ");
                 $num = mysqli_query($con, "select count(*) as NumberData from blog ");
                 $num_row=mysqli_fetch_array($num);
                 $n=$num_row['NumberData'];

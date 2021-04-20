@@ -1,12 +1,21 @@
-<?php include "../../PHP/config_DB.php"; ?>
+<?php include "../../PHP/config_DB.php";
+$id=$_SESSION['session'];?>
 <body>
     <br>
-
+    <div style="width: 200px;" class="center">
+        <div style="float: left;" id="newCariere" class="newMessege" onclick="create_cariere()">
+            <span class="glyphicon glyphicon-plus"></span>
+        </div>
+        <div style="float: right;" id="My_Carieres" class="newMessege" onclick="my_cariere()">
+            <span class="glyphicon glyphicon-list"></span>
+        </div>
+    </div>
+    <br>
     <div class="container" id="prac_pozicie">
         <br><br><br>
         <?php
-        $sql = mysqli_query($con, "select * from kariera join pracovisko on kariera.Pracovisko_idPracovisko=pracovisko.idPracovisko ");
-        $num = mysqli_query($con, "select count(*) as NumberData from kariera");
+        $sql = mysqli_query($con, "select * from projekty left join subor on(idSubor=Subor_idSubor) where os_udaje_rod_cislo<>'".$id."' and datum > CURRENT_DATE order by datum asc");
+        $num = mysqli_query($con, "select count(*) as NumberData from projekty where os_udaje_rod_cislo<>'".$id."' and datum > CURRENT_DATE");
         $num_row=mysqli_fetch_array($num);
         $n=$num_row['NumberData'];
         $i = 0;
@@ -22,7 +31,6 @@
                         <tr>
                             <th>Dátum</th>
                             <th>Popis</th>
-                            <th>Pracovisko</th>
                             <th>Na stiahnutie</th>
                         </tr>
                         <div>";
@@ -36,8 +44,7 @@
                                     <td>
                                         " . $row['popis'] . "
                                     </td>
-                                    <td>" . $row['Názov'] . "</td>
-                                    <td><button onclick=\"window.location.href='".$row['pdf']."'\" class=\"carier-btn\">Dokument (PDF)</button></td>
+                                    <td><button onclick=\"download('".$row['cesta']."')\" class=\"carier-btn\">Dokument (PDF)</button></td>
                                 </tr>
                             </div>
                         ";
@@ -54,11 +61,20 @@
         }
         ?>
         <br>
-        <div class="center">
-            <div id="newBlog" class="newMessege" onclick="#href">
-                <span class="glyphicon glyphicon-plus"></span>
-            </div>
-        </div>
-        <br><br><br>
     </div>
+    <script>
+        function  create_cariere() {
+            let modal = document.getElementById("modal_career");
+            modal.style.display = "block";
+            document.getElementById("ad_career").classList.remove('hidden');
+            document.getElementById("my_career").classList.add('hidden');
+        }
+
+        function  my_cariere() {
+            let modal = document.getElementById("modal_career");
+            modal.style.display = "block";
+            document.getElementById("ad_career").classList.add('hidden');
+            document.getElementById("my_career").classList.remove('hidden');
+        }
+    </script>
 </body>

@@ -4,51 +4,73 @@ $(document).ready( function() {
         active("homeButton","null");
         closeNav();
     });
+
     $("#cursesButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/Curses_Component.php");
         active("cursesButton","null");
         closeNav();
     });
+
+    $("#addButton").on("click", function() {
+        $("#componentWindow").load("SystemComponents/adding.php");
+        active("addButton","null");
+        closeNav();
+    });
+
+    $("#importButton").on("click", function() {
+        $("#componentWindow").load("SystemComponents/import.php");
+        active("importButton","null");
+        closeNav();
+    });
+
     $("#messegesButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/Messeges_Component.php");
         active("messegesButton","null");
         closeNav();
     });
+
     $("#settingsButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/Settings_Component.php");
         active("settingsButton","null");
         closeNav();
     });
+
     $("#contactsButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/Contacts_Component.php");
         active("contactsButton","null");
         closeNav();
     });
+
     $("#carierButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/Cariere_Component.php");
         active("carierButton","null");
         closeNav();
     });
+
     $("#sellButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/inzercia.php");
         active("sellButton","null");
         closeNav();
     });
+
     $("#blogButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/Blog_Component.php");
         active("blogButton","null");
         closeNav();
     });
+
     $("#powerButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/Power_Component.php");
         active("powerButton","null");
         closeNav();
     });
+
     $("#databaseButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/db_Component.php");
         active("databaseButton","null");
         closeNav();
     });
+
     $("#quizButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/Quiz_Component.php");
         active("quizButton","null");
@@ -64,6 +86,7 @@ $(document).ready( function() {
             dropdownContent1.style.display = "block";
         }
     });
+
     $("#Marks").on("click",function () {
         var dropdownContent1 = document.getElementById("Marks_container");
         if (dropdownContent1.style.display === "block") {
@@ -73,6 +96,7 @@ $(document).ready( function() {
             dropdownContent1.style.display = "block";
         }
     });
+
     $("#Personal").on("click",function () {
         var dropdownContent1 = document.getElementById("Personal_container");
         if (dropdownContent1.style.display === "block") {
@@ -82,6 +106,7 @@ $(document).ready( function() {
             dropdownContent1.style.display = "block";
         }
     });
+
     $("#System").on("click",function () {
         var dropdownContent1 = document.getElementById("System_container");
         if (dropdownContent1.style.display === "block") {
@@ -91,6 +116,7 @@ $(document).ready( function() {
             dropdownContent1.style.display = "block";
         }
     });
+
     $("#Admin").on("click",function () {
         var dropdownContent1 = document.getElementById("Admin_container");
         if (dropdownContent1.style.display === "block") {
@@ -100,6 +126,7 @@ $(document).ready( function() {
             dropdownContent1.style.display = "block";
         }
     });
+
     $("#Documents").on("click",function () {
         var dropdownContent1 = document.getElementById("Documents_container");
         if (dropdownContent1.style.display === "block") {
@@ -121,6 +148,7 @@ $(document).ready( function() {
             }
         });
     });
+
     $(".down_button").click(function () {
         $("#componentWindow").load("SystemComponents/files.php");
         closeNav();

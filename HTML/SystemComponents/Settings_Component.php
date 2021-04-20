@@ -8,13 +8,18 @@
                 <form method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/personalSetting.php">
                     <div class="settings_view row">
                         <?php
-                        $sql = mysqli_query($con, "select * from os_udaje join uzivatel where Login_idLogin='".$id."' ");
+                        $sql = mysqli_query($con, "select * from os_udaje join kontakt on(rod_cislo=os_udaje_rod_cislo) where rod_cislo='".$id."' ");
                         $i = 0;
                         while ($rows = $sql->fetch_assoc()){
                             $data[$i]=$rows;
                             ++$i;
                         }
-                        $row=$data[0];
+                        if($i>0) {
+                            $row = $data[0];
+                        }else{
+                            $row['email']="";
+                            $row['telefon']="";
+                        }
 
                         echo "
                         <label>Súkromný e-mail</label>
@@ -50,7 +55,13 @@
             <div class="info-overview row">
                 <div class="settings_view row">
                     <?php
-                    $sql = mysqli_query($con, "select * from pracovisko join (login join pozícia) where idLogin='".$id."' ");
+                    $sql = mysqli_query($con, "select po.Názov, lo.login, ko.email, ko.telefon, fu.Nazov,ou.miestnost
+                    from os_udaje ou JOIN login lo on(lo.os_udaje_rod_cislo = ou.rod_cislo)
+                    left join kontakt ko on(ko.os_udaje_rod_cislo = ou.rod_cislo)
+                    join pracovisko po ON(po.idPracovisko=ou.Pracovisko_idPracovisko)
+                    join prirad_funkcia pf on(ou.rod_cislo=pf.os_udaje_rod_cislo)
+                    join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
+                    where ou.rod_cislo='1' and ko.priorita = 1 or ko.priorita is null");
                     $i = 0;
                     while ($rows = $sql->fetch_assoc()){
                         $data[$i]=$rows;
@@ -60,7 +71,7 @@
 
                     echo "
                         <label>Univerzitný e-mail</label>
-                        <h5>".$row['Login']."@uniza.sk</h5>
+                        <h5>".$row['login']."@uniza.sk</h5>
                         <label>Pracovisko</label>
                         <h5>".$row['Názov']."</h5>
                         <label>miestnost</label>

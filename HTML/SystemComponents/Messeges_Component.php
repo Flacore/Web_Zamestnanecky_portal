@@ -1,5 +1,5 @@
 <?php include "../../PHP/config_DB.php";
-$id=$_SESSION['session'] ?>
+$uzivatel=$_SESSION['session'] ?>
 <body>
 <div class="messenger-window">
     <div class="col-md-3 Messenger-Menu" id="_sideMenu">
@@ -12,17 +12,8 @@ $id=$_SESSION['session'] ?>
             <div id="_NameList" class="NameList row">
 
                 <?php
-                $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
-                $i = 0;
-                while ($rows = $sql->fetch_assoc()) {
-                    $data[$i] = $rows;
-                    ++$i;
-                }
-                $row=$data[0];
-                $uzivatel= $row['idUzivatel'];
-
-                $sql = mysqli_query($con, "select * from konverzacia where Uzivatel_idUzivatel2='".$uzivatel."'
-                                or Uzivatel_idUzivatel1='".$uzivatel."'");
+                $sql = mysqli_query($con, "select * from konverzacia where Uzivatel1 ='".$uzivatel."'
+                                or Uzivatel2 ='".$uzivatel."'");
                 $i = 0;
                 while ($rows = $sql->fetch_assoc()) {
                     $data[$i] = $rows;
@@ -33,12 +24,12 @@ $id=$_SESSION['session'] ?>
                     for ($j = 0; $j < $i; $j++) {
                         $row=$data[$j];
                         $konv=$row['idKonverzacie'];
-                        if($row['Uzivatel_idUzivatel2']==$uzivatel)
-                            $prijemca=$row['Uzivatel_idUzivatel1'];
+                        if($row['Uzivatel2']==$uzivatel)
+                            $prijemca=$row['Uzivatel1'];
                         else
-                            $prijemca=$row['Uzivatel_idUzivatel2'];
+                            $prijemca=$row['Uzivatel2'];
 
-                        $sql = mysqli_query($con, "select * from os_udaje join uzivatel on OS_udaje_idOS_udaje=idOS_udaje where idUzivatel='".$prijemca."' ");
+                        $sql = mysqli_query($con, "select * from os_udaje where rod_cislo='".$prijemca."' ");
                         $k = 0;
                         while ($rows = $sql->fetch_assoc()){
                             $_data[$k]=$rows;

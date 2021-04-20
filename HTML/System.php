@@ -80,6 +80,22 @@
             document.getElementById("ad_form_cat").classList.add('hidden');
             document.getElementById("ad_list").classList.add('hidden');
         }
+
+        function close_modal_career(){
+            let modal = document.getElementById("modal_career");
+            modal.style.display = "none";
+            document.getElementById("ad_career").classList.add('hidden');
+            document.getElementById("my_career").classList.add('hidden');
+        }
+
+        function close_modal_curses(){
+            let modal = document.getElementById("modal_curses");
+            modal.style.display = "none";
+            document.getElementById("ad_curse").classList.add('hidden');
+            document.getElementById("my_curses").classList.add('hidden');
+            document.getElementById("curses_loged").classList.add('hidden');
+        }
+
     </script>
 </head>
 <body onload="fLoad()">
@@ -90,7 +106,7 @@
         <span class="close-btn" onclick="close_modal_career()">&times;</span>
 
         <div id="ad_career" class="hidden">
-            <form method="post" action="">
+            <form method="post" action="">local
                 <label>Popis</label>
                 <input type="text" name="desc">
                 <h3>TODO: pracovisko</h3>
@@ -100,7 +116,54 @@
         </div>
 
         <div id="my_career" class="hidden">
-            <h3>Zoznam mojich kurzov</h3>
+            <h3 class="center">Zoznam mojich, vytvoreních zadaní.</h3>
+            <?php
+            $sql = mysqli_query($con, "select * from projekty where os_udaje_rod_cislo='".$id."' order by datum asc");
+            $num = mysqli_query($con, "select count(*) as NumberData from projekty where os_udaje_rod_cislo='".$id."'");
+            $num_row=mysqli_fetch_array($num);
+            $n=$num_row['NumberData'];
+            $i = 0;
+            while ($rows = $sql->fetch_assoc()){
+                $data[$i]=$rows;
+                ++$i;
+            }
+
+            if($n>0 && $i>0) {
+                echo "       
+               <div class=\"position tableStyle\">
+                    <table>
+                        <tr>
+                            <th>Dátum</th>
+                            <th>Popis</th>
+                            <th>Na stiahnutie</th>
+                        </tr>
+                        <div>";
+                for ($i = 0; $i < $n; $i++) {
+                    $row = $data[$i];
+                    if($row['verejne']==0 || $row['verejne']==1) {
+                        echo "               
+                         <div>
+                                <tr>
+                                    <td>" . $row['datum'] . "</td>
+                                    <td>
+                                        " . $row['popis'] . "
+                                    </td>
+                                    <td><button onclick=\"download('".$row['cesta']."')\" class=\"carier-btn\">Dokument (PDF)</button></td>
+                                </tr>
+                            </div>
+                        ";
+                    }
+                }
+                echo "
+                        </div>
+                    </table>
+                </div>";
+            }else{
+                echo " 
+                    <h2 class=\"txtCenter txtBlack\">Ľutujeme, momentálne niesu dostupné žiadne pracovné pozície.</h2>
+                ";
+            }
+            ?>
         </div>
 
     </div>
@@ -126,11 +189,58 @@
         </div>
 
         <div id="my_curses" class="hidden">
-            <h3>Zoznam mojich kurzov</h3>
+            <h3 class="center">Zoznam mňou vytvoreních kurzou kurzov.</h3>
+            <div class="position tableStyle">
+            <?php
+            $sql = mysqli_query($con, "select * from celoziv_vzdel where  os_udaje_rod_cislo='".$id."' order by datum asc");
+            $num = mysqli_query($con, "select count(*) as NumberData from celoziv_vzdel where os_udaje_rod_cislo='".$id."'");
+            $num_row=mysqli_fetch_array($num);
+            $n=$num_row['NumberData'];
+            $i = 0;
+            while ($rows = $sql->fetch_assoc()){
+                $data[$i]=$rows;
+                ++$i;
+            }
+
+            if($n>0) {
+                echo "       
+                      <table>
+                        <tr>
+                            <th>Datum</th>
+                            <th>Nazov</th>
+                            <th>Miesto</th>
+                            <th>Cena</th>
+                        </tr>";
+                for ($i = 0; $i < $n; $i++) {
+                    $row = $data[$i];
+                    if(true) {
+                        if($row['cena']==null || $row['cena']==0)
+                            $cena="n/a";
+                        else
+                            $cena=$row['cena'];
+                        echo "               
+                             <tr>
+                                    <td>".$row['datum']."</td>
+                                    <td>".$row['nazov']."</td>
+                                    <td>".$row['miesto']."</td>
+                                    <td>".$cena."</td>
+                                </tr>                    
+                        ";
+                    }
+                }
+                echo "
+                    </table>";
+            }else{
+                echo " 
+                    <h2 class=\"txtCenter txtBlack\">Ľutujeme, momentálne niesu dostupné žiadne kurzy alebo prednášky.</h2>
+                ";
+            }
+            ?>
+            </div>
         </div>
 
         <div id="curses_loged" class="hidden">
-            <h3>Sem sa nahrava zoznam ludi cez ajax</h3>
+            <h3 class="center">Sem sa nahrava zoznam ludi cez ajax</h3>
         </div>
 
     </div>
@@ -144,7 +254,7 @@
                 <?php
 
                 $sql = mysqli_query($con, "SELECT * FROM inzerat left join kategoria on(inzerat.kategoria_id_kategoria = kategoria.id_kategoria) 
-                                                where Uzivatel_idUzivatel='".$id."' order by vytvorenie desc");
+                                                where os_udaje_rod_cislo='".$id."' order by vytvorenie desc");
                 $k = 0;
                 while ($rows = $sql->fetch_assoc()) {
                     $_data[$k] = $rows;
@@ -236,18 +346,8 @@
         <div class="modal-content">
             <span class="close-btn" onclick="close_modal_nt()">&times;</span>
             <div class="hidden" id="notification_list">
-                <button onclick="open_ntForm()">Vytvor</button>
                 <?php
-                $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
-                $i = 0;
-                while ($rows = $sql->fetch_assoc()) {
-                    $data[$i] = $rows;
-                    ++$i;
-                }
-                $row=$data[0];
-                $uzivatel= $row['idUzivatel'];
-
-                $sql = mysqli_query($con, "select * from notifikacia where Uzivatel_idUzivatel='".$uzivatel."'order by datum asc");
+                $sql = mysqli_query($con, "select * from notifikacia where os_udaje_rod_cislo='".$id."'order by datum asc");
                 $i = 0;
                 while ($rows = $sql->fetch_assoc()) {
                     $data[$i] = $rows;
@@ -346,16 +446,7 @@
 
                 <div class="hidden" id="edit_link_all">
                         <?php
-                        $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
-                        $i = 0;
-                        while ($rows = $sql->fetch_assoc()) {
-                            $data[$i] = $rows;
-                            ++$i;
-                        }
-                        $row=$data[0];
-                        $uzivatel= $row['idUzivatel'];
-
-                        $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel is null and link is not null order by Nazov asc");
+                        $sql = mysqli_query($con, "select * from zalozka where os_udaje_rod_cislo is null and link is not null order by Nazov asc");
                         $i = 0;
                         while ($rows = $sql->fetch_assoc()) {
                             $data[$i] = $rows;
@@ -390,16 +481,7 @@
 
                 <div class="hidden" id="edit_link_self">
                         <?php
-                        $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
-                        $i = 0;
-                        while ($rows = $sql->fetch_assoc()) {
-                            $data[$i] = $rows;
-                            ++$i;
-                        }
-                        $row=$data[0];
-                        $uzivatel= $row['idUzivatel'];
-
-                        $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel='".$uzivatel."' and link is not null order by Nazov asc");
+                        $sql = mysqli_query($con, "select * from zalozka where os_udaje_rod_cislo='".$id."' and link is not null order by Nazov asc");
                         $i = 0;
                         while ($rows = $sql->fetch_assoc()) {
                             $data[$i] = $rows;
@@ -434,16 +516,7 @@
 
             <div class="hidden" id="edit_files_category">
                 <?php
-                $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
-                $i = 0;
-                while ($rows = $sql->fetch_assoc()) {
-                    $data[$i] = $rows;
-                    ++$i;
-                }
-                $row=$data[0];
-                $uzivatel= $row['idUzivatel'];
-
-                $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel is null and link is null order by Nazov asc");
+                $sql = mysqli_query($con, "select * from zalozka where os_udaje_rod_cislo is null and link is null order by Nazov asc");
                 $i = 0;
                 while ($rows = $sql->fetch_assoc()) {
                     $data[$i] = $rows;
@@ -495,8 +568,8 @@
         <div class="dropdown-container" id="System_container">
             <a class="menuItem" href="#" id="messegesButton"><span class="glyphicon glyphicon-comment"></span> Správy</a>
             <a class="menuItem" href="#" id="contactsButton"><span class="glyphicon glyphicon-book"></span> Kontakty</a>
-            <a class="menuItem" href="#" id="cursesButton"><span class="glyphicon glyphicon-edit"></span> Kurzy</a>
-            <a class="menuItem" href="#" id="carierButton"><span class="glyphicon glyphicon-briefcase"></span> Kariéra</a>
+            <a class="menuItem" href="#" id="cursesButton"><span class="glyphicon glyphicon-edit"></span>Celoživotné vzdelávanie</a>
+            <a class="menuItem" href="#" id="carierButton"><span class="glyphicon glyphicon-briefcase"></span> Projekty</a>
             <a class="menuItem" href="#" id="blogButton"><span class="glyphicon glyphicon-pencil"></span> Blog</a>
             <a class="menuItem" href="#" id="sellButton"><span class="glyphicon glyphicon-usd"></span> Inzercia</a>
             <a class="menuItem" href="#" id="quizButton"><span class="glyphicon glyphicon-copy"></span> Dotazníky a Formuláre</a>
@@ -507,16 +580,7 @@
         </a>
         <div class="dropdown-container" id="Documents_container">
             <?php
-            $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
-            $i = 0;
-            while ($rows = $sql->fetch_assoc()) {
-                $data[$i] = $rows;
-                ++$i;
-            }
-            $row=$data[0];
-            $uzivatel= $row['idUzivatel'];
-
-            $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel is null and link is null order by Nazov asc");
+            $sql = mysqli_query($con, "select * from zalozka where os_udaje_rod_cislo is null and link is null order by Nazov asc");
             $i = 0;
             while ($rows = $sql->fetch_assoc()) {
                 $data[$i] = $rows;
@@ -546,16 +610,7 @@
         </a>
         <div class="dropdown-container" id="Links_container">
             <?php
-            $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
-            $i = 0;
-            while ($rows = $sql->fetch_assoc()) {
-                $data[$i] = $rows;
-                ++$i;
-            }
-            $row=$data[0];
-            $uzivatel= $row['idUzivatel'];
-
-            $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel is null and link is not null order by Nazov asc");
+            $sql = mysqli_query($con, "select * from zalozka where os_udaje_rod_cislo is null and link is not null order by Nazov asc");
             $i = 0;
             while ($rows = $sql->fetch_assoc()) {
                 $data[$i] = $rows;
@@ -585,16 +640,7 @@
         </a>
         <div class="dropdown-container" id="Marks_container">
             <?php
-            $sql = mysqli_query($con, "select * from uzivatel  where Login_idLogin='".$id."'");
-            $i = 0;
-            while ($rows = $sql->fetch_assoc()) {
-                $data[$i] = $rows;
-                ++$i;
-            }
-            $row=$data[0];
-            $uzivatel= $row['idUzivatel'];
-
-            $sql = mysqli_query($con, "select * from zalozka where Uzivatel_idUzivatel='".$uzivatel."' and link is not null order by Nazov asc");
+            $sql = mysqli_query($con, "select * from zalozka where os_udaje_rod_cislo='".$id."' and link is not null order by Nazov asc");
             $i = 0;
             while ($rows = $sql->fetch_assoc()) {
                 $data[$i] = $rows;
@@ -630,6 +676,8 @@
         </a>
         <div class="dropdown-container" id="Admin_container">
             <a class="menuItem" href="#" id="powerButton"><span class="glyphicon glyphicon-ok"></span> Právomoci</a>
+            <a class="menuItem" href="#" id="addButton"><span class="glyphicon glyphicon-user"></span> Pridať uživateľa</a>
+            <a class="menuItem" href="#" id="importButton"><span class="glyphicon glyphicon-hdd"></span> Pridať uživateľov</a>
         </div>
     </div>
 
@@ -707,5 +755,6 @@
 
         </div>
     </div>
+
 </body>
 </html>
