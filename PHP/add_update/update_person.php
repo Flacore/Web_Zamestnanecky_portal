@@ -1,17 +1,15 @@
 <?php
 include "../config_DB.php";
 if(isset($_POST['button'])) {
-    $id_uzivatel = $_SESSION['session'];
+    $id = $_POST['id'];
     $pracovisko = $_POST['pracovisko'];
     $funkcia = $_POST['funkcia'];
 
-    $sql = "UPDATE os_udaje SET Pracovisko_idPracovisko='".$pracovisko."'  WHERE OS_udaje_rod_cislo='".$id."'";
+    $sql = "UPDATE os_udaje SET Pracovisko_idPracovisko='".$pracovisko."'  WHERE rod_cislo ='".$id."'";
     $con->query($sql);
-    $con->close();
 
     $sql = "UPDATE prirad_funkcia SET do = CURRENT_DATE  WHERE do is null and OS_udaje_rod_cislo='".$id."'";
     $con->query($sql);
-    $con->close();
 
     $sql=mysqli_query($con,"select * from prirad_funkcia");
     $n = 0;

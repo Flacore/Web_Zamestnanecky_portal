@@ -19,7 +19,7 @@ if($pracovisko != null || $meno!=null) {
         join prirad_funkcia pf on(pf.os_udaje_rod_cislo=ou.rod_cislo)
         join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
         left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
-        WHERE pf.do is null and ko.priorita='1' or ko.priorita is null and LOWER(Názov) like LOWER(\"%" . $pracovisko . "%\")");
+        WHERE pf.do is null and (ko.priorita='0' or ko.priorita is null) and LOWER(Názov) like LOWER(\"%" . $pracovisko . "%\")");
     if ($meno != null && $pracovisko==null)
         $sql = mysqli_query($con, "
         SELECT ou.rod_cislo, ou.Meno,ou.Priezvisko,ou.miestnost, pr.Názov, fu.Nazov, ko.telefon
@@ -27,7 +27,7 @@ if($pracovisko != null || $meno!=null) {
         join prirad_funkcia pf on(pf.os_udaje_rod_cislo=ou.rod_cislo)
         join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
         left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
-        WHERE pf.do is null and ko.priorita='1' or ko.priorita is null and
+        WHERE pf.do is null and (ko.priorita='0' or ko.priorita is null) and
         CONCAT(LOWER(ou.Priezvisko),\" \",LOWER(ou.Meno)) LIKE LOWER(\"%" . $meno . "%\") or CONCAT(LOWER(ou.Meno),\" \",LOWER(ou.Priezvisko)) LIKE LOWER(\"%" . $meno . "%\")");
     if ($meno != null && $pracovisko!=null)
         $sql = mysqli_query($con, "
@@ -36,7 +36,7 @@ if($pracovisko != null || $meno!=null) {
         join prirad_funkcia pf on(pf.os_udaje_rod_cislo=ou.rod_cislo)
         join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
         left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
-        WHERE pf.do is null and ko.priorita='1' or ko.priorita is null and
+        WHERE pf.do is null and(ko.priorita='0' or ko.priorita is null) and
         (CONCAT(LOWER(ou.Priezvisko),\" \",LOWER(ou.Meno)) LIKE LOWER(\"%" . $meno . "%\") or CONCAT(LOWER(ou.Meno),\" \",LOWER(ou.Priezvisko)) LIKE LOWER(\"%" . $meno . "%\")) and  LOWER(Názov) like LOWER(\"%" . $pracovisko . "%\")");
 }
 else{
@@ -46,7 +46,7 @@ else{
     join prirad_funkcia pf on(pf.os_udaje_rod_cislo=ou.rod_cislo)
     join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
     left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
-    WHERE pf.do is null and ko.priorita='0' or ko.priorita is null");
+    WHERE pf.do is null and (ko.priorita='0' or ko.priorita is null)");
 }
 $i = 0;
 if($sql!=null) {
@@ -103,6 +103,7 @@ for ($j = 0; $j<$i; $j++) {
 
         echo " <div id='".$row['rod_cislo']."' style='display: none' class=\"col-sm-12 full-height\" >
                         <form method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/update_person.php'>
+                        <input name='id' type='text' class='hidden' value='".$row['rod_cislo']."'>
                         <div class='center'>
                             <label>Pracovisko:</label>
                             <select name=\"pracovisko\">";

@@ -1,14 +1,14 @@
 <?php
 include "../config_DB.php";
 
-$sql = mysqli_query($con, "select * from pozícia");
+$sql = mysqli_query($con, "select * from funkcie");
 $i = 0;
 while ($rows = $sql->fetch_assoc()) {
     $data[$i] = $rows;
     ++$i;
 }
 if(isset($_POST["but_add"])) {
-    for ($j = 0; $j <= $i; $j++) {
+    for ($j = 1; $j <= $i; $j++) {
         $id = $_POST['id_' . ($j + 1)];
         $nazov = $_POST['name_' . ($j + 1)];
         $odstran =  checkbox($_POST['odst_' . ($j + 1)]);
@@ -30,16 +30,24 @@ if(isset($_POST["but_add"])) {
         $inzercia = checkbox($_POST['inz_' . ($j + 1)]);
         if ($j < $i){
             if(!$odstran) {
-                $sql = "UPDATE pozícia SET Kontakty='$Kontakty', Kurzy='$kurzy',Kariera='$Kariera',Blog='$blog',Pravomoci='$pravomoci',Nazov='$nazov',Zalozky='$zalozky'
-                        , Dokumenty='$dokumenty',Dotazniky='$dotaznik',Inzercia='$inzercia' where  idPozícia='" . $id . "'";
+                $sql="UPDATE funkcie set Nazov='$nazov' where idPozícia='".$id."'";
+                $con->query($sql);
+                $sql = "UPDATE pravomoci SET Kontakty='$Kontakty', Kurzy='$kurzy',Kariera='$Kariera',Blog='$blog',Pravomoci='$pravomoci',Zalozky='$zalozky'
+                        , Dokumenty='$dokumenty',Dotazniky='$dotaznik',Inzercia='$inzercia' where  funkcie_idPozícia='" . $id . "'";
+                $con->query($sql);
             }else{
-                $sql ="DELETE FROM pozícia WHERE idPozícia='$id'";
+                $sql ="DELETE FROM funkcie WHERE idPozícia='$id'";
+                $con->query($sql);
+                $sql ="DELETE FROM pravomoci WHERE funkcie_idPozícia='$id'";
+                $con->query($sql);
             }
-            $con->query($sql);
         }else{
             if($nazov!=null){
-            $sql = "INSERT into pozícia (idPozícia,Kontakty,Kurzy,Kariera,Blog,Pravomoci,Nazov,Zalozky,Dokumenty,Dotazniky,Inzercia)
-            Values ('$id','$Kontakty','$kurzy','$Kariera','$pravomoci','$blog','$nazov','$zalozky','$dokumenty','$dotaznik','$inzercia')";
+                $sql = "INSERT into funkcie (idPozícia, Nazov)
+            Values ('$id','$nazov')";
+                mysqli_query($con,$sql);
+            $sql = "INSERT into pravomoci (funkcie_idPozícia,Kontakty,Kurzy,Kariera,Blog,Pravomoci,Zalozky,Dokumenty,Dotazniky,Inzercia)
+            Values ('$id','$Kontakty','$kurzy','$Kariera','$pravomoci','$blog','$zalozky','$dokumenty','$dotaznik','$inzercia')";
             mysqli_query($con,$sql);
             }
         }
