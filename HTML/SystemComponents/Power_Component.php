@@ -29,6 +29,10 @@ $info = $sql->fetch_assoc();
                         <th>Kariéra</th>
                         <th>Blog</th>
                         <th>Právomoci</th>
+                        <th>Záložky</th>
+                        <th>Dokumenty</th>
+                        <th>Dotazníky</th>
+                        <th>Inzercia</th>
                         <th>Odstráň</th>
                     </tr>
                     <div id="position_window">
@@ -53,6 +57,10 @@ $info = $sql->fetch_assoc();
                                         <td>✓</td>
                                         <td>✓</td>
                                         <td>✓</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
+                                        <td>✓</td>
                                         <td></td>
                                     </tr>
                                 ";
@@ -66,6 +74,10 @@ $info = $sql->fetch_assoc();
                                         <td><input " . checkbox($row['Kariera']) . " name=\"care_" . ($j + 1) . "\" type=\"checkbox\"></td>
                                         <td><input " . checkbox($row['Blog']) . " name=\"blog_" . ($j + 1) . "\" type=\"checkbox\"></td>
                                         <td><input " . checkbox($row['Pravomoci']) . " name=\"powr_" . ($j + 1) . "\" type=\"checkbox\"></td>
+                                              <td><input " . checkbox($row['Zalozky']) . " name=\"zal_" . ($j + 1) . "\" type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Dokumenty']) . " name=\"dok_" . ($j + 1) . "\" type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Dotazniky']) . " name=\"dot_" . ($j + 1) . "\" type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Inzercia']) . " name=\"inz_" . ($j + 1) . "\" type=\"checkbox\"></td>
                                         <td><input  name=\"odst_" . ($j + 1) . "\" type=\"checkbox\"></td>
                                     </tr>
                                 ";
