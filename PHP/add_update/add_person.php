@@ -42,6 +42,7 @@ if(true) {
     mysqli_query($con, $sql);
 }
 if(isset($_POST['button'])) {
+    alert("Login je: ".$login);
     header('Location: http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/HTML/System.php');
 }else{
     echo $login;

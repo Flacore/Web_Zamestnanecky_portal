@@ -25,7 +25,7 @@ if(isset($_POST["but_add"])) {
         }
         $id_contact=$n+1;
 
-        $sql = "INSERT into kontakt(idkontakt, telefon, email, os_udaje_rod_cislo)Values ('$id_contact','$telefon','$mail','1','$id')";
+        $sql = "INSERT into kontakt(idkontakt, telefon, email, os_udaje_rod_cislo)Values ('$id_contact','$telefon','$mail','$id')";
         mysqli_query($con, $sql);
     }
     header('Location: http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/HTML/System.php');

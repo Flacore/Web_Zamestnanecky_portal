@@ -151,9 +151,13 @@
                             while ($rows = $sql->fetch_assoc()) {
                                 $konverzacia=$rows['idKonverzacie'];
                                 $dta = mysqli_query($con, "select * from sprava  where konverzacia_idKonverzacie='".$konverzacia."' ORDER BY datum ASC");
+                                $n=0;
                                 while ($row = $dta->fetch_assoc()) {
                                     $data_inner[$i] = $row;
+                                    $n++;
                                 }
+                                if($n==0)
+                                    break;
                                 $row=$data_inner[0];
                                 $odosielatel= $row['Odosielatel'];
                                 if($id!=$odosielatel)
