@@ -457,6 +457,18 @@
                     <input class="hiden" type="text" id="idPrednasky">
                     <div class="col-sm-12">
                         <div class="center">
+                            <label>Rodné číslo</label>
+                            <input type="text" name="rod_cislo" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <label>Titul pred menom</label>
+                            <input type="text" name="titul_pred">
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
                             <label>Meno</label>
                             <input name="txt_name" type="text" required>
                         </div>
@@ -465,6 +477,12 @@
                         <div class="center">
                             <label>Priezvisko</label>
                             <input name="txt_sname" type="text" required>
+                        </div>
+                    </div>
+                    <div class="col-sm-12">
+                        <div class="center">
+                            <label>Titul za menom</label>
+                            <input type="txt_name" name="titul_za">
                         </div>
                     </div>
                     <div class="col-sm-12">

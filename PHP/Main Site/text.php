@@ -3,7 +3,7 @@
 
     $id=$_POST['id'];
 
-    $sql = mysqli_query($con, "SELECT * FROM blog join (uzivatel join os_udaje) where idBlog='".$id."' ");
+    $sql = mysqli_query($con, "SELECT * FROM blog join os_udaje on(os_udaje_rod_cislo=rod_cislo) where idBlog='".$id."' ");
     $i = 0;
     while ($rows = $sql->fetch_assoc()){
         $data[$i]=$rows;

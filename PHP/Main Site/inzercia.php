@@ -44,8 +44,11 @@ if($_POST['typ']==1){
     }
     if($k!=0) {
         $row_iz = $iz_data[0];
-        $sql = mysqli_query($con, "SELECT * FROM uzivatel join os_udaje on(OS_udaje_idOS_udaje=idOS_udaje)
-                                          join login on(Login_idLogin=idLogin) where idUzivatel='".$row_iz['Uzivatel_idUzivatel']."'");
+        $sql = mysqli_query($con, "SELECT ou.Meno, ou.Priezvisko,k1.telefon,k1.email,lo.login
+        from os_udaje ou
+        left join kontakt k1 on(ou.rod_cislo=k1.os_udaje_rod_cislo)
+        join login lo on(lo.OS_udaje_rod_cislo=ou.rod_cislo)
+        where rod_cislo='".$row_iz['os_udaje_rod_cislo']."'");
         $k = 0;
         while ($rows = $sql->fetch_assoc()) {
             $os_data[$k] = $rows;

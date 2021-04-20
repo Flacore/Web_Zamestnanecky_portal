@@ -5,7 +5,7 @@ $id=$_SESSION['session'];
 $prijemca=$_POST['n'];
 $konverzacia=$_POST['k'];
 
-$sql = mysqli_query($con, "select * from os_udaje join uzivatel on OS_udaje_idOS_udaje=idOS_udaje where idUzivatel='".$prijemca."' ");
+$sql = mysqli_query($con, "select * from os_udaje where rod_cislo ='".$prijemca."' ");
 $k = 0;
 while ($rows = $sql->fetch_assoc()){
     $_data[$k]=$rows;
@@ -14,7 +14,7 @@ while ($rows = $sql->fetch_assoc()){
 $info=$_data[0];
 $prijemca_meno=$info['Meno']." ".$info['Priezvisko'];
 
-$sql = mysqli_query($con, "select * from os_udaje join uzivatel on OS_udaje_idOS_udaje=idOS_udaje where idUzivatel='".$id."' ");
+$sql = mysqli_query($con, "select * from os_udaje where rod_cislo='".$id."' ");
 $k = 0;
 while ($rows = $sql->fetch_assoc()){
     $_data[$k]=$rows;
