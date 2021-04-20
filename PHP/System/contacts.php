@@ -78,14 +78,16 @@ for ($j = 0; $j<$i; $j++) {
                             <div class=\"col-sm-12 info\"><h4>Telefón: </h4><h4>" . $row['telefon'] . "</h4></div>
                             <div class=\"col-sm-12 info\"><h4>Funkcia: </h4><h4>" . $row['Nazov'] . "</h4></div>
                         </div>
-                    </div>
-                    <div class=\"col-sm-1 full-height\">
-                        <div class=\"messege-send\" onclick=\"sendMSG('".$row['rod_cislo']."')\">
+                    </div>";
+    if($row['rod_cislo']!=$id) {
+        echo "                <div class=\"col-sm-1 full-height\">
+                        <div class=\"messege-send\" onclick=\"sendMSG('" . $row['rod_cislo'] . "')\">
                         <span class=\"glyphicon glyphicon-envelope msg-icon\">
                             </span>                   
                         </div>
                     </div>";
-    if($info['Kontakty']==1) {
+    }
+    if($info['Kontakty']==1 && $row['rod_cislo']!=$id) {
         echo " <div class=\"col-sm-1 full-height\">
                         <div class=\"messege-send\" onclick=\"edit_person('" . $row['rod_cislo'] . "')\">
                         <span class=\"glyphicon glyphicon-pencil msg-icon\">
@@ -99,16 +101,57 @@ for ($j = 0; $j<$i; $j++) {
                         </div>
                     </div>";
 
-        echo " <div style=\"display=none !important;\" class=\"col-sm-12 full-height\" id='name".$row['rod_cislo']."'>
-                        <form>
-                            <label>Popis</label>
+        echo " <div id='".$row['rod_cislo']."' style='display: none' class=\"col-sm-12 full-height\" >
+                        <form method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/update_person.php'>
+                        <div class='center'>
+                            <label>Pracovisko:</label>
+                            <select name=\"pracovisko\">";
+
+
+        $sql = mysqli_query($con, "select * from pracovisko");
+        $i = 0;
+        while ($rows = $sql->fetch_assoc()) {
+            $data[$i] = $rows;
+            ++$i;
+        }
+        for ($n = 0; $n < $i; $n++) {
+            $row = $data[$n];
+            echo "
+                        <option value=\"" . $row['idPracovisko'] . "\">" . $row['Názov'] . "</option>
+                        ";
+        }
+
+
+        echo"</select>
+                        </div>
+                        <div class='center'>
+                            <label>Funkcia:</label>
+                            <select name=\"funkcia\">";
+
+
+        $sql = mysqli_query($con, "select * from funkcie");
+        $i = 0;
+        while ($rows = $sql->fetch_assoc()) {
+            $data[$i] = $rows;
+            ++$i;
+        }
+        for ($n = 0; $n < $i; $n++) {
+            $row = $data[$n];
+            echo "
+                        <option value=\"" . $row['idPozícia'] . "\">" . $row['Nazov'] . "</option>
+                        ";
+        }
+
+
+        echo"           </select>
+                        </div>
+                        <div class='center'><input type=\"submit\" name=\"button\" value=\"Odoslať\"></div>
                         </form>
                     </div>";
 
     }
-               echo" </div>
+    echo" </div></div>
     ";
-
 }
 function alert($msg) {
     echo "<script type='text/javascript'>alert('$msg');</script>";

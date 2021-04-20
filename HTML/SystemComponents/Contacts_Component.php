@@ -46,16 +46,16 @@
     }
 
     function remove_person($Name) {
-        $.post("http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/remove_pesron.php",{ user_id: $Name} ,function(data) {
+        $.post("http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/remove_person.php",{ user_id: $Name} ,function(data) {
             if(data=="ok") {
-                $("#componentWindow").load("SystemComponents/Messeges_Component.php");
-                active(2);
+                $("#componentWindow").load("SystemComponents/Contacts_Component.php");
             }
         });
     }
 
     function edit_person($Name) {
-        document.getElementById("person"+$Name).style.display='none';
+       let prvok = document.getElementById($Name);
+       prvok.style.display='block';
     }
 
 </script>
