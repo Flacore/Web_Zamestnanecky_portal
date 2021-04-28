@@ -19,7 +19,7 @@ if($pracovisko != null || $meno!=null) {
         join prirad_funkcia pf on(pf.os_udaje_rod_cislo=ou.rod_cislo)
         join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
         left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
-        WHERE pf.do is null and (ko.priorita='0' or ko.priorita is null) and LOWER(Názov) like LOWER(\"%" . $pracovisko . "%\")");
+        WHERE pf.od is not null and pf.do is null and (ko.priorita='0' or ko.priorita is null) and LOWER(Názov) like LOWER(\"%" . $pracovisko . "%\")");
     if ($meno != null && $pracovisko==null)
         $sql = mysqli_query($con, "
         SELECT ou.rod_cislo, ou.Meno,ou.Priezvisko,ou.miestnost, pr.Názov, fu.Nazov, ko.telefon
@@ -27,7 +27,7 @@ if($pracovisko != null || $meno!=null) {
         join prirad_funkcia pf on(pf.os_udaje_rod_cislo=ou.rod_cislo)
         join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
         left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
-        WHERE pf.do is null and (ko.priorita='0' or ko.priorita is null) and
+        WHERE pf.od is not null and pf.do is null and (ko.priorita='0' or ko.priorita is null) and
         CONCAT(LOWER(ou.Priezvisko),\" \",LOWER(ou.Meno)) LIKE LOWER(\"%" . $meno . "%\") or CONCAT(LOWER(ou.Meno),\" \",LOWER(ou.Priezvisko)) LIKE LOWER(\"%" . $meno . "%\")");
     if ($meno != null && $pracovisko!=null)
         $sql = mysqli_query($con, "
@@ -36,7 +36,7 @@ if($pracovisko != null || $meno!=null) {
         join prirad_funkcia pf on(pf.os_udaje_rod_cislo=ou.rod_cislo)
         join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
         left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
-        WHERE pf.do is null and(ko.priorita='0' or ko.priorita is null) and
+        WHERE pf.od is not null and pf.do is null and(ko.priorita='0' or ko.priorita is null) and
         (CONCAT(LOWER(ou.Priezvisko),\" \",LOWER(ou.Meno)) LIKE LOWER(\"%" . $meno . "%\") or CONCAT(LOWER(ou.Meno),\" \",LOWER(ou.Priezvisko)) LIKE LOWER(\"%" . $meno . "%\")) and  LOWER(Názov) like LOWER(\"%" . $pracovisko . "%\")");
 }
 else{
@@ -46,7 +46,7 @@ else{
     join prirad_funkcia pf on(pf.os_udaje_rod_cislo=ou.rod_cislo)
     join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
     left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
-    WHERE pf.do is null and (ko.priorita='0' or ko.priorita is null)");
+    WHERE pf.od is not null and pf.do is null and (ko.priorita='0' or ko.priorita is null)");
 }
 $i = 0;
 if($sql!=null) {
@@ -110,15 +110,15 @@ for ($j = 0; $j<$i; $j++) {
 
 
         $sql = mysqli_query($con, "select * from pracovisko");
-        $i = 0;
+        $x = 0;
         while ($rows = $sql->fetch_assoc()) {
-            $data[$i] = $rows;
-            ++$i;
+            $datas[$x] = $rows;
+            ++$x;
         }
-        for ($n = 0; $n < $i; $n++) {
-            $row = $data[$n];
+        for ($k = 0; $k < $x; $k++) {
+            $rowi = $datas[$k];
             echo "
-                        <option value=\"" . $row['idPracovisko'] . "\">" . $row['Názov'] . "</option>
+                        <option value=\"" . $rowi['idPracovisko'] . "\">" . $rowi['Názov'] . "</option>
                         ";
         }
 
@@ -131,15 +131,15 @@ for ($j = 0; $j<$i; $j++) {
 
 
         $sql = mysqli_query($con, "select * from funkcie");
-        $i = 0;
+        $x = 0;
         while ($rows = $sql->fetch_assoc()) {
-            $data[$i] = $rows;
-            ++$i;
+            $datas[$x] = $rows;
+            ++$x;
         }
-        for ($n = 0; $n < $i; $n++) {
-            $row = $data[$n];
+        for ($k = 0; $k < $x; $k++) {
+            $rowi = $datas[$k];
             echo "
-                        <option value=\"" . $row['idPozícia'] . "\">" . $row['Nazov'] . "</option>
+                        <option value=\"" . $rowi['idPozícia'] . "\">" . $rowi['Nazov'] . "</option>
                         ";
         }
 

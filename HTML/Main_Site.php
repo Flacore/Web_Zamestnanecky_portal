@@ -308,7 +308,9 @@
         </h4>
         <br>
         <?php
-        $sql = mysqli_query($con, "select * from projekty left join subor on(subor.idSubor = projekty.Subor_idSubor) where verejne='1'");
+        $sql = mysqli_query($con, "select projekty.verejne as verejne,projekty.datum as datum, subor.cesta as cesta, projekty.popis as descr
+                                        from projekty left join subor on(subor.idSubor = projekty.Subor_idSubor)
+                                        where verejne='1'");
         $num = mysqli_query($con, "select count(*) as NumberData from projekty where verejne='1'");
         $num_row=mysqli_fetch_array($num);
         $n=$num_row['NumberData'];
@@ -336,9 +338,9 @@
                             <tr>
                                 <td>" . $row['datum'] . "</td>
                                 <td>
-                                    " . $row['popis'] . "
+                                    " . $row['descr'] . "
                                 </td>
-                                <td><button onclick=\"download('".$row['cesta']."')\" class=\"carier-btn\">Dokument</button></td>
+                                <td><button onclick=\"location.href='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/ftp/Download_file.php?cesta=".$row['cesta']."'\" class=\"carier-btn\">Dokument</button></td>
                             </tr>
                         </div>
                     ";
@@ -371,7 +373,7 @@
             </h4>
             <br>
             <?php
-            $sql = mysqli_query($con, "select * from celoziv_vzdel left join subor on(celoziv_vzdel.Subor_idSubor = subor.idSubor)  where verejne='1' ");
+            $sql = mysqli_query($con, "select *,celoziv_vzdel.popis as descr from celoziv_vzdel left join subor on(celoziv_vzdel.Subor_idSubor = subor.idSubor)  where verejne='1' ");
             $num = mysqli_query($con, "select count(*) as NumberData from celoziv_vzdel where verejne='1'");
             $num_row=mysqli_fetch_array($num);
             $n=$num_row['NumberData'];
@@ -402,7 +404,7 @@
                                 <td>".$row['datum']."</td>
                                 <td>".$row['nazov']."</td>
                                 <td>".$row['miesto']."</td>
-                                <td>".$cena."</td>
+                                <td>".$cena." €</td>
                             </tr>
                             <tr class=\"detailHide detail\" id=\"kurzDetail".$i."\">
                                 <td colspan=\"4\">
@@ -421,7 +423,7 @@
                                             <br>
                                             <h3>".$row['nazov']."</h3>
                                             <p class=\"txtJustify\">
-                                                ".$row['popis']."
+                                                ".$row['descr']."
                                             </p>
                                             <button class=\"btn\" onclick=\"showRegistrationGuest(".$row['idprednasky'].")\">Prihlásiť sa</button>
                                         </div>
@@ -654,7 +656,6 @@
             document.getElementById('inzercia_all').style.display='block';
             document.getElementById('inzercia_det').style.display='none';
         }
-
     </script>
 </body>
 </html>

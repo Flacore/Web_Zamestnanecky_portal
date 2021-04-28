@@ -125,21 +125,67 @@
             document.getElementById("curses_loged").classList.add('hidden');
         }
 
+        function  delete_project(id) {
+            $.ajax({
+                type: 'POST',
+                data: {id: id},
+                url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/delete_project.php',
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        }
+
+        function  list_kurz(id) {
+            $.ajax({
+                type: 'POST',
+                data: {id: id},
+                url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/System/logged_list.php',
+                success: function(data) {
+                    document.getElementById('curses_loged').innerHTML= data;
+                    document.getElementById("ad_curse").classList.add('hidden');
+                    document.getElementById("my_curses").classList.add('hidden');
+                    document.getElementById("curses_loged").classList.remove('hidden');
+                }
+            });
+        }
+
+        function  delete_kurz(id) {
+            $.ajax({
+                type: 'POST',
+                data: {id: id},
+                url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/delete_kurz.php',
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        }
     </script>
 </head>
 <body onload="fLoad()">
 
-<!--todo-->
 <div class="modal" id="modal_career">
     <div class="modal-content">
         <span class="close-btn" onclick="close_modal_career()">&times;</span>
 
         <div id="ad_career" class="hidden">
-            <form method="post" action="">local
-                <label>Popis</label>
-                <input type="text" name="desc">
-                <h3>TODO: pracovisko</h3>
-                <h3>TODO: subor</h3>
+            <form id="form_file" enctype="multipart/form-data" method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/create_project.php">
+                <div class="center">
+                    <h3>Vytvaranie projektu.</h3>
+                </div>
+                <div class="center">
+                    <label>Popis</label>
+                    <input type="text" name="desc">
+                </div>
+                <div class="center">
+                    <label>Verejné zobrazenie</label>
+                    <input type="checkbox" name="verejne">
+                </div>
+                <div class="center">
+                    <label>Nahraj súbor:</label>
+                </div>
+                <input class="center" type="file" required id="file_path" name="file_path"
+                       accept=".doc, .docx,.pdf">
                 <input type="submit" value="Odoslať">
             </form>
         </div>
@@ -147,7 +193,7 @@
         <div id="my_career" class="hidden">
             <h3 class="center">Zoznam mojich, vytvoreních zadaní.</h3>
             <?php
-            $sql = mysqli_query($con, "select * from projekty where os_udaje_rod_cislo='".$id."' order by datum asc");
+            $sql = mysqli_query($con, "select * from projekty where  os_udaje_rod_cislo='".$id."' order by datum asc");
             $num = mysqli_query($con, "select count(*) as NumberData from projekty where os_udaje_rod_cislo='".$id."'");
             $num_row=mysqli_fetch_array($num);
             $n=$num_row['NumberData'];
@@ -177,7 +223,7 @@
                                     <td>
                                         " . $row['popis'] . "
                                     </td>
-                                    <td><button onclick=\"download('".$row['cesta']."')\" class=\"carier-btn\">Dokument (PDF)</button></td>
+                                    <td><button onclick=\"delete_project('".$row['idProjekt']."')\" class=\"carier-btn\">Vymazať</button></td>
                                 </tr>
                             </div>
                         ";
@@ -198,21 +244,49 @@
     </div>
 </div>
 
-<!--TODO-->
+
 <div class="modal" id="modal_curses">
     <div class="modal-content">
         <span class="close-btn" onclick="close_modal_curses()">&times;</span>
 
         <div id="ad_curse" class="hidden">
-            <form method="post" action="">
-                <label>Nazov</label>
-                <input type="text" name="name">
-                <label>Popis</label>
-                <input type="text" name="desc">
-                <label>Cena</label>
-                <input type="number" name="price">
-                <h3>TODO: miesto</h3>
-                <h3>TODO: Subor</h3>
+            <form id="form_file" enctype="multipart/form-data" method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/create_curse.php">
+                <div class="center">
+                    <h3>Vytvaranie kurzu.</h3>
+                </div>
+                <div class="center">
+                    <label>Nazov</label>
+                    <input type="text" name="name" required>
+                </div>
+                <div class="center">
+                    <label>Popis</label>
+                    <input type="text" name="desc">
+                </div>
+                <div class="center">
+                    <label>Cena</label>
+                    <input type="number" step="0.01"  name="price" value="0">
+                </div>
+                <div class="center">
+                    <label>Miesto</label>
+                    <input type="text" name="place" required>
+                </div>
+                <div class="center">
+                    <label>Dátum</label>
+                    <input type="date" name="date" required>
+                </div>
+                <div class="center">
+                    <label>Čas</label>
+                    <input type="time" name="time" required>
+                </div>
+                <div class="center">
+                    <label>Verejné zobrazenie</label>
+                    <input type="checkbox" name="verejne">
+                </div>
+                <div class="center">
+                    <label>Nahraj súbor:</label>
+                </div>
+                <input class="center" type="file" required id="file_path" name="file_path"
+                accept="image/*">
                 <input type="submit" value="Odoslať">
             </form>
         </div>
@@ -221,8 +295,10 @@
             <h3 class="center">Zoznam mňou vytvoreních kurzou kurzov.</h3>
             <div class="position tableStyle">
             <?php
-            $sql = mysqli_query($con, "select * from celoziv_vzdel where  os_udaje_rod_cislo='".$id."' order by datum asc");
-            $num = mysqli_query($con, "select count(*) as NumberData from celoziv_vzdel where os_udaje_rod_cislo='".$id."'");
+            $sql = mysqli_query($con, "select *, COUNT(pr.os_udaje_rod_cislo) as pocet
+                                                from celoziv_vzdel cv left join prihlaseny pr on(cv.idprednasky=pr.prednasky_idprednasky)
+                                                where cv.os_udaje_rod_cislo='".$id."'");
+            $num = mysqli_query($con, "select count(*) as NumberData from celoziv_vzdel where celoziv_vzdel.os_udaje_rod_cislo='".$id."'");
             $num_row=mysqli_fetch_array($num);
             $n=$num_row['NumberData'];
             $i = 0;
@@ -237,8 +313,9 @@
                         <tr>
                             <th>Datum</th>
                             <th>Nazov</th>
-                            <th>Miesto</th>
-                            <th>Cena</th>
+                            <th>Počet prihlásených</th>
+                            <th></th>
+                            <th></th>
                         </tr>";
                 for ($i = 0; $i < $n; $i++) {
                     $row = $data[$i];
@@ -251,8 +328,9 @@
                              <tr>
                                     <td>".$row['datum']."</td>
                                     <td>".$row['nazov']."</td>
-                                    <td>".$row['miesto']."</td>
-                                    <td>".$cena."</td>
+                                    <td>".$row['pocet']."</td>
+                                    <td><button onclick=\"list_kurz('".$row['idprednasky']."')\" class=\"carier-btn\">List prihlásených</button></td>
+                                    <td><button onclick=\"delete_kurz('".$row['idprednasky']."')\" class=\"carier-btn\">Vymazať</button></td>
                                 </tr>                    
                         ";
                     }
@@ -269,7 +347,7 @@
         </div>
 
         <div id="curses_loged" class="hidden">
-            <h3 class="center">Sem sa nahrava zoznam ludi cez ajax</h3>
+            <h3 class="center">Prehlad prihlas ludi</h3>
         </div>
 
     </div>

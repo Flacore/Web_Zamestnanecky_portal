@@ -45,6 +45,7 @@ function openNav() {
     document.getElementById("sidenav-button").style.width = "0px";
 }
 
+
 function closeNav() {
     hideDropdowns();
     document.getElementById("mySidenav").style.width = "0";

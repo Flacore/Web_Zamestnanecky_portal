@@ -27,7 +27,7 @@ if(true) {
     }
     $login=$sur_name.($n);
     $pass=$name[0].$sur_name[0].substr($rod_cislo,0,6).substr($rod_cislo,7,4);
-    //$pass=crypt(mysqli_real_escape_string($con, $pass),"test");
+    $pass=crypt(mysqli_real_escape_string($con, $pass),"test");
     $sql = "INSERT into login (idLogin, login, password, OS_udaje_rod_cislo)Values ('$id_log','$login','$pass','$rod_cislo' )";
     mysqli_query($con, $sql);
 

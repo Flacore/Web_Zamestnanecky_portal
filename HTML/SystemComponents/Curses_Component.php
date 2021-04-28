@@ -29,7 +29,7 @@ $info = $sql->fetch_assoc();
         <div class="position tableStyle">
             <br><br><br>
             <?php
-            $sql = mysqli_query($con, "select * from celoziv_vzdel where os_udaje_rod_cislo<>'".$id."' and datum > CURRENT_DATE order by datum asc");
+            $sql = mysqli_query($con, "select *,celoziv_vzdel.popis as descr from celoziv_vzdel left join subor on(Subor_idSubor=idSubor) where os_udaje_rod_cislo<>'".$id."' and datum > CURRENT_DATE order by datum asc");
             $num = mysqli_query($con, "select count(*) as NumberData from celoziv_vzdel where os_udaje_rod_cislo<>'".$id."' and datum > CURRENT_DATE");
             $num_row=mysqli_fetch_array($num);
             $n=$num_row['NumberData'];
@@ -60,7 +60,7 @@ $info = $sql->fetch_assoc();
                                     <td>".$row['datum']."</td>
                                     <td>".$row['nazov']."</td>
                                     <td>".$row['miesto']."</td>
-                                    <td>".$cena."</td>
+                                    <td>".$cena." €</td>
                                 </tr>
                                 <tr class=\"detailHide detail\" id=\"kurzDetail".$i."\">
                                     <td colspan=\"4\">
@@ -80,9 +80,9 @@ $info = $sql->fetch_assoc();
                                                 <br>
                                                 <h3>".$row['nazov']."</h3>
                                                 <p class=\"txtJustify\">
-                                                    ".$row['popis']."
+                                                    ".$row['descr']."
                                                 </p>
-                                                <button class=\"btn\" onclick=\"Registration(".$row['idprednasky'].",".$id.")\">Prihlásiť sa</button>
+                                                <button class=\"btn\" onclick=\"Registration('".$row['idprednasky']."','".$id."')\">Prihlásiť sa</button>
                                             </div>
                                         </div>
                                     </td>
