@@ -425,7 +425,7 @@
                                             <p class=\"txtJustify\">
                                                 ".$row['descr']."
                                             </p>
-                                            <button class=\"btn\" onclick=\"showRegistrationGuest(".$row['idprednasky'].")\">Prihlásiť sa</button>
+                                            <button class=\"btn\" onclick=\"showRegistrationGuest('".$row['idprednasky']."')\">Prihlásiť sa</button>
                                         </div>
                                     </div>
                                 </td>
@@ -460,7 +460,7 @@
             <div id="registration_guest" class="registration-guest">
                 <h2 class="title col-sm-12">Registrácia</h2>
                 <form method="post" action="../PHP/Main%20Site/curses_user.php">
-                    <input class="hiden" type="text" id="idPrednasky">
+                    <input class="hiden" type="text" name="idPrednasky" id="idPrednasky">
                     <div class="col-sm-12">
                         <div class="center">
                             <label>Rodné číslo</label>
@@ -596,6 +596,13 @@
 
     <script src="../JS/HomeSite/homeSite_onClick.js"></script>
     <script type="text/javascript">
+        function showRegistrationGuest(id) {
+            alert(id);
+            document.getElementById('guest_view').style.display='block';
+            document.getElementById('registration_guest').style.display='block';
+            document.getElementById('idPrednasky').value = id;
+        }
+
         $(document).ready(function(){
             $(".contentWindow div").click(function(){
                 $id = $(this).find('h1:first-child').text();

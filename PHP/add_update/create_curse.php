@@ -7,7 +7,7 @@ $tmp_date =$_POST['date'];
 $tmp_time =$_POST['time'];
 $date = date('Y-m-d H:i:s', strtotime("$tmp_date $tmp_time"));
 $miesto = $_POST['place'];
-$cena = $_POST['cena'];
+$cena = $_POST['price'];
 
 $popis = $_POST['desc'];
 $meno = $_POST['name'];
@@ -42,5 +42,5 @@ $idPrednaska = $n + 1;
 $sql = "INSERT into celoziv_vzdel (idprednasky, datum, nazov, verejne, miesto, popis, cena, Subor_idSubor, os_udaje_rod_cislo) 
 Values ('$idPrednaska','$date','$meno','$verejne','$miesto','$popis','$cena','$idSubor','$rod_cislo')";
 mysqli_query($con, $sql);
-//header('Location: http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/HTML/System.php');
+header('Location: http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/HTML/System.php');
 ?>

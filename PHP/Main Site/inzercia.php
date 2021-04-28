@@ -58,7 +58,8 @@ if($_POST['typ']==1){
         if ($row_iz['cesta'] == null) {
             echo "<img   class='img' src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/unz.png\" alt=\"img\">";
         } else {
-            echo "<img   class='img' src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server".$row_iz['cesta']."\" alt=\"img\">";
+            echo "<img   class='img' src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server".$row_iz['cesta']."\" alt=\"img\"
+                     onClick=\"window.open(this.src)\" role=\"button\" tabIndex=\"0\">";
         }
         echo"   <h3 class='center'>" . $row_iz['Titulok'] . "</h3>
                 <p class='center'>" . $row_iz['Popis'] . "</p>
@@ -76,7 +77,7 @@ if($_POST['typ']==1){
         }
 
         if($row_iz['cenovka'] != null){
-            echo "<p class='center'>".$row_iz['cenovka']." </p>";
+            echo "<p class='center'>".$row_iz['cenovka']." €</p>";
         }else{
             echo "<p class='center'>Nedefinovaná cena</p>";
         }

@@ -297,15 +297,14 @@
             <?php
             $sql = mysqli_query($con, "select *, COUNT(pr.os_udaje_rod_cislo) as pocet
                                                 from celoziv_vzdel cv left join prihlaseny pr on(cv.idprednasky=pr.prednasky_idprednasky)
-                                                where cv.os_udaje_rod_cislo='".$id."'");
-            $num = mysqli_query($con, "select count(*) as NumberData from celoziv_vzdel where celoziv_vzdel.os_udaje_rod_cislo='".$id."'");
-            $num_row=mysqli_fetch_array($num);
-            $n=$num_row['NumberData'];
+                                                where cv.os_udaje_rod_cislo='".$id."'
+                                                group BY idprednasky");
             $i = 0;
             while ($rows = $sql->fetch_assoc()){
                 $data[$i]=$rows;
                 ++$i;
             }
+            $n=$i;
 
             if($n>0) {
                 echo "       
@@ -405,43 +404,63 @@
             </div>
 
             <div id="ad_form_cat" class="hidden">
-                <form method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/System/ad_editing.php">
+                <form id="form_file" enctype="multipart/form-data" method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/System/ad_editing.php">
                     <input class="hidden" type="number" value="3" name="typ">
-                    <label>Názov</label>
-                    <input type="text" name="Nazov">
-                    <h3>TODO: file</h3>
-                    <input type="button" value="Odoslať">
+                    <div class="center">
+                        <label>Názov</label>
+                        <input type="text" name="Nazov">
+                    </div>
+                    <div class="center">
+                        <label>Nahraj súbor:</label>
+                    </div>
+                    <input class="center" type="file" required id="file_path" name="file_path"
+                           accept="image/*">
+                    <input type="submit" value="Odoslať">
                 </form>
             </div>
 
             <div id="ad_form_item" class="hidden">
-                <form method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/System/ad_editing.php">
+                <form id="form_file" enctype="multipart/form-data" method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/System/ad_editing.php">
                     <input class="hidden" type="number" value="2" name="typ">
-                    <label>Názov</label>
-                    <input type="text" name="Nazov">
-                    <label>Popis</label>
-                    <input type="text" name="Popis">
-                    <label>Zobraziť telefón.</label>
-                    <input type="checkbox" name="tel">
-                    <label>Cena.</label>
-                    <input type="number" step=".01" name="cena">
-                    <label for="cat">Kategória.</label>
-                    <select id="cat" name="cat">
-                        <option value="-1">Nezaradené</option>
-                        <?php
-                        $sql = mysqli_query($con, "SELECT * FROM kategoria");
-                        $k = 0;
-                        while ($rows = $sql->fetch_assoc()) {
-                            $_data[$k] = $rows;
-                            ++$k;
-                        }
-                        for($i=0; $i<$k; $i++){
-                            $row=$_data[$i];
-                            echo "<option value=\"".$row['id_kategoria']."\">".$row['Názov']."</option>";
-                        }
-                        ?>
-                    </select>
-                    <h3>TODO: file</h3>
+                    <div class="center">
+                        <label>Názov</label>
+                        <input type="text" name="Nazov">
+                    </div>
+                    <div class="center">
+                        <label>Popis</label>
+                        <input type="text" name="Popis">
+                    </div>
+                    <div class="center">
+                        <label>Zobraziť telefón.</label>
+                        <input type="checkbox" name="tel">
+                    </div>
+                    <div class="center">
+                        <label>Cena.</label>
+                        <input type="number" step=".01" name="cena" value="0" min="0">
+                    </div>
+                    <div class="center">
+                        <label for="cat">Kategória.</label>
+                        <select id="cat" name="cat">
+                            <option value="-1">Nezaradené</option>
+                            <?php
+                            $sql = mysqli_query($con, "SELECT * FROM kategoria");
+                            $k = 0;
+                            while ($rows = $sql->fetch_assoc()) {
+                                $_data[$k] = $rows;
+                                ++$k;
+                            }
+                            for($i=0; $i<$k; $i++){
+                                $row=$_data[$i];
+                                echo "<option value=\"".$row['id_kategoria']."\">".$row['Názov']."</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="center">
+                        <label>Nahraj súbor:</label>
+                    </div>
+                    <input class="center" type="file" required id="file_path" name="file_path"
+                           accept="image/*">
                     <input type="submit" value="Odoslať">
                 </form>
             </div>
