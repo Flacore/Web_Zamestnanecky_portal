@@ -49,10 +49,27 @@
             <div class="settings-label"><h3 class="txt-label">Osobné nastavenia</h3></div>
             <div class="password-settings row">
                 <?php
+                    $sql = mysqli_query($con, "select * from os_udaje where rod_cislo='".$id."'");
+                    $row=$sql->fetch_assoc();
 
+                    $IBAN=$row['IBAN'];
+                    $Mesto=$row['Mesto'];
+                    $PSC=$row['PSC'];
+                    $Adresa=$row['Adresa'];
+                    echo "
+                        <form method='post' action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/update_personal.php\">
+                            <label>IBAN:</label>
+                            <input type='text' name='IBAN' value='".$IBAN."' pattern='[a-zA-Z]{2}[0-9]{22}'>   
+                            <label>Mesto:</label>
+                            <input type='text' name='Mesto' value='".$Mesto."' >
+                            <label>Adresa:</label>
+                            <input type='text' name='Adresa' value='".$Adresa."' >
+                            <label>PSC:</label>
+                            <input type='text' name='PSC' value='".$PSC."' pattern='[0-9]{5}'  >
+                            <input class=\"col-sm-12 btn-submit center-icon\" type=\"submit\" value=\"Odoslať\" name=\"button_file\">
+                        </form>
+                        ";
                 ?>
-                <!--                TODO zmena dát-->
-                <!--                TODO obnov data-->
             </div>
         </div>
 

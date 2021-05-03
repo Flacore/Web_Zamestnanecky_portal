@@ -41,7 +41,7 @@
                         ++$i;
                     }
                     $row = $data[0];
-                    echo "".$row['Meno']." ".$row['Priezvisko'].""
+                    echo "".$row['titul_pred']." ". $row['Meno'] . " " . $row['Priezvisko'] ." ".$row['titul_za'].""
 
                     ?>
                     </h2></div>

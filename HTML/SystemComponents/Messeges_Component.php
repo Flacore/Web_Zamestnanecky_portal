@@ -46,7 +46,7 @@ $uzivatel=$_SESSION['session'] ?>
                                                 <div class=\"Messenger-img\"></div>
                                             </div>
                                             <div class=\"col-md-10\">
-                                                <h4 class=\"Name\">".$info['Meno']." ".$info['Priezvisko']."</h4>
+                                                <h4 class=\"Name\">".$info['titul_pred']." ". $info['Meno'] . " " . $info['Priezvisko'] ." ".$info['titul_za']."</h4>
                                             </div>
                                         </div>
                                     </div>

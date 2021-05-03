@@ -37,6 +37,39 @@ if(isset($_POST["but_add"]) && isset($_SESSION['session'])) {
                         , Dokumenty='$dokumenty',Dotazniky='$dotaznik',Inzercia='$inzercia' where  funkcie_idPozícia='" . $id . "'";
                 $con->query($sql);
             }else{
+                $sql = mysqli_query($con, "select rod_cislo from os_udaje join prirad_funkcia on(os_udaje_rod_cislo=rod_cislo) where do is null");
+                $i = 0;
+                while ($rows = $sql->fetch_assoc()) {
+                    $rod_cislo=$rows['rod_cislo'];
+                    $sql="UPDATE prirad_funkcia set do=current_date where do is null and os_udaje_rod_cislo='".$rod_cislo."'";
+                    $con->query($sql);
+
+                    $sql = mysqli_query($con, "select * from prirad_funkcia");
+                    $k = 0;
+                    while ($rows = $sql->fetch_assoc()) {
+                        $data = $rows;
+                        if($k<$data['zaznam'])
+                            $k=$data['zaznam'];
+                    }
+                    $num=$k+1;
+
+                    $sql = "INSERT into prirad_funkcia (zaznam, funkcie_idPozícia, os_udaje_rod_cislo, od)
+                    Values ('$num','2','$rod_cislo',current_date )";
+                    mysqli_query($con,$sql);
+
+                    $sql = mysqli_query($con, "select * from notifikacia");
+                    $k = 0;
+                    while ($rows = $sql->fetch_assoc()) {
+                        $data = $rows;
+                        if($k<$data['idNotifikacia'])
+                            $k=$data['idNotifikacia'];
+                    }
+                    $idNotif = $k+1;
+                    $text='Vaša pozícia bola zmenena.';
+                    $sql = "INSERT into notifikacia (idNotifikacia, text, datum, Videne, os_udaje_rod_cislo)Values ('$idNotif','$text',CURRENT_DATE,'0','$rod_cislo' )";
+                    mysqli_query($con, $sql);
+                }
+
                 $sql ="DELETE FROM funkcie WHERE idPozícia='$id'";
                 $con->query($sql);
                 $sql ="DELETE FROM pravomoci WHERE funkcie_idPozícia='$id'";

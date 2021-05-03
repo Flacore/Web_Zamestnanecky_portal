@@ -12,7 +12,7 @@ while ($rows = $sql->fetch_assoc()){
     ++$k;
 }
 $info=$_data[0];
-$prijemca_meno=$info['Meno']." ".$info['Priezvisko'];
+$prijemca_meno=$info['titul_pred']." ". $info['Meno'] . " " . $info['Priezvisko'] ." ".$info['titul_za'];
 
 $sql = mysqli_query($con, "select * from os_udaje where rod_cislo='".$id."' ");
 $k = 0;
@@ -21,7 +21,7 @@ while ($rows = $sql->fetch_assoc()){
     ++$k;
 }
 $info=$_data[0];
-$ja_meno=$info['Meno']." ".$info['Priezvisko'];
+$ja_meno=$info['titul_pred']." ". $info['Meno'] . " " . $info['Priezvisko'] ." ".$info['titul_za'];
 
 $dta = mysqli_query($con, "select * from sprava  where konverzacia_idKonverzacie='".$konverzacia."' ORDER BY datum ASC");
 $i=0;

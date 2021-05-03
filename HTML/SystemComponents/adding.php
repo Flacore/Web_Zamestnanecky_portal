@@ -8,15 +8,15 @@ $id=$_SESSION['session'];
     <form action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_person.php" method="post">
         <div class="center">
             <label>Rodné číslo</label>
-            <input type="text" pattern="[0-9]{6}/[0-9]{4}" name="rod_cislo">
+            <input type="text" pattern="[0-9]{6}/[0-9]{4}" name="rod_cislo" required>
         </div>
         <div class="center">
             <label>Meno</label>
-            <input type="text" name="name">
+            <input type="text" name="name" required>
         </div>
         <div class="center">
             <label>Priezvisko</label>
-            <input type="text" name="sur_name">
+            <input type="text" name="sur_name" required>
         </div>
         <div class="center">
             <label>Pracovisko:</label>

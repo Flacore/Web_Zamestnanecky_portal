@@ -4,8 +4,11 @@ if(isset($_POST['button'])&& isset($_SESSION['session'])) {
     $id = $_POST['id'];
     $pracovisko = $_POST['pracovisko'];
     $funkcia = $_POST['funkcia'];
+    $titul_pred = $_POST['tittle_b'];
+    $titul_za = $_POST['tittle_a'];
+    $miestnost = $_POST['place'];
 
-    $sql = "UPDATE os_udaje SET Pracovisko_idPracovisko='".$pracovisko."'  WHERE rod_cislo ='".$id."'";
+    $sql = "UPDATE os_udaje SET titul_pred='$titul_pred',titul_za='$titul_za',miestnost='$miestnost',Pracovisko_idPracovisko='".$pracovisko."'  WHERE rod_cislo ='".$id."'";
     $con->query($sql);
 
     $sql = "UPDATE prirad_funkcia SET do = CURRENT_DATE  WHERE do is null and OS_udaje_rod_cislo='".$id."'";
@@ -29,7 +32,7 @@ if(isset($_POST['button'])&& isset($_SESSION['session'])) {
             $k=$data['idNotifikacia'];
     }
     $idNotif = $k+1;
-    $text='Vaša pozícia a pracovisko boli zmenené.';
+    $text='Vaša údaje boli pridané alebo zmenené administrátorom   .';
     $sql = "INSERT into notifikacia (idNotifikacia, text, datum, Videne, os_udaje_rod_cislo)Values ('$idNotif','$text',CURRENT_DATE,'0','$id' )";
     mysqli_query($con, $sql);
 

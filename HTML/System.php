@@ -53,6 +53,10 @@
     <script src="../JS/MainSite/system_onClick.js"></script>
     <script src="../JS/MainSite/modal_window.js"></script>
     <style>
+        .full-width{
+            width: 100%;
+        }
+
         .overflow-scroll{
             overflow-x: scroll;
         }
@@ -374,7 +378,7 @@
             </div>
             <div class="center">
                 <label>Názov miesta</label>
-                <input type="text" name="Nazov">
+                <input type="text" name="Nazov" required>
             </div>
             <input type="submit" value="Odoslať">
         </form>
@@ -393,7 +397,7 @@
                 </div>
                 <div class="center">
                     <label>Popis</label>
-                    <input type="text" name="desc">
+                    <input type="text" name="desc" required>
                 </div>
                 <div class="center">
                     <label>Verejné zobrazenie</label>
@@ -674,7 +678,7 @@
                     <input class="hidden" type="number" value="3" name="typ">
                     <div class="center">
                         <label>Názov</label>
-                        <input type="text" name="Nazov">
+                        <input type="text" name="Nazov" required>
                     </div>
                     <div class="center">
                         <label>Nahraj súbor:</label>
@@ -693,11 +697,11 @@
                     <input class="hidden" type="number" value="2" name="typ">
                     <div class="center">
                         <label>Názov</label>
-                        <input type="text" name="Nazov">
+                        <input type="text" name="Nazov" required>
                     </div>
                     <div class="center">
                         <label>Popis</label>
-                        <input type="text" name="Popis">
+                        <input type="text" name="Popis" required>
                     </div>
                     <div class="center">
                         <label>Zobraziť telefón.</label>
@@ -815,11 +819,11 @@
                         <input class="hidden" value="" id="id_Link" name="idLink">
                         <div class="center">
                             <label>Zadaj nazov:</label>
-                            <input value="" id="Name" name="Name">
+                            <input value="" id="Name" name="Name" required>
                         </div>
                         <div class="center">
                             <label id="Link_Text">Zadaj link na stranku:</label>
-                            <input value="" id="Link" name="Link">
+                            <input value="" id="Link" name="Link" required>
                         </div>
                         <div>
                             <input class="hidden" value="glyphicon-heart" id="icon_value" name="icon">
@@ -834,7 +838,7 @@
                             </div>
                         </div>
                         <div class="center">
-                            <select name="podskupina" id="poskupina_link">
+                            <select name="podskupina" id="poskupina_link" >
                                 <option value="1">Dôležité</option>
                                 <option value="2">Základné</option>
                                 <option value="3">Ostatné</option>

@@ -45,7 +45,7 @@ if($_POST['typ']==1){
     }
     if($k!=0) {
         $row_iz = $iz_data[0];
-        $sql = mysqli_query($con, "SELECT ou.Meno, ou.Priezvisko,k1.telefon,k1.email,lo.login
+        $sql = mysqli_query($con, "SELECT ou.titul_pred, ou.titul_za,ou.Meno, ou.Priezvisko,k1.telefon,k1.email,lo.login
         from os_udaje ou
         left join kontakt k1 on(ou.rod_cislo=k1.os_udaje_rod_cislo)
         join login lo on(lo.OS_udaje_rod_cislo=ou.rod_cislo)
@@ -64,7 +64,7 @@ if($_POST['typ']==1){
         }
         echo"   <h3 class='center'>" . $row_iz['Titulok'] . "</h3>
                 <p class='center'>" . $row_iz['Popis'] . "</p>
-                <p class='center'>".$row_os['Meno']." ".$row_os['Priezvisko']."</p>";
+                <p class='center'>".$row_os['titul_pred']." ". $row_os['Meno'] . " " . $row_os['Priezvisko'] ." ".$row_os['titul_za']."</p>";
 
         if($row_os['email'] == null){
             echo "<p class='center'>".$row_os['Login']."@uniza.sk</p>";

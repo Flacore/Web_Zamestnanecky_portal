@@ -463,7 +463,7 @@
                     <div class="col-sm-12">
                         <div class="center">
                             <label>Rodné číslo</label>
-                            <input type="text" name="rod_cislo" required>
+                            <input type="text" name="rod_cislo" pattern="[0-9]{6}/[0-9]{4}" required>
                         </div>
                     </div>
                     <div class="col-sm-12">
