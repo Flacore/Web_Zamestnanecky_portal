@@ -18,7 +18,7 @@ echo "
                     <h5 class=\"text col-sm-12\">
                         ".$row['text']."
                     </h5>
-                <h5 class=\"text-detail col-sm-12\">Dátum: ".$row['datum']."</h5>
+                <h5 class=\"text-detail col-sm-12\">Dátum: ". date('d.m.Y',strtotime($row['datum']))."</h5>
                 <h5 class=\"text-detail col-sm-12\">Autor: ".$row['Meno']." ".$row['Priezvisko']."</h5>
 ";
 

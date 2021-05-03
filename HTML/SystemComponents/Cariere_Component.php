@@ -54,7 +54,7 @@ $info = $sql->fetch_assoc();
                     echo "               
                          <div>
                                 <tr>
-                                    <td>" . $row['datum'] . "</td>
+                                    <td>" .  date('d.m.Y',strtotime($row['datum'])) . "</td>
                                     <td>
                                         " . $row['popis'] . "
                                     </td>

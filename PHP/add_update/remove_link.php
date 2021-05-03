@@ -1,23 +1,23 @@
 <?php
     include "../config_DB.php";
     $id_link = $_POST['id'];
+    if(isset($_SESSION['session'])){
+        $sql = mysqli_query($con, "select * from zalozka where idZalozka='" . $id_link . "'");
+        $i = 0;
+        while ($rows = $sql->fetch_assoc()) {
+            $data[$i] = $rows;
+            ++$i;
+        }
 
-    $sql = mysqli_query($con, "select * from zalozka where idZalozka='" . $id_link . "'");
-    $i = 0;
-    while ($rows = $sql->fetch_assoc()) {
-        $data[$i] = $rows;
-        ++$i;
+        if ($i == 1) {
+            $sql = "Delete from subor where Zalozka_idZalozka='" . $id_link . "'";
+            $con->query($sql);
+
+            $sql = "Delete from zalozka where idZalozka='" . $id_link . "'";
+            $con->query($sql);
+            $con->close();
+        }
     }
-
-    if($i==1) {
-        $sql = "Delete from subor where Zalozka_idZalozka='" . $id_link . "'";
-        $con->query($sql);
-
-        $sql = "Delete from zalozka where idZalozka='" . $id_link . "'";
-        $con->query($sql);
-        $con->close();
-    }
-
 function alert($msg) {
     echo "<script type='text/javascript'>alert('$msg');</script>";
 }

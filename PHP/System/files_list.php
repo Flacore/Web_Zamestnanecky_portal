@@ -52,7 +52,7 @@ if($i>0){
                 </div>
               </div>
               <div class='row'>
-                <div class='col-sm-12'><h6>".$Datum."</h6></div>
+                <div class='col-sm-12'><h6>".date('d.m.Y',strtotime($Datum))."</h6></div>
               </div>
             <br>
          </div>";

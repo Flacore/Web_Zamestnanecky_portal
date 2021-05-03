@@ -50,7 +50,7 @@ for ($j=0;$j<$i;$j++){
                     <div class=\"msgText\">
                         <h5 class=\"txt-msg\">".$row['text']."</h5>
                     </div>
-                    <h5 class=\"date\">".$row['datum']."</h5>
+                    <h5 class=\"date\">". date('d.m.Y',strtotime($row['datum']))."</h5>
                 </div>";
     }else{
        echo "<div class=\"sended-msg col-sm-12\">
@@ -58,7 +58,7 @@ for ($j=0;$j<$i;$j++){
                     <div class=\"msgText\">
                         <h5 class=\"txt-msg\">".$row['text']."</h5>
                     </div>
-                    <h5 class=\"date\">".$row['datum']."</h5>
+                    <h5 class=\"date\">". date('d.m.Y',strtotime($row['datum']))."</h5>
                 </div>";
     }
 }

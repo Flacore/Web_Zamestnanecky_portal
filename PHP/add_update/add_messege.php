@@ -2,7 +2,7 @@
 include "../config_DB.php";
 $id_uzivatel=$_SESSION['session'];
 
-if(true) {
+if(isset($_SESSION['session'])) {
     $konverzacia=$_POST['conv_id'];
     $text=$_POST['msg_text'];
     $id_sprava=null;

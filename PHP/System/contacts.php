@@ -14,38 +14,46 @@ $pracovisko=$_POST['pracovisko'];
 if($pracovisko != null || $meno!=null) {
     if ($pracovisko != null && $meno==null)
         $sql = mysqli_query($con, "
-        SELECT ou.rod_cislo, ou.Meno,ou.Priezvisko,ou.miestnost, pr.Názov, fu.Nazov, ko.telefon
+        SELECT ou.rod_cislo, ou.Meno,ou.Priezvisko,ou.miestnost, pr.Názov, fu.Nazov, ko.telefon,foto.cesta as fotocesta,cv.cesta as cvcesta
         FROM os_udaje ou join pracovisko pr on(ou.Pracovisko_idPracovisko=pr.idPracovisko)
         join prirad_funkcia pf on(pf.os_udaje_rod_cislo=ou.rod_cislo)
         join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
         left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
+        left join subor foto on(subor_fotka=foto.idSubor)
+        left join subor cv on(subor_CV=cv.idSubor)
         WHERE pf.od is not null and pf.do is null and (ko.priorita='0' or ko.priorita is null) and LOWER(Názov) like LOWER(\"%" . $pracovisko . "%\")");
     if ($meno != null && $pracovisko==null)
         $sql = mysqli_query($con, "
-        SELECT ou.rod_cislo, ou.Meno,ou.Priezvisko,ou.miestnost, pr.Názov, fu.Nazov, ko.telefon
+        SELECT ou.rod_cislo, ou.Meno,ou.Priezvisko,ou.miestnost, pr.Názov, fu.Nazov, ko.telefon,foto.cesta as fotocesta,cv.cesta as cvcesta
         FROM os_udaje ou join pracovisko pr on(ou.Pracovisko_idPracovisko=pr.idPracovisko)
         join prirad_funkcia pf on(pf.os_udaje_rod_cislo=ou.rod_cislo)
         join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
         left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
+        left join subor foto on(subor_fotka=foto.idSubor)
+        left join subor cv on(subor_CV=cv.idSubor)
         WHERE pf.od is not null and pf.do is null and (ko.priorita='0' or ko.priorita is null) and
         CONCAT(LOWER(ou.Priezvisko),\" \",LOWER(ou.Meno)) LIKE LOWER(\"%" . $meno . "%\") or CONCAT(LOWER(ou.Meno),\" \",LOWER(ou.Priezvisko)) LIKE LOWER(\"%" . $meno . "%\")");
     if ($meno != null && $pracovisko!=null)
         $sql = mysqli_query($con, "
-        SELECT ou.rod_cislo, ou.Meno,ou.Priezvisko,ou.miestnost, pr.Názov, fu.Nazov, ko.telefon
+        SELECT ou.rod_cislo, ou.Meno,ou.Priezvisko,ou.miestnost, pr.Názov, fu.Nazov, ko.telefon,foto.cesta as fotocesta,cv.cesta as cvcesta
         FROM os_udaje ou join pracovisko pr on(ou.Pracovisko_idPracovisko=pr.idPracovisko)
         join prirad_funkcia pf on(pf.os_udaje_rod_cislo=ou.rod_cislo)
         join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
         left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
+        left join subor foto on(subor_fotka=foto.idSubor)
+        left join subor cv on(subor_CV=cv.idSubor)
         WHERE pf.od is not null and pf.do is null and(ko.priorita='0' or ko.priorita is null) and
         (CONCAT(LOWER(ou.Priezvisko),\" \",LOWER(ou.Meno)) LIKE LOWER(\"%" . $meno . "%\") or CONCAT(LOWER(ou.Meno),\" \",LOWER(ou.Priezvisko)) LIKE LOWER(\"%" . $meno . "%\")) and  LOWER(Názov) like LOWER(\"%" . $pracovisko . "%\")");
 }
 else{
     $sql = mysqli_query($con, "
-    SELECT ou.rod_cislo, ou.Meno,ou.Priezvisko,ou.miestnost, pr.Názov, fu.Nazov, ko.telefon
+    SELECT ou.rod_cislo, ou.Meno,ou.Priezvisko,ou.miestnost, pr.Názov, fu.Nazov, ko.telefon,foto.cesta as fotocesta,cv.cesta as cvcesta
     FROM os_udaje ou join pracovisko pr on(ou.Pracovisko_idPracovisko=pr.idPracovisko)
     join prirad_funkcia pf on(pf.os_udaje_rod_cislo=ou.rod_cislo)
     join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
     left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
+    left join subor foto on(subor_fotka=foto.idSubor)
+    left join subor cv on(subor_CV=cv.idSubor)
     WHERE pf.od is not null and pf.do is null and (ko.priorita='0' or ko.priorita is null)");
 }
 $i = 0;
@@ -67,20 +75,41 @@ for ($j = 0; $j<$i; $j++) {
 
     echo "
     <div class=\"resultsItem row\">
-                    <div class=\"col-sm-3 full-height\">
-                        <div class=\"user-img shadow\"></div>
-                    </div>
+                    <div class=\"col-sm-3 full-height\">";
+    if ($row['fotocesta']!=null) {
+        echo "                <div class=\"shadow\" style=\"
+                                margin-left: 50%;
+                                margin-right: 50%;
+                                transform: translate( -50%);
+                                border-radius: 100%;
+                                margin-top: 5px;
+                                width: 180px;
+                                height: 180px;
+                                overflow: hidden;
+                                background-size: cover;
+                                background-position: center;
+                                background-image: 
+                                url('http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server" . $row['fotocesta'] . "');
+                               \"></div>";
+    } else
+        echo "                <div class=\"user-img shadow\"></div>";
+
+    echo"         </div>
                     <div class=\"col-sm-6 full-height\">
                         <div class=\"detail-info\">
                             <div class=\"col-sm-12 resultName\"><h2>" . $row['Meno'] . " " . $row['Priezvisko'] . "</h2></div>
                             <div class=\"col-sm-12 info\"><h4>Pracovisko: </h4><h4>" . $row['Názov'] . "</h4></div>
                             <div class=\"col-sm-12 info\"><h4>Miestnosť: </h4><h4>" . $row['miestnost'] . "</h4></div>
                             <div class=\"col-sm-12 info\"><h4>Telefón: </h4><h4>" . $row['telefon'] . "</h4></div>
-                            <div class=\"col-sm-12 info\"><h4>Funkcia: </h4><h4>" . $row['Nazov'] . "</h4></div>
-                        </div>
+                            <div class=\"col-sm-12 info\"><h4>Funkcia: </h4><h4>" . $row['Nazov'] . "</h4></div>";
+    if($row['cvcesta']!=null)
+        echo "<div class=\"col-sm-12 info\"><button class='btn-submit center-icon'
+                onclick=\"location.href='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/ftp/Download_file.php?cesta=".$row['cvcesta']."'\"
+                >Životopis</button></div>";
+    echo"        </div>
                     </div>";
     if($row['rod_cislo']!=$id) {
-        echo "                <div class=\"col-sm-1 full-height\">
+        echo "      <div class=\"col-sm-1 full-height\">
                         <div class=\"messege-send\" onclick=\"sendMSG('" . $row['rod_cislo'] . "')\">
                         <span class=\"glyphicon glyphicon-envelope msg-icon\">
                             </span>                   
@@ -100,6 +129,7 @@ for ($j = 0; $j<$i; $j++) {
                             </span>                   
                         </div>
                     </div>";
+
 
         echo " <div id='".$row['rod_cislo']."' style='display: none' class=\"col-sm-12 full-height\" >
                         <form method='post' action='http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/update_person.php'>
@@ -146,7 +176,7 @@ for ($j = 0; $j<$i; $j++) {
 
         echo"           </select>
                         </div>
-                        <div class='center'><input type=\"submit\" name=\"button\" value=\"Odoslať\"></div>
+                        <div class='center'><input class='btn-submit center-icon' type=\"submit\" name=\"button\" value=\"Odoslať\"></div>
                         </form>
                     </div>";
 

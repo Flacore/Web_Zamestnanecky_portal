@@ -2,7 +2,7 @@
 include "../ftp/Upload_file.php";
 include "../config_DB.php";
 
-if(isset($_POST['button_file'])) {
+if(isset($_POST['button_file']) && isset($_SESSION['session'])) {
     $idSubor = $_POST['idFile'];
     $nazov = $_POST['name'];
     $subor = $_FILES;

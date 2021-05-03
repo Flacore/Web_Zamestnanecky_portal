@@ -61,7 +61,7 @@
                     join pracovisko po ON(po.idPracovisko=ou.Pracovisko_idPracovisko)
                     join prirad_funkcia pf on(ou.rod_cislo=pf.os_udaje_rod_cislo)
                     join funkcie fu on(fu.idPozícia=pf.funkcie_idPozícia)
-                    where ou.rod_cislo='1' and ko.priorita = 1 or ko.priorita is null");
+                    where ou.rod_cislo='".$id."' order by ko.priorita asc");
                     $i = 0;
                     while ($rows = $sql->fetch_assoc()){
                         $data[$i]=$rows;

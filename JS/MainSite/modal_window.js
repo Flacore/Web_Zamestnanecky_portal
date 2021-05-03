@@ -10,6 +10,9 @@ function  add_link(login_id,zalozka=false) {
         if (login_id != "admin") {
             var input = document.getElementById("idlogin");
             input.value = login_id;
+            document.getElementById("poskupina_link").style.display='none';
+        }else{
+            document.getElementById("poskupina_link").style.display='block';
         }
     }else{
         var link = document.getElementById("Link");
@@ -124,12 +127,6 @@ function open_ntForm() {
     document.getElementById('notification_form').classList.remove('hidden');
 }
 
-function open_modal_nt() {
-    let modal = document.getElementById('modal_notification');
-    modal.style.display="block"
-    document.getElementById('notification_list').classList.remove('hidden');
-    document.getElementById('notification_form').classList.add('hidden');
-}
 
 function reset_modal_file(){
     let file_input = document.getElementById("file_path");

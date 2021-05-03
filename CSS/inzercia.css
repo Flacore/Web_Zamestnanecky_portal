@@ -94,9 +94,9 @@
 .inzercia_inside{
     margin: 5%;
     width: 90%;
-    height: 90%;
+    height: 80%;
     border-radius: 10px;
-    background-color: #81c43c;
+    background-color: #187bcd;
     overflow: scroll;
 }
 

@@ -12,7 +12,7 @@ while ($rows = $sql->fetch_assoc()) {
     ++$i;
 }
 
-if($i==0 && $id_uzivatel!=$id_prijmatel){
+if($i==0 && $id_uzivatel!=$id_prijmatel && isset($_SESSION['session'])){
     $sql = mysqli_query($con, "select * from konverzacia");
     $n = 0;
     while ($rows = $sql->fetch_assoc()) {

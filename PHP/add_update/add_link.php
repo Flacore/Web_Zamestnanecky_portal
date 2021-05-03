@@ -6,7 +6,7 @@ $Name = $_POST['Name'];
 $Link = $_POST['Link'];
 $Glyph = $_POST['icon'];
 $id_sended = $_POST['idLogin'];
-if (true) {
+if (isset($_SESSION['session'])) {
     if($id_sended!=null) {
         $id_uzivatel = $id_Login;
     }else
@@ -28,7 +28,8 @@ if (true) {
         if ($Link == "") {
             $sql = "INSERT into zalozka (idZalozka, Nazov, glyphicon)Values ('$id_zalozka','$Name','$Glyph')";
         } else {
-            $sql = "INSERT into zalozka (idZalozka, Nazov, link, glyphicon)Values ('$id_zalozka','$Name','$Link','$Glyph')";
+            $podskupina = $_POST['podskupina'];
+            $sql = "INSERT into zalozka (idZalozka, Nazov, link, glyphicon,podskupina)Values ('$id_zalozka','$Name','$Link','$Glyph','$podskupina')";
         }
     }
     mysqli_query($con, $sql);

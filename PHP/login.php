@@ -6,14 +6,18 @@ if(isset($_POST['but_submit'])) {
     //Nacitanie parametrov
     $uname = mysqli_real_escape_string($con, $_POST['txt_uname']);
     $test =mysqli_real_escape_string($con, $_POST['txt_pwd']);
-    $password = crypt(mysqli_real_escape_string($con, $_POST['txt_pwd']),"test");
-
     if ($uname != "" && $password != "") {
 
         //Zisti kolko je rovnakych parametrov
-        $result = mysqli_query($con, "select count(*) as UserData from login where Login='".$uname."' and password='".$password."'");
+        $result = mysqli_query($con, "select OS_udaje_rod_cislo from login where Login='".$uname."'");
+        $row = mysqli_fetch_array($result);
+
+        $password = crypt(mysqli_real_escape_string($con, $_POST['txt_pwd']),$row['OS_udaje_rod_cislo']);
+
+        $result = mysqli_query($con, "select OS_udaje_rod_cislo,count(*) as UserData from login where Login='".$uname."' and password='".$password."'");
         $row = mysqli_fetch_array($result);
         $count = $row['UserData'];
+
 
         if ($count > 0 && $count<2) {
             //Prihlasi uzivatela

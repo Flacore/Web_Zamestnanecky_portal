@@ -57,7 +57,7 @@ $info = $sql->fetch_assoc();
                             $cena=$row['cena'];
                         echo "               
                              <tr onclick=\"tableDetail('kurzDetail".$i."')\">
-                                    <td>".$row['datum']."</td>
+                                    <td>". date('d.m.Y',strtotime($row['datum']))."</td>
                                     <td>".$row['nazov']."</td>
                                     <td>".$row['miesto']."</td>
                                     <td>".$cena." €</td>

@@ -53,6 +53,51 @@
     <script src="../JS/MainSite/system_onClick.js"></script>
     <script src="../JS/MainSite/modal_window.js"></script>
     <style>
+        .overflow-scroll{
+            overflow-x: scroll;
+        }
+
+        /*Insert MessengerAndBlog*/
+        .myBlog{
+            float: left;
+            margin-left: 20px;
+            cursor: pointer;
+            width: 70px;
+            height: auto;
+            background-color: #3cc5aa;
+            border-radius: 100%;
+        }
+
+        .myBlog span{
+            color: white;
+            text-align: center;
+            margin: 10px;
+            font-size: 40px;
+        }
+
+        .newBlog{
+            float: right;
+            margin-right: 20px;
+            cursor: pointer;
+            width: 70px;
+            height: auto;
+            background-color: #3cc5aa;
+            border-radius: 100%;
+        }
+
+        .newBlog span{
+            color: white;
+            text-align: center;
+            margin: 10px;
+            font-size: 40px;
+        }
+
+        .blog-item-read{
+            background-color: #28559A;
+            min-height: 100px !important;
+            height: auto !important;
+        }
+
         /*Insert into inzercia*/
         #ad_list table{
             width: 100%;
@@ -74,6 +119,63 @@
         }
     </style>
     <script>
+        //add to modal window
+        function  add_link(login_id,zalozka=false) {
+            clear_form();
+            close_modal();
+            let modal = document.getElementById("modal_links");
+            modal.style.display = "block";
+
+            var module = document.getElementById("adding_link");
+            module.classList.remove("hidden");
+            if(zalozka){
+                if (login_id != "admin") {
+                    var input = document.getElementById("idlogin");
+                    input.value = login_id;
+                    document.getElementById("poskupina_link").classList.add("hidden");
+                    document.getElementById("poskupina_link").value = null;
+                    document.getElementById("poskupina_link").value = 0;
+                }else{
+                    document.getElementById("poskupina_link").classList.remove("hidden");
+                }
+            }else{
+                var link = document.getElementById("Link");
+                link.classList.add("hidden");
+                var link_t = document.getElementById("Link_Text");
+                link_t.classList.add("hidden");
+                document.getElementById("poskupina_link").classList.add("hidden");
+                document.getElementById("poskupina_link").value = 0;
+            }
+        }
+
+
+        function edit_links(login_id,zalozka=false) {
+            clear_form();
+            close_modal();
+            let modal = document.getElementById("modal_links");
+            modal.style.display = "block"
+
+            if(zalozka) {
+                if (login_id != "admin") {
+                    var module = document.getElementById("edit_link_self");
+                    module.classList.remove("hidden");
+                    document.getElementById("poskupina_link").classList.add("hidden");
+                    document.getElementById("poskupina_link").value = 0;
+                } else {
+                    var module = document.getElementById("edit_link_all");
+                    module.classList.remove("hidden");
+                    document.getElementById("poskupina_link").classList.remove("hidden");
+                }
+            }else{
+                var module = document.getElementById("edit_files_category");
+                module.classList.remove("hidden");
+                document.getElementById("poskupina_link").classList.add("hidden");
+                document.getElementById("poskupina_link").value = 0;
+            }
+        }
+
+        //Other
+
         function hideDropdowns(){
             var dropdownContent1 = document.getElementById("Marks_container");
             var dropdownContent2 = document.getElementById("Links_container");
@@ -108,6 +210,7 @@
             document.getElementById("ad_form_item").classList.add('hidden');
             document.getElementById("ad_form_cat").classList.add('hidden');
             document.getElementById("ad_list").classList.add('hidden');
+            document.getElementById("cat_list").classList.add('hidden');
         }
 
         function close_modal_career(){
@@ -115,6 +218,21 @@
             modal.style.display = "none";
             document.getElementById("ad_career").classList.add('hidden');
             document.getElementById("my_career").classList.add('hidden');
+        }
+
+        function close_modal_place(){
+            let modal = document.getElementById("modal_place");
+            modal.style.display = "none";
+        }
+
+        function close_modal_blog(){
+            let modal = document.getElementById("modal_blog");
+            modal.style.display = "none";
+        }
+
+        function open_modal_blog(){
+            let modal = document.getElementById("modal_blog");
+            modal.style.display = "block";
         }
 
         function close_modal_curses(){
@@ -160,9 +278,109 @@
                 }
             });
         }
+
+        function  delete_cat(id) {
+            $.ajax({
+                type: 'POST',
+                data: {id: id},
+                url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/delete_category.php',
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        }
+
+        function open_modal_nt() {
+            $.ajax({
+                type: 'POST',
+                url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/update_notific.php',
+                success: function(data) {
+                    let modal = document.getElementById('modal_notification');
+                    modal.style.display = "block"
+                    document.getElementById('notification_list').classList.remove('hidden');
+                    document.getElementById('notification_form').classList.add('hidden');
+                }
+            });
+        }
+
+        function  delete_blog(id) {
+            $.ajax({
+                type: 'POST',
+                data: {id: id},
+                url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/delete_blog.php',
+                success: function(data) {
+                    location.reload();
+                }
+            });
+        }
+
     </script>
 </head>
 <body onload="fLoad()">
+
+<div class="modal" id="modal_blog">
+    <div class="modal-content">
+        <span class="close-btn" onclick="close_modal_blog()">&times;</span>
+            <?php
+            $sql = mysqli_query($con, "select * from blog where os_udaje_rod_cislo='".$id."'");
+            $i = 0;
+            while ($rows = $sql->fetch_assoc()) {
+                $data[$i] = $rows;
+                ++$i;
+            }
+
+            $n=$i;
+
+            if($n>0){
+                echo "       
+               <div class=\"position tableStyle\">
+                    <table>
+                        <tr>
+                            <th>Dátum</th>
+                            <th>Nazov</th>
+                            <th></th>
+                        </tr>
+                        <div>";
+                for ($i = 0; $i < $n; $i++) {
+                    $row = $data[$i];
+                    echo "               
+                         <div>
+                                <tr>
+                                    <td>" .  date('d.m.Y',strtotime($row['datum'])) . "</td>
+                                    <td>
+                                        " . $row['nadpis'] . "
+                                    </td>
+                                    <td><button onclick=\"delete_blog('" . $row['idBlog'] . "')\" class=\"carier-btn\">Vymazať</button></td>
+                                </tr>
+                            </div>
+                        ";
+                }
+                echo "    </table>
+                      </div>";
+            }else{
+                echo "<h3>Neexistuje žiaden vami vytvorení blog.</h3>";
+            }
+
+            ?>
+    </div>
+</div>
+
+<div class="modal" id="modal_place">
+    <div class="modal-content">
+        <span class="close-btn" onclick="close_modal_place()">&times;</span>
+        <form action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_place.php" method="post">
+            <div class="center">
+                <h3>Pridávanie mesta</h3>
+            </div>
+            <div class="center">
+                <label>Názov miesta</label>
+                <input type="text" name="Nazov">
+            </div>
+            <input type="submit" value="Odoslať">
+        </form>
+
+    </div>
+</div>
 
 <div class="modal" id="modal_career">
     <div class="modal-content">
@@ -219,7 +437,7 @@
                         echo "               
                          <div>
                                 <tr>
-                                    <td>" . $row['datum'] . "</td>
+                                    <td>" .  date('d.m.Y',strtotime($row['datum'])) . "</td>
                                     <td>
                                         " . $row['popis'] . "
                                     </td>
@@ -325,7 +543,7 @@
                             $cena=$row['cena'];
                         echo "               
                              <tr>
-                                    <td>".$row['datum']."</td>
+                                    <td>". date('d.m.Y',strtotime($row['datum']))."</td>
                                     <td>".$row['nazov']."</td>
                                     <td>".$row['pocet']."</td>
                                     <td><button onclick=\"list_kurz('".$row['idprednasky']."')\" class=\"carier-btn\">List prihlásených</button></td>
@@ -357,6 +575,9 @@
             <span class="close-btn" onclick="close_modal_ad()">&times;</span>
 
             <div id="ad_list" class="hidden">
+                <div class="center">
+                    <h3>Zoznam mojich inzerátov.</h3>
+                </div>
                 <?php
 
                 $sql = mysqli_query($con, "SELECT * FROM inzerat left join kategoria on(inzerat.kategoria_id_kategoria = kategoria.id_kategoria) 
@@ -374,13 +595,13 @@
                         <th>Datum</th>
                         <th>Nazov</th>
                         <th>Kategória</th>
-                        <th>Cena</th>
+                        <th></th>
                     </tr>";
 
                     for($i = 0; $i < $k; $i++){
                         $row=$_data[$i];
                         echo "               
-                             <tr onclick=\"tableDetail('kurzDetail".$i."')\">
+                             <tr >
                                 <td>".$row['vytvorenie']."</td>
                                 <td>".$row['Titulok']."</td>";
 
@@ -402,8 +623,53 @@
 
                 ?>
             </div>
+            <div id="cat_list" class="hidden">
+                <div class="center">
+                    <h3>Zoznam kategórií.</h3>
+                </div>
+                <div class="tableStyle">
+                <?php
 
+                $sql = mysqli_query($con, "SELECT id_kategoria,Názov,count(id_inzerat) as pocet FROM kategoria left join inzerat ON(id_kategoria=kategoria_id_kategoria)");
+                $k = 0;
+                while ($rows = $sql->fetch_assoc()) {
+                    $_data[$k] = $rows;
+                    ++$k;
+                }
+                if($k > 0){
+
+                    echo "       
+                    <table>
+                    <tr>
+                        <th>Nazov</th>
+                        <th>Počet inzerátov</th>
+                        <th></th>
+                    </tr>";
+
+                    for($i = 0; $i < $k; $i++){
+                        $row=$_data[$i];
+                        echo "               
+                             <tr >
+                                <td>".$row['Názov']."</td>
+                                <td>".$row['pocet']."</td>";
+
+                        echo" <td><button onclick=\"delete_cat('".$row['id_kategoria']."')\" class=\"carier-btn\">Vymazať</button></td>
+                            </tr>";
+                    }
+
+                    echo "
+                    </table>";
+                }else{
+                    echo "<h3>Neexistuje žiadna vytvorená kategória.</h3>";
+                }
+
+                ?>
+                </div>
+            </div>
             <div id="ad_form_cat" class="hidden">
+                <div class="center">
+                    <h3>Pridávanie kategórie.</h3>
+                </div>
                 <form id="form_file" enctype="multipart/form-data" method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/System/ad_editing.php">
                     <input class="hidden" type="number" value="3" name="typ">
                     <div class="center">
@@ -420,6 +686,9 @@
             </div>
 
             <div id="ad_form_item" class="hidden">
+                <div class="center">
+                    <h3>Pridávanie inzerátu.</h3>
+                </div>
                 <form id="form_file" enctype="multipart/form-data" method="post" action="http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/System/ad_editing.php">
                     <input class="hidden" type="number" value="2" name="typ">
                     <div class="center">
@@ -473,7 +742,7 @@
             <span class="close-btn" onclick="close_modal_nt()">&times;</span>
             <div class="hidden" id="notification_list">
                 <?php
-                $sql = mysqli_query($con, "select * from notifikacia where os_udaje_rod_cislo='".$id."'order by datum asc");
+                $sql = mysqli_query($con, "select * from notifikacia where Videne='0' and os_udaje_rod_cislo='".$id."' order by datum asc");
                 $i = 0;
                 while ($rows = $sql->fetch_assoc()) {
                     $data[$i] = $rows;
@@ -488,7 +757,7 @@
                         else
                             echo "<div class='nt_unseen'>";
                         echo "      <h3 class='col-sm-12'>".$line['text']."</h3>
-                                    <h5 class=' col-sm-12'>".$line['datum']."</h5>
+                                    <h5 class=' col-sm-12'>". date('d.m.Y',strtotime($line['datum']))."</h5>
                               </div>";
                     }
                 }else{
@@ -564,7 +833,13 @@
                                         <span id="showing_icon" class="glyphicon glyphicon-heart">
                             </div>
                         </div>
-
+                        <div class="center">
+                            <select name="podskupina" id="poskupina_link">
+                                <option value="1">Dôležité</option>
+                                <option value="2">Základné</option>
+                                <option value="3">Ostatné</option>
+                            </select>
+                        </div>
                         <br>
                         <input type="submit" class="col-sm-12 btn-submit center-icon" name="Sub" value="Potvrdiť">
                     </form>
@@ -744,29 +1019,85 @@
         </div>
 
         <a class="menuItem" id="Links">Dôležité odkazy
-            <i class="fa fa-caret-down"></i>
-        </a>
-        <div class="dropdown-container" id="Links_container">
-            <?php
-            $sql = mysqli_query($con, "select * from zalozka where os_udaje_rod_cislo is null and link is not null order by Nazov asc");
-            $i = 0;
-            while ($rows = $sql->fetch_assoc()) {
-                $data[$i] = $rows;
-                ++$i;
-            }
-
-            if($i>0) {
-                for ($j = 0; $j < $i; $j++) {
-                    $row = $data[$j];
-                    $link=$row['link'];
-                    $glyphicon=$row['glyphicon'];
-                    $nazov=$row['Nazov'];
-                    echo "
-                     <a class=\"menuItem\" href=\"".$link."\"><span class=\"glyphicon ".$glyphicon."\"></span> ".$nazov."</a>
-                    ";
+                <i class="fa fa-caret-down"></i>
+            </a>
+            <div class="dropdown-container" id="Links_container">
+                <?php
+                $sql = mysqli_query($con, "select * from zalozka where podskupina='1' and os_udaje_rod_cislo is null and link is not null order by Nazov asc");
+                $i = 0;
+                while ($rows = $sql->fetch_assoc()) {
+                    $data[$i] = $rows;
+                    ++$i;
                 }
-            }
-            ?>
+
+                if($i>0) {
+                    for ($j = 0; $j < $i; $j++) {
+                        $row = $data[$j];
+                        $link=$row['link'];
+                        $glyphicon=$row['glyphicon'];
+                        $nazov=$row['Nazov'];
+                        echo "
+                     <a class=\"menuItem\" target=\"_blank\" href=\"".$link."\"><span class=\"glyphicon ".$glyphicon."\"></span> ".$nazov."</a>
+                    ";
+                    }
+                }
+                ?>
+                    <?php
+                    $sql = mysqli_query($con, "select * from zalozka where podskupina='2' and os_udaje_rod_cislo is null and link is not null order by Nazov asc");
+                    $i = 0;
+                    while ($rows = $sql->fetch_assoc()) {
+                        $data[$i] = $rows;
+                        ++$i;
+                    }
+
+                    if($i>0) {
+                        echo "
+                                        <a class=\"menuItem\" id=\"Major\">Základné odkazy
+                                            <i class=\"fa fa-caret-down\"></i>
+                                        </a>
+                                        <div class=\"dropdown-container\" id=\"Major_container\">
+                        ";
+                        for ($j = 0; $j < $i; $j++) {
+                            $row = $data[$j];
+                            $link=$row['link'];
+                            $glyphicon=$row['glyphicon'];
+                            $nazov=$row['Nazov'];
+                            echo "
+                     <a class=\"menuItem\" target=\"_blank\" href=\"".$link."\"><span class=\"glyphicon ".$glyphicon."\"></span> ".$nazov."</a>
+                    ";
+                        }
+                        echo "</div>";
+                    }
+                    ?>
+
+                    <?php
+                    $sql = mysqli_query($con, "select * from zalozka where podskupina='3' and os_udaje_rod_cislo is null and link is not null order by Nazov asc");
+                    $i = 0;
+                    while ($rows = $sql->fetch_assoc()) {
+                        $data[$i] = $rows;
+                        ++$i;
+                    }
+
+                    if($i>0) {
+                        echo"
+                                            <a class=\"menuItem\" id=\"Others\">Ostatne odkazy
+                                                <i class=\"fa fa-caret-down\"></i>
+                                            </a>
+                                            <div class=\"dropdown-container\" id=\"Others_container\">
+                        ";
+
+                        for ($j = 0; $j < $i; $j++) {
+                            $row = $data[$j];
+                            $link=$row['link'];
+                            $glyphicon=$row['glyphicon'];
+                            $nazov=$row['Nazov'];
+                            echo "
+                     <a class=\"menuItem\" target=\"_blank\" href=\"".$link."\"><span class=\"glyphicon ".$glyphicon."\"></span> ".$nazov."</a>
+                    ";
+                        }
+                        echo "</div>";
+                    }
+                    ?>
             <?php
             if($info['Zalozky']==1){
                 echo "
@@ -798,7 +1129,7 @@
                     $glyphicon=$row['glyphicon'];
                     $nazov=$row['Nazov'];
                     echo "
-                     <a class=\"menuItem\" href=\"".$link."\"><span class=\"glyphicon ".$glyphicon."\"></span> ".$nazov."</a>
+                     <a class=\"menuItem\" target=\"_blank\" href=\"".$link."\"><span class=\"glyphicon ".$glyphicon."\"></span> ".$nazov."</a>
                     ";
                 }
             }
@@ -814,6 +1145,7 @@
         </a>
         <div class="dropdown-container" id="Personal_container">
             <a class="menuItem" href="#" id="settingsButton"><span class="glyphicon glyphicon-cog"></span> Nastavenia</a>
+            <a class="menuItem" href="#" id="otherSettingsButton"><span class="glyphicon glyphicon-wrench"></span> Ostatné Nastavenia</a>
         </div>
         <?php
         if($info['Pravomoci']==1 || $info['Kontakty']==1){
@@ -834,6 +1166,12 @@
                 <a class=\"menuItem\" href=\"#\" id=\"importButton\"><span class=\"glyphicon glyphicon-hdd\"></span> Pridať uživateľov</a>
             ";
             }
+
+            if($info['Miesta']==1){
+                echo "
+                <a class=\"menuItem\" href=\"#\" id=\"placeButton\"><span class=\"glyphicon glyphicon-map-marker\"></span> Miesta</a>";
+            }
+
             echo "
             </div>
             ";

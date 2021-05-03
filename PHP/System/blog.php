@@ -37,7 +37,7 @@ echo "
                     <h5>".$row['Meno']." ".$row['Priezvisko']."</h5>
                 </div>
                 <div class=\"col-md-6\">
-                    <h5>".$row['datum']."</h5>
+                    <h5>". date('d.m.Y',strtotime($row['datum']))."</h5>
                 </div>
             </div>
         </div>

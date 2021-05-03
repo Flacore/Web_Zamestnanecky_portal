@@ -1,4 +1,10 @@
 $(document).ready( function() {
+    $("#placeButton").on("click", function () {
+        $("#componentWindow").load("SystemComponents/place_comp.php");
+        active("placeButton", "null");
+        closeNav();
+    });
+
     $("#homeButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/Home_Component.php");
         active("homeButton","null");
@@ -26,6 +32,12 @@ $(document).ready( function() {
     $("#messegesButton").on("click", function() {
         $("#componentWindow").load("SystemComponents/Messeges_Component.php");
         active("messegesButton","null");
+        closeNav();
+    });
+
+    $("#otherSettingsButton").on("click", function() {
+        $("#componentWindow").load("SystemComponents/otherSettings_Component.php");
+        active("otherSettingsButton","null");
         closeNav();
     });
 
@@ -84,6 +96,24 @@ $(document).ready( function() {
         } else {
             hideDropdowns();
             dropdownContent1.style.display = "block";
+        }
+    });
+
+    $("#Major").on("click",function () {
+        var dropdownContent2 = document.getElementById("Major_container");
+        if (dropdownContent2.style.display === "block") {
+            dropdownContent2.style.display = "none";
+        } else {
+            dropdownContent2.style.display = "block";
+        }
+    });
+
+    $("#Others").on("click",function () {
+        var dropdownContent2 = document.getElementById("Others_container");
+        if (dropdownContent2.style.display === "block") {
+            dropdownContent2.style.display = "none";
+        } else {
+            dropdownContent2.style.display = "block";
         }
     });
 

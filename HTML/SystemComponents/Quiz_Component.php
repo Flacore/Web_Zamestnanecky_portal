@@ -31,7 +31,7 @@
         <div class='quiz_compartmant'>
                <h3>Nazov: " . $row['Nazov'] . "</h3>
                <h6>Popis: " . $row['Popis'] . "</h6>
-               <h5>Vytvorenie: " . $row['vytvorenie'] . "</h5>
+               <h5>Vytvorenie: " .  date('d.m.Y',strtotime($row['vytvorenie'])) . "</h5>
                <h5>Vyplnené: " . $k . "x</h5>
                <button onclick='generateURL(" . $row['idformular'] . ")'>Zdieľaj</button>";
             if ($k > 0) {

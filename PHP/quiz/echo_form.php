@@ -89,7 +89,7 @@ if(1 == $detail && $vypln!=-1){
                         for($n=0;$n<$z;$n++){
                             $data_na_rozdelenie=$data[$n];
                             $Cesta=$data_na_rozdelenie['cesta'];
-                            $Datum=date("d-m-Y", strtotime($data_na_rozdelenie['vytvorenie']));
+                            $Datum=date("d.m.Y", strtotime($data_na_rozdelenie['vytvorenie']));
                             echo "
                             <div class='item_DownloadList'>
                                   <div class='row'>
@@ -123,7 +123,7 @@ if(1 == $detail && $vypln!=-1){
                     }
                     for($x=0;$x<$z;$x++){
                         $time=$times[$x];
-                        echo "<h4>".($x+1).". ".date("d-m-Y", strtotime($time['datum']))."</h4>";
+                        echo "<h4>".($x+1).". ".date("d.m.Y", strtotime($time['datum']))."</h4>";
                     }
 
                     echo "</div></div>

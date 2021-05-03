@@ -6,7 +6,32 @@
         <div class="row">
             <br>
             <div class="col-sm-12">
-                <div class="col-sm-12 center"><div class="imgAvatar center shadow"></div></div>
+                <?php
+                $sql = mysqli_query($con, "select cesta as fotocesta from os_udaje left join subor on(subor_fotka=idSubor)
+                    where rod_cislo='".$id."'");
+                $i = 0;
+                while ($rows = $sql->fetch_assoc()) {
+                    $data[$i] = $rows;
+                    ++$i;
+                }
+                if($i>0) {
+                    $row = $data[0];
+                    if ($row['fotocesta']!=null) {
+                        echo "                <div class=\"col-sm-12 center\"><div class=\"center shadow\"
+                                                        style=\"border-radius: 100%;
+                                                               width: 200px;
+                                                               height: 200px;
+                                                               overflow: hidden;
+                                                               background-size: cover;
+                                                               background-position: center;
+                                                               background-image: url('http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server" . $row['fotocesta'] . "');\"
+                                                  ></div></div>";
+                    } else
+                        echo "                <div class=\"col-sm-12 center\"><div class=\"imgAvatar center shadow\"></div></div>";
+                }else{
+                    echo "                <div class=\"col-sm-12 center\"><div class=\"imgAvatar center shadow\"></div></div>";
+                }
+                ?>
                 <div class="col-sm-12 center"><h2 class="welcomSign ">Dobrý deň,
                     <?php
                     $sql = mysqli_query($con, "select * from os_udaje where rod_cislo='".$id."'");
@@ -29,7 +54,7 @@
 
                         <div class="infoBox-textContainer">
                             <?php
-                            $sql = mysqli_query($con, "select * from notifikacia where os_udaje_rod_cislo='".$id."'");
+                            $sql = mysqli_query($con, "select * from notifikacia where Videne='0' and os_udaje_rod_cislo='".$id."'");
                             $i = 0;
                             while ($rows = $sql->fetch_assoc()) {
                                 $data[$i] = $rows;

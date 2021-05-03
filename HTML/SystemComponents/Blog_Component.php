@@ -19,7 +19,11 @@
         <div id="_msg-sideMenu" class="msg-sideMenu">
             <div id="_NameList" class="NameList row">
                 <?php
-                $sql = mysqli_query($con, "select * from blog join os_udaje on(os_udaje_rod_cislo = rod_cislo) ");
+                $sql = mysqli_query($con, "select *,bg.datum as datum,pb.os_udaje_rod_cislo as precitane from blog bg join os_udaje ou on(bg.os_udaje_rod_cislo = ou.rod_cislo) 
+                                                  left join precitane_blog pb on(pb.os_udaje_rod_cislo) 
+                                                  where (platnost_od<=current_date or platnost_od is null)
+                                                  and (platnost_do>=current_date or platnost_do is null) 
+                                                  and (pb.os_udaje_rod_cislo is null or pb.os_udaje_rod_cislo ='".$id."')");
                 $num = mysqli_query($con, "select count(*) as NumberData from blog ");
                 $num_row=mysqli_fetch_array($num);
                 $n=$num_row['NumberData'];
@@ -28,23 +32,47 @@
                     $data[$i]=$rows;
                     ++$i;
                 }
-
+                $n=$i;
                 if($n>0) {
                     for ($i = 0; $i < $n; $i++) {
                         $row = $data[$i];
-                        echo "
-                    <div class=\"NameList-item blog-item\">
-                    <h1 style='display: none'>".$row['idBlog']."</h1>
-                    <div class=\"col-sm-12\">
-                        <h4 class=\"Name-Blog\">".$row['nadpis']."</h4>
-                    </div>
-                    <div class=\"col-sm-12 info-blog\">
-                        <div class=\"col-sm-12\">
-                            <h5 class='Date-Blog'>".$row['datum']."</h5>
-                        </div>
-                    </div>
-                </div>
-                        ";
+                        if($row['precitane']>=0) {
+                            echo "
+                            <div class=\"NameList-item blog-item\">
+                                <h1 style='display: none'>" . $row['idBlog'] . "</h1>
+                                <div class=\"col-sm-12\">";
+                             if(strlen($row['nadpis'])>100){
+                                 echo "<h4 class=\"Name-Blog\">" . substr($row['nadpis'],0,97) . "...</h4>";
+                             }else{
+                                 echo "<h4 class=\"Name-Blog\">" . $row['nadpis'] . "</h4>";
+                             }
+                            echo"</div>
+                                <div class=\"col-sm-12 info-blog\">
+                                    <div class=\"col-sm-12\">
+                                        <h5 class='Date-Blog'>" . date('d.m.Y',strtotime($row['datum'])) . "</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            ";
+                        }else{
+                            echo "
+                            <div class=\"NameList-item blog-item-read\">
+                                <h1 style='display: none'>" . $row['idBlog'] . "</h1>
+                                <div class=\"col-sm-12\">";
+                             if(strlen($row['nadpis'])>100){
+                                 echo "<h4 class=\"Name-Blog\">" . substr($row['nadpis'],0,100) . "...</h4>";
+                             }else{
+                                 echo "<h4 class=\"Name-Blog\">" . $row['nadpis'] . "</h4>";
+                             }
+                            echo"</div>
+                                <div class=\"col-sm-12 info-blog\">
+                                    <div class=\"col-sm-12\">
+                                        <h5 class='Date-Blog'>" . date('d.m.Y',strtotime($row['datum'])) . "</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            ";
+                        }
                     }
                 }
                 ?>
@@ -56,8 +84,11 @@
                 <?php
                 if($info['Blog']==1){
                     echo "
-                    <div id=\"newBlog\" class=\"newMessege\" onclick=\"#href\">
+                    <div id=\"newBlog\" class=\"newBlog\" onclick=\"#href\">
                         <span class=\"glyphicon glyphicon-plus\"></span>
+                    </div>
+                    <div id=\"myBlog\" class=\"myBlog\" onclick=\"open_modal_blog()\">
+                        <span class=\"glyphicon glyphicon-list\"></span>
                     </div>
                     ";
                 }
@@ -73,8 +104,8 @@
     <?php
         if($info['Blog']==1){
             echo "
-                <div class=\"display_No\" id=\"addBlog\">
-                    <div class=\"add_Blog\">
+                <div class=\" display_No\" id=\"addBlog\">
+                    <div class=\"overflow-scroll add_Blog\">
                         <form action=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_blog.php\" method=\"post\">
                             <legend>Kategória:</legend>
                             <input checked class=\"typ\" type=\"checkbox\" name=\"typ\" value='1' onclick=\"onlyOne(this,'.typ',2,1)\">Aktualita<br>
@@ -82,8 +113,14 @@
             
                             <legend>Obecenstvo:</legend>
                             <input checked class=\"verejnost\" type=\"checkbox\" name=\"verejnost\" value='1' onclick=\"onlyOne(this,'.verejnost',0,1)\">Verejná<br>
-                            <input class=\"verejnost\" type=\"checkbox\" name=\"verejnost\" value='0' onclick=\"onlyOne(this,'.verejnost',0,2)\">Súkromná<br>
-            
+                            <input class=\"verejnost\" type=\"checkbox\" name=\"verejnost\" value='0' onclick=\"onlyOne(this,'.verejnost',0,2)\">Súkromná<br> 
+                              
+                            <div id='platnostAktuality'>
+                                <legend>Platnosť aktuality:</legend>
+                                Od:<input name='od' id='od' type='date' value=\"0001-01-01\"><br>
+                                Do:<input name='do'  id='do' type='date' value=\"0001-01-01\"><br> 
+                            </div> 
+                              
                             <legend>Nadpis:</legend>
                             <textarea required name=\"nadpis\" rows=\"1\"></textarea>
             
@@ -142,9 +179,11 @@
 
         if(tmp==1){
             document.getElementById('text_area').style.display='none';
+            document.getElementById('platnostAktuality').style.display='none';
         }
         if(tmp==2){
             document.getElementById('text_area').style.display='block';
+            document.getElementById('platnostAktuality').style.display='block';
         }
     }
 

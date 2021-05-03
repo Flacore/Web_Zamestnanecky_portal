@@ -3,7 +3,7 @@ include "../config_DB.php";
 include "../ftp/Upload_file.php";
 $rod_cislo=$_SESSION['session'];
 
-if(!isset($_SESSION['session'])){
+if(!(isset($_SESSION['session']) && isset($_SESSION['session']))){
     header('Location: Main_Site.php');
 }
 

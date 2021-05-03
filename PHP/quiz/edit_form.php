@@ -41,9 +41,9 @@ if ($k != 0) {
                 <label>Popis:</label>
                 <input type=\"text\" value='".$data_item['Popis']."' name=\"popis\">
                 <label>Platnosť od:</label>
-                <input type=\"date\" value='".date("Y-m-d", strtotime($data['platnost_od']))."' name=\"platnost_od\">
+                <input type=\"date\" value='".date("d.m.Y", strtotime($data['platnost_od']))."' name=\"platnost_od\">
                 <label>Platnosť do:</label>
-                <input type=\"date\" value='".date("Y-m-d", strtotime($data['platnost_do']))."' name=\"platnost_do\">
+                <input type=\"date\" value='".date("d.m.Y", strtotime($data['platnost_do']))."' name=\"platnost_do\">
             </form>
         </div>";
     } else {
@@ -69,9 +69,9 @@ if ($k != 0) {
                 <label>Popis:</label>
                 <input type=\"text\" value='".$data_item['Popis']."' name=\"popis\">
                 <label>Platnosť od:</label>
-                <input type=\"date\" value='".date("Y-m-d", strtotime($data['platnost_od']))."' name=\"platnost_od\">
+                <input type=\"date\" value='".date("d.m.Y", strtotime($data['platnost_od']))."' name=\"platnost_od\">
                 <label>Platnosť do:</label>
-                <input type=\"date\" value='".date("yyyy-MM-dd", strtotime($data['platnost_do']))."' name=\"platnost_do\">
+                <input type=\"date\" value='".date("d.m.Y", strtotime($data['platnost_do']))."' name=\"platnost_do\">
             </form>
         </div>";
     }

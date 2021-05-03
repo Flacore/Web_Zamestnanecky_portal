@@ -29,7 +29,7 @@
         <a class="col-sm" id="oznamyButton" href="#oznamy">Oznamy a Aktuality</a>
         <a class="col-sm" id="o_nasButton" href="#o_nas">O nás</a>
         <a class="col-sm" id="inzerciaButton" href="#inzercia">Inzercia</a>
-        <a class="col-sm" id="prac_pozicieButton" href="#prac_pozicie">Volné pracovné pozície</a>
+        <a class="col-sm" id="prac_pozicieButton" href="#prac_pozicie">Projekty</a>
         <a class="col-sm" id="kurzyButton" href="#kurzy">Kurzy</a>
         <a href="javascript:void(0);" class="icon" onclick="myFunction()">
             <i class="fa fa-bars"></i>
@@ -96,7 +96,7 @@
                                     <h5 class=\"txtJustify txtBlack\">
                                         ".$row['predtext']."
                                     </h5>
-                                    <h6 class=\"txtRight txtBlack\">Datum: ".$row['datum']."</h6>
+                                    <h6 class=\"txtRight txtBlack\">Datum: ". date('d.m.Y',strtotime($row['datum']))."</h6>
                                 </div>
                             </div>
                             ";}
@@ -153,7 +153,7 @@
                                     <h5 class=\"txtJustify txtBlack\">
                                         ".$row['predtext']."
                                     </h5>
-                                    <h6 class=\"txtRight txtBlack\">Datum: ".$row['datum']."</h6>
+                                    <h6 class=\"txtRight txtBlack\">Datum: ". date('d.m.Y',strtotime($row['datum']))."</h6>
                                 </div>
                             </div>
                             ";}
@@ -302,9 +302,8 @@
 
     <div class="container" id="prac_pozicie">
         <br><br><br>
-        <h2 class="txtCenter txtBlack">Hladáme</h2>
+        <h2 class="txtCenter txtBlack">Projekty</h2>
         <h4 class="txtCenter txtBlack txtFullWidth">
-            Stante sa súčasťou nášho profesionálneho týmu...
         </h4>
         <br>
         <?php
@@ -336,7 +335,7 @@
                     echo "               
                      <div>
                             <tr>
-                                <td>" . $row['datum'] . "</td>
+                                <td>" .  date('d.m.Y',strtotime($row['datum'])) . "</td>
                                 <td>
                                     " . $row['descr'] . "
                                 </td>
@@ -401,7 +400,7 @@
                             $cena=$row['cena'];
                         echo "               
                          <tr onclick=\"tableDetail('kurzDetail".$i."')\">
-                                <td>".$row['datum']."</td>
+                                <td>". date('d.m.Y',strtotime($row['datum']))."</td>
                                 <td>".$row['nazov']."</td>
                                 <td>".$row['miesto']."</td>
                                 <td>".$cena." €</td>
@@ -626,12 +625,12 @@
         }
 
         function  inzViewOpen() {
-            document.getElementById('inzercia_cat').style.display='block';
             document.getElementById('inzercia_view').style.display='block';
-            let tmp = document.getElementById('inzercia_all');
-            tmp.load("SystemComponents/inzercia.php");
+            document.getElementById('inzercia_cat').style.display='block';
             document.getElementById('inzercia_all').style.display='none';
             document.getElementById('inzercia_det').style.display='none';
+            let tmp = document.getElementById('inzercia_all');
+            tmp.load("SystemComponents/inzercia.php");
         }
 
         function showDetail_inz(id) {

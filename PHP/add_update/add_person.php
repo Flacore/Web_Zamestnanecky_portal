@@ -2,7 +2,7 @@
 include "../config_DB.php";
 $id_uzivatel=$_SESSION['session'];
 
-if(true) {
+if( isset($_SESSION['session'])) {
     $rod_cislo=$_POST['rod_cislo'];
     $name=$_POST['name'];
     $sur_name=$_POST['sur_name'];
@@ -35,7 +35,7 @@ if(true) {
     $name=iconv('UTF-8', 'US-ASCII//TRANSLIT', $name);
     $name=strtoupper($name);
     $pass=$name[0].$sur_name[0].substr($rod_cislo,0,6).substr($rod_cislo,7,4);
-    $pass=crypt(mysqli_real_escape_string($con, $pass),"test");
+    $pass=crypt(mysqli_real_escape_string($con, $pass),$rod_cislo);
     $sql = "INSERT into login (idLogin, login, password, OS_udaje_rod_cislo)Values ('$id_log','$login','$pass','$rod_cislo' )";
     mysqli_query($con, $sql);
 

@@ -1,7 +1,7 @@
 <?php
 include "../config_DB.php";
 $id=$_SESSION['session'];
-if(isset($_POST["but_add"])) {
+if(isset($_POST["but_add"]) && isset($_SESSION['session'])) {
     $telefon=$_POST['telephone'];
     $mail=$_POST['mail'];
 
@@ -13,7 +13,7 @@ if(isset($_POST["but_add"])) {
     }
 
     if($n>0) {
-        $sql = "UPDATE kontakt SET telefon='" . $telefon . "',email='" . $mail . "'  WHERE os_udaje_rod_cislo='" . $id . "' and priority='1'";
+        $sql = "UPDATE kontakt SET telefon='" . $telefon . "',email='" . $mail . "'  WHERE os_udaje_rod_cislo='" . $id . "'";
         $con->query($sql);
         $con->close();
     }else{

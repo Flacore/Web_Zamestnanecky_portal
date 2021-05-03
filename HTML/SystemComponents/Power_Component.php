@@ -33,6 +33,7 @@ $info = $sql->fetch_assoc();
                         <th>Dokumenty</th>
                         <th>Dotazníky</th>
                         <th>Inzercia</th>
+                        <th>Miesta</th>
                         <th>Odstráň</th>
                     </tr>
                     <div id="position_window">
@@ -61,6 +62,7 @@ $info = $sql->fetch_assoc();
                                         <td>✓</td>
                                         <td>✓</td>
                                         <td>✓</td>
+                                        <td>✓</td>
                                         <td></td>
                                     </tr>
                                 ";
@@ -78,6 +80,7 @@ $info = $sql->fetch_assoc();
                                         <td><input " . checkbox($row['Dokumenty']) . " name=\"dok_" . ($j + 1) . "\" type=\"checkbox\"></td>
                                         <td><input " . checkbox($row['Dotazniky']) . " name=\"dot_" . ($j + 1) . "\" type=\"checkbox\"></td>
                                         <td><input " . checkbox($row['Inzercia']) . " name=\"inz_" . ($j + 1) . "\" type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Miesta']) . " name=\"mie_" . ($j + 1) . "\" type=\"checkbox\"></td>
                                         <td><input  name=\"odst_" . ($j + 1) . "\" type=\"checkbox\"></td>
                                     </tr>
                                 ";

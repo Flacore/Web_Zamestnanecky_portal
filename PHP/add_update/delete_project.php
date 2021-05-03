@@ -8,7 +8,7 @@ while ($rows = $sql->fetch_assoc()) {
     $n++;
 }
 
-if($n>0){
+if($n>0 && isset($_SESSION['session'])){
     $sql = "Delete from subor where idSubor='" . $info['Subor_idSubor'] . "'";
     $con->query($sql);
 
