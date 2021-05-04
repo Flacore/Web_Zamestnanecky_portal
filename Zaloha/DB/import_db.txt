@@ -1,0 +1,383 @@
+SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
+SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
+SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
+
+-- -----------------------------------------------------
+-- Schema zamestnanecky_portal
+-- -----------------------------------------------------
+
+-- -----------------------------------------------------
+-- Schema zamestnanecky_portal
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS `zamestnanecky_portal` DEFAULT CHARACTER SET utf8 ;
+USE `zamestnanecky_portal` ;
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`pracovisko`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`pracovisko` (
+  `idPracovisko` INT NOT NULL,
+  `Názov` VARCHAR(50) NOT NULL,
+  PRIMARY KEY (`idPracovisko`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`zalozka`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`zalozka` (
+  `idZalozka` VARCHAR(45) NOT NULL,
+  `Nazov` VARCHAR(45) NOT NULL,
+  `podskupina` INT NULL,
+  `glyphicon` VARCHAR(45) NULL,
+  `link` VARCHAR(1024) NULL,
+  `os_udaje_rod_cislo` VARCHAR(11) NULL,
+  PRIMARY KEY (`idZalozka`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`kategoria`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`kategoria` (
+  `id_kategoria` INT NOT NULL,
+  `Názov` VARCHAR(45) NOT NULL,
+  `Subor_idSubor` INT NULL,
+  PRIMARY KEY (`id_kategoria`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`inzerat`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`inzerat` (
+  `id_inzerat` INT NOT NULL,
+  `Titulok` VARCHAR(128) NOT NULL,
+  `Popis` VARCHAR(1024) NOT NULL,
+  `vytvorenie` DATE NOT NULL,
+  `zobraz_telefon` INT NULL,
+  `cenovka` INT NULL,
+  `kategoria_id_kategoria` INT NULL,
+  `os_udaje_rod_cislo` VARCHAR(11) NOT NULL,
+  PRIMARY KEY (`id_inzerat`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`subor`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`subor` (
+  `idSubor` INT NOT NULL,
+  `nazov` VARCHAR(1555) NOT NULL,
+  `cesta` VARCHAR(1555) NOT NULL,
+  `vytvorenie` DATE NOT NULL,
+  `popis` VARCHAR(45) NULL,
+  `Zalozka_idZalozka` VARCHAR(45) NULL,
+  `inzerat_id_inzerat` INT NULL,
+  PRIMARY KEY (`idSubor`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`os_udaje`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`os_udaje` (
+  `rod_cislo` VARCHAR(11) NOT NULL,
+  `miestnost` VARCHAR(45) NULL,
+  `Meno` VARCHAR(45) NOT NULL,
+  `titul_pred` VARCHAR(45) NULL,
+  `Priezvisko` VARCHAR(45) NOT NULL,
+  `titul_za` VARCHAR(45) NULL,
+  `Pracovisko_idPracovisko` INT NOT NULL,
+  `subor_fotka` INT NULL,
+  `subor_CV` INT NULL,
+  `IBAN` VARCHAR(24) NULL,
+  `PSC` VARCHAR(5) NULL,
+  `Mesto` VARCHAR(128) NULL,
+  `Adresa` VARCHAR(256) NULL,
+  PRIMARY KEY (`rod_cislo`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`login`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`login` (
+  `idLogin` INT NOT NULL,
+  `login` VARCHAR(255) NOT NULL,
+  `password` VARCHAR(255) NOT NULL,
+  `OS_udaje_rod_cislo` VARCHAR(11) NOT NULL,
+  PRIMARY KEY (`idLogin`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`notifikacia`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`notifikacia` (
+  `idNotifikacia` INT NOT NULL,
+  `text` VARCHAR(255) NOT NULL,
+  `datum` DATE NULL,
+  `Videne` INT NULL,
+  `os_udaje_rod_cislo` VARCHAR(11) NOT NULL,
+  PRIMARY KEY (`idNotifikacia`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`projekty`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`projekty` (
+  `idProjekt` INT NOT NULL,
+  `datum` DATE NOT NULL,
+  `popis` VARCHAR(45) NOT NULL,
+  `verejne` TINYINT NOT NULL,
+  `Subor_idSubor` INT NULL,
+  `os_udaje_rod_cislo` VARCHAR(11) NOT NULL,
+  PRIMARY KEY (`idProjekt`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`blog`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`blog` (
+  `idBlog` INT NOT NULL,
+  `aktualita` TINYINT NOT NULL,
+  `verejne` TINYINT NOT NULL,
+  `nadpis` VARCHAR(255) NOT NULL,
+  `predtext` LONGTEXT NOT NULL,
+  `text` LONGTEXT NULL,
+  `datum` DATE NOT NULL,
+  `os_udaje_rod_cislo` VARCHAR(11) NOT NULL,
+  `platnost_od` DATE NULL,
+  `platnost_do` DATE NULL,
+  PRIMARY KEY (`idBlog`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`celoziv_vzdel`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`celoziv_vzdel` (
+  `idprednasky` INT NOT NULL,
+  `datum` DATE NOT NULL,
+  `nazov` VARCHAR(45) NOT NULL,
+  `verejne` TINYINT NOT NULL,
+  `miesto` VARCHAR(255) NOT NULL,
+  `popis` LONGTEXT NULL,
+  `cena` DOUBLE NULL,
+  `Subor_idSubor` INT NULL,
+  `os_udaje_rod_cislo` VARCHAR(11) NOT NULL,
+  PRIMARY KEY (`idprednasky`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`prihlaseny`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`prihlaseny` (
+  `os_udaje_rod_cislo` VARCHAR(11) NOT NULL,
+  `prednasky_idprednasky` INT NOT NULL,
+  PRIMARY KEY (`os_udaje_rod_cislo`, `prednasky_idprednasky`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`precitane_blog`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`precitane_blog` (
+  `Blog_idBlog` INT NOT NULL,
+  `os_udaje_rod_cislo` VARCHAR(11) NOT NULL,
+  `datum` DATE NOT NULL)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`formular`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`formular` (
+  `idformular` INT NOT NULL,
+  `typ` INT NOT NULL,
+  `vytvorenie` DATE NOT NULL,
+  `platnost_od` DATE NULL,
+  `platnost_do` DATE NULL,
+  `os_udaje_rod_cislo` VARCHAR(11) NOT NULL,
+  PRIMARY KEY (`idformular`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`vyplnenie_formulara`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`vyplnenie_formulara` (
+  `idVyplnenie_formulara` INT NOT NULL,
+  `formular_idformular` INT NOT NULL,
+  `vyplnenie` DATE NULL,
+  PRIMARY KEY (`idVyplnenie_formulara`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`prvok`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`prvok` (
+  `idprvok` INT NOT NULL,
+  `formular_idformular` INT NOT NULL,
+  `typ_prvku` INT NOT NULL,
+  `z_index` INT NOT NULL,
+  `Nazov` VARCHAR(255) NULL,
+  `Popis` VARCHAR(1024) NULL,
+  `min` INT NULL,
+  `max` INT NULL,
+  `Vyzadovanie` INT NULL,
+  `Mozn_ine` INT NULL,
+  PRIMARY KEY (`idprvok`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`moznost`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`moznost` (
+  `idMoznost` INT NOT NULL,
+  `text` VARCHAR(255) NOT NULL,
+  `Moznost_idMoznost` INT NULL,
+  `prvok_idprvok` INT NULL,
+  PRIMARY KEY (`idMoznost`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`obsah`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`obsah` (
+  `idObsah` INT NOT NULL,
+  `url` VARCHAR(45) NULL,
+  `prvok_idprvok` INT NOT NULL,
+  `Subor_idSubor` INT NULL,
+  PRIMARY KEY (`idObsah`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`odpoved`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`odpoved` (
+  `idOdpoved` INT NOT NULL,
+  `text` VARCHAR(1024) NULL,
+  `datum` DATE NULL,
+  `cas` TIME NULL,
+  `hodnotenie` INT NULL,
+  `Moznost_idMoznost` INT NULL,
+  `vyplnenie_formulara_idVyplnenie_formulara` INT NOT NULL,
+  `prvok_idprvok` INT NULL,
+  `Subor_idSubor` INT NULL,
+  PRIMARY KEY (`idOdpoved`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`funkcie`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`funkcie` (
+  `idPozícia` INT NOT NULL,
+  `Nazov` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`idPozícia`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`kontakt`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`kontakt` (
+  `idkontakt` INT NOT NULL,
+  `priorita` VARCHAR(45) NOT NULL,
+  `nazov` VARCHAR(45) NULL,
+  `telefon` VARCHAR(13) NULL,
+  `email` VARCHAR(45) NULL,
+  `os_udaje_rod_cislo` VARCHAR(11) NOT NULL,
+  PRIMARY KEY (`idkontakt`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`konverzacia`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`konverzacia` (
+  `idKonverzacie` INT NOT NULL,
+  `precitane` TINYINT NOT NULL,
+  `Uzivatel1` VARCHAR(11) NOT NULL,
+  `Uzivatel2` VARCHAR(11) NOT NULL,
+  PRIMARY KEY (`idKonverzacie`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`sprava`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`sprava` (
+  `idSprva` INT NOT NULL,
+  `text` LONGTEXT NOT NULL,
+  `datum` DATE NOT NULL,
+  `Odosielatel` VARCHAR(11) NOT NULL,
+  `konverzacia_idKonverzacie` INT NOT NULL,
+  PRIMARY KEY (`idSprva`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`pravomoci`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`pravomoci` (
+  `funkcie_idPozícia` INT NOT NULL,
+  `Kontakty` TINYINT NOT NULL,
+  `Kurzy` TINYINT NOT NULL,
+  `Kariera` TINYINT NOT NULL,
+  `Blog` TINYINT NOT NULL,
+  `Pravomoci` TINYINT NOT NULL,
+  `Zalozky` TINYINT NOT NULL,
+  `Dokumenty` TINYINT NOT NULL,
+  `Dotazniky` TINYINT NOT NULL,
+  `Inzercia` TINYINT NOT NULL,
+  `Miesta` TINYINT NOT NULL,
+  `Detail_info` TINYINT NOT NULL,
+  PRIMARY KEY (`funkcie_idPozícia`))
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `zamestnanecky_portal`.`prirad_funkcia`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `zamestnanecky_portal`.`prirad_funkcia` (
+  `zaznam` INT NOT NULL,
+  `funkcie_idPozícia` VARCHAR(45) NOT NULL,
+  `os_udaje_rod_cislo` VARCHAR(11) NOT NULL,
+  `od` DATE NOT NULL,
+  `do` DATE NULL,
+  PRIMARY KEY (`zaznam`, `funkcie_idPozícia`, `os_udaje_rod_cislo`))
+ENGINE = InnoDB;
+
+
+INSERT INTO `funkcie` (`idPozícia`, `Nazov`) VALUES
+(1, 'admin'),
+(2, 'Nezaradené');
+
+INSERT INTO `kontakt` (`idkontakt`, `telefon`, `email`, `os_udaje_rod_cislo`, `priorita`, `nazov`) VALUES
+(1, '+421907500822', 'miciz1.roka@gmail.com', '961102/1111', 0, NULL);
+
+INSERT INTO `login` (`idLogin`, `login`, `password`, `OS_udaje_rod_cislo`) VALUES
+(1, 'adminus1', '96hR5IGsOwXA.', '961102/1111');
+
+INSERT INTO `os_udaje` (`rod_cislo`, `miestnost`, `Meno`, `titul_pred`, `Priezvisko`, `titul_za`, `Pracovisko_idPracovisko`, `subor_fotka`, `subor_CV`, `IBAN`, `PSC`, `Mesto`, `Adresa`) VALUES
+('961102/1111', NULL, 'Adminus', '', 'Testus', NULL, 1, NULL, NULL, '', '', '', '');
+
+INSERT INTO `pracovisko` (`idPracovisko`, `Názov`) VALUES
+(1, 'Ostatné');
+
+INSERT INTO `pravomoci` (`funkcie_idPozícia`, `Kontakty`, `Kurzy`, `Kariera`, `Blog`, `Pravomoci`, `Zalozky`, `Dokumenty`, `Dotazniky`, `Inzercia`, `Miesta`, `Detail_info`) VALUES
+(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+(2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+
+INSERT INTO `prirad_funkcia` (`zaznam`, `funkcie_idPozícia`, `os_udaje_rod_cislo`, `od`, `do`) VALUES
+(1, 1, '961102/1111', '2021-05-04', NULL);

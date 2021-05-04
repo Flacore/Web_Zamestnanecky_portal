@@ -9,9 +9,11 @@ while ($rows = $sql->fetch_assoc()) {
 }
 if(isset($_POST["but_add"]) && isset($_SESSION['session'])) {
     for ($j = 1; $j <= $i; $j++) {
+
         $id = $_POST['id_' . ($j + 1)];
         $nazov = $_POST['name_' . ($j + 1)];
-        $odstran =  checkbox($_POST['odst_' . ($j + 1)]);
+        $odstran =  checkbox('odst_' . ($j + 1));
+
         if($id==1 ){
             $nazov="admin";
             $odstran=false;
@@ -19,16 +21,18 @@ if(isset($_POST["but_add"]) && isset($_SESSION['session'])) {
         if($j==$i){
             $odstran=false;
         }
-        $Kontakty =  checkbox($_POST['cont_' . ($j + 1)]);
-        $kurzy =  checkbox($_POST['curs_' . ($j + 1)]);
-        $Kariera =  checkbox($_POST['care_' . ($j + 1)]);
-        $blog =  checkbox($_POST['blog_' . ($j + 1)]);
-        $pravomoci = checkbox($_POST['powr_' . ($j + 1)]);
-        $zalozky =  checkbox($_POST['zal_' . ($j + 1)]);
-        $dokumenty =  checkbox($_POST['dok_' . ($j + 1)]);
-        $dotaznik =  checkbox($_POST['dot_' . ($j + 1)]);
-        $inzercia = checkbox($_POST['inz_' . ($j + 1)]);
-        $miesta = checkbox($_POST['mie_' . ($j + 1)]);
+
+        $Kontakty =  checkbox('cont_' . ($j + 1));
+        $kurzy =  checkbox('curs_' . ($j + 1));
+        $Kariera =  checkbox('care_' . ($j + 1));
+        $blog =  checkbox('blog_' . ($j + 1));
+        $pravomoci = checkbox('powr_' . ($j + 1));
+        $zalozky =  checkbox('zal_' . ($j + 1));
+        $dokumenty =  checkbox('dok_' . ($j + 1));
+        $dotaznik =  checkbox('dot_' . ($j + 1));
+        $inzercia = checkbox('inz_' . ($j + 1));
+        $miesta = checkbox('mie_' . ($j + 1));
+
         if ($j < $i){
             if(!$odstran) {
                 $sql="UPDATE funkcie set Nazov='$nazov' where idPozícia='".$id."'";
@@ -37,8 +41,7 @@ if(isset($_POST["but_add"]) && isset($_SESSION['session'])) {
                         , Dokumenty='$dokumenty',Dotazniky='$dotaznik',Inzercia='$inzercia' where  funkcie_idPozícia='" . $id . "'";
                 $con->query($sql);
             }else{
-                $sql = mysqli_query($con, "select rod_cislo from os_udaje join prirad_funkcia on(os_udaje_rod_cislo=rod_cislo) where do is null");
-                $i = 0;
+                $sql = mysqli_query($con, "select rod_cislo from os_udaje join prirad_funkcia on(os_udaje_rod_cislo=rod_cislo) where funkcie_idPozícia='".$id."' and do is null");
                 while ($rows = $sql->fetch_assoc()) {
                     $rod_cislo=$rows['rod_cislo'];
                     $sql="UPDATE prirad_funkcia set do=current_date where do is null and os_udaje_rod_cislo='".$rod_cislo."'";
@@ -86,11 +89,12 @@ if(isset($_POST["but_add"]) && isset($_SESSION['session'])) {
             }
         }
     }
+
 header('Location: http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/HTML/System.php');
 }
 
 function checkbox($var){
-    if($var == 'on'){
+    if(isset($_POST[$var])){
         return 1;
     }
     return 0;

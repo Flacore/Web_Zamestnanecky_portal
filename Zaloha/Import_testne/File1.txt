@@ -1,0 +1,35 @@
+841106/3456,Peter,Novak,Kamenna 27,97401,Banska Bystrica                        
+840312/7845,Stanislav,Steinmuller,Zelena 9,91501,Nove Mesto nad Vahom           
+860907/1259,Janos,Toth,Slnecne namestie,94501,Komarno                           
+850130/3695,Marek,Ratroch,Stred 49/7,01701,Povazska Bystrica                    
+841201/1248,Bohuslav,Biely,Juh 2100/456,91101,Trencin                           
+830514/5341,Branislav,Balaz,Tahanovce 38/12,04000,Kosice                        
+781015/4431,Peter,Kapustny,Javorova 2,01001,Zilina                              
+800407/3522,Marek,Durica,Precin 124,01701,Precin                                
+791229/5431,Martin,Kluciar,A. Bernolaka 14/20,01001,Zilina                      
+871124/3578,Lukas,Satrapa,Dolna 12,02201,Cadca                                  
+871203/5472,Jan,Krnac,Prievoznicka,03401,Ruzomberok                             
+890310/2145,Juraj,Papun,Kosicka cesta,07101,Michalovce                          
+911001/3623,Andrej,Janci,Tatranska 22,05801,Poprad                              
+901130/4454,Zdeno,Svetkovsky,Janka Borodaca 12,97101,Prievidza                  
+921225/7452,Rastislav,Kontros,Kolarovce 12,01401,Kolarovce                      
+900913/3326,Frantisek,Murgas,Namestie SNP 15,97401,Banska Bystrica              
+870913/3326,Frantisek,Murgas,Fatranska 13,01008,Zilina                          
+890608/4543,Lubos,Lehotsky,Orlove 16,01701,Orlove                               
+860103/2238,Rudolf,Kovac,Bratislavska cesta 2,01001,Zilina                      
+896123/5471,Zuzana,Slamova,Pivovarska 14/536,30100,Plzen                        
+855122/8569,Erika,Lipovska,Priecna ulica 35,01401,Bytca                         
+830914/7748,Robert,Mazur,147,065 0,Vysne Ruzbachy                               
+840410/6777,Alojz,Gazo,Mostna 19/1,97251,Handlova                               
+840409/7900,Zoltan,Sim,Ligetska 10,97251,Handlova                               
+830420/8088,Zdenko,Olzbut,Nemocnicna 1145/29,02601,Dolny Kubin                  
+830301/7789,Martin,Skuta,Lesna 7/12,03401,Ruzomberok                            
+831002/8463,Jozef,Brna,Lanska 928/7-12,01701,Povazska Bystrica                  
+840307/7485,Lubomir,Kominek,185,95122,Aleksinovce                               
+840821/8027,Jaroslav,Cipak,Chocska 1537/23,02601,Dolny Kubin                    
+830324/7887,Peter,Stelbasky,Razusa 40/10,97101,Prievidza 4                      
+830703/7486,Peter,Minarik,2392/20,91101,Halalovka                               
+820101/8452,Juraj,Tuma,82,02334,Kysucky Lieskovec                               
+840409/7680,Dusan,Bucany,Gen.Svobodu 1972/19,96001,Zvolen                       
+831204/7766,Peter,Korenciak,Struhy 1270,02302,Krasno nad Kysucou                
+810101/8079,Miroslav,Gmuca,SNP 41,97613,Slovenska Lupca                         

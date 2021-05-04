@@ -36,8 +36,6 @@ $info = $sql->fetch_assoc();
                         <th>Miesta</th>
                         <th>Odstráň</th>
                     </tr>
-                    <div id="position_window">
-                        <div id="position_item">
                             <?php
                             $sql = mysqli_query($con, "select * from funkcie join pravomoci on (funkcie_idPozícia=idPozícia)");
                             $i = 0;
@@ -71,17 +69,17 @@ $info = $sql->fetch_assoc();
                                     <tr>
                                         <td style='display: none'><input name=\"id_" . ($j + 1) . "\" type=\"value\" value=" . ($j + 1) . "></td>
                                         <td><input name=\"name_" . ($j + 1) . "\" type=\"text\" value=" . $row['Nazov'] . "></td>
-                                        <td><input " . checkbox($row['Kontakty']) . " name=\"cont_" . ($j + 1) . "\" type=\"checkbox\"></td>
-                                        <td><input " . checkbox($row['Kurzy']) . " name=\"curs_" . ($j + 1) . "\" type=\"checkbox\"></td>
-                                        <td><input " . checkbox($row['Kariera']) . " name=\"care_" . ($j + 1) . "\" type=\"checkbox\"></td>
-                                        <td><input " . checkbox($row['Blog']) . " name=\"blog_" . ($j + 1) . "\" type=\"checkbox\"></td>
-                                        <td><input " . checkbox($row['Pravomoci']) . " name=\"powr_" . ($j + 1) . "\" type=\"checkbox\"></td>
-                                              <td><input " . checkbox($row['Zalozky']) . " name=\"zal_" . ($j + 1) . "\" type=\"checkbox\"></td>
-                                        <td><input " . checkbox($row['Dokumenty']) . " name=\"dok_" . ($j + 1) . "\" type=\"checkbox\"></td>
-                                        <td><input " . checkbox($row['Dotazniky']) . " name=\"dot_" . ($j + 1) . "\" type=\"checkbox\"></td>
-                                        <td><input " . checkbox($row['Inzercia']) . " name=\"inz_" . ($j + 1) . "\" type=\"checkbox\"></td>
-                                        <td><input " . checkbox($row['Miesta']) . " name=\"mie_" . ($j + 1) . "\" type=\"checkbox\"></td>
-                                        <td><input  name=\"odst_" . ($j + 1) . "\" type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Kontakty']) . " name='cont_" . ($j + 1) . "' type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Kurzy']) . " name='curs_" . ($j + 1) . "' type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Kariera']) . " name='care_" . ($j + 1) . "' type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Blog']) . " name='blog_" . ($j + 1) . "' type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Pravomoci']) . " name='powr_" . ($j + 1) . "' type=\"checkbox\"></td>
+                                              <td><input " . checkbox($row['Zalozky']) . " name='zal_" . ($j + 1) . "' type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Dokumenty']) . " name='dok_" . ($j + 1) . "' type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Dotazniky']) . " name='dot_" . ($j + 1) . "'' type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Inzercia']) . " name='inz_" . ($j + 1) . "' type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Miesta']) . " name='mie_" . ($j + 1) . "' type=\"checkbox\"></td>
+                                        <td><input  name='odst_" . ($j + 1) . "' type=\"checkbox\"></td>
                                     </tr>
                                 ";
                                 }
@@ -93,8 +91,6 @@ $info = $sql->fetch_assoc();
                                 return "";
                             }
                             ?>
-                        </div>
-                    </div>
                 </table>
             </div>
         <?php

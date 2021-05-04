@@ -1,16 +1,14 @@
 <?php include "../../PHP/config_DB.php";
 $id=$_SESSION['session'];
 ?>
-<body>
-
 <div class="container center" id="import_persons">
     <div>
         <h3>Vloženie osôb.</h3>
         <div class="center">
             <label>Nahraj súbor:</label>
         </div>
-        <input class="center" type="file" name="inputfile"
-               id="inputfile" accept="text">
+        <input class="center" type="file" name="input_file"
+               id="input_file" accept="text">
         <br>
     </div>
 
@@ -19,7 +17,7 @@ $id=$_SESSION['session'];
             <h3>Zadaj oddelovač.</h3>
             <input type="text" id="oddelovac">
             <br>
-            <button class="col-sm-12 btn-submit center-icon" onclick="oddelovac()" name="submit">Zvoliť</button>
+            <button class="col-sm-12 btn-submit center-icon" onclick="oddelovacka()" name="submit">Zvoliť</button>
         </div>
         <br>
         <br>
@@ -77,7 +75,8 @@ $id=$_SESSION['session'];
         </div>
     </div>
 </div>
-<script type="text/javascript">
+<script>
+    var finished=0;
     var num_lines=0;
     var num_item=0;
     var file_lines=[];
@@ -85,11 +84,36 @@ $id=$_SESSION['session'];
     var login=[];
     var c=0;
 
-    document.getElementById('inputfile')
+    function load_file(){
+        var fileName= document.getElementById('input_file').files[0].name;
+        var end = fileName.substring(fileName.lastIndexOf('.') + 1);
+        if(end === 'csv' || end === 'txt') {
+            var fr = new FileReader();
+            fr.onload = function () {
+                var n = 0;
+                var lines = fr.result.split('\n');
+                for (var line = 0; line < lines.length; line++) {
+                    file_lines[n] = lines[line];
+                    n++;
+                }
+                num_lines = n;
+            }
+
+            fr.readAsText(this.files[0]);
+
+            document.getElementById('select_spacer').classList.remove('hidden');
+        }else{
+            alert('Nieje možné načítať súbor.')
+            document.getElementById('select_spacer').classList.add('hidden');
+            document.getElementById('list').classList.add('hidden');
+        }
+    }
+
+    document.getElementById('input_file')
         .addEventListener('change', function() {
             var fileName= this.files[0].name;
             var end = fileName.substring(fileName.lastIndexOf('.') + 1);
-            if(end == 'csv' || end == 'txt') {
+            if(end === 'csv' || end === 'txt') {
                 var fr = new FileReader();
                 fr.onload = function () {
                     var n = 0;
@@ -99,25 +123,25 @@ $id=$_SESSION['session'];
                         n++;
                     }
                     num_lines = n;
-                }
+                };
 
                 fr.readAsText(this.files[0]);
 
                 document.getElementById('select_spacer').classList.remove('hidden');
             }else{
-                alert('Nieje možné načítať súbor.')
+                alert('Nieje možné načítať súbor.');
                 document.getElementById('select_spacer').classList.add('hidden');
                 document.getElementById('list').classList.add('hidden');
             }
         });
 
-    function oddelovac() {
+    function oddelovacka() {
         let oddelovac = document.getElementById('oddelovac').value;
 
-        for(var n = 0; n < num_lines; n++){
+        for(let n = 0; n < num_lines; n++){
             item[n]=[];
-            if(file_lines[n]!='') {
-                if (file_lines[n].charAt(file_lines[n].length - 2) == oddelovac)
+            if(file_lines[n]!=='') {
+                if (file_lines[n].charAt(file_lines[n].length - 2) === oddelovac)
                     file_lines[n] = file_lines[n].slice(0, -2);
                 var items = file_lines[n].split(oddelovac);
                 for (var k = 0; k < items.length; k++) {
@@ -127,10 +151,10 @@ $id=$_SESSION['session'];
             }
         }
 
-        if(num_item>=3 && oddelovac!=''){
+        if(num_item>=3 && oddelovac!==''){
             let users_space = document.getElementById('users_list');
             var html='<div class=\"position tableStyle\"><table><tr>';
-            for(var n = 0; n < num_item; n++) {
+            for(let n = 0; n < num_item; n++) {
                 html=html+'<th>'+(n+1)+'</th>';
             }
             html=html+'</tr>';
@@ -163,41 +187,45 @@ $id=$_SESSION['session'];
         var pracovisko_id=document.getElementById('pracovisko_line').value;
         var funkcia_id=document.getElementById('funkcia_line').value;
 
-        if(rod_cislo_i!=name_i && rod_cislo_i!=sur_name_i && sur_name_i!=name_i) {
+        if(rod_cislo_i!==name_i && rod_cislo_i!==sur_name_i && sur_name_i!==name_i) {
             for (var k = 0; k < y; k++) {
                 var rod_cislo = item[k][rod_cislo_i - 1];
                 if (test_rod(rod_cislo)) {
                     var name = item[k][name_i - 1];
                     var sur_name = item[k][sur_name_i - 1];
-                    var pracovisko = pracovisko_id;
-                    var funkcia = funkcia_id;
-                    $.ajax({
-                        type: 'POST',
-                        data: {
-                            rod_cislo: rod_cislo,
-                            name: name,
-                            sur_name: sur_name,
-                            pracovisko: pracovisko,
-                            funkcia: funkcia
-                        },
-                        url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_person.php',
-                        success: function (data) {
-                            login[c] = data;
-                            c++;
-                        }
-                    });
-                } else {
-                    alert('Nemožno vlozit zaznam.');
-                    login[c] = 'Nevlozene';
-                    c++;
+                    if (name !== '' && sur_name !== '') {
+                        $.ajax({
+                            type: 'POST',
+                            data: {
+                                rod_cislo: rod_cislo,
+                                name: name,
+                                sur_name: sur_name,
+                                pracovisko: pracovisko_id,
+                                funkcia: funkcia_id
+                            },
+                            url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_person.php',
+                            success: function (data) {
+                                alert(data);
+                                login[c] = data;
+                                c++;
+                                finished++;
+                                if(finished===num_lines){
+                                    var text = 'rodne cislo;meno;priezvisko;login;Heslo\n';
+                                    for (var j = 0; j < num_lines; j++) {
+                                        text = text + item[j][rod_cislo_i - 1] + ';' + item[j][name_i - 1] + ';' + item[j][sur_name_i - 1] + ';' + login[j] + ';Heslo pozostava z velkych incialok a rodneho cisla bez lomitka.\n';
+                                    }
+                                    download('list.csv', text);
+                                    location.reload();
+                                }
+                            }
+                        });
+                    } else {
+                        alert('Nemožno vlozit zaznam.');
+                        login[c] = 'Nevlozene';
+                        c++;
+                    }
                 }
             }
-            var text = 'rodne cislo;meno;priezvisko;login;Heslo\n';
-            for (var j = 0; j < num_lines; j++) {
-                text = text + item[j][rod_cislo_i - 1] + ';' + item[j][name_i - 1] + ';' + item[j][sur_name_i - 1] + ';' + login[j] + ';Heslo pozostava z velkych incialok a rodneho cisla bez lomitka.\n';
-            }
-            download('list.csv', text);
-            location.reload();
         }else{
             alert('Nemožno importovať dáta.')
         }
@@ -217,14 +245,13 @@ $id=$_SESSION['session'];
     }
 
     function test_rod(rod) {
-        if(rod.length==11) {
+        if(rod.length===11) {
             var min = '000000/0000';
             var max = '999999/9999';
             if (rod[6] !== max[6]) {
                 return false;
             }
             for (var i = 0; i < 11; i++) {
-                alert(rod[i]);
                 if (!(rod[i] >= min[i] && rod[i] <= max[i]))
                     return false;
                 if (i === 5)
@@ -236,4 +263,3 @@ $id=$_SESSION['session'];
         }
     }
 </script>
-</body>

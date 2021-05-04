@@ -54,7 +54,7 @@ if( isset($_SESSION['session'])) {
 if(isset($_POST['button'])) {
     header('Location: http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/HTML/System.php');
 }else{
-    echo $login;
+    echo "".$login."";
 }
 function alert($msg) {
     echo "<script type='text/javascript'>alert('$msg');</script>";

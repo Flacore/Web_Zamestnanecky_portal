@@ -181,7 +181,8 @@ for ($j = 0; $j<$i; $j++) {
                         ";
         }
 
-
+        if($row['miestnost']=='-')
+            $row['miestnost']=null;
         echo"           </select>
                         </div>
                         <div class='center'>
