@@ -31,7 +31,7 @@ while ($rows = $sql->fetch_assoc()) {
 }
 $id_prvok = $n + 1;
 
-$sql = "INSERT into formular (idformular,os_udaje_rod_cislol, typ, vytvorenie, platnost_od, platnost_do) Values ('$id_form','$id_uzivatel','$form_type',CURRENT_DATE,'$platnost_od','$platnost_do')";
+$sql = "INSERT into formular (idformular,os_udaje_rod_cislo, typ, vytvorenie, platnost_od, platnost_do) Values ('$id_form','$id_uzivatel','$form_type',CURRENT_DATE,'$platnost_od','$platnost_do')";
 mysqli_query($con, $sql);
 $sql = "INSERT into prvok (idprvok, formular_idformular, typ_prvku, z_index, Nazov, Popis) Values ('$id_prvok','$id_form','$type','$z_value','$Nazov','$popis')";
 mysqli_query($con, $sql);

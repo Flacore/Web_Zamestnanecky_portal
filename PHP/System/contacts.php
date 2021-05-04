@@ -21,7 +21,8 @@ if($pracovisko != null || $meno!=null) {
         left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
         left join subor foto on(subor_fotka=foto.idSubor)
         left join subor cv on(subor_CV=cv.idSubor)
-        WHERE pf.od is not null and pf.do is null and (ko.priorita='0' or ko.priorita is null) and LOWER(Názov) like LOWER(\"%" . $pracovisko . "%\")");
+        WHERE pf.od is not null and pf.do is null and (ko.priorita='0' or ko.priorita is null) and LOWER(Názov) like LOWER(\"%" . $pracovisko . "%\")
+        group by rod_cislo");
     if ($meno != null && $pracovisko==null)
         $sql = mysqli_query($con, "
         SELECT ou.titul_za, ou.titul_pred,ou.PSC, ou.Mesto, ou.IBAN, ou.Adresa,ou.rod_cislo, ou.Meno,ou.Priezvisko,ou.miestnost, pr.Názov, fu.Nazov, ko.telefon,foto.cesta as fotocesta,cv.cesta as cvcesta
@@ -32,7 +33,8 @@ if($pracovisko != null || $meno!=null) {
         left join subor foto on(subor_fotka=foto.idSubor)
         left join subor cv on(subor_CV=cv.idSubor)
         WHERE pf.od is not null and pf.do is null and (ko.priorita='0' or ko.priorita is null) and
-        CONCAT(LOWER(ou.Priezvisko),\" \",LOWER(ou.Meno)) LIKE LOWER(\"%" . $meno . "%\") or CONCAT(LOWER(ou.Meno),\" \",LOWER(ou.Priezvisko)) LIKE LOWER(\"%" . $meno . "%\")");
+        (CONCAT(LOWER(ou.Priezvisko),\" \",LOWER(ou.Meno)) LIKE LOWER(\"%" . $meno . "%\") or CONCAT(LOWER(ou.Meno),\" \",LOWER(ou.Priezvisko)) LIKE LOWER(\"%" . $meno . "%\"))
+        group by rod_cislo");
     if ($meno != null && $pracovisko!=null)
         $sql = mysqli_query($con, "
         SELECT ou.titul_za, ou.titul_pred,ou.PSC, ou.Mesto, ou.IBAN, ou.Adresa,ou.rod_cislo, ou.Meno,ou.Priezvisko,ou.miestnost, pr.Názov, fu.Nazov, ko.telefon,foto.cesta as fotocesta,cv.cesta as cvcesta
@@ -43,7 +45,8 @@ if($pracovisko != null || $meno!=null) {
         left join subor foto on(subor_fotka=foto.idSubor)
         left join subor cv on(subor_CV=cv.idSubor)
         WHERE pf.od is not null and pf.do is null and(ko.priorita='0' or ko.priorita is null) and
-        (CONCAT(LOWER(ou.Priezvisko),\" \",LOWER(ou.Meno)) LIKE LOWER(\"%" . $meno . "%\") or CONCAT(LOWER(ou.Meno),\" \",LOWER(ou.Priezvisko)) LIKE LOWER(\"%" . $meno . "%\")) and  LOWER(Názov) like LOWER(\"%" . $pracovisko . "%\")");
+        (CONCAT(LOWER(ou.Priezvisko),\" \",LOWER(ou.Meno)) LIKE LOWER(\"%" . $meno . "%\") or CONCAT(LOWER(ou.Meno),\" \",LOWER(ou.Priezvisko)) LIKE LOWER(\"%" . $meno . "%\")) and  LOWER(Názov) like LOWER(\"%" . $pracovisko . "%\")
+        group by rod_cislo");
 }
 else{
     $sql = mysqli_query($con, "
@@ -54,7 +57,8 @@ else{
     left join kontakt ko on(ko.os_udaje_rod_cislo=ou.rod_cislo)
     left join subor foto on(subor_fotka=foto.idSubor)
     left join subor cv on(subor_CV=cv.idSubor)
-    WHERE pf.od is not null and pf.do is null and (ko.priorita='0' or ko.priorita is null)");
+    WHERE pf.od is not null and pf.do is null and (ko.priorita='0' or ko.priorita is null) 
+    group by rod_cislo");
 }
 $i = 0;
 if($sql!=null) {

@@ -28,8 +28,8 @@ $info = $sql->fetch_assoc();
     <div class="container" id="prac_pozicie">
         <br><br><br>
         <?php
-        $sql = mysqli_query($con, "select * from projekty left join subor on(idSubor=Subor_idSubor) where os_udaje_rod_cislo<>'".$id."' and datum > CURRENT_DATE order by datum asc");
-        $num = mysqli_query($con, "select count(*) as NumberData from projekty where os_udaje_rod_cislo<>'".$id."' and datum > CURRENT_DATE");
+        $sql = mysqli_query($con, "select *,projekty.popis as popis from projekty left join subor on(idSubor=Subor_idSubor) where os_udaje_rod_cislo<>'".$id."' order by datum asc");
+        $num = mysqli_query($con, "select count(*) as NumberData from projekty where os_udaje_rod_cislo<>'".$id."'");
         $num_row=mysqli_fetch_array($num);
         $n=$num_row['NumberData'];
         $i = 0;
@@ -70,7 +70,7 @@ $info = $sql->fetch_assoc();
                 </div>";
         }else{
             echo " 
-                    <h2 class=\"txtCenter txtBlack\">Ľutujeme, momentálne niesu dostupné žiadne pracovné pozície.</h2>
+                    <h2 class=\"txtCenter txtBlack\">Ľutujeme, momentálne niesu dostupné žiadne projekty.</h2>
                 ";
         }
         ?>

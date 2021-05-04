@@ -30,7 +30,7 @@ while ($row = $dta->fetch_assoc()) {
     $i++;
 }
 $row=$data_inner[0];
-$odosielatel= $row['Uzivatel_idUzivatel'];
+$odosielatel= $row['Odosielatel'];
 if($prijemca!=$odosielatel){
     $sql = "UPDATE konverzacia SET precitane='1'  WHERE idKonverzacie='".$konverzacia."'";
     $con->query($sql);
@@ -44,7 +44,7 @@ while ($rows = $sql->fetch_assoc()){
 }
 for ($j=0;$j<$i;$j++){
     $row=$dataText[$j];
-    if($row['Uzivatel_idUzivatel']==$prijemca){
+    if($row['Odosielatel']==$prijemca){
         echo "<div class=\"received-msg col-sm-12\">
                     <h5 class=\"sender\">".$prijemca_meno."</h5>
                     <div class=\"msgText\">

@@ -84,6 +84,22 @@ $id=$_SESSION['session'];
     var login=[];
     var c=0;
 
+    var dia = "áäčďéíľĺňóôŕšťúýÁČĎÉÍĽĹŇÓŠŤÚÝŽ";
+    var nodia = "aacdeillnoorstuyACDEILLNOSTUYZ";
+
+    function diaConvert(text) {
+        var convertText = "";
+        for(i=0; i<text.length; i++) {
+            if(dia.indexOf(text.charAt(i))!=-1) {
+                convertText += nodia.charAt(dia.indexOf(text.charAt(i)));
+            }
+            else {
+                convertText += text.charAt(i);
+            }
+        }
+        return convertText;
+    }
+
     function load_file(){
         var fileName= document.getElementById('input_file').files[0].name;
         var end = fileName.substring(fileName.lastIndexOf('.') + 1);
@@ -99,7 +115,8 @@ $id=$_SESSION['session'];
                 num_lines = n;
             }
 
-            fr.readAsText(this.files[0]);
+            fr.readAsText(this.files[0], 'ANSI');
+
 
             document.getElementById('select_spacer').classList.remove('hidden');
         }else{
@@ -205,7 +222,6 @@ $id=$_SESSION['session'];
                             },
                             url: 'http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/PHP/add_update/add_person.php',
                             success: function (data) {
-                                alert(data);
                                 login[c] = data;
                                 c++;
                                 finished++;

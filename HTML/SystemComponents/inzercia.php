@@ -117,12 +117,12 @@ if($info['Inzercia']==1){
                 $row = $_data[$n];
                 if ($row['Subor_idSubor'] != null) {
                     echo "<div class=\" category\">
-                                  <img onclick=\"openCategory(1)\" alt=\"\" class=\"img\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/".$row['cesta']."\">
+                                  <img onclick=\"openCategory('".$row['id_kategoria']."')\" alt=\"\" class=\"img\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/".$row['cesta']."\">
                                   <h3>".$row['Názov']."</h3>
                                   </div>";
                 } else {
                     echo "<div class=\" category\">
-                                  <img onclick=\"openCategory(1)\" alt=\"\" class=\"img\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/categoria/def.jpg\">
+                                  <img onclick=\"openCategory('".$row['id_kategoria']."')\" alt=\"\" class=\"img\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/categoria/def.jpg\">
                                   <h3>".$row['Názov']."</h3>
                                   </div>";
                 }

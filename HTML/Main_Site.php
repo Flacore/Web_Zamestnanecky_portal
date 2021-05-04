@@ -538,7 +538,7 @@
                     <h3>Nezaradene</h3>
                 </div>";
 
-                $sql = mysqli_query($con, "SELECT * FROM kategoria");
+                $sql = mysqli_query($con, "SELECT * FROM kategoria left join subor on(idSubor = Subor_idSubor)");
                 $k = 0;
                 while ($rows = $sql->fetch_assoc()) {
                     $_data[$k] = $rows;
@@ -549,14 +549,14 @@
                 } else {
                     for ($n = 0; $n < $k; $n++) {
                         $row = $_data[$n];
-                        if ($row['Subor_idSubor'] == null) {
+                        if ($row['Subor_idSubor'] != null) {
                             echo "<div class=\" category\">
-                                  <img onclick=\"openCategory(1)\" alt=\"\" class=\"img\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/categoria/def.jpg\">
+                                  <img onclick=\"openCategory('".$row['id_kategoria']."')\" alt=\"\" class=\"img\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/".$row['cesta']."\">
                                   <h3>".$row['Názov']."</h3>
                                   </div>";
                         } else {
                             echo "<div class=\" category\">
-                                  <img onclick=\"openCategory(1)\" alt=\"\" class=\"img\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/categoria/def.jpg\">
+                                  <img onclick=\"openCategory('".$row['id_kategoria']."')\" alt=\"\" class=\"img\" src=\"http://localhost/PHPprojectForlder/Web_Zamestnanecky_portal/Server/inzercia/categoria/def.jpg\">
                                   <h3>".$row['Názov']."</h3>
                                   </div>";
                         }

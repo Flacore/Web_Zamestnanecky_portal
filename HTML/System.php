@@ -634,7 +634,7 @@
                 <div class="tableStyle">
                 <?php
 
-                $sql = mysqli_query($con, "SELECT id_kategoria,Názov,count(id_inzerat) as pocet FROM kategoria left join inzerat ON(id_kategoria=kategoria_id_kategoria)");
+                $sql = mysqli_query($con, "SELECT id_kategoria,Názov,count(id_inzerat) as pocet FROM kategoria left join inzerat ON(id_kategoria=kategoria_id_kategoria)group by id_kategoria  ");
                 $k = 0;
                 while ($rows = $sql->fetch_assoc()) {
                     $_data[$k] = $rows;
@@ -823,7 +823,7 @@
                         </div>
                         <div class="center">
                             <label id="Link_Text">Zadaj link na stranku:</label>
-                            <input value="" id="Link" name="Link" required>
+                            <input value="" id="Link" name="Link">
                         </div>
                         <div>
                             <input class="hidden" value="glyphicon-heart" id="icon_value" name="icon">
@@ -1027,7 +1027,7 @@
             </a>
             <div class="dropdown-container" id="Links_container">
                 <?php
-                $sql = mysqli_query($con, "select * from zalozka where podskupina='1' and os_udaje_rod_cislo is null and link is not null order by Nazov asc");
+                $sql = mysqli_query($con, "select * from zalozka where (podskupina='1' or podskupina='0') and os_udaje_rod_cislo is null and link is not null order by Nazov asc");
                 $i = 0;
                 while ($rows = $sql->fetch_assoc()) {
                     $data[$i] = $rows;

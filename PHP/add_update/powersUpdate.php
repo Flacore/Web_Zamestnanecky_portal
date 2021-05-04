@@ -32,12 +32,13 @@ if(isset($_POST["but_add"]) && isset($_SESSION['session'])) {
         $dotaznik =  checkbox('dot_' . ($j + 1));
         $inzercia = checkbox('inz_' . ($j + 1));
         $miesta = checkbox('mie_' . ($j + 1));
+        $detail = checkbox('det_' . ($j + 1));
 
         if ($j < $i){
             if(!$odstran) {
                 $sql="UPDATE funkcie set Nazov='$nazov' where idPozícia='".$id."'";
                 $con->query($sql);
-                $sql = "UPDATE pravomoci SET Kontakty='$Kontakty', Kurzy='$kurzy',Kariera='$Kariera',Blog='$blog',Pravomoci='$pravomoci',Zalozky='$zalozky',Miesta='$miesta'
+                $sql = "UPDATE pravomoci SET Detail_info='$detail', Kontakty='$Kontakty', Kurzy='$kurzy',Kariera='$Kariera',Blog='$blog',Pravomoci='$pravomoci',Zalozky='$zalozky',Miesta='$miesta'
                         , Dokumenty='$dokumenty',Dotazniky='$dotaznik',Inzercia='$inzercia' where  funkcie_idPozícia='" . $id . "'";
                 $con->query($sql);
             }else{
@@ -83,8 +84,8 @@ if(isset($_POST["but_add"]) && isset($_SESSION['session'])) {
                 $sql = "INSERT into funkcie (idPozícia, Nazov)
             Values ('$id','$nazov')";
                 mysqli_query($con,$sql);
-            $sql = "INSERT into pravomoci (funkcie_idPozícia,Kontakty,Kurzy,Kariera,Blog,Pravomoci,Zalozky,Dokumenty,Dotazniky,Inzercia,Miesta)
-            Values ('$id','$Kontakty','$kurzy','$Kariera','$pravomoci','$blog','$zalozky','$dokumenty','$dotaznik','$inzercia','$miesta')";
+            $sql = "INSERT into pravomoci (funkcie_idPozícia,Kontakty,Kurzy,Kariera,Blog,Pravomoci,Zalozky,Dokumenty,Dotazniky,Inzercia,Miesta,Detail_info)
+            Values ('$id','$Kontakty','$kurzy','$Kariera','$pravomoci','$blog','$zalozky','$dokumenty','$dotaznik','$inzercia','$miesta','$detail')";
             mysqli_query($con,$sql);
             }
         }

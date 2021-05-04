@@ -23,7 +23,8 @@
                                                   left join precitane_blog pb on(pb.os_udaje_rod_cislo) 
                                                   where (platnost_od<=current_date or platnost_od is null)
                                                   and (platnost_do>=current_date or platnost_do is null) 
-                                                  and (pb.os_udaje_rod_cislo is null or pb.os_udaje_rod_cislo ='".$id."')");
+                                                  and (pb.os_udaje_rod_cislo is null or pb.os_udaje_rod_cislo ='".$id."')
+                                                  GROUP by bg.idBlog");
                 $num = mysqli_query($con, "select count(*) as NumberData from blog ");
                 $num_row=mysqli_fetch_array($num);
                 $n=$num_row['NumberData'];

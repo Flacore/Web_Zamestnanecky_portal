@@ -24,9 +24,9 @@ $info = $sql->fetch_assoc();
                 <table>
                     <tr>
                         <th>Funkcia</th>
-                        <th>Kontakty</th>
+                        <th>Správa ľudí</th>
                         <th>Kurzy</th>
-                        <th>Kariéra</th>
+                        <th>Projekty</th>
                         <th>Blog</th>
                         <th>Právomoci</th>
                         <th>Záložky</th>
@@ -34,6 +34,7 @@ $info = $sql->fetch_assoc();
                         <th>Dotazníky</th>
                         <th>Inzercia</th>
                         <th>Miesta</th>
+                        <th>Detailne informácie</th>
                         <th>Odstráň</th>
                     </tr>
                             <?php
@@ -51,6 +52,7 @@ $info = $sql->fetch_assoc();
                                     <tr>
                                         <td style='display: none'><input name=\"id_" . ($j + 1) . "\" type=\"value\" value=" . ($j + 1) . "></td>
                                         <td>".$row['Nazov']."</td>
+                                        <td>✓</td>
                                         <td>✓</td>
                                         <td>✓</td>
                                         <td>✓</td>
@@ -79,6 +81,7 @@ $info = $sql->fetch_assoc();
                                         <td><input " . checkbox($row['Dotazniky']) . " name='dot_" . ($j + 1) . "'' type=\"checkbox\"></td>
                                         <td><input " . checkbox($row['Inzercia']) . " name='inz_" . ($j + 1) . "' type=\"checkbox\"></td>
                                         <td><input " . checkbox($row['Miesta']) . " name='mie_" . ($j + 1) . "' type=\"checkbox\"></td>
+                                        <td><input " . checkbox($row['Detail_info']) . " name='det_" . ($j + 1) . "' type=\"checkbox\"></td>
                                         <td><input  name='odst_" . ($j + 1) . "' type=\"checkbox\"></td>
                                     </tr>
                                 ";

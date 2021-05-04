@@ -1,47 +1,4 @@
-function  add_link(login_id,zalozka=false) {
-    clear_form();
-    close_modal();
-    let modal = document.getElementById("modal_links");
-    modal.style.display = "block";
 
-    var module = document.getElementById("adding_link");
-    module.classList.remove("hidden");
-    if(zalozka){
-        if (login_id != "admin") {
-            var input = document.getElementById("idlogin");
-            input.value = login_id;
-            document.getElementById("poskupina_link").style.display='none';
-        }else{
-            document.getElementById("poskupina_link").style.display='block';
-        }
-    }else{
-        var link = document.getElementById("Link");
-        link.classList.add("hidden");
-        var link_t = document.getElementById("Link_Text");
-        link_t.classList.add("hidden");
-    }
-}
-
-
-function edit_links(login_id,zalozka=false) {
-    clear_form();
-    close_modal();
-    let modal = document.getElementById("modal_links");
-    modal.style.display = "block"
-
-    if(zalozka) {
-        if (login_id != "admin") {
-            var module = document.getElementById("edit_link_self");
-            module.classList.remove("hidden");
-        } else {
-            var module = document.getElementById("edit_link_all");
-            module.classList.remove("hidden");
-        }
-    }else{
-        var module = document.getElementById("edit_files_category");
-        module.classList.remove("hidden");
-    }
-}
 
 function  close_modal() {
     clear_form();
@@ -87,7 +44,12 @@ function edit_link(id_link,name,link,glyph){
     var Name = document.getElementById("Name");
     Name.value=name;
     var Link = document.getElementById("Link");
-    Link.value=link;
+    if(link===''){
+        Link.classList.add("hidden");
+    }else {
+        Link.classList.remove("hidden");
+        Link.value = link;
+    }
     setGlyph(glyphiconList(glyph,null));
 
     let modal = document.getElementById("modal_links");
